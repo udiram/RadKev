@@ -1,0 +1,15 @@
+{
+  "state": {
+    "age": 29, "sex": "female",
+    "clinical history": "Two weeks of right upper quadrant discomfort. Long-term oral contraceptive use. Liver function tests are normal.",
+    "imaging findings": "Ultrasound shows a 6 cm well-defined, slightly hyperechoic liver lesion. On MRI the lesion is mildly T2 hyperintense with a small focus of intralesional fat and haemorrhage, enhances in the arterial phase and becomes isointense in the portal venous phase. No central scar. No washout."
+  },
+  "questions": {
+    "diagnosis": {"type": "choice", "instructions": "What is the most likely diagnosis?",
+                  "criteria": {"opt_1": "Hepatocellular adenoma", "opt_2": "Focal nodular hyperplasia", "opt_3": "Hepatocellular carcinoma",
+                               "opt_4": "Haemangioma", "opt_5": "Hepatic metastasis"}},
+    "route": {"type": "choice", "instructions": "Which radiology subspecialty does this case belong to?",
+              "criteria": {"abdominal_imaging": "Liver, bowel, pancreas, abdominal viscera", "chest_imaging": "Lungs, pleura, mediastinum",
+                           "neuroradiology": "Brain, spine and nervous system", "breast_imaging": "Breast"}}
+  }
+}

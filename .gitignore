@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+# working data never belongs in the repo: build it under $RADKEV_HOME
+data/
+runs/
+raw/
+*.jsonl
+!tests/fixtures/*.jsonl

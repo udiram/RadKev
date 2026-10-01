@@ -1,0 +1,10 @@
+| job | model | records seen | optimizer steps | hours | peak GiB | lr | replay | max_state | init_from |
+|---|---|---|---|---|---|---|---|---|---|
+| v0open | kev-9b | 15041 | 1353 | 1.55 | 33.1 | 2e-05 | 4000 | 1536 | jaredpalmer/kev-9b |
+| v0open | kev-27b | 4382 | 400 | 1.02 | 26.2 | 3e-05 | 4000 | 1536 | jaredpalmer/kev-27b |
+| v1med | kev-27b | 72353 | 6091 | 11.54 | 27.4 | 3e-05 | 1000 | 1536 | jaredpalmer/kev-27b |
+| v2 | kev-27b | 93512 | 8521 | 25.71 | 33.1 | 3e-05 | 1000 | 1536 | jaredpalmer/kev-27b |
+| v2x9 | kev-9b | 93512 | 8521 | 10.90 | 40.3 | 2e-05 | 1000 | 1536 | jaredpalmer/kev-9b |
+| v2x9 | base-9b | 93512 | 8521 | 10.88 | 40.3 | 0.0002 | 1000 | 1536 |  |
+| v2x9f10 | kev-9b | 10394 | 965 | 1.20 | 36.2 | 2e-05 | 1000 | 1536 | jaredpalmer/kev-9b |
+| v2x9f10 | base-9b | 10394 | 965 | 1.20 | 36.2 | 0.0002 | 1000 | 1536 |  |

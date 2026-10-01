@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions about Kev itself
+    url: https://github.com/jaredpalmer/kev/issues
+    about: The decision-model architecture, trainer and server live upstream.

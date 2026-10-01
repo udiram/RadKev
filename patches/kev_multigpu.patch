@@ -1,0 +1,62 @@
+diff --git a/kev/checkpoint.py b/kev/checkpoint.py
+index 30ff24a..2b42de7 100644
+--- a/kev/checkpoint.py
++++ b/kev/checkpoint.py
+@@ -273,7 +273,8 @@ class Checkpoint:
+         merge = merge and not self.adapter_config().get("trainable_token_indices")   # token-trained adapters stay unmerged
+         m = DecisionModel(meta.base, tok, device, lora=None, revision=meta.base_revision, head_dim=meta.head_dim,
+                           option_isolation=meta.option_isolation, dtype=dtype, attn=opts.attn)
+-        m.lm = PeftModel.from_pretrained(m.lm, self.path, torch_device=str(device)).to(device)   # trainable token embeddings, if any, live in the adapter
++        if getattr(m, "dispatched", False): m.lm = PeftModel.from_pretrained(m.lm, self.path)   # radkev: split backbone, LoRA follows each layer's GPU
++        else: m.lm = PeftModel.from_pretrained(m.lm, self.path, torch_device=str(device)).to(device)   # trainable token embeddings, if any, live in the adapter
+         if opts.lora_scale != 1:
+             for module in m.lm.modules():
+                 if isinstance(getattr(module, "scaling", None), dict):
+diff --git a/kev/model.py b/kev/model.py
+index 76349f6..bf1ddfb 100644
+--- a/kev/model.py
++++ b/kev/model.py
+@@ -223,7 +223,20 @@ class DecisionModel(nn.Module):
+         # dtype: fp32 for training and exact evaluation; bf16 is a serving option for large backbones (8B on a 32 GB Mac)
+         load = {"dtype": dtype, "attn_implementation": attn}
+         if direct_load: load["device_map"] = {"": torch.cuda.current_device() if device == "cuda" else device}   # "cuda": under torchrun, this rank's GPU
++        # KEV_DEVICE_MAP=auto (radkev patch): split a backbone too big for one GPU (Kev-27B on 48 GB A6000s) across the
++        # visible GPUs; KEV_MAX_MEMORY="0:22GiB,1:40GiB" caps each. The head and every index tensor stay on `device`.
++        self.dispatched = os.environ.get("KEV_DEVICE_MAP") == "auto" and str(device).startswith("cuda")
++        if self.dispatched:
++            load["device_map"] = "auto"
++            if os.environ.get("KEV_MAX_MEMORY"):
++                load["max_memory"] = {int(k): v for k, v in (kv.split(":") for kv in os.environ["KEV_MAX_MEMORY"].split(","))}
+         self.lm = AutoModel.from_pretrained(weights, **load) if weights else AutoModelForCausalLM.from_pretrained(name, revision=revision, **load).model
++        if self.dispatched:
++            main = torch.device(device)
++            def _to_main(module, args, kwargs, output):
++                output.last_hidden_state = output.last_hidden_state.to(main)
++                return output
++            self.lm.register_forward_hook(_to_main, with_kwargs=True)
+         self.pad_id = pad_id(tok)
+         # hybrid backbones (Qwen3.5: Gated DeltaNet layers, recurrent) cannot honour the block-causal mask, so every
+         # question runs as its own causal row continuing from the state (rows_of). Attention-only backbones keep the
+@@ -244,7 +257,8 @@ class DecisionModel(nn.Module):
+             self.lm = get_peft_model(self.lm, cfg)
+         self.head = PointerHead(self.lm.config.hidden_size, dp=head_dim)
+         self.device = device
+-        self.to(device)
++        if self.dispatched: self.head.to(device)
++        else: self.to(device)
+ 
+     backend = "torch"           # kev.mlx_model.MLXDecisionModel is the other implementation of this scoring interface
+     graphs = None               # kev.cuda_graphs.CudaGraphs for the serving passes of a hybrid backbone on CUDA (LoadOptions.cuda_graphs)
+diff --git a/kev/shared_prefix.py b/kev/shared_prefix.py
+index 33f6847..d58fe46 100644
+--- a/kev/shared_prefix.py
++++ b/kev/shared_prefix.py
+@@ -115,7 +115,7 @@ def _forward(base, s_ids, s_pos, s_real, b_ids, b_pos, b_real, owner):
+         step = _method(layer, "kev_shared_prefix_step", _step)
+         args = (h_s, h_b, (rope_s, rope_b), (masks_s[layer.block_type], masks_b[layer.block_type]), (s_pos, b_pos), s_real, owner)
+         h_s, h_b = checkpoint(step, *args, use_reentrant=False) if recompute else step(*args)
+-    return base.norm(h_b).float()
++    return base.norm(h_b).float().to(device)
+ 
+ 
+ def _step(layer, h_s, h_b, ropes, masks, positions, s_real, owner):

@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx ruff@0.14 check .
+
+  test:
+    # the data builders and labelling logic, with no Kev install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv venv && uv pip install -e ".[dev]"
+      - run: .venv/bin/python -m pytest -q
+
+  test-kev:
+    # the full suite against Kev's own metrics and bootstrap, at the pinned commit, CPU-only torch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+      - run: uv venv
+      - run: uv pip install "torch>=2.6,<2.9" --index-url https://download.pytorch.org/whl/cpu
+      - run: uv pip install "kev @ git+https://github.com/jaredpalmer/kev@f2bb629d670f5b746f712fc05550a098526c836b" -e ".[dev]"
+      - run: .venv/bin/python -m pytest -q
+      - name: patch still applies to the pinned Kev
+        run: |
+          git clone -q https://github.com/jaredpalmer/kev.git /tmp/kev
+          git -C /tmp/kev checkout -q f2bb629d670f5b746f712fc05550a098526c836b
+          git -C /tmp/kev apply --check "$GITHUB_WORKSPACE/patches/kev_multigpu.patch"

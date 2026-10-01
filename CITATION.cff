@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use RadKev, please cite it as below. A paper is in preparation."
+title: "RadKev: a radiology-specialised decision model"
+type: software
+authors:
+  - family-names: Ram
+    given-names: Udbhav
+    email: usram@wisc.edu
+    affiliation: "Departments of Radiology and Medical Physics, University of Wisconsin–Madison"
+  - family-names: Zhang
+    given-names: Ran
+    affiliation: "Departments of Radiology and Medical Physics, University of Wisconsin–Madison"
+version: 1.0.0
+date-released: 2026-10-01
+license: Apache-2.0
+repository-code: "https://github.com/udiram/RadKev"
+keywords:
+  - radiology
+  - decision model
+  - calibration
+  - selective prediction
+  - clinical NLP
+references:
+  - type: software
+    title: "Kev"
+    authors:
+      - family-names: Palmer
+        given-names: Jared
+    repository-code: "https://github.com/jaredpalmer/kev"
+    license: Apache-2.0

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radkev"
+version = "1.0.0"
+description = "A radiology-specialised decision model: data, training and evaluation code for RadKev, a fine-tune of Kev"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Udbhav Ram", email = "usram@wisc.edu" }]
+requires-python = ">=3.10"
+keywords = ["radiology", "decision-model", "calibration", "clinical-nlp", "kev", "lora"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+# The data builders and the comparison helpers need only these. Training, evaluation and the LLM baselines run inside
+# Kev's own environment (torch, transformers, peft, kev), which scripts/setup.sh creates and installs radkev into.
+dependencies = ["numpy>=1.26", "pandas>=2.0", "pyarrow>=14"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.urls]
+Repository = "https://github.com/udiram/RadKev"
+Issues = "https://github.com/udiram/RadKev/issues"
+Kev = "https://github.com/jaredpalmer/kev"
+
+[tool.setuptools]
+packages = ["radkev"]
+
+[tool.ruff]
+line-length = 160
+target-version = "py310"
+extend-exclude = ["results", "figures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+# compact research code: one-line `if x: return` statements and short names are the house style
+ignore = ["E701", "E702", "E731", "E741", "E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["radkev"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

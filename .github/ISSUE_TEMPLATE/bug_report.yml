@@ -1,0 +1,24 @@
+name: Bug report
+description: Something in the code does not work as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please never paste dataset text, patient information or tokens into an issue. Describe records by source and split, or share an invented example.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The command you ran, what you expected, and what you got (with the error).
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: OS, GPU(s), Python, torch, and the Kev commit (git -C ~/.cache/radkev/kev rev-parse HEAD)
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else

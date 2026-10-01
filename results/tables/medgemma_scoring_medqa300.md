@@ -1,0 +1,9 @@
+| MedGemma-27B-text scoring on the first 300 MedQA test questions | accuracy % | answer letter found % |
+|---|---|---|
+| first-token letter (pre-registered) | 44.0 | — |
+| letter where generated, 16 tokens | 45.0 | 1.0 |
+| first-token letter, empty thought pre-filled (model keeps reasoning) | 28.0 | — |
+| letter where generated, empty thought pre-filled | 28.3 | 9.3 |
+| first-token letter, one-line thought pre-filled, channel closed (used) | 68.3 | — |
+| letter where generated, one-line thought pre-filled | 68.0 | 99.0 |
+| thinking on, up to 2,048 tokens (first 100 items) | 72.0 | 99.0 |

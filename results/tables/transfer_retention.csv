@@ -1,0 +1,6 @@
+Fine-tuned model,vs,Δ accuracy (micro) [95% CI],Δ accuracy (macro over tasks) [95% CI]
+RadKev-9B (from Kev-9B),Kev-9B (stock),"+1.7 [-0.3, +3.8]","+2.2 [+0.2, +4.6]"
+RadKev-9B recipe from Qwen3.5-9B base,Kev-9B (stock),"-6.6 [-9.6, -3.4]","-10.1 [-14.5, -5.5]"
+"RadKev-9B, 10% data (from Kev-9B)",Kev-9B (stock),"+0.0 [-1.4, +1.2]","+0.2 [-1.0, +1.4]"
+"RadKev-9B recipe, 10% data, from base",Kev-9B (stock),"-4.7 [-7.9, -1.5]","-7.7 [-12.3, -2.6]"
+RadKev-27B (final),Kev-27B (stock),"-0.8 [-2.3, +0.8]","-0.3 [-1.5, +1.1]"

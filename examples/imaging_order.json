@@ -1,0 +1,12 @@
+{
+  "state": {"clinical question": "54-year-old with sudden onset of the worst headache of her life two hours ago, now drowsy. No trauma."},
+  "questions": {
+    "exam": {"type": "choice", "instructions": "Which imaging study is most appropriate first for this clinical question?",
+             "criteria": {"ct_head_nc": "CT head without contrast", "mri_brain": "MRI brain", "xr_chest": "Chest radiograph",
+                          "us_doppler": "Doppler ultrasound of vessels", "no_imaging": "No imaging indicated"}},
+    "contrast": {"type": "choice", "instructions": "Should the most appropriate initial study use contrast?",
+                 "criteria": {"none": "No contrast", "iv": "IV contrast", "with_without": "Without and with IV contrast",
+                              "na": "Not applicable (radiograph or ultrasound)"}},
+    "priority": {"type": "score", "instructions": "How should this imaging order be prioritised?", "criteria": ["Routine", "Urgent (same day)", "STAT (immediate)"]}
+  }
+}

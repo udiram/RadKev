@@ -1,0 +1,32 @@
+| task | n | stock | fine-tuned | delta (pts) |
+|---|---|---|---|---|
+| ctrate_finding | 5733 | 90.8 | 98.5 | +7.7 |
+| ctrate_normal | 1911 | 95.6 | 98.4 | +2.8 |
+| ctrate_which | 843 | 95.8 | 99.4 | +3.6 |
+| eurorad_dx | 329 | 75.4 | 89.4 | +14.0 |
+| eurorad_route | 166 | 80.7 | 86.7 | +6.0 |
+| iu_finding | 1772 | 96.5 | 97.3 | +0.8 |
+| iu_normal | 886 | 87.9 | 87.0 | -0.9 |
+| iu_which | 200 | 98.0 | 96.5 | -1.5 |
+| medmcqa_med | 2235 | 66.8 | 72.5 | +5.7 |
+| medmcqa_rad | 221 | 64.3 | 74.2 | +10.0 |
+| medqa | 1003 | 70.2 | 71.2 | +1.0 |
+| medxpertqa | 499 | 15.2 | 19.0 | +3.8 |
+| mmlu_anatomy | 14 | 78.6 | 64.3 | -14.3 |
+| mmlu_clinical_knowledge | 29 | 89.7 | 89.7 | +0.0 |
+| mmlu_college_biology | 16 | 87.5 | 93.8 | +6.2 |
+| mmlu_college_medicine | 22 | 86.4 | 86.4 | +0.0 |
+| mmlu_medical_genetics | 11 | 100.0 | 90.9 | -9.1 |
+| mmlu_professional_medicine | 31 | 87.1 | 74.2 | -12.9 |
+| pubmedqa | 469 | 71.0 | 72.7 | +1.7 |
+| teacher_cxr_findings_finding_status | 152 | 94.7 | 96.1 | +1.3 |
+| teacher_order_appropriate | 226 | 80.5 | 96.0 | +15.5 |
+| teacher_order_contrast | 75 | 37.3 | 80.0 | +42.7 |
+| teacher_order_exam | 229 | 65.5 | 93.4 | +27.9 |
+| teacher_order_priority | 192 | 64.6 | 84.4 | +19.8 |
+| teacher_report_change | 60 | 83.3 | 93.3 | +10.0 |
+| teacher_report_critical | 117 | 94.0 | 99.1 | +5.1 |
+| teacher_report_follow_up | 111 | 51.4 | 96.4 | +45.0 |
+| teacher_report_incidental | 151 | 91.4 | 98.7 | +7.3 |
+| teacher_report_urgency | 144 | 77.8 | 93.8 | +16.0 |
+| overall | 17847 | 83.2 | 89.0 | +5.8 |

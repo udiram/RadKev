@@ -1,0 +1,21 @@
+{
+  "state": {
+    "exam": "Chest radiograph, PA and lateral",
+    "indication": "68-year-old with shortness of breath and leg swelling.",
+    "comparison": "Radiograph from six months ago.",
+    "findings": "The cardiac silhouette is enlarged and larger than before. There is vascular congestion with interstitial thickening and small bilateral pleural effusions. No focal consolidation. No pneumothorax.",
+    "impression": "Cardiomegaly with mild interstitial pulmonary edema and small bilateral effusions, worse than prior."
+  },
+  "questions": {
+    "effusion": {"type": "noul", "instructions": "Does this report describe pleural effusion?"},
+    "normal": {"type": "noul", "instructions": "Is this a normal study with no abnormal findings?"},
+    "edema_status": {"type": "choice", "instructions": "What does the report say about pulmonary edema?",
+                     "criteria": {"present": "Reported as present", "absent": "Explicitly reported as absent",
+                                  "uncertain": "Possible, equivocal or cannot be excluded", "not_mentioned": "Not mentioned in the report"}},
+    "change": {"type": "choice", "instructions": "How have the findings changed compared with the prior study?",
+               "criteria": {"improved": "Improved compared with the prior study", "worse": "Worse compared with the prior study",
+                            "stable": "Unchanged / stable", "mixed": "Some findings better, some worse", "new": "New abnormality not present before"}},
+    "urgency": {"type": "score", "instructions": "How urgent is clinical action based on this report?",
+                "criteria": ["Routine: no time-sensitive finding", "Needs attention within days", "Urgent: needs same-day action", "Emergent: needs immediate action"]}
+  }
+}

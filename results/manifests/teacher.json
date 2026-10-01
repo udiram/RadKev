@@ -1,0 +1,107 @@
+{
+  "records": {
+    "train": 11443,
+    "test": 626,
+    "dev": 877
+  },
+  "questions": {
+    "critical": {
+      "agree": 2201,
+      "label=True": 257,
+      "label=False": 1944,
+      "disagree": 877
+    },
+    "follow_up": {
+      "agree": 1923,
+      "label=other_test": 511,
+      "label=none": 1026,
+      "disagree": 1174,
+      "label=long_interval": 133,
+      "label=short_interval": 126,
+      "label=clinical": 127
+    },
+    "urgency": {
+      "disagree": 620,
+      "agree": 2365,
+      "label=0": 1923,
+      "label=1": 168,
+      "label=2": 263,
+      "label=3": 11
+    },
+    "exam": {
+      "agree": 3058,
+      "label=ct_abd_pelvis_c": 269,
+      "label=xr_chest": 2112,
+      "disagree": 910,
+      "label=ct_head_nc": 172,
+      "label=ct_chest": 120,
+      "label=no_imaging": 31,
+      "label=xr_msk": 83,
+      "label=us_abdomen": 90,
+      "label=mammo_us_breast": 32,
+      "label=us_doppler": 20,
+      "label=cta_chest_pe": 15,
+      "label=mri_spine": 29,
+      "label=mri_msk": 13,
+      "label=mri_brain": 48,
+      "label=us_pelvis": 24
+    },
+    "contrast": {
+      "disagree": 2868,
+      "agree": 1121,
+      "label=none": 294,
+      "label=iv": 703,
+      "label=with_without": 105,
+      "label=na": 19
+    },
+    "appropriate": {
+      "agree": 3608,
+      "label=2": 2043,
+      "disagree": 892,
+      "label=0": 1520,
+      "label=1": 45
+    },
+    "incidental": {
+      "agree": 2114,
+      "label=True": 1368,
+      "disagree": 1002,
+      "label=False": 746
+    },
+    "priority": {
+      "disagree": 1399,
+      "agree": 2644,
+      "label=0": 947,
+      "label=1": 576,
+      "label=2": 1121
+    },
+    "finding_status": {
+      "agree": 2540,
+      "label=not_mentioned": 532,
+      "label=absent": 1007,
+      "disagree": 460,
+      "label=present": 834,
+      "label=uncertain": 167
+    },
+    "change": {
+      "disagree": 241,
+      "agree": 983,
+      "label=stable": 598,
+      "label=new": 86,
+      "label=improved": 122,
+      "label=worse": 127,
+      "label=mixed": 50
+    }
+  },
+  "agreement": {
+    "critical": 0.715,
+    "follow_up": 0.621,
+    "urgency": 0.792,
+    "exam": 0.771,
+    "contrast": 0.281,
+    "appropriate": 0.802,
+    "incidental": 0.678,
+    "priority": 0.654,
+    "finding_status": 0.847,
+    "change": 0.803
+  }
+}

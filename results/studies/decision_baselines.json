@@ -1,0 +1,661 @@
+{
+ "models": {
+  "kev08": {
+   "overall": {
+    "n": 26719,
+    "acc": 0.6820240278453535,
+    "brier": 0.39329923661712746,
+    "ece": 0.06616689509253448,
+    "nll": 0.7799823674222636
+   },
+   "tasks": {
+    "ctrate_finding": {
+     "n": 4692,
+     "acc": 0.9132566069906224
+    },
+    "ctrate_normal": {
+     "n": 1564,
+     "acc": 0.9124040920716112
+    },
+    "ctrate_which": {
+     "n": 694,
+     "acc": 0.9020172910662824
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "acc": 0.5751445086705202
+    },
+    "eurorad_route": {
+     "n": 185,
+     "acc": 0.7567567567567568
+    },
+    "iu_finding": {
+     "n": 5696,
+     "acc": 0.9527738764044944
+    },
+    "iu_normal": {
+     "n": 2848,
+     "acc": 0.7018960674157303
+    },
+    "iu_which": {
+     "n": 674,
+     "acc": 0.9169139465875371
+    },
+    "medmcqa_med": {
+     "n": 4082,
+     "acc": 0.3258206761391475
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "acc": 0.391304347826087
+    },
+    "medqa": {
+     "n": 1273,
+     "acc": 0.40062843676355064
+    },
+    "medxpertqa": {
+     "n": 1951,
+     "acc": 0.12198872373141978
+    },
+    "mmlu_anatomy": {
+     "n": 135,
+     "acc": 0.5185185185185185
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 265,
+     "acc": 0.47924528301886793
+    },
+    "mmlu_college_biology": {
+     "n": 144,
+     "acc": 0.5138888888888888
+    },
+    "mmlu_college_medicine": {
+     "n": 173,
+     "acc": 0.45664739884393063
+    },
+    "mmlu_medical_genetics": {
+     "n": 100,
+     "acc": 0.49
+    },
+    "mmlu_professional_medicine": {
+     "n": 272,
+     "acc": 0.4632352941176471
+    },
+    "pubmedqa": {
+     "n": 531,
+     "acc": 0.4990583804143126
+    },
+    "teacher_cxr_findings_finding_status": {
+     "n": 83,
+     "acc": 0.8313253012048193
+    },
+    "teacher_order_appropriate": {
+     "n": 166,
+     "acc": 0.43373493975903615
+    },
+    "teacher_order_contrast": {
+     "n": 49,
+     "acc": 0.04081632653061224
+    },
+    "teacher_order_exam": {
+     "n": 169,
+     "acc": 0.3076923076923077
+    },
+    "teacher_order_priority": {
+     "n": 136,
+     "acc": 0.5588235294117647
+    },
+    "teacher_report_change": {
+     "n": 18,
+     "acc": 0.6666666666666666
+    },
+    "teacher_report_critical": {
+     "n": 90,
+     "acc": 0.9111111111111111
+    },
+    "teacher_report_follow_up": {
+     "n": 95,
+     "acc": 0.5368421052631579
+    },
+    "teacher_report_incidental": {
+     "n": 121,
+     "acc": 0.8925619834710744
+    },
+    "teacher_report_urgency": {
+     "n": 98,
+     "acc": 0.8469387755102041
+    }
+   },
+   "n": 26719,
+   "acc": 0.6820240278453535,
+   "brier": 0.39329923661712746,
+   "ece": 0.06616689509253448,
+   "nll": 0.7799823674222636,
+   "hours": 0.16
+  },
+  "kev4": {
+   "overall": {
+    "n": 26719,
+    "acc": 0.7822897563531569,
+    "brier": 0.27781512588456386,
+    "ece": 0.023866358609132617,
+    "nll": 0.5602273371844309
+   },
+   "tasks": {
+    "ctrate_finding": {
+     "n": 4692,
+     "acc": 0.9130434782608695
+    },
+    "ctrate_normal": {
+     "n": 1564,
+     "acc": 0.967391304347826
+    },
+    "ctrate_which": {
+     "n": 694,
+     "acc": 0.968299711815562
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "acc": 0.7138728323699421
+    },
+    "eurorad_route": {
+     "n": 185,
+     "acc": 0.7891891891891892
+    },
+    "iu_finding": {
+     "n": 5696,
+     "acc": 0.9680477528089888
+    },
+    "iu_normal": {
+     "n": 2848,
+     "acc": 0.8764044943820225
+    },
+    "iu_which": {
+     "n": 674,
+     "acc": 0.9554896142433235
+    },
+    "medmcqa_med": {
+     "n": 4082,
+     "acc": 0.5352768250857423
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "acc": 0.6521739130434783
+    },
+    "medqa": {
+     "n": 1273,
+     "acc": 0.6700706991358995
+    },
+    "medxpertqa": {
+     "n": 1951,
+     "acc": 0.15940543311122501
+    },
+    "mmlu_anatomy": {
+     "n": 135,
+     "acc": 0.7333333333333333
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 265,
+     "acc": 0.7811320754716982
+    },
+    "mmlu_college_biology": {
+     "n": 144,
+     "acc": 0.8055555555555556
+    },
+    "mmlu_college_medicine": {
+     "n": 173,
+     "acc": 0.7109826589595376
+    },
+    "mmlu_medical_genetics": {
+     "n": 100,
+     "acc": 0.83
+    },
+    "mmlu_professional_medicine": {
+     "n": 272,
+     "acc": 0.8272058823529411
+    },
+    "pubmedqa": {
+     "n": 531,
+     "acc": 0.7231638418079096
+    },
+    "teacher_cxr_findings_finding_status": {
+     "n": 83,
+     "acc": 0.9397590361445783
+    },
+    "teacher_order_appropriate": {
+     "n": 166,
+     "acc": 0.6265060240963856
+    },
+    "teacher_order_contrast": {
+     "n": 49,
+     "acc": 0.30612244897959184
+    },
+    "teacher_order_exam": {
+     "n": 169,
+     "acc": 0.7396449704142012
+    },
+    "teacher_order_priority": {
+     "n": 136,
+     "acc": 0.5735294117647058
+    },
+    "teacher_report_change": {
+     "n": 18,
+     "acc": 0.7777777777777778
+    },
+    "teacher_report_critical": {
+     "n": 90,
+     "acc": 0.9555555555555556
+    },
+    "teacher_report_follow_up": {
+     "n": 95,
+     "acc": 0.5789473684210527
+    },
+    "teacher_report_incidental": {
+     "n": 121,
+     "acc": 0.9586776859504132
+    },
+    "teacher_report_urgency": {
+     "n": 98,
+     "acc": 0.8571428571428571
+    }
+   },
+   "n": 26719,
+   "acc": 0.7822897563531569,
+   "brier": 0.27781512588456386,
+   "ece": 0.023866358609132617,
+   "nll": 0.5602273371844309,
+   "hours": 0.31
+  },
+  "laya_typed": {
+   "overall": {
+    "n": 26719,
+    "acc": 0.5126314607582619,
+    "brier": 0.5674769470355977,
+    "ece": 0.035622755904664655,
+    "nll": 1.0173961607182627
+   },
+   "tasks": {
+    "ctrate_finding": {
+     "n": 4692,
+     "acc": 0.6221227621483376
+    },
+    "ctrate_normal": {
+     "n": 1564,
+     "acc": 0.33695652173913043
+    },
+    "ctrate_which": {
+     "n": 694,
+     "acc": 0.5677233429394812
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "acc": 0.44508670520231214
+    },
+    "eurorad_route": {
+     "n": 185,
+     "acc": 0.3945945945945946
+    },
+    "iu_finding": {
+     "n": 5696,
+     "acc": 0.8321629213483146
+    },
+    "iu_normal": {
+     "n": 2848,
+     "acc": 0.5596910112359551
+    },
+    "iu_which": {
+     "n": 674,
+     "acc": 0.755192878338279
+    },
+    "medmcqa_med": {
+     "n": 4082,
+     "acc": 0.2645761881430671
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "acc": 0.30434782608695654
+    },
+    "medqa": {
+     "n": 1273,
+     "acc": 0.2584446190102121
+    },
+    "medxpertqa": {
+     "n": 1951,
+     "acc": 0.09584828293182983
+    },
+    "mmlu_anatomy": {
+     "n": 135,
+     "acc": 0.32592592592592595
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 265,
+     "acc": 0.36981132075471695
+    },
+    "mmlu_college_biology": {
+     "n": 144,
+     "acc": 0.2708333333333333
+    },
+    "mmlu_college_medicine": {
+     "n": 173,
+     "acc": 0.3063583815028902
+    },
+    "mmlu_medical_genetics": {
+     "n": 100,
+     "acc": 0.41
+    },
+    "mmlu_professional_medicine": {
+     "n": 272,
+     "acc": 0.34558823529411764
+    },
+    "pubmedqa": {
+     "n": 531,
+     "acc": 0.5065913370998116
+    },
+    "teacher_cxr_findings_finding_status": {
+     "n": 83,
+     "acc": 0.5662650602409639
+    },
+    "teacher_order_appropriate": {
+     "n": 166,
+     "acc": 0.39759036144578314
+    },
+    "teacher_order_contrast": {
+     "n": 49,
+     "acc": 0.2857142857142857
+    },
+    "teacher_order_exam": {
+     "n": 169,
+     "acc": 0.621301775147929
+    },
+    "teacher_order_priority": {
+     "n": 136,
+     "acc": 0.3088235294117647
+    },
+    "teacher_report_change": {
+     "n": 18,
+     "acc": 0.6111111111111112
+    },
+    "teacher_report_critical": {
+     "n": 90,
+     "acc": 0.7111111111111111
+    },
+    "teacher_report_follow_up": {
+     "n": 95,
+     "acc": 0.3157894736842105
+    },
+    "teacher_report_incidental": {
+     "n": 121,
+     "acc": 0.8677685950413223
+    },
+    "teacher_report_urgency": {
+     "n": 98,
+     "acc": 0.4897959183673469
+    }
+   },
+   "records": 14379,
+   "seconds": 5549.6,
+   "hours": 1.55
+  },
+  "julia1": {
+   "overall": {
+    "n": 26719,
+    "acc": 0.45855009543770353,
+    "brier": 0.8729104298995858,
+    "ece": 0.3789033214062222,
+    "nll": 2.4880841721973925
+   },
+   "tasks": {
+    "ctrate_finding": {
+     "n": 4692,
+     "acc": 0.5748081841432225
+    },
+    "ctrate_normal": {
+     "n": 1564,
+     "acc": 0.39258312020460356
+    },
+    "ctrate_which": {
+     "n": 694,
+     "acc": 0.5100864553314121
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "acc": 0.4913294797687861
+    },
+    "eurorad_route": {
+     "n": 185,
+     "acc": 0.2756756756756757
+    },
+    "iu_finding": {
+     "n": 5696,
+     "acc": 0.695751404494382
+    },
+    "iu_normal": {
+     "n": 2848,
+     "acc": 0.5087780898876404
+    },
+    "iu_which": {
+     "n": 674,
+     "acc": 0.701780415430267
+    },
+    "medmcqa_med": {
+     "n": 4082,
+     "acc": 0.2748652621264086
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "acc": 0.37681159420289856
+    },
+    "medqa": {
+     "n": 1273,
+     "acc": 0.2623723487824038
+    },
+    "medxpertqa": {
+     "n": 1951,
+     "acc": 0.11583803177857509
+    },
+    "mmlu_anatomy": {
+     "n": 135,
+     "acc": 0.2814814814814815
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 265,
+     "acc": 0.35471698113207545
+    },
+    "mmlu_college_biology": {
+     "n": 144,
+     "acc": 0.2847222222222222
+    },
+    "mmlu_college_medicine": {
+     "n": 173,
+     "acc": 0.3236994219653179
+    },
+    "mmlu_medical_genetics": {
+     "n": 100,
+     "acc": 0.28
+    },
+    "mmlu_professional_medicine": {
+     "n": 272,
+     "acc": 0.26838235294117646
+    },
+    "pubmedqa": {
+     "n": 531,
+     "acc": 0.2862523540489642
+    },
+    "teacher_cxr_findings_finding_status": {
+     "n": 83,
+     "acc": 0.1686746987951807
+    },
+    "teacher_order_appropriate": {
+     "n": 166,
+     "acc": 0.29518072289156627
+    },
+    "teacher_order_contrast": {
+     "n": 49,
+     "acc": 0.40816326530612246
+    },
+    "teacher_order_exam": {
+     "n": 169,
+     "acc": 0.023668639053254437
+    },
+    "teacher_order_priority": {
+     "n": 136,
+     "acc": 0.34558823529411764
+    },
+    "teacher_report_change": {
+     "n": 18,
+     "acc": 0.05555555555555555
+    },
+    "teacher_report_critical": {
+     "n": 90,
+     "acc": 0.8111111111111111
+    },
+    "teacher_report_follow_up": {
+     "n": 95,
+     "acc": 0.07368421052631578
+    },
+    "teacher_report_incidental": {
+     "n": 121,
+     "acc": 0.5537190082644629
+    },
+    "teacher_report_urgency": {
+     "n": 98,
+     "acc": 0.09183673469387756
+    }
+   },
+   "unsupported_questions": 0,
+   "hours": 0.05
+  },
+  "gliner_decide": {
+   "overall": {
+    "n": 26719,
+    "acc": 0.5357610689022793,
+    "brier": 0.538975279690634,
+    "ece": 0.02553254770709401,
+    "nll": 0.9708746265882305
+   },
+   "tasks": {
+    "ctrate_finding": {
+     "n": 4692,
+     "acc": 0.6364023870417732
+    },
+    "ctrate_normal": {
+     "n": 1564,
+     "acc": 0.7289002557544757
+    },
+    "ctrate_which": {
+     "n": 694,
+     "acc": 0.7046109510086456
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "acc": 0.5173410404624278
+    },
+    "eurorad_route": {
+     "n": 185,
+     "acc": 0.6702702702702703
+    },
+    "iu_finding": {
+     "n": 5696,
+     "acc": 0.8047752808988764
+    },
+    "iu_normal": {
+     "n": 2848,
+     "acc": 0.6127106741573034
+    },
+    "iu_which": {
+     "n": 674,
+     "acc": 0.7655786350148368
+    },
+    "medmcqa_med": {
+     "n": 4082,
+     "acc": 0.2471827535521803
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "acc": 0.34782608695652173
+    },
+    "medqa": {
+     "n": 1273,
+     "acc": 0.2623723487824038
+    },
+    "medxpertqa": {
+     "n": 1951,
+     "acc": 0.09277293695540749
+    },
+    "mmlu_anatomy": {
+     "n": 135,
+     "acc": 0.3111111111111111
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 265,
+     "acc": 0.30943396226415093
+    },
+    "mmlu_college_biology": {
+     "n": 144,
+     "acc": 0.2638888888888889
+    },
+    "mmlu_college_medicine": {
+     "n": 173,
+     "acc": 0.30057803468208094
+    },
+    "mmlu_medical_genetics": {
+     "n": 100,
+     "acc": 0.34
+    },
+    "mmlu_professional_medicine": {
+     "n": 272,
+     "acc": 0.36764705882352944
+    },
+    "pubmedqa": {
+     "n": 531,
+     "acc": 0.576271186440678
+    },
+    "teacher_cxr_findings_finding_status": {
+     "n": 83,
+     "acc": 0.3614457831325301
+    },
+    "teacher_order_appropriate": {
+     "n": 166,
+     "acc": 0.22289156626506024
+    },
+    "teacher_order_contrast": {
+     "n": 49,
+     "acc": 0.061224489795918366
+    },
+    "teacher_order_exam": {
+     "n": 169,
+     "acc": 0.08284023668639054
+    },
+    "teacher_order_priority": {
+     "n": 136,
+     "acc": 0.3382352941176471
+    },
+    "teacher_report_change": {
+     "n": 18,
+     "acc": 0.9444444444444444
+    },
+    "teacher_report_critical": {
+     "n": 90,
+     "acc": 0.8111111111111111
+    },
+    "teacher_report_follow_up": {
+     "n": 95,
+     "acc": 0.2
+    },
+    "teacher_report_incidental": {
+     "n": 121,
+     "acc": 0.5785123966942148
+    },
+    "teacher_report_urgency": {
+     "n": 98,
+     "acc": 0.41836734693877553
+    }
+   },
+   "unsupported_questions": 0,
+   "output_shapes": {
+    "list": 26719
+   },
+   "hours": 0.2
+  }
+ }
+}

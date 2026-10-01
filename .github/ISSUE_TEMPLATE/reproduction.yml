@@ -1,0 +1,22 @@
+name: Reproduction report
+description: You re-ran part of the pipeline; tell us whether your numbers matched
+labels: [reproduction]
+body:
+  - type: input
+    id: step
+    attributes:
+      label: Which step
+      description: e.g. radkev.data rad-open, experiments/train.py --tag v2x9, final_test
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Your numbers vs ours
+      description: Manifest counts or metrics, and the file in results/ you compared against.
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware and dtype

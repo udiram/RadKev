@@ -1,0 +1,146 @@
+{
+ "sanity_medqa300": {
+  "first_think_off": {
+   "acc": 0.28
+  },
+  "gen_think_off": {
+   "acc": 0.2833333333333333,
+   "letter_found_share": 0.09333333333333334
+  }
+ },
+ "medgemma_thinking_medqa100": {
+  "n": 100,
+  "acc": 0.72,
+  "parsed_share": 0.99,
+  "thought_closed_share": 0.99,
+  "median_new_tokens": 847,
+  "seconds_per_question_batch8": 34.265475437399
+ },
+ "medgemma_nothink_hours": 1.27,
+ "medgemma_nothink": {
+  "overall": {
+   "n": 26719,
+   "acc": 0.669897825517422,
+   "ece": 0.20812418800021854,
+   "brier": 0.5372165129578007
+  },
+  "tasks": {
+   "ctrate_finding": {
+    "n": 4692,
+    "acc": 0.80306905370844
+   },
+   "ctrate_normal": {
+    "n": 1564,
+    "acc": 0.9539641943734015
+   },
+   "ctrate_which": {
+    "n": 694,
+    "acc": 0.3400576368876081
+   },
+   "eurorad_dx": {
+    "n": 346,
+    "acc": 0.34104046242774566
+   },
+   "eurorad_route": {
+    "n": 185,
+    "acc": 0.32972972972972975
+   },
+   "iu_finding": {
+    "n": 5696,
+    "acc": 0.8969452247191011
+   },
+   "iu_normal": {
+    "n": 2848,
+    "acc": 0.9396067415730337
+   },
+   "iu_which": {
+    "n": 674,
+    "acc": 0.5370919881305638
+   },
+   "medmcqa_med": {
+    "n": 4082,
+    "acc": 0.4510044096031357
+   },
+   "medmcqa_rad": {
+    "n": 69,
+    "acc": 0.4492753623188406
+   },
+   "medqa": {
+    "n": 1273,
+    "acc": 0.27258444619010214
+   },
+   "medxpertqa": {
+    "n": 1951,
+    "acc": 0.09892362890825218
+   },
+   "mmlu_anatomy": {
+    "n": 135,
+    "acc": 0.5925925925925926
+   },
+   "mmlu_clinical_knowledge": {
+    "n": 265,
+    "acc": 0.5962264150943396
+   },
+   "mmlu_college_biology": {
+    "n": 144,
+    "acc": 0.7291666666666666
+   },
+   "mmlu_college_medicine": {
+    "n": 173,
+    "acc": 0.5664739884393064
+   },
+   "mmlu_medical_genetics": {
+    "n": 100,
+    "acc": 0.62
+   },
+   "mmlu_professional_medicine": {
+    "n": 272,
+    "acc": 0.3125
+   },
+   "pubmedqa": {
+    "n": 531,
+    "acc": 0.6685499058380414
+   },
+   "teacher_cxr_findings_finding_status": {
+    "n": 83,
+    "acc": 0.5180722891566265
+   },
+   "teacher_order_appropriate": {
+    "n": 166,
+    "acc": 0.9879518072289156
+   },
+   "teacher_order_contrast": {
+    "n": 49,
+    "acc": 0.3673469387755102
+   },
+   "teacher_order_exam": {
+    "n": 169,
+    "acc": 0.7869822485207101
+   },
+   "teacher_order_priority": {
+    "n": 136,
+    "acc": 0.7352941176470589
+   },
+   "teacher_report_change": {
+    "n": 18,
+    "acc": 0.5
+   },
+   "teacher_report_critical": {
+    "n": 90,
+    "acc": 0.26666666666666666
+   },
+   "teacher_report_follow_up": {
+    "n": 95,
+    "acc": 0.5684210526315789
+   },
+   "teacher_report_incidental": {
+    "n": 121,
+    "acc": 0.7355371900826446
+   },
+   "teacher_report_urgency": {
+    "n": 98,
+    "acc": 0.8979591836734694
+   }
+  }
+ }
+}

@@ -1,0 +1,10 @@
+RadKev
+Copyright 2026 Udbhav Ram
+
+This product includes code written for use with Kev (https://github.com/jaredpalmer/kev), Copyright Jared Palmer,
+licensed under the Apache License, Version 2.0. patches/kev_multigpu.patch is a modification of Kev's source files
+kev/checkpoint.py, kev/model.py and kev/shared_prefix.py.
+
+The code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE). That licence covers the
+code only. Model weights, datasets, and figures that reproduce dataset text carry their own terms; see MODEL_CARD.md
+and docs/DATA.md.
