@@ -1,0 +1,71 @@
+{
+ "hardware": "2x RTX A6000 48 GB (one NVLink pair), bf16, Hugging Face transformers, batch 1, sequential",
+ "sample": {
+  "records": 150,
+  "questions": 293,
+  "seed": 0
+ },
+ "warmup_excluded": 5,
+ "models": {
+  "stock9": {
+   "mode": "kev one pass per record",
+   "load_seconds": 7.3,
+   "per_record_ms": {
+    "n": 145,
+    "median": 73.70582595467567,
+    "p90": 220.06842121481895,
+    "p95": 380.53835183382034,
+    "mean": 158.47597860827528
+   },
+   "per_question_ms": {
+    "n": 145,
+    "median": 44.21559162437916,
+    "p90": 81.37635141611099,
+    "p95": 95.83897795528173,
+    "mean": 64.87199089350715
+   },
+   "accuracy": 0.7836879432624113,
+   "failures": 0
+  },
+  "radkev9": {
+   "mode": "kev one pass per record",
+   "load_seconds": 6.9,
+   "per_record_ms": {
+    "n": 145,
+    "median": 73.8950539380312,
+    "p90": 220.6647451967001,
+    "p95": 370.0086623430252,
+    "mean": 104.23280707207219
+   },
+   "per_question_ms": {
+    "n": 145,
+    "median": 44.16825622320175,
+    "p90": 81.46175146102905,
+    "p95": 93.6227384954691,
+    "mean": 53.98765177048486
+   },
+   "accuracy": 0.8475177304964538,
+   "failures": 0
+  },
+  "base9": {
+   "mode": "kev one pass per record",
+   "load_seconds": 7.0,
+   "per_record_ms": {
+    "n": 145,
+    "median": 73.80997762084007,
+    "p90": 221.1582139134407,
+    "p95": 371.8658182770014,
+    "mean": 104.77275233073482
+   },
+   "per_question_ms": {
+    "n": 145,
+    "median": 45.0661089271307,
+    "p90": 81.39950335025787,
+    "p95": 93.8880629837513,
+    "mean": 54.38637114354763
+   },
+   "accuracy": 0.8333333333333334,
+   "failures": 0
+  }
+ }
+}

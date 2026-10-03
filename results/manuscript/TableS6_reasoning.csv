@@ -1,0 +1,9 @@
+System,Accuracy,Task mean,Radiology,ECE,Coverage at 5%,Tokens (median / % at limit)
+RadKev-27B,88.2,84.2,92.2,0.012,84.7,–
+RadKev-9B,85.5,79.9,90.8,0.016,78.6,–
+Kev-27B,83.5,80.0,87.0,0.038,74.3,–
+Kev-9B,79.9,74.8,85.0,0.026,61.7,–
+Qwen3.8-27B,85.9,81.8,90.2,0.032,73.4,–
+"Qwen3.8-27B, reasoning",88.8,86.8,90.6,0.100,38.3,204 / 8.8
+MedGemma-27B-text,77.5,73.1,82.4,0.159,57.0,–
+"MedGemma-27B-text, reasoning",81.5,78.8,84.9,0.183,55.0,554 / 0.2

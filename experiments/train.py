@@ -2,6 +2,7 @@
 
     python experiments/train.py --models kev-27b --data rad-open,rad-gated,teacher --tag v2mg --replay 1000   # RadKev-27B
     python experiments/train.py --models kev-9b,base-9b --data rad-open,rad-gated,teacher --tag v2x9          # 9B init ablation
+    python experiments/train.py --models kev-9b,base-9b --data rad-open,rad-gated,teacher --tag v2x9f10 --train_fraction 0.1   # same, 10% of the data
 
 Per model, in parallel, each on its share of the visible GPUs (Kev-27B: 2, split over an NVLink pair; 9B: 1):
   kev.train --init_from jaredpalmer/<model> --replay N (Kev's decision-v7 training records, so general skills are kept)

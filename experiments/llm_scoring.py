@@ -12,7 +12,8 @@ of a thought, not an answer. This script reproduces the diagnosis and the fix (a
    not work, the model keeps reasoning). The one-line thought was chosen on 5 items by letter-probability mass, not accuracy.
 2. MedGemma with thinking on, 100 MedQA items (up to 2,048 new tokens): accuracy and seconds per question.
 3. Full-test rows in runs/test-final/: qwen38_gen and medgemma_gen (letter read where generated), and medgemma_brief
-   (first-token scoring with the thought channel closed, the MedGemma row the paper reports). The original rows are kept.
+   (first-token scoring with the thought channel closed). The original rows are kept. The MedGemma row the paper reports
+   (medgemma_fix) is this protocol with a single <bos>: experiments/medgemma_rescore.py.
 Writes accuracies and summaries only, to $RADKEV_HOME/runs/test-final/llm_scoring.json.
 """
 import json

@@ -1,0 +1,6602 @@
+{
+ "what": "reasoning-on Qwen3.8-27B and MedGemma-27B on a stratified human-key test sample; aggregates only",
+ "cfg": {
+  "cap": 60,
+  "caps": {
+   "eurorad_dx": 1000,
+   "eurorad_route": 1000,
+   "medmcqa_rad": 1000,
+   "iu_finding": 200,
+   "iu_normal": 200,
+   "iu_which": 200
+  },
+  "think_cap": 4096,
+  "max_model_len": 16384,
+  "max_prompt": 11000,
+  "chunk": 800,
+  "deadline_min": {
+   "qwen38_think": 32,
+   "medgemma_think": 42
+  },
+  "samples": 2000
+ },
+ "sample": {
+  "tasks": {
+   "eurorad_dx": {
+    "population": 346,
+    "sampled": 346
+   },
+   "eurorad_route": {
+    "population": 185,
+    "sampled": 185
+   },
+   "iu_finding": {
+    "population": 5696,
+    "sampled": 200
+   },
+   "iu_normal": {
+    "population": 2848,
+    "sampled": 200
+   },
+   "iu_which": {
+    "population": 674,
+    "sampled": 200
+   },
+   "medmcqa_med": {
+    "population": 4082,
+    "sampled": 60
+   },
+   "medmcqa_rad": {
+    "population": 69,
+    "sampled": 69
+   },
+   "medqa": {
+    "population": 1273,
+    "sampled": 60
+   },
+   "medxpertqa": {
+    "population": 1951,
+    "sampled": 60
+   },
+   "mmlu_anatomy": {
+    "population": 135,
+    "sampled": 60
+   },
+   "mmlu_clinical_knowledge": {
+    "population": 265,
+    "sampled": 60
+   },
+   "mmlu_college_biology": {
+    "population": 144,
+    "sampled": 60
+   },
+   "mmlu_college_medicine": {
+    "population": 173,
+    "sampled": 60
+   },
+   "mmlu_medical_genetics": {
+    "population": 100,
+    "sampled": 60
+   },
+   "mmlu_professional_medicine": {
+    "population": 272,
+    "sampled": 60
+   },
+   "pubmedqa": {
+    "population": 531,
+    "sampled": 60
+   }
+  },
+  "questions": 1800,
+  "records": 1569
+ },
+ "generation": {
+  "qwen38_think": {
+   "engine": {
+    "model": "Qwen/Qwen3.8-27B",
+    "sampling": {
+     "temperature": 1.0,
+     "top_p": 0.95,
+     "top_k": 20
+    },
+    "close_token": "</think>",
+    "close_id": 248069,
+    "n_items": 1800,
+    "n_too_long": 0,
+    "n_done_before": 816,
+    "load_s": 140.9,
+    "gen_s": 1544.0,
+    "left_at_deadline": 0
+   },
+   "overall": {
+    "n": 1800,
+    "median_new_tokens": 204,
+    "p90_new_tokens": 3563,
+    "mean_new_tokens": 778.625,
+    "closed_share": 0.9116666666666666,
+    "hit_cap_share": 0.08833333333333333,
+    "letter_found_share": 1.0,
+    "mean_letter_mass": 0.9979081474576991,
+    "own_parsed_share": 0.9116666666666666,
+    "own_agrees_share": 1.0,
+    "gen_seconds_per_question_batched": 1.1912065288755742
+   },
+   "tasks": {
+    "mmlu_college_medicine": {
+     "n": 60,
+     "median_new_tokens": 257,
+     "p90_new_tokens": 3626,
+     "mean_new_tokens": 962.6166666666667,
+     "closed_share": 0.9166666666666666,
+     "hit_cap_share": 0.08333333333333333,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9971390926981469,
+     "own_parsed_share": 0.9166666666666666,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 2.0181894637381763
+    },
+    "medxpertqa": {
+     "n": 60,
+     "median_new_tokens": 4096,
+     "p90_new_tokens": 4096,
+     "mean_new_tokens": 3039.25,
+     "closed_share": 0.45,
+     "hit_cap_share": 0.55,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9883606181327788,
+     "own_parsed_share": 0.45,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.2499024856629837
+    },
+    "iu_normal": {
+     "n": 200,
+     "median_new_tokens": 140,
+     "p90_new_tokens": 761,
+     "mean_new_tokens": 342.985,
+     "closed_share": 0.985,
+     "hit_cap_share": 0.015,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9989675601792802,
+     "own_parsed_share": 0.985,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.147360071839816
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 60,
+     "median_new_tokens": 196,
+     "p90_new_tokens": 674,
+     "mean_new_tokens": 557.4,
+     "closed_share": 0.9166666666666666,
+     "hit_cap_share": 0.08333333333333333,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9986404749891182,
+     "own_parsed_share": 0.9166666666666666,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.2418696560724873
+    },
+    "pubmedqa": {
+     "n": 60,
+     "median_new_tokens": 277,
+     "p90_new_tokens": 1892,
+     "mean_new_tokens": 717.3166666666667,
+     "closed_share": 0.9333333333333333,
+     "hit_cap_share": 0.06666666666666667,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9976693346383274,
+     "own_parsed_share": 0.9333333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.2408684796754814
+    },
+    "mmlu_medical_genetics": {
+     "n": 60,
+     "median_new_tokens": 167,
+     "p90_new_tokens": 376,
+     "mean_new_tokens": 269.1166666666667,
+     "closed_share": 0.9833333333333333,
+     "hit_cap_share": 0.016666666666666666,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9988058559432248,
+     "own_parsed_share": 0.9833333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.2586861975512345
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "median_new_tokens": 424,
+     "p90_new_tokens": 4096,
+     "mean_new_tokens": 1252.1329479768785,
+     "closed_share": 0.8670520231213873,
+     "hit_cap_share": 0.1329479768786127,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9973292057023518,
+     "own_parsed_share": 0.8670520231213873,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.1864397295459175
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "median_new_tokens": 339,
+     "p90_new_tokens": 4096,
+     "mean_new_tokens": 1141.7971014492753,
+     "closed_share": 0.855072463768116,
+     "hit_cap_share": 0.14492753623188406,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9975261416665023,
+     "own_parsed_share": 0.855072463768116,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.2336092894448762
+    },
+    "iu_finding": {
+     "n": 200,
+     "median_new_tokens": 88,
+     "p90_new_tokens": 177,
+     "mean_new_tokens": 174.69,
+     "closed_share": 0.99,
+     "hit_cap_share": 0.01,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9994209161150976,
+     "own_parsed_share": 0.99,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.1474351600695913
+    },
+    "mmlu_college_biology": {
+     "n": 60,
+     "median_new_tokens": 136,
+     "p90_new_tokens": 431,
+     "mean_new_tokens": 293.96666666666664,
+     "closed_share": 0.9833333333333333,
+     "hit_cap_share": 0.016666666666666666,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9978856911116716,
+     "own_parsed_share": 0.9833333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.258435903451983
+    },
+    "medqa": {
+     "n": 60,
+     "median_new_tokens": 380,
+     "p90_new_tokens": 3060,
+     "mean_new_tokens": 937.5166666666667,
+     "closed_share": 0.9333333333333333,
+     "hit_cap_share": 0.06666666666666667,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9973447379194483,
+     "own_parsed_share": 0.9333333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.274251268533724
+    },
+    "mmlu_anatomy": {
+     "n": 60,
+     "median_new_tokens": 221,
+     "p90_new_tokens": 4096,
+     "mean_new_tokens": 875.2666666666667,
+     "closed_share": 0.8833333333333333,
+     "hit_cap_share": 0.11666666666666667,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9967828976057257,
+     "own_parsed_share": 0.8833333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.0519938395257515
+    },
+    "iu_which": {
+     "n": 200,
+     "median_new_tokens": 125,
+     "p90_new_tokens": 243,
+     "mean_new_tokens": 176.715,
+     "closed_share": 0.995,
+     "hit_cap_share": 0.005,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9997131283941948,
+     "own_parsed_share": 0.995,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.0880625662284225
+    },
+    "mmlu_professional_medicine": {
+     "n": 60,
+     "median_new_tokens": 297,
+     "p90_new_tokens": 2339,
+     "mean_new_tokens": 775.5833333333334,
+     "closed_share": 0.9333333333333333,
+     "hit_cap_share": 0.06666666666666667,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9973950933289427,
+     "own_parsed_share": 0.9333333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.061027845513254
+    },
+    "medmcqa_med": {
+     "n": 60,
+     "median_new_tokens": 347,
+     "p90_new_tokens": 1995,
+     "mean_new_tokens": 820.1166666666667,
+     "closed_share": 0.9333333333333333,
+     "hit_cap_share": 0.06666666666666667,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9982587940192551,
+     "own_parsed_share": 0.9333333333333333,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.069310969203002
+    },
+    "eurorad_route": {
+     "n": 185,
+     "median_new_tokens": 273,
+     "p90_new_tokens": 4096,
+     "mean_new_tokens": 1058.0324324324324,
+     "closed_share": 0.8432432432432433,
+     "hit_cap_share": 0.15675675675675677,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9979036762969733,
+     "own_parsed_share": 0.8432432432432433,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.1270315590171731
+    }
+   }
+  },
+  "medgemma_think": {
+   "engine": {
+    "model": "google/medgemma-27b-text-it",
+    "sampling": {
+     "temperature": 1.0,
+     "top_p": 0.95,
+     "top_k": 64
+    },
+    "close_token": "<unused95>",
+    "close_id": 101,
+    "n_items": 1800,
+    "n_too_long": 0,
+    "n_done_before": 0,
+    "load_s": 60.5,
+    "gen_s": 2425.4,
+    "left_at_deadline": 0
+   },
+   "overall": {
+    "n": 1800,
+    "median_new_tokens": 554,
+    "p90_new_tokens": 1260,
+    "mean_new_tokens": 688.6683333333333,
+    "closed_share": 1.0,
+    "hit_cap_share": 0.0022222222222222222,
+    "letter_found_share": 1.0,
+    "mean_letter_mass": 0.9109368223721162,
+    "own_parsed_share": 0.9994444444444445,
+    "own_agrees_share": 0.9227348526959422,
+    "gen_seconds_per_question_batched": 1.094537718428541
+   },
+   "tasks": {
+    "iu_which": {
+     "n": 200,
+     "median_new_tokens": 342,
+     "p90_new_tokens": 522,
+     "mean_new_tokens": 397.56,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.005,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9434935359512628,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.98,
+     "gen_seconds_per_question_batched": 1.0669123514203944
+    },
+    "mmlu_college_medicine": {
+     "n": 60,
+     "median_new_tokens": 612,
+     "p90_new_tokens": 1672,
+     "mean_new_tokens": 862.3333333333334,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.03333333333333333,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.946021282323274,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.95,
+     "gen_seconds_per_question_batched": 1.389333211763398
+    },
+    "iu_normal": {
+     "n": 200,
+     "median_new_tokens": 347,
+     "p90_new_tokens": 625,
+     "mean_new_tokens": 387.395,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.927114063335361,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.975,
+     "gen_seconds_per_question_batched": 1.1263450566216033
+    },
+    "eurorad_route": {
+     "n": 185,
+     "median_new_tokens": 559,
+     "p90_new_tokens": 756,
+     "mean_new_tokens": 608.6324324324324,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9289679154072005,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.9837837837837838,
+     "gen_seconds_per_question_batched": 1.1197359131397446
+    },
+    "medxpertqa": {
+     "n": 60,
+     "median_new_tokens": 1747,
+     "p90_new_tokens": 2496,
+     "mean_new_tokens": 1689.4833333333333,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.793624321471889,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.36666666666666664,
+     "gen_seconds_per_question_batched": 1.1393175993568219
+    },
+    "iu_finding": {
+     "n": 200,
+     "median_new_tokens": 336,
+     "p90_new_tokens": 672,
+     "mean_new_tokens": 399.14,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9295091536306432,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.1028516757144897
+    },
+    "eurorad_dx": {
+     "n": 346,
+     "median_new_tokens": 873,
+     "p90_new_tokens": 1821,
+     "mean_new_tokens": 1034.9277456647399,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.002890173410404624,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.848520802230736,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.861271676300578,
+     "gen_seconds_per_question_batched": 1.0907781770564717
+    },
+    "mmlu_clinical_knowledge": {
+     "n": 60,
+     "median_new_tokens": 535,
+     "p90_new_tokens": 737,
+     "mean_new_tokens": 558.4166666666666,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9383091782388053,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.1289124045898944
+    },
+    "pubmedqa": {
+     "n": 60,
+     "median_new_tokens": 540,
+     "p90_new_tokens": 914,
+     "mean_new_tokens": 577.9833333333333,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.91840318014183,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 1.0,
+     "gen_seconds_per_question_batched": 1.0196541528209389
+    },
+    "mmlu_medical_genetics": {
+     "n": 60,
+     "median_new_tokens": 492,
+     "p90_new_tokens": 882,
+     "mean_new_tokens": 589.6,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9422042168689823,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.9833333333333333,
+     "gen_seconds_per_question_batched": 1.0507503583562974
+    },
+    "medmcqa_rad": {
+     "n": 69,
+     "median_new_tokens": 558,
+     "p90_new_tokens": 977,
+     "mean_new_tokens": 674.5507246376811,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9408059938306658,
+     "own_parsed_share": 0.9855072463768116,
+     "own_agrees_share": 0.9852941176470589,
+     "gen_seconds_per_question_batched": 1.0412914861831633
+    },
+    "mmlu_college_biology": {
+     "n": 60,
+     "median_new_tokens": 479,
+     "p90_new_tokens": 818,
+     "mean_new_tokens": 598.7833333333333,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9565969389917178,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.95,
+     "gen_seconds_per_question_batched": 1.040389930626404
+    },
+    "medqa": {
+     "n": 60,
+     "median_new_tokens": 924,
+     "p90_new_tokens": 1744,
+     "mean_new_tokens": 1070.15,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.8847121426332258,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.7333333333333333,
+     "gen_seconds_per_question_batched": 1.082055476731148
+    },
+    "mmlu_anatomy": {
+     "n": 60,
+     "median_new_tokens": 451,
+     "p90_new_tokens": 832,
+     "mean_new_tokens": 603.0166666666667,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9453249859286247,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.9333333333333333,
+     "gen_seconds_per_question_batched": 1.0091295792885873
+    },
+    "mmlu_professional_medicine": {
+     "n": 60,
+     "median_new_tokens": 753,
+     "p90_new_tokens": 1451,
+     "mean_new_tokens": 837.0,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.891807840138277,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.85,
+     "gen_seconds_per_question_batched": 1.019475084672803
+    },
+    "medmcqa_med": {
+     "n": 60,
+     "median_new_tokens": 538,
+     "p90_new_tokens": 1253,
+     "mean_new_tokens": 705.8666666666667,
+     "closed_share": 1.0,
+     "hit_cap_share": 0.0,
+     "letter_found_share": 1.0,
+     "mean_letter_mass": 0.9379968164279301,
+     "own_parsed_share": 1.0,
+     "own_agrees_share": 0.9333333333333333,
+     "gen_seconds_per_question_batched": 1.0299250464767644
+    }
+   }
+  }
+ },
+ "paired": {
+  "n_questions": 1800,
+  "models": {
+   "medgemma_think": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.815,
+     "brier": 0.3661934477453422,
+     "ece": 0.18319282727088423,
+     "nll": 1.7696773475911656,
+     "confident_error_rate": 0.18444444444444444,
+     "coverage_at_5pct_error": 0.55,
+     "macro_acc": 0.7877232900939392
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.8491666666666666,
+     "brier": 0.2995756619313349,
+     "ece": 0.14968193808739594,
+     "nll": 1.5325358374068712,
+     "confident_error_rate": 0.15083333333333335,
+     "coverage_at_5pct_error": 0.6408333333333334,
+     "macro_acc": 0.8561509958060599
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.7167630057803468,
+      "brier": 0.5609607965889823,
+      "ece": 0.2804000941161009,
+      "nll": 2.6756094594438546,
+      "confident_error_rate": 0.2832369942196532,
+      "coverage_at_5pct_error": 0.2630057803468208
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.827027027027027,
+      "brier": 0.3454217024731874,
+      "ece": 0.17258793726942023,
+      "nll": 2.3674081036974317,
+      "confident_error_rate": 0.17297297297297298,
+      "coverage_at_5pct_error": 0.34054054054054056
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.7466666666666667,
+      "brier": 0.4994290193733569,
+      "ece": 0.25021460563786074,
+      "nll": 2.2439603679597546,
+      "confident_error_rate": 0.25166666666666665,
+      "coverage_at_5pct_error": 0.43666666666666665
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9416666666666667,
+      "brier": 0.11582565906168907,
+      "ece": 0.05798005710341292,
+      "nll": 0.5095878365003224,
+      "confident_error_rate": 0.058333333333333334,
+      "coverage_at_5pct_error": 0.985
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.7681159420289855,
+      "brier": 0.46376736671392493,
+      "ece": 0.23018971715672176,
+      "nll": 2.4573758092239624,
+      "confident_error_rate": 0.2318840579710145,
+      "coverage_at_5pct_error": 0.2898550724637681
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.7167630057803468,
+      "brier": 0.5609607965889823,
+      "ece": 0.2804000941161009,
+      "nll": 2.6756094594438546,
+      "confident_error_rate": 0.2832369942196532,
+      "coverage_at_5pct_error": 0.2630057803468208
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.827027027027027,
+      "brier": 0.3454217024731874,
+      "ece": 0.17258793726942023,
+      "nll": 2.3674081036974317,
+      "confident_error_rate": 0.17297297297297298,
+      "coverage_at_5pct_error": 0.34054054054054056
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.9333333333333333,
+      "brier": 0.13325188253160164,
+      "ece": 0.0665282348362598,
+      "nll": 0.6251410427872149,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.9166666666666666
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.08333333333333333,
+      "brier": 1.8069031697251792,
+      "ece": 0.9039717072786594,
+      "nll": 8.982177200701322,
+      "confident_error_rate": 0.9166666666666666,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.95,
+      "brier": 0.0992027868369862,
+      "ece": 0.049569672138861764,
+      "nll": 0.4521664269136969,
+      "confident_error_rate": 0.05,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.3595888706499369,
+      "ece": 0.1802951691159842,
+      "nll": 1.16429388279917,
+      "confident_error_rate": 0.18333333333333332,
+      "coverage_at_5pct_error": 0.8333333333333334
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.905,
+      "brier": 0.18835395147122874,
+      "ece": 0.09442475372926162,
+      "nll": 0.7981049828415482,
+      "confident_error_rate": 0.095,
+      "coverage_at_5pct_error": 0.78,
+      "auroc": 0.9639485423799149
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.41896711297775246,
+      "ece": 0.21230073358416496,
+      "nll": 2.2497635246098904,
+      "confident_error_rate": 0.2,
+      "coverage_at_5pct_error": 0.25
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.97,
+      "brier": 0.05992023887685228,
+      "ece": 0.029945745442115146,
+      "nll": 0.278492099745722,
+      "confident_error_rate": 0.03,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9852176738141651
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.43212947645130645,
+      "ece": 0.21545994962268877,
+      "nll": 2.1114786935890075,
+      "confident_error_rate": 0.21666666666666667,
+      "coverage_at_5pct_error": 0.16666666666666666
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.7681159420289855,
+      "brier": 0.46376736671392493,
+      "ece": 0.23018971715672176,
+      "nll": 2.4573758092239624,
+      "confident_error_rate": 0.2318840579710145,
+      "coverage_at_5pct_error": 0.2898550724637681
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.65,
+      "brier": 0.685909836721581,
+      "ece": 0.3446431764960908,
+      "nll": 2.264319879252497,
+      "confident_error_rate": 0.35,
+      "coverage_at_5pct_error": 0.48333333333333334
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.9333333333333333,
+      "brier": 0.13238905067425766,
+      "ece": 0.06626614131782549,
+      "nll": 0.5669136841452821,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.9666666666666667
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.7333333333333333,
+      "brier": 0.5304963542847977,
+      "ece": 0.26520748651040726,
+      "nll": 2.3968344903584273,
+      "confident_error_rate": 0.26666666666666666,
+      "coverage_at_5pct_error": 0.55
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9333333333333333,
+      "brier": 0.131577444253489,
+      "ece": 0.065619924904745,
+      "nll": 0.5351132765387944,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.95
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.3630769954636672,
+      "ece": 0.18185353271178073,
+      "nll": 1.5435680048159384,
+      "confident_error_rate": 0.18333333333333332,
+      "coverage_at_5pct_error": 0.6666666666666666
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 1,
+      "conf": 0.7547026354764191,
+      "acc": 0.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1799,
+      "conf": 0.9983281747927266,
+      "acc": 0.8154530294608116
+     }
+    ]
+   },
+   "qwen38_think": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.8877777777777778,
+     "brier": 0.20860844788347202,
+     "ece": 0.10015871887876311,
+     "nll": 1.184680844338003,
+     "confident_error_rate": 0.09,
+     "coverage_at_5pct_error": 0.3827777777777778,
+     "macro_acc": 0.8676144812348161
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.9058333333333334,
+     "brier": 0.17263525012037045,
+     "ece": 0.08304774012649548,
+     "nll": 0.9707736955028147,
+     "confident_error_rate": 0.07416666666666667,
+     "coverage_at_5pct_error": 0.6958333333333333,
+     "macro_acc": 0.8941941721817318
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.8930635838150289,
+      "brier": 0.20117756357320224,
+      "ece": 0.10156871055160488,
+      "nll": 1.0078342933048146,
+      "confident_error_rate": 0.08670520231213873,
+      "coverage_at_5pct_error": 0.7052023121387283
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8,
+      "brier": 0.35169264755205276,
+      "ece": 0.1729105532486912,
+      "nll": 1.9862898737912105,
+      "confident_error_rate": 0.14054054054054055,
+      "coverage_at_5pct_error": 0.12432432432432433
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.8516666666666667,
+      "brier": 0.2805548434096751,
+      "ece": 0.1346405625990421,
+      "nll": 1.6124951420083808,
+      "confident_error_rate": 0.12166666666666667,
+      "coverage_at_5pct_error": 0.0
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9583333333333334,
+      "brier": 0.07930073788648279,
+      "ece": 0.04018180637351969,
+      "nll": 0.5106265087212282,
+      "confident_error_rate": 0.03833333333333333,
+      "coverage_at_5pct_error": 1.0
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.7971014492753623,
+      "brier": 0.36103305245068285,
+      "ece": 0.18431354196344343,
+      "nll": 2.0634527135623304,
+      "confident_error_rate": 0.14492753623188406,
+      "coverage_at_5pct_error": 0.0
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.8930635838150289,
+      "brier": 0.20117756357320224,
+      "ece": 0.10156871055160488,
+      "nll": 1.0078342933048146,
+      "confident_error_rate": 0.08670520231213873,
+      "coverage_at_5pct_error": 0.7052023121387283
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8,
+      "brier": 0.35169264755205276,
+      "ece": 0.1729105532486912,
+      "nll": 1.9862898737912105,
+      "confident_error_rate": 0.14054054054054055,
+      "coverage_at_5pct_error": 0.12432432432432433
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.95,
+      "brier": 0.1035688125399071,
+      "ece": 0.05551250063115914,
+      "nll": 0.49705664787493464,
+      "confident_error_rate": 0.05,
+      "coverage_at_5pct_error": 1.0
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.43333333333333335,
+      "brier": 1.0528498376804716,
+      "ece": 0.4961386614264932,
+      "nll": 5.363623797859061,
+      "confident_error_rate": 0.4166666666666667,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.08165915900825929,
+      "ece": 0.04203152324235699,
+      "nll": 0.6424899430347107,
+      "confident_error_rate": 0.04,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.15512839695582278,
+      "ece": 0.07600589618184773,
+      "nll": 0.8225316911980853,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.9333333333333333
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.94,
+      "brier": 0.11268255201146275,
+      "ece": 0.058935646496506316,
+      "nll": 0.6671728004193692,
+      "confident_error_rate": 0.055,
+      "coverage_at_5pct_error": 0.945,
+      "auroc": 0.9381678597364872
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7166666666666667,
+      "brier": 0.5634276714732958,
+      "ece": 0.2785054513828418,
+      "nll": 3.363976993734755,
+      "confident_error_rate": 0.26666666666666666,
+      "coverage_at_5pct_error": 0.06666666666666667
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.975,
+      "brier": 0.04356050263972637,
+      "ece": 0.023653724774649828,
+      "nll": 0.22221678270960438,
+      "confident_error_rate": 0.02,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9689733593242366
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.27498751286187556,
+      "ece": 0.1422729983885219,
+      "nll": 1.8115047318735116,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.0
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.7971014492753623,
+      "brier": 0.36103305245068285,
+      "ece": 0.18431354196344343,
+      "nll": 2.0634527135623304,
+      "confident_error_rate": 0.14492753623188406,
+      "coverage_at_5pct_error": 0.0
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.9333333333333333,
+      "brier": 0.12798910684169826,
+      "ece": 0.06549452419851086,
+      "nll": 0.9885772471202329,
+      "confident_error_rate": 0.05,
+      "coverage_at_5pct_error": 0.8666666666666667
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 1.0,
+      "brier": 1.0976022485978979e-06,
+      "ece": 0.0001197070207159534,
+      "nll": 0.00012006662010809297,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 1.0
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.32101064663123974,
+      "ece": 0.16673722742278807,
+      "nll": 2.228654813356129,
+      "confident_error_rate": 0.15,
+      "coverage_at_5pct_error": 0.05
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9666666666666667,
+      "brier": 0.06666560083839003,
+      "ece": 0.0332713694702188,
+      "nll": 0.3990206108837595,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.13991975067180237,
+      "ece": 0.07510460271923536,
+      "nll": 0.6498848195632293,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.9166666666666666
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 14,
+      "conf": 0.561473636715054,
+      "acc": 0.21428571428571427
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 14,
+      "conf": 0.6579227898528952,
+      "acc": 0.6428571428571429
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 24,
+      "conf": 0.7428072213027264,
+      "acc": 0.2916666666666667
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 18,
+      "conf": 0.8618475927023764,
+      "acc": 0.6111111111111112
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1730,
+      "conf": 0.9987708173583318,
+      "acc": 0.9063583815028902
+     }
+    ]
+   },
+   "v2_27": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.8816666666666667,
+     "brier": 0.16695564010059094,
+     "ece": 0.011890821315841946,
+     "nll": 0.34189788984104424,
+     "confident_error_rate": 0.017777777777777778,
+     "coverage_at_5pct_error": 0.8472222222222222,
+     "macro_acc": 0.8421240729765955
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.9216666666666666,
+     "brier": 0.11401718449926354,
+     "ece": 0.013882130809511735,
+     "nll": 0.21484983074752734,
+     "confident_error_rate": 0.011666666666666667,
+     "coverage_at_5pct_error": 0.9333333333333333,
+     "macro_acc": 0.9095530834931438
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.9393063583815029,
+      "brier": 0.10144051481221067,
+      "ece": 0.021845140969957152,
+      "nll": 0.1862136174207635,
+      "confident_error_rate": 0.017341040462427744,
+      "coverage_at_5pct_error": 0.9653179190751445
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8324324324324325,
+      "brier": 0.21650063906005865,
+      "ece": 0.07825045277768178,
+      "nll": 0.41363542275388415,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.7675675675675676
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.8016666666666666,
+      "brier": 0.27283255130324574,
+      "ece": 0.04852367876299596,
+      "nll": 0.5959940080280781,
+      "confident_error_rate": 0.03,
+      "coverage_at_5pct_error": 0.6416666666666667
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9483333333333334,
+      "brier": 0.07359338209214102,
+      "ece": 0.02113851319461826,
+      "nll": 0.13950689805516567,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 0.9966666666666667
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.8405797101449275,
+      "brier": 0.25381964916950606,
+      "ece": 0.05954432053951211,
+      "nll": 0.4806259887953725,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.6521739130434783
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.9393063583815029,
+      "brier": 0.10144051481221067,
+      "ece": 0.021845140969957152,
+      "nll": 0.1862136174207635,
+      "confident_error_rate": 0.017341040462427744,
+      "coverage_at_5pct_error": 0.9653179190751445
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8324324324324325,
+      "brier": 0.21650063906005865,
+      "ece": 0.07825045277768178,
+      "nll": 0.41363542275388415,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.7675675675675676
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.1136940868008825,
+      "ece": 0.05697179652938716,
+      "nll": 0.23113066179439898,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.95
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.26666666666666666,
+      "brier": 1.0249733215708388,
+      "ece": 0.39538607744851517,
+      "nll": 2.548664517035004,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.03333333333333333
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.95,
+      "brier": 0.06838705201819789,
+      "ece": 0.02864338538482358,
+      "nll": 0.14956666872843757,
+      "confident_error_rate": 0.02,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.95,
+      "brier": 0.09341995151512689,
+      "ece": 0.0472283843476946,
+      "nll": 0.28471206426343315,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 1.0
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.94,
+      "brier": 0.10030765487754262,
+      "ece": 0.0566278702779453,
+      "nll": 0.18581990614204869,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 0.96,
+      "auroc": 0.9895217346197738
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.2671922833778552,
+      "ece": 0.10066451057383966,
+      "nll": 0.48850844007224176,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6833333333333333
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.955,
+      "brier": 0.05208543938068246,
+      "ece": 0.02584902570702166,
+      "nll": 0.08313411929501069,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9941520467836257
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.2602988842680661,
+      "ece": 0.0499277658807189,
+      "nll": 0.5577437089555886,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.7
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.8405797101449275,
+      "brier": 0.25381964916950606,
+      "ece": 0.05954432053951211,
+      "nll": 0.4806259887953725,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.6521739130434783
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.2436129881938317,
+      "ece": 0.09769384762728972,
+      "nll": 0.46486848440103573,
+      "confident_error_rate": 0.08333333333333333,
+      "coverage_at_5pct_error": 0.5333333333333333
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.08796039541722782,
+      "ece": 0.0558770934722555,
+      "nll": 0.1804488580795278,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.95
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.2545523994031578,
+      "ece": 0.08420607144979116,
+      "nll": 0.4594142712145575,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.7333333333333333
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.11975697689764583,
+      "ece": 0.045720171521369826,
+      "nll": 0.24756956968011376,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.9166666666666666
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.2628642255878246,
+      "ece": 0.08865846794451909,
+      "nll": 0.4968795047848805,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6666666666666666
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 2,
+      "conf": 0.17467552045483456,
+      "acc": 0.0
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 8,
+      "conf": 0.27453585118814444,
+      "acc": 0.125
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 23,
+      "conf": 0.352869422313265,
+      "acc": 0.30434782608695654
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 48,
+      "conf": 0.45261708157912933,
+      "acc": 0.3541666666666667
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 100,
+      "conf": 0.5477840546781199,
+      "acc": 0.52
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 72,
+      "conf": 0.6477530647107731,
+      "acc": 0.625
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 105,
+      "conf": 0.7586472791459364,
+      "acc": 0.7523809523809524
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 188,
+      "conf": 0.8586926615578467,
+      "acc": 0.8723404255319149
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1254,
+      "conf": 0.9795660716305117,
+      "acc": 0.9744816586921851
+     }
+    ]
+   },
+   "stock27": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.835,
+     "brier": 0.22270596466008508,
+     "ece": 0.03808337703339142,
+     "nll": 0.4380286657847949,
+     "confident_error_rate": 0.005,
+     "coverage_at_5pct_error": 0.7433333333333333,
+     "macro_acc": 0.8002794074861491
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.87,
+     "brier": 0.1823857918722454,
+     "ece": 0.03387266764429647,
+     "nll": 0.3402605320506139,
+     "confident_error_rate": 0.005833333333333334,
+     "coverage_at_5pct_error": 0.8108333333333333,
+     "macro_acc": 0.8590784199630644
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.8265895953757225,
+      "brier": 0.24171549481407922,
+      "ece": 0.05747227822604477,
+      "nll": 0.4660369896665996,
+      "confident_error_rate": 0.002890173410404624,
+      "coverage_at_5pct_error": 0.6589595375722543
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8432432432432433,
+      "brier": 0.23778057719548235,
+      "ece": 0.059643375061229506,
+      "nll": 0.4509236188649789,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.6
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.765,
+      "brier": 0.30334631023576436,
+      "ece": 0.06090968608586603,
+      "nll": 0.6335649332531568,
+      "confident_error_rate": 0.0033333333333333335,
+      "coverage_at_5pct_error": 0.62
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.92,
+      "brier": 0.10639139969842251,
+      "ece": 0.0318900000414942,
+      "nll": 0.18657809500160438,
+      "confident_error_rate": 0.008333333333333333,
+      "coverage_at_5pct_error": 0.9383333333333334
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.7246376811594203,
+      "brier": 0.397175977402976,
+      "ece": 0.11122407944860992,
+      "nll": 0.7492190368856451,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.463768115942029
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.8265895953757225,
+      "brier": 0.24171549481407922,
+      "ece": 0.05747227822604477,
+      "nll": 0.4660369896665996,
+      "confident_error_rate": 0.002890173410404624,
+      "coverage_at_5pct_error": 0.6589595375722543
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8432432432432433,
+      "brier": 0.23778057719548235,
+      "ece": 0.059643375061229506,
+      "nll": 0.4509236188649789,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.6
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.8666666666666667,
+      "brier": 0.18889769663407416,
+      "ece": 0.0822253999433819,
+      "nll": 0.3653155671185167,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.85
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.23333333333333334,
+      "brier": 0.8842926993701238,
+      "ece": 0.18934559988698574,
+      "nll": 2.1033985079503426,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.935,
+      "brier": 0.09085257642081142,
+      "ece": 0.03854910689108752,
+      "nll": 0.1759390477649564,
+      "confident_error_rate": 0.015,
+      "coverage_at_5pct_error": 0.97
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.9,
+      "brier": 0.14751868819553418,
+      "ece": 0.10175248699499906,
+      "nll": 0.325089122027256,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.8666666666666667
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.87,
+      "brier": 0.1713777114183597,
+      "ece": 0.07831471259672584,
+      "nll": 0.2828872170614509,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 0.78,
+      "auroc": 0.9824670608984334
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.28696934784116157,
+      "ece": 0.17168628993256416,
+      "nll": 0.5211463610549097,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6666666666666666
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.955,
+      "brier": 0.05694391125609642,
+      "ece": 0.024706974222806766,
+      "nll": 0.10090802017840586,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9913905133203378
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.8,
+      "brier": 0.3245475045991687,
+      "ece": 0.10537388533387669,
+      "nll": 0.6371589694958316,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.08333333333333333
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.7246376811594203,
+      "brier": 0.397175977402976,
+      "ece": 0.11122407944860992,
+      "nll": 0.7492190368856451,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.463768115942029
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.2515758595747599,
+      "ece": 0.08518107847361306,
+      "nll": 0.49466850757105,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.38333333333333336
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.95,
+      "brier": 0.11986382740937536,
+      "ece": 0.11978035488381115,
+      "nll": 0.2728917225832538,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 1.0
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.38104408785703847,
+      "ece": 0.12261441225262762,
+      "nll": 0.7594729965060634,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.5166666666666667
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.8833333333333333,
+      "brier": 0.17381086125899609,
+      "ece": 0.08032643821787194,
+      "nll": 0.34298340894726453,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.7166666666666667,
+      "brier": 0.27494252961741145,
+      "ece": 0.13416296991966598,
+      "nll": 0.5135241692770806,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.7166666666666667
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 5,
+      "conf": 0.1646863271634268,
+      "acc": 0.2
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 20,
+      "conf": 0.26136806795354744,
+      "acc": 0.25
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 75,
+      "conf": 0.35094670116987864,
+      "acc": 0.28
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 107,
+      "conf": 0.4529941113985559,
+      "acc": 0.4392523364485981
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 139,
+      "conf": 0.551884271365503,
+      "acc": 0.5683453237410072
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 159,
+      "conf": 0.6516738402953035,
+      "acc": 0.7232704402515723
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 173,
+      "conf": 0.749688819545994,
+      "acc": 0.8265895953757225
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 271,
+      "conf": 0.8540421352040197,
+      "acc": 0.922509225092251
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 851,
+      "conf": 0.9708291243502128,
+      "acc": 0.9894242068155111
+     }
+    ]
+   },
+   "r9": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.855,
+     "brier": 0.20264641434871208,
+     "ece": 0.015836923870865775,
+     "nll": 0.40119526510455467,
+     "confident_error_rate": 0.013333333333333334,
+     "coverage_at_5pct_error": 0.7855555555555556,
+     "macro_acc": 0.7992869419746462
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.9075,
+     "brier": 0.13348887281328767,
+     "ece": 0.012870371342183898,
+     "nll": 0.2481162599813222,
+     "confident_error_rate": 0.013333333333333334,
+     "coverage_at_5pct_error": 0.8966666666666666,
+     "macro_acc": 0.8814318452657232
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.9104046242774566,
+      "brier": 0.13253366014874007,
+      "ece": 0.019427002560417704,
+      "nll": 0.2496703976689827,
+      "confident_error_rate": 0.011560693641618497,
+      "coverage_at_5pct_error": 0.8959537572254336
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.827027027027027,
+      "brier": 0.23052692282428208,
+      "ece": 0.05559656327019548,
+      "nll": 0.43687531407045244,
+      "confident_error_rate": 0.010810810810810811,
+      "coverage_at_5pct_error": 0.7243243243243244
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.75,
+      "brier": 0.34096149741956094,
+      "ece": 0.05596260823924313,
+      "nll": 0.7073532753510196,
+      "confident_error_rate": 0.013333333333333334,
+      "coverage_at_5pct_error": 0.5833333333333334
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9566666666666667,
+      "brier": 0.07368375846362002,
+      "ece": 0.016672425228710763,
+      "nll": 0.13447222834180347,
+      "confident_error_rate": 0.013333333333333334,
+      "coverage_at_5pct_error": 1.0
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.6811594202898551,
+      "brier": 0.39814877049010083,
+      "ece": 0.07537969020919727,
+      "nll": 0.722438902550766,
+      "confident_error_rate": 0.028985507246376812,
+      "coverage_at_5pct_error": 0.3188405797101449
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.9104046242774566,
+      "brier": 0.13253366014874007,
+      "ece": 0.019427002560417704,
+      "nll": 0.2496703976689827,
+      "confident_error_rate": 0.011560693641618497,
+      "coverage_at_5pct_error": 0.8959537572254336
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.827027027027027,
+      "brier": 0.23052692282428208,
+      "ece": 0.05559656327019548,
+      "nll": 0.43687531407045244,
+      "confident_error_rate": 0.010810810810810811,
+      "coverage_at_5pct_error": 0.7243243243243244
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.9,
+      "brier": 0.17133679893253037,
+      "ece": 0.07763199114242778,
+      "nll": 0.31510682937911816,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.16666666666666666,
+      "brier": 1.048968237735638,
+      "ece": 0.3811629652897808,
+      "nll": 2.696644047879926,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.975,
+      "brier": 0.04780724207429357,
+      "ece": 0.014355491524581819,
+      "nll": 0.09605545888630114,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.8666666666666667,
+      "brier": 0.1830320875103987,
+      "ece": 0.09578073087465266,
+      "nll": 0.3619761478138462,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.8333333333333334
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.92,
+      "brier": 0.13175551836501803,
+      "ece": 0.03390463761086731,
+      "nll": 0.23298826700712744,
+      "confident_error_rate": 0.025,
+      "coverage_at_5pct_error": 0.88,
+      "auroc": 0.9725075215271293
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.75,
+      "brier": 0.3299023522687492,
+      "ece": 0.13112507274085888,
+      "nll": 0.5924556862981895,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.45
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.975,
+      "brier": 0.041488514951548476,
+      "ece": 0.01073306461632691,
+      "nll": 0.07437295913198182,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9959389213775178
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.7333333333333333,
+      "brier": 0.3898345367976278,
+      "ece": 0.12741225225565173,
+      "nll": 0.72822320406657,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.38333333333333336
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.6811594202898551,
+      "brier": 0.39814877049010083,
+      "ece": 0.07537969020919727,
+      "nll": 0.722438902550766,
+      "confident_error_rate": 0.028985507246376812,
+      "coverage_at_5pct_error": 0.3188405797101449
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.7166666666666667,
+      "brier": 0.36488499381881223,
+      "ece": 0.14874554910838414,
+      "nll": 0.6129360398931046,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.55
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.11682367884282817,
+      "ece": 0.06620313398146088,
+      "nll": 0.23648047462008362,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.9333333333333333
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.3019987947209491,
+      "ece": 0.16989971968256176,
+      "nll": 0.5644458316773164,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9,
+      "brier": 0.148051850834817,
+      "ece": 0.051248647088993314,
+      "nll": 0.31201661176646955,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.8666666666666667
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.7666666666666667,
+      "brier": 0.35478164273325935,
+      "ece": 0.12633872775650928,
+      "nll": 0.653247880115572,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.5
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 8,
+      "conf": 0.2618516628418564,
+      "acc": 0.125
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 34,
+      "conf": 0.3565856590895504,
+      "acc": 0.3235294117647059
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 80,
+      "conf": 0.4565000552007278,
+      "acc": 0.3875
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 99,
+      "conf": 0.5529591993324715,
+      "acc": 0.5555555555555556
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 116,
+      "conf": 0.6511341530562413,
+      "acc": 0.5603448275862069
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 116,
+      "conf": 0.7517977654691436,
+      "acc": 0.6896551724137931
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 199,
+      "conf": 0.856876464013865,
+      "acc": 0.864321608040201
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1148,
+      "conf": 0.9779712479412458,
+      "acc": 0.9790940766550522
+     }
+    ]
+   },
+   "stock9": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.7988888888888889,
+     "brier": 0.2755703819970051,
+     "ece": 0.026253664278729966,
+     "nll": 0.5526308277694966,
+     "confident_error_rate": 0.0077777777777777776,
+     "coverage_at_5pct_error": 0.6166666666666667,
+     "macro_acc": 0.7478558143938108
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.85,
+     "brier": 0.217429809093859,
+     "ece": 0.030290531817095397,
+     "nll": 0.42608469033053914,
+     "confident_error_rate": 0.01,
+     "coverage_at_5pct_error": 0.7191666666666666,
+     "macro_acc": 0.8331710606057176
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.7514450867052023,
+      "brier": 0.36452850340129483,
+      "ece": 0.059761972541451255,
+      "nll": 0.7157257221146914,
+      "confident_error_rate": 0.023121387283236993,
+      "coverage_at_5pct_error": 0.3468208092485549
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.7783783783783784,
+      "brier": 0.28658827661452957,
+      "ece": 0.06340827531527683,
+      "nll": 0.5636563043770997,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.5027027027027027
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.6966666666666667,
+      "brier": 0.39185152780329735,
+      "ece": 0.040839771807675715,
+      "nll": 0.8057231026474113,
+      "confident_error_rate": 0.0033333333333333335,
+      "coverage_at_5pct_error": 0.43
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9583333333333334,
+      "brier": 0.07874815096723968,
+      "ece": 0.04836155457743488,
+      "nll": 0.16027931865457512,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.5942028985507246,
+      "brier": 0.5003070577065365,
+      "ece": 0.04473216094461405,
+      "nll": 0.916181464383409,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.13043478260869565
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.7514450867052023,
+      "brier": 0.36452850340129483,
+      "ece": 0.059761972541451255,
+      "nll": 0.7157257221146914,
+      "confident_error_rate": 0.023121387283236993,
+      "coverage_at_5pct_error": 0.3468208092485549
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.7783783783783784,
+      "brier": 0.28658827661452957,
+      "ece": 0.06340827531527683,
+      "nll": 0.5636563043770997,
+      "confident_error_rate": 0.005405405405405406,
+      "coverage_at_5pct_error": 0.5027027027027027
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.2659273540322118,
+      "ece": 0.08782008716177198,
+      "nll": 0.49533805894130367,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.18333333333333332,
+      "brier": 0.9508111873942625,
+      "ece": 0.1928486523254769,
+      "nll": 2.4119710833275265,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.08225889667363556,
+      "ece": 0.0664638852347969,
+      "nll": 0.18509412668490277,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.8666666666666667,
+      "brier": 0.26017181962796626,
+      "ece": 0.19638756383572753,
+      "nll": 0.5357224024644612,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.5333333333333333
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.935,
+      "brier": 0.11148803105535261,
+      "ece": 0.04900768208615365,
+      "nll": 0.19941132867073144,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 0.91,
+      "auroc": 0.9834007677144931
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.33814844980489,
+      "ece": 0.13333149679043405,
+      "nll": 0.5869379550527877,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.43333333333333335
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.98,
+      "brier": 0.04249752517273086,
+      "ece": 0.03827482624771716,
+      "nll": 0.09633250060809118,
+      "confident_error_rate": 0.005,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9952891487979207
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.7,
+      "brier": 0.40456209170839436,
+      "ece": 0.07226286704567185,
+      "nll": 0.7826997246266818,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.36666666666666664
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.5942028985507246,
+      "brier": 0.5003070577065365,
+      "ece": 0.04473216094461405,
+      "nll": 0.916181464383409,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.13043478260869565
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.65,
+      "brier": 0.40997669509637485,
+      "ece": 0.15976298279565396,
+      "nll": 0.771344090330034,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.23333333333333334
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.24043951255613188,
+      "ece": 0.10668532336272013,
+      "nll": 0.4603647688841226,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.7166666666666667
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.65,
+      "brier": 0.48161699539621516,
+      "ece": 0.12352107011904714,
+      "nll": 0.9156509315242742,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.25
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.8833333333333333,
+      "brier": 0.1804462899484536,
+      "ece": 0.10542690897862496,
+      "nll": 0.3948338846746174,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.8666666666666667
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.3864148824680728,
+      "ece": 0.09671806229821436,
+      "nll": 0.7023681266483052,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.5333333333333333
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 9,
+      "conf": 0.16525089649241065,
+      "acc": 0.0
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 34,
+      "conf": 0.25693479119553014,
+      "acc": 0.29411764705882354
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 115,
+      "conf": 0.35344729721022033,
+      "acc": 0.391304347826087
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 147,
+      "conf": 0.45541905887591383,
+      "acc": 0.47619047619047616
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 147,
+      "conf": 0.5488745842329296,
+      "acc": 0.5782312925170068
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 135,
+      "conf": 0.6523247484980685,
+      "acc": 0.6814814814814815
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 145,
+      "conf": 0.7501183352129847,
+      "acc": 0.7931034482758621
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 255,
+      "conf": 0.8572867907991,
+      "acc": 0.8705882352941177
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 813,
+      "conf": 0.9591367078019704,
+      "acc": 0.982779827798278
+     }
+    ]
+   },
+   "qwen38": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.8588888888888889,
+     "brier": 0.21313899333794808,
+     "ece": 0.03171160984532286,
+     "nll": 0.4580960237636784,
+     "confident_error_rate": 0.020555555555555556,
+     "coverage_at_5pct_error": 0.7344444444444445,
+     "macro_acc": 0.817884839240472
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.9016666666666666,
+     "brier": 0.1629484546180998,
+     "ece": 0.03466458365610789,
+     "nll": 0.3448061733817824,
+     "confident_error_rate": 0.02,
+     "coverage_at_5pct_error": 0.8175,
+     "macro_acc": 0.892137349085703
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.8439306358381503,
+      "brier": 0.2518242044021432,
+      "ece": 0.057802884052590826,
+      "nll": 0.5419255173652142,
+      "confident_error_rate": 0.03468208092485549,
+      "coverage_at_5pct_error": 0.5780346820809249
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8702702702702703,
+      "brier": 0.22420700053230738,
+      "ece": 0.06866296793370491,
+      "nll": 0.4802139318157502,
+      "confident_error_rate": 0.016216216216216217,
+      "coverage_at_5pct_error": 0.6810810810810811
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.7733333333333333,
+      "brier": 0.31352007077764465,
+      "ece": 0.04453959313270853,
+      "nll": 0.6846757245274703,
+      "confident_error_rate": 0.021666666666666667,
+      "coverage_at_5pct_error": 0.58
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9616666666666667,
+      "brier": 0.07134090499462012,
+      "ece": 0.02667798891343238,
+      "nll": 0.15196963607654204,
+      "confident_error_rate": 0.013333333333333334,
+      "coverage_at_5pct_error": 1.0
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.7536231884057971,
+      "brier": 0.34962511193230805,
+      "ece": 0.057599619794585305,
+      "nll": 0.6701423191005178,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.43478260869565216
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.8439306358381503,
+      "brier": 0.2518242044021432,
+      "ece": 0.057802884052590826,
+      "nll": 0.5419255173652142,
+      "confident_error_rate": 0.03468208092485549,
+      "coverage_at_5pct_error": 0.5780346820809249
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8702702702702703,
+      "brier": 0.22420700053230738,
+      "ece": 0.06866296793370491,
+      "nll": 0.4802139318157502,
+      "confident_error_rate": 0.016216216216216217,
+      "coverage_at_5pct_error": 0.6810810810810811
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.8833333333333333,
+      "brier": 0.19502034115287933,
+      "ece": 0.12161616986140948,
+      "nll": 0.3582905440266308,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.7166666666666667
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.26666666666666666,
+      "brier": 1.008454773693921,
+      "ece": 0.31792239663013744,
+      "nll": 2.8235787953970264,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.016666666666666666
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.06658102092619832,
+      "ece": 0.02561831024933612,
+      "nll": 0.17834686136144007,
+      "confident_error_rate": 0.02,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.9,
+      "brier": 0.1552628865939038,
+      "ece": 0.023484007583299847,
+      "nll": 0.3311055765979684,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.85
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.955,
+      "brier": 0.10418038504346155,
+      "ece": 0.06229220392385311,
+      "nll": 0.19653046812787,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9766054569976139
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7333333333333333,
+      "brier": 0.34868796304527755,
+      "ece": 0.102454612289307,
+      "nll": 0.5850358129712518,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.5
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.97,
+      "brier": 0.04326130901420048,
+      "ece": 0.006871599896153012,
+      "nll": 0.08103157874031604,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9893599740090968
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.7166666666666667,
+      "brier": 0.3339314528421096,
+      "ece": 0.08545379285580103,
+      "nll": 0.6590552280651694,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.5666666666666667
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.7536231884057971,
+      "brier": 0.34962511193230805,
+      "ece": 0.057599619794585305,
+      "nll": 0.6701423191005178,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.43478260869565216
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.2346326489378465,
+      "ece": 0.07546098814311657,
+      "nll": 0.4650126313627973,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.7
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.95,
+      "brier": 0.1261473352233445,
+      "ece": 0.10126528683163254,
+      "nll": 0.24913602655290065,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 1.0
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.75,
+      "brier": 0.3422644159674843,
+      "ece": 0.12218368253036337,
+      "nll": 0.6442574806864343,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.45
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.12245048364225385,
+      "ece": 0.0417174970966347,
+      "nll": 0.2676707908454516,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.9333333333333333
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.7666666666666667,
+      "brier": 0.2683484066774262,
+      "ece": 0.11045045577314176,
+      "nll": 0.46361435876907237,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6333333333333333
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 1,
+      "conf": 0.17145081143862492,
+      "acc": 0.0
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 12,
+      "conf": 0.27029894674739036,
+      "acc": 0.08333333333333333
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 49,
+      "conf": 0.35541014877118515,
+      "acc": 0.42857142857142855
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 78,
+      "conf": 0.44450271658338875,
+      "acc": 0.48717948717948717
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 116,
+      "conf": 0.5485521052645105,
+      "acc": 0.603448275862069
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 119,
+      "conf": 0.6575344334596173,
+      "acc": 0.7563025210084033
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 112,
+      "conf": 0.7500890679604838,
+      "acc": 0.6875
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 149,
+      "conf": 0.8608284685849019,
+      "acc": 0.8187919463087249
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1164,
+      "conf": 0.9822658016272503,
+      "acc": 0.968213058419244
+     }
+    ]
+   },
+   "qwen38_gen": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.86,
+     "brier": 0.21244111953989694,
+     "ece": 0.033026020071343115,
+     "nll": 0.45810750960957886,
+     "confident_error_rate": 0.02,
+     "coverage_at_5pct_error": 0.7344444444444445,
+     "macro_acc": 0.8185351770783098
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.9033333333333333,
+     "brier": 0.162310282385319,
+     "ece": 0.03783415685202773,
+     "nll": 0.3445632642358977,
+     "confident_error_rate": 0.019166666666666665,
+     "coverage_at_5pct_error": 0.8216666666666667,
+     "macro_acc": 0.8938715833199371
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.8439306358381503,
+      "brier": 0.2510615307972171,
+      "ece": 0.06302140011919691,
+      "nll": 0.5412772041974422,
+      "confident_error_rate": 0.031791907514450865,
+      "coverage_at_5pct_error": 0.5780346820809249
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8756756756756757,
+      "brier": 0.22292641338929503,
+      "ece": 0.07021604557889193,
+      "nll": 0.4780045885831073,
+      "confident_error_rate": 0.016216216216216217,
+      "coverage_at_5pct_error": 0.6810810810810811
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.7733333333333333,
+      "brier": 0.3127027938490528,
+      "ece": 0.045935841152644305,
+      "nll": 0.6851960003569411,
+      "confident_error_rate": 0.021666666666666667,
+      "coverage_at_5pct_error": 0.5533333333333333
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9633333333333334,
+      "brier": 0.07078377319828955,
+      "ece": 0.02953175246527965,
+      "nll": 0.15224539066091394,
+      "confident_error_rate": 0.013333333333333334,
+      "coverage_at_5pct_error": 1.0
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.7536231884057971,
+      "brier": 0.3506289682688749,
+      "ece": 0.06787652862824377,
+      "nll": 0.672694509367233,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.42028985507246375
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.8439306358381503,
+      "brier": 0.2510615307972171,
+      "ece": 0.06302140011919691,
+      "nll": 0.5412772041974422,
+      "confident_error_rate": 0.031791907514450865,
+      "coverage_at_5pct_error": 0.5780346820809249
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8756756756756757,
+      "brier": 0.22292641338929503,
+      "ece": 0.07021604557889193,
+      "nll": 0.4780045885831073,
+      "confident_error_rate": 0.016216216216216217,
+      "coverage_at_5pct_error": 0.6810810810810811
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.8833333333333333,
+      "brier": 0.1942535045401629,
+      "ece": 0.120273885917713,
+      "nll": 0.3588468945018767,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.7166666666666667
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.26666666666666666,
+      "brier": 1.0066460301346223,
+      "ece": 0.320298583726739,
+      "nll": 2.8238276728003924,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.016666666666666666
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.06614924739344259,
+      "ece": 0.03745916456650587,
+      "nll": 0.17907304717895894,
+      "confident_error_rate": 0.02,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.9,
+      "brier": 0.15501985562937043,
+      "ece": 0.022408340570327416,
+      "nll": 0.33130895059107934,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.8333333333333334
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.10303904941851094,
+      "ece": 0.06594358073310473,
+      "nll": 0.19662629192082964,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9757754953833385
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.7333333333333333,
+      "brier": 0.3448243507303801,
+      "ece": 0.09756892766015614,
+      "nll": 0.5823168693608959,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.5
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.97,
+      "brier": 0.04316302278291512,
+      "ece": 0.007025545592205133,
+      "nll": 0.08103683288295334,
+      "confident_error_rate": 0.01,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9896036387264457
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.7166666666666667,
+      "brier": 0.3306902373298506,
+      "ece": 0.08663095758951243,
+      "nll": 0.6547757225062119,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.5833333333333334
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.7536231884057971,
+      "brier": 0.3506289682688749,
+      "ece": 0.06787652862824377,
+      "nll": 0.672694509367233,
+      "confident_error_rate": 0.014492753623188406,
+      "coverage_at_5pct_error": 0.42028985507246375
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.23332416175708062,
+      "ece": 0.07066489153104419,
+      "nll": 0.4637088075483221,
+      "confident_error_rate": 0.03333333333333333,
+      "coverage_at_5pct_error": 0.6666666666666666
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.95,
+      "brier": 0.12759869074057154,
+      "ece": 0.10104100764366644,
+      "nll": 0.25361859234918405,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 1.0
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.7333333333333333,
+      "brier": 0.3398987429844012,
+      "ece": 0.1002244156256015,
+      "nll": 0.6423346073670698,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.4666666666666667
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.9166666666666666,
+      "brier": 0.12167710740095956,
+      "ece": 0.05498561249930414,
+      "nll": 0.26685457834006954,
+      "confident_error_rate": 0.016666666666666666,
+      "coverage_at_5pct_error": 0.9333333333333333
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.7833333333333333,
+      "brier": 0.2730952572431292,
+      "ece": 0.087573352481037,
+      "nll": 0.47436730820430933,
+      "confident_error_rate": 0.0,
+      "coverage_at_5pct_error": 0.6333333333333333
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 1,
+      "conf": 0.17145081143862492,
+      "acc": 0.0
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 15,
+      "conf": 0.27620781713412956,
+      "acc": 0.13333333333333333
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 43,
+      "conf": 0.3572771505105626,
+      "acc": 0.4186046511627907
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 83,
+      "conf": 0.44522183931683246,
+      "acc": 0.5060240963855421
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 107,
+      "conf": 0.5475292877348357,
+      "acc": 0.5700934579439252
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 121,
+      "conf": 0.6551691369466807,
+      "acc": 0.7933884297520661
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 115,
+      "conf": 0.7490435356277659,
+      "acc": 0.6869565217391305
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 150,
+      "conf": 0.8591687408814687,
+      "acc": 0.8066666666666666
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1165,
+      "conf": 0.9822269354712281,
+      "acc": 0.9690987124463519
+     }
+    ]
+   },
+   "medgemma_brief": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.7788888888888889,
+     "brier": 0.3633529623118745,
+     "ece": 0.1548404310116363,
+     "nll": 0.9680268766133102,
+     "confident_error_rate": 0.11666666666666667,
+     "coverage_at_5pct_error": 0.5711111111111111,
+     "macro_acc": 0.7327037258105051
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.83,
+     "brier": 0.2906321436295601,
+     "ece": 0.12253849219884647,
+     "nll": 0.7683406175086404,
+     "confident_error_rate": 0.10166666666666667,
+     "coverage_at_5pct_error": 0.6566666666666666,
+     "macro_acc": 0.8260988243835693
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.7254335260115607,
+      "brier": 0.4601676835615748,
+      "ece": 0.1870407853027819,
+      "nll": 1.2198645715108323,
+      "confident_error_rate": 0.14739884393063585,
+      "coverage_at_5pct_error": 0.315028901734104
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.8,
+      "brier": 0.37269886744884156,
+      "ece": 0.18146317080449814,
+      "nll": 1.1239876904996473,
+      "confident_error_rate": 0.16216216216216217,
+      "coverage_at_5pct_error": 0.3675675675675676
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.6766666666666666,
+      "brier": 0.5087945996765033,
+      "ece": 0.2221140259526913,
+      "nll": 1.36739939482265,
+      "confident_error_rate": 0.14666666666666667,
+      "coverage_at_5pct_error": 0.42333333333333334
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9166666666666666,
+      "brier": 0.1403467027198345,
+      "ece": 0.061288084633790305,
+      "nll": 0.3249508772136168,
+      "confident_error_rate": 0.05333333333333334,
+      "coverage_at_5pct_error": 0.9166666666666666
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.6811594202898551,
+      "brier": 0.5272933584526203,
+      "ece": 0.22642350985073023,
+      "nll": 1.4061934811161692,
+      "confident_error_rate": 0.13043478260869565,
+      "coverage_at_5pct_error": 0.34782608695652173
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.7254335260115607,
+      "brier": 0.4601676835615748,
+      "ece": 0.1870407853027819,
+      "nll": 1.2198645715108323,
+      "confident_error_rate": 0.14739884393063585,
+      "coverage_at_5pct_error": 0.315028901734104
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.8,
+      "brier": 0.37269886744884156,
+      "ece": 0.18146317080449814,
+      "nll": 1.1239876904996473,
+      "confident_error_rate": 0.16216216216216217,
+      "coverage_at_5pct_error": 0.3675675675675676
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.25579784093715646,
+      "ece": 0.11102705316624167,
+      "nll": 0.5873969757987928,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.8
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.18333333333333332,
+      "brier": 1.2514056296816773,
+      "ece": 0.532003456203689,
+      "nll": 4.144459897126362,
+      "confident_error_rate": 0.3333333333333333,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.95,
+      "brier": 0.09753516222129285,
+      "ece": 0.04181397407828024,
+      "nll": 0.31806170961055014,
+      "confident_error_rate": 0.04,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.29122032140983506,
+      "ece": 0.14401769960751737,
+      "nll": 0.7087678937882625,
+      "confident_error_rate": 0.1,
+      "coverage_at_5pct_error": 0.4666666666666667
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.84,
+      "brier": 0.25545313840662975,
+      "ece": 0.10822307352104037,
+      "nll": 0.5258475925039532,
+      "confident_error_rate": 0.09,
+      "coverage_at_5pct_error": 0.685,
+      "auroc": 0.9846975827367984
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.6666666666666666,
+      "brier": 0.5361391892244592,
+      "ece": 0.2734358004119262,
+      "nll": 1.3377038487928894,
+      "confident_error_rate": 0.16666666666666666,
+      "coverage_at_5pct_error": 0.13333333333333333
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.06805180753158088,
+      "ece": 0.033827206302050536,
+      "nll": 0.13094332952634707,
+      "confident_error_rate": 0.03,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9913092917478882
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.6166666666666667,
+      "brier": 0.6315818706681531,
+      "ece": 0.2971573241201758,
+      "nll": 1.8319391522166795,
+      "confident_error_rate": 0.23333333333333334,
+      "coverage_at_5pct_error": 0.03333333333333333
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.6811594202898551,
+      "brier": 0.5272933584526203,
+      "ece": 0.22642350985073023,
+      "nll": 1.4061934811161692,
+      "confident_error_rate": 0.13043478260869565,
+      "coverage_at_5pct_error": 0.34782608695652173
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.6666666666666666,
+      "brier": 0.456776077316048,
+      "ece": 0.20954360755018467,
+      "nll": 0.9801504286897387,
+      "confident_error_rate": 0.08333333333333333,
+      "coverage_at_5pct_error": 0.4
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.8,
+      "brier": 0.2810605686396531,
+      "ece": 0.13583338065758133,
+      "nll": 0.6818250843081796,
+      "confident_error_rate": 0.05,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.6333333333333333,
+      "brier": 0.5494504574522595,
+      "ece": 0.2597120904065264,
+      "nll": 1.2078128952210136,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.48333333333333334
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.3060404621569606,
+      "ece": 0.1669360695866893,
+      "nll": 0.7774125632795563,
+      "confident_error_rate": 0.15,
+      "coverage_at_5pct_error": 0.75
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.5284735792788295,
+      "ece": 0.23946944401550374,
+      "nll": 1.4165252090050267,
+      "confident_error_rate": 0.16666666666666666,
+      "coverage_at_5pct_error": 0.4166666666666667
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 7,
+      "conf": 0.2430391967319548,
+      "acc": 0.14285714285714285
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 14,
+      "conf": 0.36802916137359387,
+      "acc": 0.14285714285714285
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 36,
+      "conf": 0.45426891062975705,
+      "acc": 0.1111111111111111
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 55,
+      "conf": 0.5518654727627289,
+      "acc": 0.45454545454545453
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 50,
+      "conf": 0.6560321274959164,
+      "acc": 0.46
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 69,
+      "conf": 0.7504366880435995,
+      "acc": 0.4492753623188406
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 81,
+      "conf": 0.8567321526542614,
+      "acc": 0.4691358024691358
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1488,
+      "conf": 0.9900374792911093,
+      "acc": 0.8588709677419355
+     }
+    ]
+   },
+   "medgemma_fix": {
+    "overall": {
+     "n": 1800,
+     "acc": 0.775,
+     "brier": 0.3692170947510093,
+     "ece": 0.15936310080852872,
+     "nll": 0.9843541755016386,
+     "confident_error_rate": 0.11222222222222222,
+     "coverage_at_5pct_error": 0.57,
+     "macro_acc": 0.7310588472362788
+    },
+    "radiology_human": {
+     "n": 1200,
+     "acc": 0.8241666666666667,
+     "brier": 0.29599690801147377,
+     "ece": 0.12743823701478685,
+     "nll": 0.7820925754809953,
+     "confident_error_rate": 0.09666666666666666,
+     "coverage_at_5pct_error": 0.6858333333333333,
+     "macro_acc": 0.8217124815189655
+    },
+    "families": {
+     "case_diagnosis": {
+      "n": 346,
+      "acc": 0.7254335260115607,
+      "brier": 0.4585217804427519,
+      "ece": 0.1836167946198946,
+      "nll": 1.230788997300731,
+      "confident_error_rate": 0.13005780346820808,
+      "coverage_at_5pct_error": 0.2630057803468208
+     },
+     "routing": {
+      "n": 185,
+      "acc": 0.7891891891891892,
+      "brier": 0.3784123853621037,
+      "ece": 0.18645060418140413,
+      "nll": 1.152274140594812,
+      "confident_error_rate": 0.16756756756756758,
+      "coverage_at_5pct_error": 0.41081081081081083
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "acc": 0.6766666666666666,
+      "brier": 0.5156574682300803,
+      "ece": 0.2238674277389905,
+      "nll": 1.388877375542925,
+      "confident_error_rate": 0.14333333333333334,
+      "coverage_at_5pct_error": 0.385
+     },
+     "report_cxr_human": {
+      "n": 600,
+      "acc": 0.9066666666666666,
+      "brier": 0.15341591151483808,
+      "ece": 0.07083615812359825,
+      "nll": 0.34282451865678626,
+      "confident_error_rate": 0.05333333333333334,
+      "coverage_at_5pct_error": 0.905
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "acc": 0.6956521739130435,
+      "brier": 0.4998828315896284,
+      "ece": 0.210082026519939,
+      "nll": 1.3593140624207165,
+      "confident_error_rate": 0.11594202898550725,
+      "coverage_at_5pct_error": 0.36231884057971014
+     }
+    },
+    "tasks": {
+     "eurorad_dx": {
+      "n": 346,
+      "acc": 0.7254335260115607,
+      "brier": 0.4585217804427519,
+      "ece": 0.1836167946198946,
+      "nll": 1.230788997300731,
+      "confident_error_rate": 0.13005780346820808,
+      "coverage_at_5pct_error": 0.2630057803468208
+     },
+     "eurorad_route": {
+      "n": 185,
+      "acc": 0.7891891891891892,
+      "brier": 0.3784123853621037,
+      "ece": 0.18645060418140413,
+      "nll": 1.152274140594812,
+      "confident_error_rate": 0.16756756756756758,
+      "coverage_at_5pct_error": 0.41081081081081083
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "acc": 0.8333333333333334,
+      "brier": 0.26262126823867343,
+      "ece": 0.09474294368246901,
+      "nll": 0.6009452126199817,
+      "confident_error_rate": 0.06666666666666667,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "medxpertqa": {
+      "n": 60,
+      "acc": 0.16666666666666666,
+      "brier": 1.28788787135345,
+      "ece": 0.5573768831507651,
+      "nll": 4.379834848097079,
+      "confident_error_rate": 0.3333333333333333,
+      "coverage_at_5pct_error": 0.0
+     },
+     "iu_which": {
+      "n": 200,
+      "acc": 0.95,
+      "brier": 0.09637795700605055,
+      "ece": 0.042882900765872436,
+      "nll": 0.29913067820293654,
+      "confident_error_rate": 0.04,
+      "coverage_at_5pct_error": 1.0
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.3043698165595241,
+      "ece": 0.14713866912038556,
+      "nll": 0.7239878016838145,
+      "confident_error_rate": 0.08333333333333333,
+      "coverage_at_5pct_error": 0.7
+     },
+     "iu_normal": {
+      "n": 200,
+      "acc": 0.81,
+      "brier": 0.3004550699989795,
+      "ece": 0.13829044178885622,
+      "nll": 0.6130988438495426,
+      "confident_error_rate": 0.1,
+      "coverage_at_5pct_error": 0.645,
+      "auroc": 0.9849569457412595
+     },
+     "pubmedqa": {
+      "n": 60,
+      "acc": 0.65,
+      "brier": 0.5742809829766704,
+      "ece": 0.2817949829372952,
+      "nll": 1.4412718137502643,
+      "confident_error_rate": 0.18333333333333332,
+      "coverage_at_5pct_error": 0.11666666666666667
+     },
+     "iu_finding": {
+      "n": 200,
+      "acc": 0.96,
+      "brier": 0.06341470753948412,
+      "ece": 0.031335131816066036,
+      "nll": 0.11624403391787975,
+      "confident_error_rate": 0.02,
+      "coverage_at_5pct_error": 1.0,
+      "auroc": 0.9902534113060428
+     },
+     "mmlu_college_medicine": {
+      "n": 60,
+      "acc": 0.6166666666666667,
+      "brier": 0.6412349087105816,
+      "ece": 0.2899404119814229,
+      "nll": 1.7970745489358342,
+      "confident_error_rate": 0.21666666666666667,
+      "coverage_at_5pct_error": 0.05
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "acc": 0.6956521739130435,
+      "brier": 0.4998828315896284,
+      "ece": 0.210082026519939,
+      "nll": 1.3593140624207165,
+      "confident_error_rate": 0.11594202898550725,
+      "coverage_at_5pct_error": 0.36231884057971014
+     },
+     "medqa": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.4456518777219235,
+      "ece": 0.19947099475410462,
+      "nll": 0.974955773695432,
+      "confident_error_rate": 0.08333333333333333,
+      "coverage_at_5pct_error": 0.4166666666666667
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "acc": 0.85,
+      "brier": 0.25888723821397613,
+      "ece": 0.0779342763264061,
+      "nll": 0.6707528943004788,
+      "confident_error_rate": 0.05,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "acc": 0.65,
+      "brier": 0.5552076654031591,
+      "ece": 0.25578258181878427,
+      "nll": 1.1648179608612494,
+      "confident_error_rate": 0.15,
+      "coverage_at_5pct_error": 0.5
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "acc": 0.8166666666666667,
+      "brier": 0.3103668144049601,
+      "ece": 0.1626778005371427,
+      "nll": 0.7636085001127552,
+      "confident_error_rate": 0.11666666666666667,
+      "coverage_at_5pct_error": 0.7833333333333333
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "acc": 0.6833333333333333,
+      "brier": 0.5160662387178846,
+      "ece": 0.2647496944227713,
+      "nll": 1.3715244013723604,
+      "confident_error_rate": 0.15,
+      "coverage_at_5pct_error": 0.4666666666666667
+     }
+    },
+    "reliability": [
+     {
+      "lo": 0.2,
+      "hi": 0.30000000000000004,
+      "n": 9,
+      "conf": 0.25279288648894865,
+      "acc": 0.1111111111111111
+     },
+     {
+      "lo": 0.30000000000000004,
+      "hi": 0.4,
+      "n": 13,
+      "conf": 0.3603584867807773,
+      "acc": 0.15384615384615385
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 33,
+      "conf": 0.45461355423655153,
+      "acc": 0.21212121212121213
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6000000000000001,
+      "n": 50,
+      "conf": 0.5537426388946975,
+      "acc": 0.32
+     },
+     {
+      "lo": 0.6000000000000001,
+      "hi": 0.7000000000000001,
+      "n": 52,
+      "conf": 0.647854021377274,
+      "acc": 0.46153846153846156
+     },
+     {
+      "lo": 0.7000000000000001,
+      "hi": 0.8,
+      "n": 70,
+      "conf": 0.7464935800956662,
+      "acc": 0.42857142857142855
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 89,
+      "conf": 0.8562046172790342,
+      "acc": 0.3707865168539326
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1484,
+      "conf": 0.9906059536779724,
+      "acc": 0.8638814016172507
+     }
+    ]
+   }
+  },
+  "pairs": {
+   "qwen38_think-qwen38": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.04972964199434418,
+     "ci95": [
+      0.031109261272915537,
+      0.06923953677515524
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.028888888888888853,
+     "ci95": [
+      0.01499104802579497,
+      0.04256525495770439
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.004530545454476065,
+     "ci95": [
+      -0.024492774974665607,
+      0.01560478724430449
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.0020568230960289293,
+     "ci95": [
+      -0.017764812997641644,
+      0.023070024687315324
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.0033333333333332993,
+      "ci95": [
+       -0.01827318533341447,
+       0.01155163243597084
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.07833333333333337,
+      "ci95": [
+       0.050000000000000044,
+       0.10666666666666669
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.04347826086956519,
+      "ci95": [
+       -0.05797101449275355,
+       0.14492753623188404
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": -0.07027027027027022,
+      "ci95": [
+       -0.11891891891891893,
+       -0.027027027027026973
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.049132947976878616,
+      "ci95": [
+       0.011560693641618491,
+       0.08670520231213874
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.033333333333333326,
+       0.25
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.020000000000000018,
+       0.020000000000000018
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.16666666666666669,
+      "ci95": [
+       0.04999999999999999,
+       0.3
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.049132947976878616,
+      "ci95": [
+       0.011560693641618491,
+       0.08670520231213874
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0050000000000000044,
+      "ci95": [
+       -0.01005025125628145,
+       0.02010050251256279
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.0,
+       0.1499999999999999
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.04999999999999993,
+       0.01999999999999991
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       0.0,
+       0.1166666666666667
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.016666666666666607,
+      "ci95": [
+       -0.033333333333333326,
+       0.06666666666666665
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       0.0,
+       0.18333333333333324
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       0.0,
+       0.11666666666666659
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.1499999999999999,
+      "ci95": [
+       0.050000000000000044,
+       0.25
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": -0.07027027027027022,
+      "ci95": [
+       -0.11891891891891893,
+       -0.027027027027026973
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.04347826086956519,
+      "ci95": [
+       -0.05797101449275355,
+       0.14492753623188404
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": -0.016666666666666607,
+      "ci95": [
+       -0.08333333333333337,
+       0.050000000000000044
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       -0.033333333333333326,
+       0.20000000000000007
+      ]
+     }
+    }
+   },
+   "medgemma_think-medgemma_brief": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.055019564283433964,
+     "ci95": [
+      0.031712868818876146,
+      0.07856991609596581
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.036111111111111094,
+     "ci95": [
+      0.019822156510974465,
+      0.05300938707896197
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": 0.00284048543346771,
+     "ci95": [
+      -0.025188075775265512,
+      0.03163853466012771
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.030052171422490576,
+     "ci95": [
+      0.0063280851684622465,
+      0.05528288758525165
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.025000000000000022,
+      "ci95": [
+       0.005083889744906617,
+       0.04538006111535528
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.07000000000000006,
+      "ci95": [
+       0.036666666666666625,
+       0.10333333333333339
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.08695652173913038,
+      "ci95": [
+       -0.02898550724637683,
+       0.2028985507246377
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.027027027027026973,
+      "ci95": [
+       -0.00013513513513512608,
+       0.05945945945945952
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": -0.008670520231213952,
+      "ci95": [
+       -0.049132947976878616,
+       0.031791907514450934
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.16666666666666663,
+      "ci95": [
+       0.06666666666666665,
+       0.2666666666666667
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.019999999999999907,
+       0.020000000000000018
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.09999999999999999,
+      "ci95": [
+       -0.21666666666666667,
+       0.016666666666666663
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": -0.008670520231213952,
+      "ci95": [
+       -0.049132947976878616,
+       0.031791907514450934
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.010000000000000009,
+      "ci95": [
+       -0.010000000000000009,
+       0.030150753768844133
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       0.0,
+       0.16666666666666663
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.06500000000000006,
+      "ci95": [
+       0.015000000000000013,
+       0.12
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.016666666666666607,
+       0.25
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": -0.01666666666666672,
+      "ci95": [
+       -0.1166666666666667,
+       0.08333333333333337
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.016666666666666607,
+      "ci95": [
+       -0.11666666666666664,
+       0.08333333333333326
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.016666666666666607,
+       0.18333333333333335
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.033333333333333326,
+       0.25
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.027027027027026973,
+      "ci95": [
+       -0.00013513513513512608,
+       0.05945945945945952
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.08695652173913038,
+      "ci95": [
+       -0.02898550724637683,
+       0.2028985507246377
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.1166666666666667,
+      "ci95": [
+       0.033333333333333326,
+       0.21666666666666667
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       -0.050000000000000044,
+       0.25
+      ]
+     }
+    }
+   },
+   "medgemma_think-medgemma_fix": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.056664442857660355,
+     "ci95": [
+      0.03484909266940933,
+      0.07956627617369912
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.039999999999999925,
+     "ci95": [
+      0.02339800299024141,
+      0.05685618729096986
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.0030236470056671516,
+     "ci95": [
+      -0.031634298638681425,
+      0.02500135637210974
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.0344385142870943,
+     "ci95": [
+      0.012147477055396087,
+      0.05885959038101045
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.03500000000000003,
+      "ci95": [
+       0.014999376039933348,
+       0.05738176768766181
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.07000000000000006,
+      "ci95": [
+       0.036666666666666736,
+       0.10333333333333339
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.07246376811594202,
+      "ci95": [
+       -0.04347826086956519,
+       0.18840579710144922
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.037837837837837784,
+      "ci95": [
+       0.00540540540540535,
+       0.07567567567567568
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": -0.008670520231213952,
+      "ci95": [
+       -0.049132947976878616,
+       0.031791907514450934
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.16666666666666663,
+      "ci95": [
+       0.06666666666666665,
+       0.2666666666666667
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.019999999999999907,
+       0.020000000000000018
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.08333333333333333,
+      "ci95": [
+       -0.2,
+       0.016666666666666677
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": -0.008670520231213952,
+      "ci95": [
+       -0.049132947976878616,
+       0.031791907514450934
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.010000000000000009,
+      "ci95": [
+       -0.010000000000000009,
+       0.030150753768844133
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.016666666666666607,
+       0.18333333333333335
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.09499999999999997,
+      "ci95": [
+       0.040000000000000036,
+       0.15012499999999934
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       -0.033333333333333326,
+       0.18333333333333335
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.09999999999999998,
+       0.10000000000000009
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.1333333333333333,
+       0.06666666666666665
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.1166666666666667,
+      "ci95": [
+       0.033333333333333326,
+       0.20000000000000007
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.03333333333333344,
+       0.23333333333333328
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.037837837837837784,
+      "ci95": [
+       0.00540540540540535,
+       0.07567567567567568
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.07246376811594202,
+      "ci95": [
+       -0.04347826086956519,
+       0.18840579710144922
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.033333333333333326,
+       0.2333333333333334
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.08333333333333326,
+      "ci95": [
+       -0.06666666666666665,
+       0.2333333333333334
+      ]
+     }
+    }
+   },
+   "v2_27-medgemma_fix": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.11106522574031683,
+     "ci95": [
+      0.08692613167952945,
+      0.1367422331988294
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.10666666666666669,
+     "ci95": [
+      0.0886760775724965,
+      0.1247955128664787
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.20226145465041837,
+     "ci95": [
+      -0.2289576892205127,
+      -0.1752903109385246
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.08784060197417821,
+     "ci95": [
+      0.06333438849023844,
+      0.11408790508085791
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.04166666666666674,
+      "ci95": [
+       0.016528243733464204,
+       0.06688977552390192
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.125,
+      "ci95": [
+       0.09166666666666667,
+       0.16000000000000003
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.14492753623188404,
+      "ci95": [
+       0.02898550724637683,
+       0.26086956521739135
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.043243243243243246,
+      "ci95": [
+       -0.005405405405405461,
+       0.0972972972972973
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.21387283236994215,
+      "ci95": [
+       0.16755780346820806,
+       0.26300578034682087
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.19999999999999996,
+      "ci95": [
+       0.08333333333333337,
+       0.31666666666666665
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.02499999999999991,
+       0.025000000000000022
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.1,
+      "ci95": [
+       -0.016666666666666663,
+       0.21666666666666665
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.21387283236994215,
+      "ci95": [
+       0.16755780346820806,
+       0.26300578034682087
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.0050000000000000044,
+      "ci95": [
+       -0.03015075376884424,
+       0.02010050251256279
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.08333333333333326,
+      "ci95": [
+       0.0,
+       0.16666666666666674
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.1299999999999999,
+      "ci95": [
+       0.06500000000000006,
+       0.19999999999999996
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.033333333333333326,
+       0.16666666666666663
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.04999999999999993,
+       0.23333333333333328
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.15000000000000002,
+      "ci95": [
+       0.033333333333333326,
+       0.2666666666666667
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.0,
+       0.19999999999999996
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.15000000000000002,
+      "ci95": [
+       0.01666666666666672,
+       0.2833333333333333
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.043243243243243246,
+      "ci95": [
+       -0.005405405405405461,
+       0.0972972972972973
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.14492753623188404,
+      "ci95": [
+       0.02898550724637683,
+       0.26086956521739135
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.03333333333333344,
+       0.2333333333333334
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       -0.01666666666666672,
+       0.29999999999999993
+      ]
+     }
+    }
+   },
+   "qwen38_think-medgemma_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.07989119114087699,
+     "ci95": [
+      0.059089250389336774,
+      0.10158630897159134
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.07277777777777783,
+     "ci95": [
+      0.057205338801509235,
+      0.08934641224723473
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.15758499986187016,
+     "ci95": [
+      -0.18977478951987936,
+      -0.12664495026824893
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.038043176375671985,
+     "ci95": [
+      0.01629109142274782,
+      0.06085553327075841
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       0.0016391436899954343,
+       0.031989233551733554
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.10499999999999998,
+      "ci95": [
+       0.07333333333333336,
+       0.1333333333333333
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.02898550724637683,
+      "ci95": [
+       -0.07246376811594202,
+       0.13043478260869568
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": -0.027027027027026973,
+      "ci95": [
+       -0.07040540540540545,
+       0.021621621621621623
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.17630057803468213,
+      "ci95": [
+       0.13005780346820817,
+       0.22254335260115599
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.033333333333333326,
+       0.15000000000000002
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.010000000000000009,
+      "ci95": [
+       -0.010000000000000009,
+       0.030000000000000027
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.35000000000000003,
+      "ci95": [
+       0.2333333333333333,
+       0.4833333333333334
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.17630057803468213,
+      "ci95": [
+       0.13005780346820817,
+       0.22254335260115599
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0050000000000000044,
+      "ci95": [
+       0.0,
+       0.015075376884422176
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.016666666666666607,
+      "ci95": [
+       -0.050000000000000044,
+       0.08333333333333337
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.03499999999999992,
+      "ci95": [
+       -0.0050000000000000044,
+       0.07499999999999996
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.01666666666666672,
+       0.1333333333333333
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.0,
+       0.21666666666666667
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.2833333333333333,
+      "ci95": [
+       0.16666666666666674,
+       0.4
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       0.0,
+       0.08333333333333337
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.0,
+       0.19999999999999996
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": -0.027027027027026973,
+      "ci95": [
+       -0.07040540540540545,
+       0.021621621621621623
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.02898550724637683,
+      "ci95": [
+       -0.07246376811594202,
+       0.13043478260869568
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": -0.06666666666666665,
+      "ci95": [
+       -0.16666666666666663,
+       0.01666666666666672
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.10000000000000009,
+      "ci95": [
+       0.0,
+       0.21666666666666667
+      ]
+     }
+    }
+   },
+   "v2_27-qwen38_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": -0.02549040825822053,
+     "ci95": [
+      -0.043349474179224565,
+      -0.008359691016241372
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": -0.006111111111111067,
+     "ci95": [
+      -0.019444714656290572,
+      0.007194643619546912
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.04165280778288105,
+     "ci95": [
+      -0.0614684486601952,
+      -0.021649896427711972
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.015358911311411927,
+     "ci95": [
+      -0.005514269071330663,
+      0.035006307961225114
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.010000000000000009,
+      "ci95": [
+       -0.028573837629486877,
+       0.008264804882053606
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.07337500000000002,
+       -0.026666666666666616
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.04347826086956519,
+      "ci95": [
+       -0.04347826086956519,
+       0.14492753623188404
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.032432432432432434,
+      "ci95": [
+       -0.016216216216216273,
+       0.08648648648648649
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.046242774566473965,
+      "ci95": [
+       0.017268786127167573,
+       0.0780346820809249
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.033333333333333326
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": -0.010000000000000009,
+      "ci95": [
+       -0.030000000000000027,
+       0.010000000000000009
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.16666666666666669,
+      "ci95": [
+       -0.2833333333333333,
+       -0.04999999999999999
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.046242774566473965,
+      "ci95": [
+       0.017268786127167573,
+       0.0780346820809249
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.020000000000000018,
+      "ci95": [
+       -0.04500000000000004,
+       0.0
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.033333333333333326
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.04499999999999993,
+       0.04499999999999993
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.08333333333333337,
+      "ci95": [
+       -0.16666666666666663,
+       -0.01666666666666672
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       0.0,
+       0.08333333333333337
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.09999999999999998,
+      "ci95": [
+       -0.18333333333333335,
+       -0.033333333333333326
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.11666666666666659,
+       0.0
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": -0.08333333333333326,
+      "ci95": [
+       -0.16666666666666674,
+       0.0
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.032432432432432434,
+      "ci95": [
+       -0.016216216216216273,
+       0.08648648648648649
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.04347826086956519,
+      "ci95": [
+       -0.04347826086956519,
+       0.14492753623188404
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.0,
+       0.15000000000000002
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.13333333333333341,
+       0.033333333333333326
+      ]
+     }
+    }
+   },
+   "v2_27-medgemma_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.054400782882656464,
+     "ci95": [
+      0.033483922295852585,
+      0.07692346367304295
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.06666666666666676,
+     "ci95": [
+      0.04936812625913535,
+      0.08426440648274705
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.1992378076447512,
+     "ci95": [
+      -0.22967573112874756,
+      -0.1694285462686523
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.05340208768708391,
+     "ci95": [
+      0.030931550353538565,
+      0.07627409377255266
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.00666666666666671,
+      "ci95": [
+       -0.014803241242521439,
+       0.02623058494172118
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.05499999999999994,
+      "ci95": [
+       0.025000000000000022,
+       0.08499999999999996
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.07246376811594202,
+      "ci95": [
+       -0.02898550724637683,
+       0.17391304347826086
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.005405405405405461,
+      "ci95": [
+       -0.037837837837837895,
+       0.05405405405405406
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.2225433526011561,
+      "ci95": [
+       0.17630057803468202,
+       0.2716763005780347
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.06666666666666665,
+       0.13333333333333341
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.020000000000000018,
+       0.020000000000000018
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.18333333333333335,
+      "ci95": [
+       0.06666666666666665,
+       0.31666666666666665
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.2225433526011561,
+      "ci95": [
+       0.17630057803468202,
+       0.2716763005780347
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.04020100502512569,
+       0.01005025125628134
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.01666666666666672,
+      "ci95": [
+       -0.09999999999999998,
+       0.06666666666666665
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.03499999999999992,
+      "ci95": [
+       -0.015000000000000013,
+       0.08499999999999996
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.01666666666666672,
+      "ci95": [
+       -0.09999999999999998,
+       0.06666666666666665
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.033333333333333326,
+       0.23333333333333328
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.18333333333333335,
+      "ci95": [
+       0.06666666666666676,
+       0.30000000000000004
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.01666666666666672,
+      "ci95": [
+       -0.08333333333333337,
+       0.050000000000000044
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       -0.08333333333333326,
+       0.10000000000000009
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.005405405405405461,
+      "ci95": [
+       -0.037837837837837895,
+       0.05405405405405406
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.07246376811594202,
+      "ci95": [
+       -0.02898550724637683,
+       0.17391304347826086
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.09999999999999998,
+       0.08333333333333337
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       -0.033333333333333326,
+       0.1499999999999999
+      ]
+     }
+    }
+   },
+   "v2_27-qwen38": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.024239233736123654,
+     "ci95": [
+      0.00579288744480082,
+      0.04163063897299742
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.022777777777777786,
+     "ci95": [
+      0.00939226519337022,
+      0.03629257398101615
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.046183353237357117,
+     "ci95": [
+      -0.0602620651330879,
+      -0.032661655059992786
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.017415734407440858,
+     "ci95": [
+      -0.0032467238280274383,
+      0.03769580627824218
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.013333333333333308,
+      "ci95": [
+       -0.02857383762948688,
+       0.0016638935108153063
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.02833333333333332,
+      "ci95": [
+       0.0033333333333334077,
+       0.053333333333333344
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.08695652173913038,
+      "ci95": [
+       -0.01449275362318836,
+       0.18840579710144922
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": -0.037837837837837784,
+      "ci95": [
+       -0.08108108108108103,
+       0.00013513513513439633
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.09537572254335258,
+      "ci95": [
+       0.05491329479768792,
+       0.13583815028901736
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.01666666666666672,
+       0.19999999999999996
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": -0.010000000000000009,
+      "ci95": [
+       -0.030000000000000027,
+       0.010000000000000009
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.11666666666666667,
+       0.11666666666666667
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.09537572254335258,
+      "ci95": [
+       0.05491329479768792,
+       0.13583815028901736
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.03980099502487566,
+       0.0050000000000000044
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.03374999999999997,
+       0.11666666666666659
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.04999999999999993,
+       0.020000000000000018
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.033333333333333326
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.04999999999999993,
+      "ci95": [
+       0.0,
+       0.11666666666666659
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.016666666666666607,
+      "ci95": [
+       -0.09999999999999998,
+       0.06666666666666665
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.016666666666666607,
+       0.13333333333333341
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": -0.037837837837837784,
+      "ci95": [
+       -0.08108108108108103,
+       0.00013513513513439633
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.08695652173913038,
+      "ci95": [
+       -0.01449275362318836,
+       0.18840579710144922
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       -0.01666666666666672,
+       0.1333333333333333
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.08333333333333337,
+       0.15000000000000002
+      ]
+     }
+    }
+   },
+   "v2_27-medgemma_brief": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.10942034716609042,
+     "ci95": [
+      0.08531937950454936,
+      0.1339349992961231
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.10277777777777786,
+     "ci95": [
+      0.08471409563478295,
+      0.1202471390943318
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.1963973222112835,
+     "ci95": [
+      -0.22305699972798518,
+      -0.16920762715217155
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.08345425910957449,
+     "ci95": [
+      0.058526365978214735,
+      0.10954160600223987
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.03166666666666673,
+      "ci95": [
+       0.008226770158588314,
+       0.05564924114671155
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.125,
+      "ci95": [
+       0.08999999999999997,
+       0.16166666666666663
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.1594202898550724,
+      "ci95": [
+       0.04347826086956519,
+       0.2753623188405797
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.032432432432432434,
+      "ci95": [
+       -0.016216216216216165,
+       0.08648648648648649
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.21387283236994215,
+      "ci95": [
+       0.16755780346820806,
+       0.26300578034682087
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.19999999999999996,
+      "ci95": [
+       0.08333333333333337,
+       0.31666666666666665
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.02499999999999991,
+       0.025000000000000022
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.08333333333333334,
+      "ci95": [
+       -0.04999999999999999,
+       0.21666666666666665
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.21387283236994215,
+      "ci95": [
+       0.16755780346820806,
+       0.26300578034682087
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.0050000000000000044,
+      "ci95": [
+       -0.03015075376884424,
+       0.02010050251256279
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.0,
+       0.15000000000000002
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.040000000000000036,
+       0.16499999999999992
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.11666666666666659,
+      "ci95": [
+       0.032916666666666684,
+       0.21666666666666667
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.11666666666666659,
+      "ci95": [
+       0.033333333333333326,
+       0.21666666666666667
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.16666666666666674,
+      "ci95": [
+       0.050000000000000044,
+       0.2833333333333333
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.08333333333333326,
+      "ci95": [
+       -0.016666666666666607,
+       0.18333333333333324
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.15000000000000002,
+      "ci95": [
+       0.016666666666666607,
+       0.2833333333333333
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.032432432432432434,
+      "ci95": [
+       -0.016216216216216165,
+       0.08648648648648649
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.1594202898550724,
+      "ci95": [
+       0.04347826086956519,
+       0.2753623188405797
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.1166666666666667,
+      "ci95": [
+       0.033333333333333326,
+       0.21666666666666667
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.15000000000000002,
+      "ci95": [
+       -0.016666666666666607,
+       0.31666666666666665
+      ]
+     }
+    }
+   },
+   "v2_27-stock27": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.041844665490446444,
+     "ci95": [
+      0.02312147272275644,
+      0.06018429353540765
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.046666666666666745,
+     "ci95": [
+      0.03257599631919783,
+      0.06011267024415739
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.05575032455949408,
+     "ci95": [
+      -0.06683141901627322,
+      -0.04435719804997722
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.050474663530079435,
+     "ci95": [
+      0.02880573501361943,
+      0.07253095641698967
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.02833333333333332,
+      "ci95": [
+       0.013136288998358055,
+       0.043771043771043794
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.036666666666666625,
+      "ci95": [
+       0.010000000000000009,
+       0.06333333333333335
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.1159420289855072,
+      "ci95": [
+       0.01449275362318836,
+       0.2318840579710144
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": -0.010810810810810811,
+      "ci95": [
+       -0.04864864864864871,
+       0.032432432432432434
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.11271676300578037,
+      "ci95": [
+       0.07514450867052014,
+       0.15317919075144504
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.016666666666666607,
+      "ci95": [
+       -0.09999999999999998,
+       0.1333333333333333
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.014999999999999902,
+      "ci95": [
+       -0.010000000000000009,
+       0.039999999999999925
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.06666666666666665,
+       0.13333333333333333
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.11271676300578037,
+      "ci95": [
+       0.07514450867052014,
+       0.15317919075144504
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.015000000000000013,
+       0.015000000000000013
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.04999999999999993,
+      "ci95": [
+       -0.01666666666666672,
+       0.1166666666666667
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.06999999999999995,
+      "ci95": [
+       0.03499999999999992,
+       0.10999999999999999
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.033333333333333326
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.04999999999999993,
+      "ci95": [
+       -0.016666666666666607,
+       0.1166666666666667
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.08333333333333337,
+       0.09999999999999998
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       0.0,
+       0.08333333333333337
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.1166666666666667,
+      "ci95": [
+       0.04999999999999993,
+       0.20000000000000007
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": -0.010810810810810811,
+      "ci95": [
+       -0.04864864864864871,
+       0.032432432432432434
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.1159420289855072,
+      "ci95": [
+       0.01449275362318836,
+       0.2318840579710144
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.06666666666666665,
+       0.06666666666666665
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.09999999999999998,
+      "ci95": [
+       0.0,
+       0.21666666666666667
+      ]
+     }
+    }
+   },
+   "r9-qwen38_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": -0.06832753926016993,
+     "ci95": [
+      -0.08946732639355608,
+      -0.046377736795692216
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": -0.032777777777777795,
+     "ci95": [
+      -0.047328849876996024,
+      -0.01720215510513111
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.0059620335347599085,
+     "ci95": [
+      -0.029341614619093345,
+      0.016229770724544384
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": -0.01276232691600874,
+     "ci95": [
+      -0.03739525075538494,
+      0.012038687321467357
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.0016666666666667052,
+      "ci95": [
+       -0.01990049751243783,
+       0.01677922846991148
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": -0.10166666666666668,
+      "ci95": [
+       -0.135,
+       -0.06999999999999995
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": -0.1159420289855072,
+      "ci95": [
+       -0.24637681159420288,
+       0.0
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.027027027027026973,
+      "ci95": [
+       -0.021621621621621623,
+       0.07567567567567568
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.01734104046242768,
+      "ci95": [
+       -0.01734104046242768,
+       0.052023121387283267
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": -0.1166666666666667,
+      "ci95": [
+       -0.25,
+       0.0
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.015000000000000013,
+      "ci95": [
+       0.0,
+       0.03499999999999992
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.2666666666666667,
+      "ci95": [
+       -0.4,
+       -0.1333333333333333
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.01734104046242768,
+      "ci95": [
+       -0.01734104046242768,
+       0.052023121387283267
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0,
+      "ci95": [
+       -0.020000000000000018,
+       0.02010050251256279
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.04999999999999993,
+      "ci95": [
+       -0.09999999999999998,
+       0.0
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.019999999999999907,
+      "ci95": [
+       -0.06999999999999995,
+       0.030000000000000027
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.08333333333333337,
+      "ci95": [
+       -0.15000000000000002,
+       -0.01666666666666672
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": -0.04999999999999993,
+      "ci95": [
+       -0.15000000000000002,
+       0.04999999999999993
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.21666666666666667,
+      "ci95": [
+       -0.31666666666666665,
+       -0.1166666666666667
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.06666666666666665,
+      "ci95": [
+       -0.15000000000000002,
+       0.0
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": -0.1499999999999999,
+      "ci95": [
+       -0.2504166666666666,
+       -0.033333333333333326
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.027027027027026973,
+      "ci95": [
+       -0.021621621621621623,
+       0.07567567567567568
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": -0.1159420289855072,
+      "ci95": [
+       -0.24637681159420288,
+       0.0
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.06666666666666676,
+       0.13333333333333341
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.15000000000000002,
+       0.04999999999999993
+      ]
+     }
+    }
+   },
+   "r9-medgemma_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.011563651880707054,
+     "ci95": [
+      -0.010786228812322432,
+      0.03540085455029914
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.040000000000000036,
+     "ci95": [
+      0.02277431897662434,
+      0.057694195176668545
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.16354703339663007,
+     "ci95": [
+      -0.19307919943931212,
+      -0.13369562639635477
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.025280849459663246,
+     "ci95": [
+      0.0014446685545498226,
+      0.0510487141287337
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": 0.015000000000000013,
+      "ci95": [
+       -0.005008347245408995,
+       0.0344304831609366
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.0033333333333332993,
+      "ci95": [
+       -0.03166666666666662,
+       0.036666666666666625
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": -0.08695652173913038,
+      "ci95": [
+       -0.2028985507246377,
+       0.02898550724637683
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.0,
+      "ci95": [
+       -0.048648648648648596,
+       0.04864864864864871
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.1936416184971098,
+      "ci95": [
+       0.1445086705202313,
+       0.24277456647398843
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.16666666666666674,
+       0.06666666666666665
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.025000000000000022,
+      "ci95": [
+       0.0050000000000000044,
+       0.04999999999999993
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.08333333333333333,
+      "ci95": [
+       -0.016666666666666677,
+       0.2
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.1936416184971098,
+      "ci95": [
+       0.1445086705202313,
+       0.24277456647398843
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0050000000000000044,
+      "ci95": [
+       -0.015075376884422065,
+       0.029850746268656695
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.1333333333333333,
+       0.050000000000000044
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": 0.015000000000000013,
+      "ci95": [
+       -0.039999999999999925,
+       0.06999999999999995
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.01666666666666672,
+      "ci95": [
+       -0.09999999999999998,
+       0.06666666666666665
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       -0.06666666666666665,
+       0.16666666666666663
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.06666666666666665,
+       0.20000000000000007
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.1333333333333333,
+       0.050000000000000044
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": -0.04999999999999993,
+      "ci95": [
+       -0.15000000000000002,
+       0.050000000000000044
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.0,
+      "ci95": [
+       -0.048648648648648596,
+       0.04864864864864871
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": -0.08695652173913038,
+      "ci95": [
+       -0.2028985507246377,
+       0.02898550724637683
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.1166666666666667,
+       0.050000000000000044
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.050000000000000044,
+      "ci95": [
+       -0.050000000000000044,
+       0.15000000000000002
+      ]
+     }
+    }
+   },
+   "r9-qwen38": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": -0.018597897265825752,
+     "ci95": [
+      -0.03843339520749073,
+      0.0012207433068232784
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": -0.0038888888888889417,
+     "ci95": [
+      -0.018344034573093426,
+      0.011602530802327267
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.010492578989235973,
+     "ci95": [
+      -0.026306784062951696,
+      0.004274171294304674
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": -0.010705503819979811,
+     "ci95": [
+      -0.033343897188360824,
+      0.013041805525508309
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.0050000000000000044,
+      "ci95": [
+       -0.018551316401446093,
+       0.008445945945945943
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": -0.023333333333333317,
+      "ci95": [
+       -0.053333333333333344,
+       0.0050000000000000044
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": -0.07246376811594202,
+      "ci95": [
+       -0.18840579710144922,
+       0.04347826086956519
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": -0.043243243243243246,
+      "ci95": [
+       -0.09189189189189195,
+       0.005405405405405461
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.0664739884393063,
+      "ci95": [
+       0.028901734104046173,
+       0.10693641618497107
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.016666666666666607,
+      "ci95": [
+       -0.0670833333333334,
+       0.10000000000000009
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.015000000000000013,
+      "ci95": [
+       0.0,
+       0.03499999999999992
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.1,
+      "ci95": [
+       -0.21666666666666665,
+       0.016666666666666663
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.0664739884393063,
+      "ci95": [
+       0.028901734104046173,
+       0.10693641618497107
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": 0.0050000000000000044,
+      "ci95": [
+       -0.01005025125628134,
+       0.02010050251256279
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       -0.050000000000000044,
+       0.08333333333333337
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.03499999999999992,
+      "ci95": [
+       -0.06999999999999995,
+       0.0
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.033333333333333326
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": -0.033333333333333326,
+      "ci95": [
+       -0.1333333333333333,
+       0.06666666666666665
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.1333333333333333,
+      "ci95": [
+       -0.23333333333333328,
+       -0.03333333333333344
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.016666666666666607,
+      "ci95": [
+       -0.08333333333333326,
+       0.033333333333333326
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.08333333333333337,
+       0.08333333333333337
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": -0.043243243243243246,
+      "ci95": [
+       -0.09189189189189195,
+       0.005405405405405461
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": -0.07246376811594202,
+      "ci95": [
+       -0.18840579710144922,
+       0.04347826086956519
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       -0.06666666666666676,
+       0.10000000000000009
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.09999999999999998,
+       0.16666666666666663
+      ]
+     }
+    }
+   },
+   "r9-stock9": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.05143112758083543,
+     "ci95": [
+      0.030843768275060763,
+      0.07104445156970209
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.05611111111111111,
+     "ci95": [
+      0.0420331709924571,
+      0.0708394826899799
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.07292396764829301,
+     "ci95": [
+      -0.08621872022382561,
+      -0.05998673776006953
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.04826078466000557,
+     "ci95": [
+      0.02516995442269894,
+      0.0719550124950581
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.0016666666666667052,
+      "ci95": [
+       -0.014827018121911006,
+       0.01157120732426022
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.053333333333333344,
+      "ci95": [
+       0.023333333333333428,
+       0.08166666666666667
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": 0.08695652173913049,
+      "ci95": [
+       -0.02898550724637683,
+       0.21739130434782605
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.048648648648648596,
+      "ci95": [
+       0.010675675675675685,
+       0.09189189189189195
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.15895953757225434,
+      "ci95": [
+       0.11560693641618491,
+       0.20231213872832365
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.033333333333333326,
+      "ci95": [
+       -0.06666666666666665,
+       0.1166666666666667
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": 0.015000000000000013,
+      "ci95": [
+       0.0,
+       0.03499999999999992
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.016666666666666663,
+      "ci95": [
+       -0.11666666666666667,
+       0.08333333333333331
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.15895953757225434,
+      "ci95": [
+       0.11560693641618491,
+       0.20231213872832365
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.0050000000000000044,
+      "ci95": [
+       -0.0201005025125629,
+       0.01005025125628145
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       0.0,
+       0.18333333333333335
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.04499999999999993,
+       0.010000000000000009
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.01666666666666672,
+       0.15000000000000002
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.06666666666666665,
+       0.06666666666666665
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.01666666666666672,
+       0.16666666666666663
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       -0.050000000000000044,
+       0.08333333333333337
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       0.0,
+       0.16666666666666674
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.048648648648648596,
+      "ci95": [
+       0.010675675675675685,
+       0.09189189189189195
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": 0.08695652173913049,
+      "ci95": [
+       -0.02898550724637683,
+       0.21739130434782605
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       0.0,
+       0.15000000000000002
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": 0.1333333333333333,
+      "ci95": [
+       0.016666666666666607,
+       0.25
+      ]
+     }
+    }
+   },
+   "stock27-qwen38_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": -0.06733507374866697,
+     "ci95": [
+      -0.08675150650434436,
+      -0.047670360784307766
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": -0.05277777777777781,
+     "ci95": [
+      -0.06715248197311256,
+      -0.038074031327895747
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": 0.014097516776613028,
+     "ci95": [
+      -0.006700745620728945,
+      0.03369903230451627
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": -0.03511575221866751,
+     "ci95": [
+      -0.05760945193567835,
+      -0.013438317955863649
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.03833333333333333,
+      "ci95": [
+       -0.059701492537313494,
+       -0.016694490818030094
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": -0.08666666666666667,
+      "ci95": [
+       -0.11666666666666659,
+       -0.05833333333333335
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": -0.07246376811594202,
+      "ci95": [
+       -0.17391304347826086,
+       0.02898550724637683
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.043243243243243246,
+      "ci95": [
+       0.0,
+       0.08648648648648649
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": -0.06647398843930641,
+      "ci95": [
+       -0.10115606936416177,
+       -0.031791907514450934
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": -0.04999999999999993,
+      "ci95": [
+       -0.15000000000000002,
+       0.04999999999999993
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": -0.02499999999999991,
+      "ci95": [
+       -0.05499999999999994,
+       0.0
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": -0.2,
+      "ci95": [
+       -0.31666666666666665,
+       -0.08333333333333334
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": -0.06647398843930641,
+      "ci95": [
+       -0.10115606936416177,
+       -0.031791907514450934
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.020000000000000018,
+      "ci95": [
+       -0.04477611940298509,
+       0.0
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.08333333333333326,
+      "ci95": [
+       -0.16666666666666663,
+       -0.01666666666666672
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.06999999999999995,
+      "ci95": [
+       -0.12012500000000009,
+       -0.015000000000000013
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.1166666666666667,
+       0.0
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": -0.016666666666666607,
+      "ci95": [
+       -0.08333333333333337,
+       0.050000000000000044
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": -0.09999999999999998,
+      "ci95": [
+       -0.19999999999999996,
+       -0.016666666666666607
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.08333333333333337,
+      "ci95": [
+       -0.16666666666666663,
+       -0.01666666666666672
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": -0.19999999999999996,
+      "ci95": [
+       -0.31666666666666665,
+       -0.09999999999999998
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.043243243243243246,
+      "ci95": [
+       0.0,
+       0.08648648648648649
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": -0.07246376811594202,
+      "ci95": [
+       -0.17391304347826086,
+       0.02898550724637683
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.06666666666666665,
+      "ci95": [
+       -0.016666666666666607,
+       0.15000000000000002
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": -0.15000000000000002,
+      "ci95": [
+       -0.2833333333333333,
+       -0.033333333333333326
+      ]
+     }
+    }
+   },
+   "stock27-medgemma_think": {
+    "macro_acc": {
+     "n": 1800,
+     "delta": 0.01255611739221002,
+     "ci95": [
+      -0.009750467317552946,
+      0.03591604559882289
+     ]
+    },
+    "micro_acc": {
+     "n": 1800,
+     "delta": 0.020000000000000018,
+     "ci95": [
+      0.0027837326257140194,
+      0.03818695459605692
+     ]
+    },
+    "brier": {
+     "n": 1800,
+     "delta": -0.14348748308525713,
+     "ci95": [
+      -0.1719235628232328,
+      -0.11593358232662909
+     ]
+    },
+    "radiology_human_macro_acc": {
+     "n": 1200,
+     "delta": 0.0029274241570044768,
+     "ci95": [
+      -0.023446258953093643,
+      0.027846565443010327
+     ]
+    },
+    "families": {
+     "report_cxr_human": {
+      "n": 600,
+      "delta": -0.021666666666666612,
+      "ci95": [
+       -0.044336798353642674,
+       0.0
+      ]
+     },
+     "medical_knowledge": {
+      "n": 600,
+      "delta": 0.018333333333333313,
+      "ci95": [
+       -0.015000000000000013,
+       0.05166666666666664
+      ]
+     },
+     "radiology_knowledge": {
+      "n": 69,
+      "delta": -0.04347826086956519,
+      "ci95": [
+       -0.17391304347826086,
+       0.07282608695651986
+      ]
+     },
+     "routing": {
+      "n": 185,
+      "delta": 0.016216216216216273,
+      "ci95": [
+       -0.02175675675675675,
+       0.05945945945945952
+      ]
+     },
+     "case_diagnosis": {
+      "n": 346,
+      "delta": 0.10982658959537572,
+      "ci95": [
+       0.06647398843930641,
+       0.1560693641618497
+      ]
+     }
+    },
+    "tasks": {
+     "mmlu_college_medicine": {
+      "n": 60,
+      "delta": 0.01666666666666672,
+      "ci95": [
+       -0.09999999999999998,
+       0.1166666666666667
+      ]
+     },
+     "iu_which": {
+      "n": 200,
+      "delta": -0.014999999999999902,
+      "ci95": [
+       -0.039999999999999925,
+       0.010000000000000009
+      ]
+     },
+     "medxpertqa": {
+      "n": 60,
+      "delta": 0.15000000000000002,
+      "ci95": [
+       0.033333333333333326,
+       0.2833333333333333
+      ]
+     },
+     "eurorad_dx": {
+      "n": 346,
+      "delta": 0.10982658959537572,
+      "ci95": [
+       0.06647398843930641,
+       0.1560693641618497
+      ]
+     },
+     "iu_finding": {
+      "n": 200,
+      "delta": -0.015000000000000013,
+      "ci95": [
+       -0.04020100502512558,
+       0.010000000000000009
+      ]
+     },
+     "mmlu_clinical_knowledge": {
+      "n": 60,
+      "delta": -0.06666666666666665,
+      "ci95": [
+       -0.16666666666666663,
+       0.01666666666666672
+      ]
+     },
+     "iu_normal": {
+      "n": 200,
+      "delta": -0.03500000000000003,
+      "ci95": [
+       -0.09000000000000008,
+       0.020000000000000018
+      ]
+     },
+     "mmlu_medical_genetics": {
+      "n": 60,
+      "delta": 0.016666666666666607,
+      "ci95": [
+       -0.06666666666666665,
+       0.09999999999999998
+      ]
+     },
+     "mmlu_professional_medicine": {
+      "n": 60,
+      "delta": 0.08333333333333337,
+      "ci95": [
+       -0.033333333333333326,
+       0.19999999999999996
+      ]
+     },
+     "medqa": {
+      "n": 60,
+      "delta": 0.18333333333333335,
+      "ci95": [
+       0.050000000000000044,
+       0.30000000000000004
+      ]
+     },
+     "mmlu_college_biology": {
+      "n": 60,
+      "delta": -0.050000000000000044,
+      "ci95": [
+       -0.1333333333333333,
+       0.033333333333333326
+      ]
+     },
+     "mmlu_anatomy": {
+      "n": 60,
+      "delta": -0.09999999999999998,
+      "ci95": [
+       -0.20000000000000007,
+       -0.016666666666666607
+      ]
+     },
+     "eurorad_route": {
+      "n": 185,
+      "delta": 0.016216216216216273,
+      "ci95": [
+       -0.02175675675675675,
+       0.05945945945945952
+      ]
+     },
+     "medmcqa_rad": {
+      "n": 69,
+      "delta": -0.04347826086956519,
+      "ci95": [
+       -0.17391304347826086,
+       0.07282608695651986
+      ]
+     },
+     "pubmedqa": {
+      "n": 60,
+      "delta": 0.0,
+      "ci95": [
+       -0.08333333333333337,
+       0.08333333333333337
+      ]
+     },
+     "medmcqa_med": {
+      "n": 60,
+      "delta": -0.04999999999999993,
+      "ci95": [
+       -0.18333333333333335,
+       0.06666666666666676
+      ]
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,801 @@
+key,value,source,field,note
+train_records,"67,164",handoff/tables/data_counts.csv,sum of records where split == train,"training records, all sources"
+test_questions,"26,719",results/final_test/comparisons.json,models.v2_27.overall.n,held-out test questions
+hk_questions,"18,744",results/final_test/comparisons.json,models.v2_27.subsets.human_keys.n,"test questions with human answer keys (IU, Eurorad, exam boards)"
+n_generalist,eight,results/final_test/comparisons.json,"models: stock27, stock9, kev4, kev08, laya, laya_typed, gliner_decide, julia1",released general-purpose decision models
+n_other_generalist,seven,results/final_test/comparisons.json,"models: stock9, kev4, kev08, laya, laya_typed, gliner_decide, julia1",decision models other than Kev-27B
+params_min,0.14B,handoff/tables/landscape_test.csv,"min Params where Kind starts 'decision, generalist'",smallest general-purpose decision model
+params_max,27B,handoff/tables/landscape_test.csv,"max Params where Kind starts 'decision, generalist'",largest general-purpose decision model
+n_tasks,29,results/final_test/comparisons.json,len(models.v2_27.tasks),test tasks; macro accuracy is their unweighted mean
+d_macro,6.8,results/final_test/comparisons.json,vs_reference.v2_27.overall_macro_acc,"RadKev-27B minus Kev-27B, macro accuracy (pp)"
+d_macro_ci,5.8 to 7.7,results/final_test/comparisons.json,vs_reference.v2_27.overall_macro_acc ci95,"95% CI, paired cluster bootstrap"
+d_macro_hk,3.8,results/final_test/comparisons.json,vs_reference.v2_27.subsets.human_keys.macro_acc,"same, human-key tasks only (pp)"
+d_macro_hk_ci,2.8 to 4.7,results/final_test/comparisons.json,vs_reference.v2_27.subsets.human_keys.macro_acc ci95,"95% CI, paired cluster bootstrap"
+dx_kev27,82.7,results/final_test/comparisons.json,models.stock27.families.case_diagnosis.acc,"Kev-27B, Eurorad diagnosis (%)"
+dx_rk27,93.9,results/final_test/comparisons.json,models.v2_27.families.case_diagnosis.acc,"RadKev-27B, Eurorad diagnosis (%)"
+dx_n,346,results/final_test/comparisons.json,models.v2_27.families.case_diagnosis.n,Eurorad diagnosis questions (one per case)
+hk_acc_v2_27,82.4,results/final_test/comparisons.json,models.v2_27.subsets.human_keys.acc,"v2_27, human-key accuracy (%)"
+hk_acc_stock27,78.2,results/final_test/comparisons.json,models.stock27.subsets.human_keys.acc,"stock27, human-key accuracy (%)"
+hk_acc_qwen38,80.3,results/final_test/comparisons.json,models.qwen38.subsets.human_keys.acc,"qwen38, human-key accuracy (%)"
+hk_acc_medgemma_brief,74.1,results/final_test/comparisons.json,models.medgemma_brief.subsets.human_keys.acc,"medgemma_brief, human-key accuracy (%)"
+hk_acc_r9,79.3,results/final_test/comparisons.json,models.r9.subsets.human_keys.acc,"r9, human-key accuracy (%)"
+hk_acc_stock9,75.6,results/final_test/comparisons.json,models.stock9.subsets.human_keys.acc,"stock9, human-key accuracy (%)"
+d_hk_kev27_qwen,−2.1,results/final_test/comparisons.json,-vs_reference.qwen38.subsets.human_keys.micro_acc,"Kev-27B minus Qwen3.8-27B, human-key accuracy (pp)"
+d_hk_kev27_qwen_ci,−2.5 to −1.6,results/final_test/comparisons.json,-vs_reference.qwen38.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_rk27_qwen,2.2,results/final_test/comparisons.json,-vs.v2_27.qwen38.subsets.human_keys.micro_acc,"RadKev-27B minus Qwen3.8-27B, human-key accuracy (pp)"
+d_hk_rk27_qwen_ci,1.7 to 2.6,results/final_test/comparisons.json,-vs.v2_27.qwen38.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_rk27_mg,8.3,results/final_test/comparisons.json,-vs.v2_27.medgemma_brief.subsets.human_keys.micro_acc,"RadKev-27B minus MedGemma-27B-text (corrected scoring), human-key accuracy (pp)"
+d_hk_rk27_mg_ci,7.8 to 8.9,results/final_test/comparisons.json,-vs.v2_27.medgemma_brief.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_spec27,4.2,results/final_test/comparisons.json,vs_reference.v2_27.subsets.human_keys.micro_acc,"RadKev-27B minus Kev-27B, human-key accuracy (pp)"
+d_hk_spec27_ci,3.8 to 4.6,results/final_test/comparisons.json,vs_reference.v2_27.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_spec9,3.7,results/final_test/comparisons.json,-vs.r9.stock9.subsets.human_keys.micro_acc,"RadKev-9B minus Kev-9B, human-key accuracy (pp)"
+d_hk_spec9_ci,3.2 to 4.1,results/final_test/comparisons.json,-vs.r9.stock9.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_scale,2.6,results/final_test/comparisons.json,-vs_reference.stock9.subsets.human_keys.micro_acc,"Kev-27B minus Kev-9B, human-key accuracy (pp)"
+d_hk_scale_ci,2.1 to 3.1,results/final_test/comparisons.json,-vs_reference.stock9.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_rhk_r9_kev27,2.0,results/final_test/comparisons.json,-vs.r9.stock27.subsets.radiology_human_keys.micro_acc,"RadKev-9B minus Kev-27B, radiology human-key accuracy (pp)"
+d_rhk_r9_kev27_ci,1.6 to 2.5,results/final_test/comparisons.json,-vs.r9.stock27.subsets.radiology_human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_dx_r9_kev27,8.4,results/final_test/comparisons.json,-vs.r9.stock27.families.case_diagnosis.acc,"RadKev-9B minus Kev-27B, Eurorad diagnosis (pp)"
+d_dx_r9_kev27_ci,4.3 to 12.1,results/final_test/comparisons.json,-vs.r9.stock27.families.case_diagnosis.acc ci95,"95% CI, paired cluster bootstrap"
+d_hk_init,2.3,results/final_test/comparisons.json,-vs.r9.b9.subsets.human_keys.micro_acc,"Kev-init minus base-init, human-key accuracy (pp)"
+d_hk_init_ci,1.9 to 2.8,results/final_test/comparisons.json,-vs.r9.b9.subsets.human_keys.micro_acc ci95,"95% CI, paired cluster bootstrap"
+d_tr_init,8.2,results/transfer_paired/transfer_paired.json,pairs.r9-b9.acc_micro.delta,"Kev-init minus base-init, Kev transfer suite (pp)"
+d_tr_init_ci,5.0 to 11.1,results/transfer_paired/transfer_paired.json,pairs.r9-b9.acc_micro.ci95,"95% CI, Kev's paired bootstrap"
+rb_prim,6.7,results_book/numbers.json,prim_macro_overall_nodemo,difference (pp)
+rb_prim_ci,5.7 to 7.7,results_book/numbers.json,prim_macro_overall_nodemo_lo/_hi,95% CI
+rb_prim_hk,3.6,results_book/numbers.json,prim_macro_human_keys_nodemo,difference (pp)
+rb_prim_hk_ci,2.5 to 4.7,results_book/numbers.json,prim_macro_human_keys_nodemo_lo/_hi,95% CI
+rb_spec27,4.2,results_book/numbers.json,d_v2_27_stock27_human_keys,difference (pp)
+rb_spec27_ci,3.8 to 4.6,results_book/numbers.json,d_v2_27_stock27_human_keys_lo/_hi,95% CI
+rb_scale,2.6,results_book/numbers.json,d_stock27_stock9_human_keys,difference (pp)
+rb_scale_ci,2.1 to 3.1,results_book/numbers.json,d_stock27_stock9_human_keys_lo/_hi,95% CI
+rb_did,1.6,results_book/numbers.json,did_specialisation27_minus_scale_hk,difference (pp)
+rb_did_ci,0.9 to 2.3,results_book/numbers.json,did_specialisation27_minus_scale_hk_lo/_hi,95% CI
+rb_spec27_tm,3.8,results_book/numbers.json,dm_v2_27_stock27_human_keys,difference (pp)
+rb_spec27_tm_ci,2.7 to 4.8,results_book/numbers.json,dm_v2_27_stock27_human_keys_lo/_hi,95% CI
+rb_scale_tm,5.5,results_book/numbers.json,dm_stock27_stock9_human_keys,difference (pp)
+rb_scale_tm_ci,4.3 to 6.7,results_book/numbers.json,dm_stock27_stock9_human_keys_lo/_hi,95% CI
+rb_acc_stock27,78.2,results_book/numbers.json,acc_stock27_human_keys,accuracy %
+rb_acc_stock27_ci,77.7 to 78.7,results_book/numbers.json,acc_stock27_human_keys_lo/_hi,95% CI
+rb_acc_qwen38,80.3,results_book/numbers.json,acc_qwen38_human_keys,accuracy %
+rb_acc_qwen38_ci,79.8 to 80.8,results_book/numbers.json,acc_qwen38_human_keys_lo/_hi,95% CI
+rb_acc_v2_27,82.4,results_book/numbers.json,acc_v2_27_human_keys,accuracy %
+rb_acc_v2_27_ci,82.0 to 82.9,results_book/numbers.json,acc_v2_27_human_keys_lo/_hi,95% CI
+rb_acc_medgemma_brief,73.7,results_book/numbers.json,acc_medgemma_fix_human_keys,accuracy %
+rb_acc_medgemma_brief_ci,73.1 to 74.2,results_book/numbers.json,acc_medgemma_fix_human_keys_lo/_hi,95% CI
+rb_rk27_qwen,2.2,results_book/numbers.json,d_v2_27_qwen38_human_keys,difference (pp)
+rb_rk27_qwen_ci,1.7 to 2.6,results_book/numbers.json,d_v2_27_qwen38_human_keys_lo/_hi,95% CI
+rb_qwen_k27,2.1,results_book/numbers.json,d_qwen38_stock27_human_keys,difference (pp)
+rb_qwen_k27_ci,1.6 to 2.5,results_book/numbers.json,d_qwen38_stock27_human_keys_lo/_hi,95% CI
+rb_init,2.3,results_book/numbers.json,d_r9_b9_human_keys,difference (pp)
+rb_init_ci,1.9 to 2.8,results_book/numbers.json,d_r9_b9_human_keys_lo/_hi,95% CI
+rb_r9_k27,1.1,results_book/numbers.json,d_r9_stock27_human_keys,difference (pp)
+rb_r9_k27_ci,0.6 to 1.5,results_book/numbers.json,d_r9_stock27_human_keys_lo/_hi,95% CI
+rb_blind_rk27,78.0,results_book/numbers.json,blind_eurorad_dx_v2_27,"Eurorad dx accuracy, case withheld (%)"
+rb_blind_k27,47.7,results_book/numbers.json,blind_eurorad_dx_stock27,"Eurorad dx accuracy, case withheld (%)"
+f2_lat_v2_27,130,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_v2_27_p95,322,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_stock27,132,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_stock27_p95,324,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_r9,44,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_r9_p95,94,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_stock9,44,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_stock9_p95,96,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_qwen38,163,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_qwen38_p95,375,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_medgemma_brief,153,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.median,median latency per question (ms)
+f2_lat_medgemma_brief_p95,383,artifacts/latency/artifacts/latency_bench.json + artifacts/latency_9b/artifacts/latency_9b.json,per_question_ms.p95,95th percentile (ms)
+f2_lat_records,150,artifacts/latency/artifacts/latency_bench.json,sample.records,records timed
+f2_lat_warmup,5,artifacts/latency/artifacts/latency_bench.json,warmup_excluded,warm-up requests excluded
+f2_qwen_direct,252,artifacts/latency/artifacts/latency_bench.json,qwen38.direct.per_question_ms.median,generated letter (ms)
+loss_rk27_start,0.60,artifacts/figure_data/artifacts/figure_data.json,logs.v2mg-kev-27b.log mean of steps 1-200,"training loss, first 200 steps"
+loss_rk27_end,0.32,artifacts/figure_data/artifacts/figure_data.json,logs.v2mg-kev-27b.log mean of steps 8000-8521,"training loss, last 521 steps"
+loss_rk9_start,0.87,artifacts/figure_data/artifacts/figure_data.json,logs.v2x9-kev-9b.log mean of steps 1-200,"training loss, first 200 steps"
+loss_rk9_end,0.41,artifacts/figure_data/artifacts/figure_data.json,logs.v2x9-kev-9b.log mean of steps 8000-8521,"training loss, last 521 steps"
+loss_base9_start,1.01,artifacts/figure_data/artifacts/figure_data.json,logs.v2x9-base-9b.log mean of steps 1-200,"training loss, first 200 steps"
+loss_base9_end,0.48,artifacts/figure_data/artifacts/figure_data.json,logs.v2x9-base-9b.log mean of steps 8000-8521,"training loss, last 521 steps"
+dev_b27,87.0,results/train/v2mg/kev-27b_dev_stock.json,overall.acc,development accuracy (%)
+dev_a27,92.1,results/train/v2mg/kev-27b_dev_cal.json,overall.acc,development accuracy (%)
+dev_b9,83.2,results/train/v2x9/kev-9b_dev_stock.json,overall.acc,development accuracy (%)
+dev_a9,89.9,results/train/v2x9/kev-9b_dev_cal.json,overall.acc,development accuracy (%)
+tex_agreement_case,17094,artifacts/figure_data_teacher/artifacts/figure_data.json,agreed_pool[tid=32379].group,Eurorad case number shown in the teacher figure
+tex_disagreement_case,18086,artifacts/figure_data_teacher/artifacts/figure_data.json,disagreed_pool[tid=31031].group,Eurorad case number shown in the teacher figure
+train_questions,"104,708",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.train.questions (teacher: kept minus dev and test),train questions
+dev_questions,"17,847",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.dev.questions (teacher: kept minus dev and test),dev questions
+test_questions,"26,719",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.test.questions (teacher: kept minus dev and test),test questions
+dev_records,"8,553",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.dev.records,development records
+test_records,"14,379",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.test.records,test records
+teacher_cand,"33,000",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,manifest_new sum agree + disagree,candidate teacher questions
+teacher_kept,"22,607",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,manifest_new sum agree,"retained, regenerated run"
+teacher_kept_pct,68.5,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,kept / candidates,%
+teacher_kept_first,"22,557",artifacts/teacher/artifacts/teacher_manifest.json,sum agree,"retained, first run (training labels)"
+teacher_kept_first_pct,68.4,artifacts/teacher/artifacts/teacher_manifest.json,kept / candidates,%
+teacher_train_first,"19,945",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,label_changes.train.ALL.kept_old,"training questions, first run (deduplicated)"
+teacher_train_same,"18,559",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,label_changes.train.ALL.same_label,"also retained, same label"
+teacher_train_same_pct,93.1,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,same / kept_old,%
+teacher_test_v2,"1,047",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,test_split.ALL,regenerated teacher-labeled test questions
+agree_min,22.8,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,agreement.contrast,lowest agreement (%)
+agree_max,87.2,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,agreement.finding_status,highest agreement (%)
+teacher_per_source,"1,500",constants.json,teacher_job --per-source,reports and indications per source
+iu_vocab,14,radkev/data.py,len(IU_VOCAB),IU findings
+n_sections,11,radkev/data.py,len(SECTIONS),Eurorad subspecialty sections
+medmcqa_cap,"2,500",radkev/data.py,MEDMCQA_CAP,MedMCQA training questions per subject
+ctrate_cap,"8,000",constants.json,--cap ctrate,CT-RATE training records
+n_hk_tasks,16,results/final_test/comparisons.json,tasks not ctrate_/teacher_,human-key tasks
+n_machine_tasks,13,results/final_test/comparisons.json,ctrate_ and teacher_ tasks,machine-label tasks
+machine_questions,"7,975",results/final_test/comparisons.json,overall.n minus human_keys.n,machine-label test questions
+rhk_questions,"9,818",results/final_test/comparisons.json,subsets.radiology_human_keys.n,radiology human-key questions
+lora_rank,16,results/train/v2mg/kev-27b_training_config.json,args.lora,RadKev-27B training argument
+head_dim,256,results/train/v2mg/kev-27b_training_config.json,args.head_dim,RadKev-27B training argument
+accum,8,results/train/v2mg/kev-27b_training_config.json,args.accum,RadKev-27B training argument
+replay,"1,000",results/train/v2mg/kev-27b_training_config.json,args.replay,RadKev-27B training argument
+max_state,"1,536",results/train/v2mg/kev-27b_training_config.json,args.max_state,RadKev-27B training argument
+weight_decay,0.01,results/train/v2mg/kev-27b_training_config.json,args.weight_decay,RadKev-27B training argument
+p_none,0.10,results/train/v2mg/kev-27b_training_config.json,args.p_none,RadKev-27B training argument
+p_none_distract,0.12,results/train/v2mg/kev-27b_training_config.json,args.p_none_distract,RadKev-27B training argument
+p_distract,0.15,results/train/v2mg/kev-27b_training_config.json,args.p_distract,RadKev-27B training argument
+p_none_pair,0.25,results/train/v2mg/kev-27b_training_config.json,args.p_none_pair,RadKev-27B training argument
+lr_27,$3\times10^{-5}$,results/train/v2mg/kev-27b_training_config.json,args.lr,RadKev-27B training argument
+lr_9,$2\times10^{-5}$,results/train/v2x9/kev-9b_training_config.json,args.lr,RadKev-9B learning rate
+lr_base,$2\times10^{-4}$,results/train/v2x9/base-9b_training_config.json,args.lr,base-init learning rate
+requested_records,"68,164",results/train/v2mg/kev-27b_training_metrics.json,requested_records,training records incl. replay
+examples_seen,"93,512",results/train/v2mg/kev-27b_training_metrics.json,records_seen,examples incl. augmentation pairs
+steps_27,"8,521",results/train/v2mg/kev-27b_training_metrics.json,optimizer_steps,RadKev-27B steps
+hours_27,25.7,results/train/v2mg/kev-27b_training_metrics.json,wall_seconds/3600,h
+hours_9,10.9,results/train/v2x9/kev-9b_training_metrics.json,wall_seconds/3600,h
+peak_27,33.1,results/train/v2mg/kev-27b_training_metrics.json,peak_device_bytes/2^30,GiB per GPU
+peak_9,40.3,results/train/v2x9/kev-9b_training_metrics.json,peak_device_bytes/2^30,GiB
+T_27,1.26,results/train/v2mg/kev-27b_dev_cal.json,temperature,fitted temperature
+T_9,1.23,results/train/v2x9/kev-9b_dev_cal.json,temperature,fitted temperature
+f10_records,"6,716",results/train/v2x9f10/kev-9b_training_metrics.json,requested_records - replay,10% sample
+f10_steps,965,results/train/v2x9f10/kev-9b_training_metrics.json,optimizer_steps,10% run steps
+rev_kev27,01b8199,results/train/v2mg/kev-27b_training_config.json,init_source.resolved,Kev-27B revision
+rev_kev9,2629c06,results/train/v2x9/kev-9b_training_config.json,init_source.resolved,Kev-9B revision
+rev_qwen27,1d4bf0f,results/train/v2mg/kev-27b_training_config.json,base_revision,Qwen3.8-27B revision
+rev_qwen9,68c46c4,results/train/v2x9/kev-9b_training_config.json,base_revision,Qwen3.5-9B-Base revision
+kev_commit,f2bb629,environment/setup.json,steps.kev_env.commit,Kev commit
+ver_torch,2.8.0,environment/setup.json,steps.kev_env.torch,library version
+ver_cuda,12.8,environment/setup.json,steps.kev_env.cuda,library version
+ver_transformers,5.17.0,environment/setup.json,steps.kev_env.transformers,library version
+ver_peft,0.21.0,environment/setup.json,steps.kev_env.peft,library version
+ver_fla,0.5.2,environment/setup.json,steps.kev_env.fla,library version
+ver_cc1d,1.7.0,results/train/v2mg/train.json,steps.prepare.causal_conv1d,library version
+parity_q,74,artifacts/bakeoff/artifacts/bakeoff.json,steps.parity.questions,questions in the split-GPU parity check
+sel_tasks,16,results/train/v2mg/kev-27b_dev_cal.json + results/train/v1med/kev-27b_dev_cal.json,shared tasks,tasks in the selection rule
+sel_primary,86.71,results/train/v2mg/kev-27b_dev_cal.json,mean acc over shared tasks,%
+sel_ablation,86.74,results/train/v1med/kev-27b_dev_cal.json,mean acc over shared tasks,%
+sel_diff,−0.03,results/train/v2mg/kev-27b_dev_cal.json + results/train/v1med/kev-27b_dev_cal.json,primary minus ablation,pp
+transfer_n,656,results/transfer_paired/transfer_paired.json,models.stock9.n,transfer-suite questions
+n_boot,"2,000",artifacts/robustness/artifacts/robustness.json,B,"shared bootstrap resamples (records, stratified by source)"
+n_boot_cal,800,constants.json,NB,resamples for paired calibration differences
+demo_records,424,artifacts/robustness/artifacts/robustness.json,demo420.records_matched,test records matched to the demonstration sample
+demo_questions,594,artifacts/robustness/artifacts/robustness.json,demo420.questions_matched,their questions
+reason_iu_cap,200,artifacts/llm_reasoning/artifacts/llm_reasoning.json,sample.tasks.iu_*.sampled,IU questions per task
+reason_cap,60,artifacts/llm_reasoning/artifacts/llm_reasoning.json,cfg.cap,questions per other human-key task
+reason_think_cap,"4,096",artifacts/llm_reasoning/artifacts/llm_reasoning.json,cfg.think_cap,maximum reasoning tokens
+reason_q,"1,800",artifacts/llm_reasoning/artifacts/llm_reasoning.json,sample.questions,reasoning sample size
+reason_records,"1,569",artifacts/llm_reasoning/artifacts/llm_reasoning.json,sample.records,reasoning sample records
+ver_vllm,0.19,constants.json,docstring,vLLM version
+lat_records,150,artifacts/latency/artifacts/latency_bench.json,sample.records,latency sample records
+lat_q,293,artifacts/latency/artifacts/latency_bench.json,sample.questions,latency sample questions
+lat_warmup,5,artifacts/latency/artifacts/latency_bench.json,warmup_excluded,warm-up requests excluded
+playground_n,420,results/playground/playground_00.json,meta.n,test records scored early for a demonstration
+playground_pct,2.9,results/playground/playground_00.json,meta.n / test records,%
+grid_points,121,kev/metrics.py @ f2bb629,TEMPERATURE_FIT points,temperature grid
+as_n_dx,346,results/final_test/comparisons.json,families.case_diagnosis.n,Eurorad diagnosis test questions
+as_n_medqa,200,constants.json,CFG.medqa_n,MedQA sample
+as_n_alt,15,constants.json,CFG.n_alt,LLM distractors requested
+as_dup,0.95,constants.json,CFG.sim_dup,near-duplicate cosine
+as_sizes,"2, 4, 8, 16, 32 or 64",constants.json,CFG.sizes,answer-space sizes
+as_llm_sizes,"2, 4, 8 or 16",constants.json,CFG.llm_sizes,LLM answer-space sizes
+as_add,8,constants.json,CFG.add,LLM distractors added to the original options
+as_lat_sizes,"2, 4, 8, 16, 32, 64 or 128",constants.json,CFG.lat_sizes,latency sizes
+as_lat_cases,60,constants.json,CFG.lat_cases,latency cases
+as_lat_warmup,10,constants.json,CFG.lat_warmup,warm-up requests excluded
+tagree_rk27,94.2,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev27.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_k27,82.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.kev27.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_rk9,92.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev9.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_k9,80.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.kev9.overall.acc,agreement with regenerated teacher test labels (%)
+as_q,546,artifacts/answer_space2/artifacts/answer_space2.json,rids,questions in the answer-space study
+as_rk27_dx_orig,93.9,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.orig[eurorad_dx],accuracy %
+as_rk27_dx_orig_ci,91.3 to 96.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_orig_llm,88.2,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.orig_llm[eurorad_dx],accuracy %
+as_rk27_dx_orig_llm_ci,84.7 to 91.3,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_rand2,100.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.rand_2[eurorad_dx],accuracy %
+as_rk27_dx_rand2_ci,100.0 to 100.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_rand64,94.8,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.rand_64[eurorad_dx],accuracy %
+as_rk27_dx_rand64_ci,92.5 to 96.8,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_sim2,88.4,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_2[eurorad_dx],accuracy %
+as_rk27_dx_sim2_ci,85.0 to 91.6,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_sim8,76.3,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_8[eurorad_dx],accuracy %
+as_rk27_dx_sim8_ci,71.7 to 80.6,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_sim16,72.8,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_16[eurorad_dx],accuracy %
+as_rk27_dx_sim16_ci,68.2 to 77.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_sim64,68.2,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_64[eurorad_dx],accuracy %
+as_rk27_dx_sim64_ci,63.3 to 73.1,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_llm2,95.7,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.llm_2[eurorad_dx],accuracy %
+as_rk27_dx_llm2_ci,93.4 to 97.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_dx_llm16,90.6,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.llm_16[eurorad_dx],accuracy %
+as_rk27_dx_llm16_ci,86.7 to 94.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_orig,89.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.orig[medqa],accuracy %
+as_rk27_mq_orig_ci,85.0 to 93.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_orig_llm,63.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.orig_llm[medqa],accuracy %
+as_rk27_mq_orig_llm_ci,56.0 to 69.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_rand2,97.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.rand_2[medqa],accuracy %
+as_rk27_mq_rand2_ci,95.0 to 99.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_rand64,92.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.rand_64[medqa],accuracy %
+as_rk27_mq_rand64_ci,88.0 to 95.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_sim2,85.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_2[medqa],accuracy %
+as_rk27_mq_sim2_ci,80.5 to 90.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_sim8,66.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_8[medqa],accuracy %
+as_rk27_mq_sim8_ci,59.0 to 72.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_sim16,55.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_16[medqa],accuracy %
+as_rk27_mq_sim16_ci,48.5 to 62.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_sim64,49.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.sim_64[medqa],accuracy %
+as_rk27_mq_sim64_ci,42.0 to 56.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_llm2,84.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.llm_2[medqa],accuracy %
+as_rk27_mq_llm2_ci,79.5 to 89.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk27_mq_llm16,63.2,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev27.correct.llm_16[medqa],accuracy %
+as_rk27_mq_llm16_ci,54.9 to 71.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_orig,82.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.orig[eurorad_dx],accuracy %
+as_k27_dx_orig_ci,78.6 to 86.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_orig_llm,75.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.orig_llm[eurorad_dx],accuracy %
+as_k27_dx_orig_llm_ci,71.1 to 80.1,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_rand2,99.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.rand_2[eurorad_dx],accuracy %
+as_k27_dx_rand2_ci,99.1 to 100.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_rand64,94.2,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.rand_64[eurorad_dx],accuracy %
+as_k27_dx_rand64_ci,91.6 to 96.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_sim2,86.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_2[eurorad_dx],accuracy %
+as_k27_dx_sim2_ci,82.9 to 89.9,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_sim8,70.8,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_8[eurorad_dx],accuracy %
+as_k27_dx_sim8_ci,65.9 to 75.4,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_sim16,68.8,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_16[eurorad_dx],accuracy %
+as_k27_dx_sim16_ci,63.9 to 73.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_sim64,64.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_64[eurorad_dx],accuracy %
+as_k27_dx_sim64_ci,59.8 to 69.9,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_llm2,88.4,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.llm_2[eurorad_dx],accuracy %
+as_k27_dx_llm2_ci,84.7 to 91.6,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_dx_llm16,78.8,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.llm_16[eurorad_dx],accuracy %
+as_k27_dx_llm16_ci,74.1 to 83.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_orig,90.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.orig[medqa],accuracy %
+as_k27_mq_orig_ci,85.5 to 94.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_orig_llm,66.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.orig_llm[medqa],accuracy %
+as_k27_mq_orig_llm_ci,60.0 to 73.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_rand2,98.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.rand_2[medqa],accuracy %
+as_k27_mq_rand2_ci,96.0 to 99.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_rand64,90.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.rand_64[medqa],accuracy %
+as_k27_mq_rand64_ci,85.5 to 94.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_sim2,80.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_2[medqa],accuracy %
+as_k27_mq_sim2_ci,74.0 to 85.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_sim8,62.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_8[medqa],accuracy %
+as_k27_mq_sim8_ci,55.0 to 68.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_sim16,60.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_16[medqa],accuracy %
+as_k27_mq_sim16_ci,54.0 to 67.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_sim64,48.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.sim_64[medqa],accuracy %
+as_k27_mq_sim64_ci,41.5 to 55.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_llm2,82.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.llm_2[medqa],accuracy %
+as_k27_mq_llm2_ci,76.5 to 87.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k27_mq_llm16,59.7,artifacts/answer_space2/artifacts/answer_space2.json,models.kev27.correct.llm_16[medqa],accuracy %
+as_k27_mq_llm16_ci,51.4 to 68.1,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_orig,91.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.orig[eurorad_dx],accuracy %
+as_rk9_dx_orig_ci,87.9 to 93.9,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_orig_llm,83.2,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.orig_llm[eurorad_dx],accuracy %
+as_rk9_dx_orig_llm_ci,79.2 to 87.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_rand2,99.1,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.rand_2[eurorad_dx],accuracy %
+as_rk9_dx_rand2_ci,98.0 to 100.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_rand64,91.3,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.rand_64[eurorad_dx],accuracy %
+as_rk9_dx_rand64_ci,88.2 to 94.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_sim2,82.9,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_2[eurorad_dx],accuracy %
+as_rk9_dx_sim2_ci,78.6 to 86.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_sim8,74.9,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_8[eurorad_dx],accuracy %
+as_rk9_dx_sim8_ci,70.2 to 79.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_sim16,69.4,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_16[eurorad_dx],accuracy %
+as_rk9_dx_sim16_ci,64.5 to 74.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_sim64,64.7,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_64[eurorad_dx],accuracy %
+as_rk9_dx_sim64_ci,59.5 to 69.9,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_llm2,94.2,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.llm_2[eurorad_dx],accuracy %
+as_rk9_dx_llm2_ci,91.6 to 96.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_dx_llm16,82.4,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.llm_16[eurorad_dx],accuracy %
+as_rk9_dx_llm16_ci,78.0 to 86.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_orig,82.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.orig[medqa],accuracy %
+as_rk9_mq_orig_ci,77.0 to 87.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_orig_llm,54.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.orig_llm[medqa],accuracy %
+as_rk9_mq_orig_llm_ci,47.5 to 62.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_rand2,95.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.rand_2[medqa],accuracy %
+as_rk9_mq_rand2_ci,92.0 to 98.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_rand64,83.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.rand_64[medqa],accuracy %
+as_rk9_mq_rand64_ci,78.5 to 88.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_sim2,78.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_2[medqa],accuracy %
+as_rk9_mq_sim2_ci,73.0 to 84.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_sim8,57.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_8[medqa],accuracy %
+as_rk9_mq_sim8_ci,50.5 to 64.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_sim16,53.5,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_16[medqa],accuracy %
+as_rk9_mq_sim16_ci,46.5 to 60.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_sim64,42.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.sim_64[medqa],accuracy %
+as_rk9_mq_sim64_ci,35.5 to 49.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_llm2,77.0,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.llm_2[medqa],accuracy %
+as_rk9_mq_llm2_ci,71.0 to 83.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_rk9_mq_llm16,52.1,artifacts/answer_space2/artifacts/answer_space2.json,models.radkev9.correct.llm_16[medqa],accuracy %
+as_rk9_mq_llm16_ci,43.8 to 60.4,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_orig,74.9,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.orig[eurorad_dx],accuracy %
+as_k9_dx_orig_ci,70.2 to 79.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_orig_llm,62.4,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.orig_llm[eurorad_dx],accuracy %
+as_k9_dx_orig_llm_ci,57.5 to 67.6,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_rand2,99.4,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.rand_2[eurorad_dx],accuracy %
+as_k9_dx_rand2_ci,98.6 to 100.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_rand64,89.6,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.rand_64[eurorad_dx],accuracy %
+as_k9_dx_rand64_ci,86.4 to 92.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_sim2,79.2,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_2[eurorad_dx],accuracy %
+as_k9_dx_sim2_ci,74.9 to 83.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_sim8,66.2,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_8[eurorad_dx],accuracy %
+as_k9_dx_sim8_ci,61.0 to 71.1,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_sim16,58.1,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_16[eurorad_dx],accuracy %
+as_k9_dx_sim16_ci,53.2 to 63.3,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_sim64,53.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_64[eurorad_dx],accuracy %
+as_k9_dx_sim64_ci,48.0 to 58.7,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_llm2,82.4,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.llm_2[eurorad_dx],accuracy %
+as_k9_dx_llm2_ci,78.0 to 86.4,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_dx_llm16,70.1,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.llm_16[eurorad_dx],accuracy %
+as_k9_dx_llm16_ci,64.4 to 75.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_orig,77.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.orig[medqa],accuracy %
+as_k9_mq_orig_ci,71.5 to 83.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_orig_llm,49.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.orig_llm[medqa],accuracy %
+as_k9_mq_orig_llm_ci,43.0 to 56.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_rand2,99.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.rand_2[medqa],accuracy %
+as_k9_mq_rand2_ci,98.5 to 100.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_rand64,84.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.rand_64[medqa],accuracy %
+as_k9_mq_rand64_ci,79.5 to 89.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_sim2,79.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_2[medqa],accuracy %
+as_k9_mq_sim2_ci,74.0 to 85.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_sim8,58.0,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_8[medqa],accuracy %
+as_k9_mq_sim8_ci,51.5 to 64.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_sim16,48.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_16[medqa],accuracy %
+as_k9_mq_sim16_ci,42.0 to 55.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_sim64,36.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.sim_64[medqa],accuracy %
+as_k9_mq_sim64_ci,30.0 to 43.5,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_llm2,75.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.llm_2[medqa],accuracy %
+as_k9_mq_llm2_ci,69.0 to 81.0,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_k9_mq_llm16,46.5,artifacts/answer_space2/artifacts/answer_space2.json,models.kev9.correct.llm_16[medqa],accuracy %
+as_k9_mq_llm16_ci,38.9 to 54.2,artifacts/answer_space2/artifacts/answer_space2.json,bootstrap,"95% CI, bootstrap over questions"
+as_spec27_dx_orig,11.3,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/orig/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, orig (pp)"
+as_spec27_dx_orig_ci,7.5 to 15.3,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_orig_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_llm8,7.8,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_8/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, llm_8 (pp)"
+as_spec27_dx_llm8_ci,4.3 to 11.6,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_llm8_n,345,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_llm16,11.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_16/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, llm_16 (pp)"
+as_spec27_dx_llm16_ci,7.6 to 16.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_llm16_n,278,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_origllm,12.4,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/orig_llm/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, orig_llm (pp)"
+as_spec27_dx_origllm_ci,8.4 to 17.1,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_origllm_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_sim8,5.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/sim_8/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, sim_8 (pp)"
+as_spec27_dx_sim8_ci,1.2 to 10.1,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_sim8_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_rand64,0.6,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/rand_64/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, rand_64 (pp)"
+as_spec27_dx_rand64_ci,−1.4 to 2.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_rand64_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_dx_rand2,0.3,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/rand_2/radkev27/kev27,"RadKev-27B minus Kev-27B, Eurorad, rand_2 (pp)"
+as_spec27_dx_rand2_ci,0.0 to 0.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_dx_rand2_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec9_dx_orig,16.2,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/orig/radkev9/kev9,"RadKev-9B minus Kev-9B, Eurorad, orig (pp)"
+as_spec9_dx_orig_ci,12.1 to 20.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec9_dx_orig_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec9_dx_llm8,17.1,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_8/radkev9/kev9,"RadKev-9B minus Kev-9B, Eurorad, llm_8 (pp)"
+as_spec9_dx_llm8_ci,12.8 to 21.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec9_dx_llm8_n,345,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec9_dx_rand64,1.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/rand_64/radkev9/kev9,"RadKev-9B minus Kev-9B, Eurorad, rand_64 (pp)"
+as_spec9_dx_rand64_ci,−1.2 to 4.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec9_dx_rand64_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec9_dx_sim8,8.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/sim_8/radkev9/kev9,"RadKev-9B minus Kev-9B, Eurorad, sim_8 (pp)"
+as_spec9_dx_sim8_ci,3.2 to 14.2,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec9_dx_sim8_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_mq_orig,−0.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/orig/radkev27/kev27,"RadKev-27B minus Kev-27B, MedQA, orig (pp)"
+as_spec27_mq_orig_ci,−3.5 to 3.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_mq_orig_n,200,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_mq_origllm,−3.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/orig_llm/radkev27/kev27,"RadKev-27B minus Kev-27B, MedQA, orig_llm (pp)"
+as_spec27_mq_origllm_ci,−8.0 to 1.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_mq_origllm_n,200,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_spec27_mq_llm8,0.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/llm_8/radkev27/kev27,"RadKev-27B minus Kev-27B, MedQA, llm_8 (pp)"
+as_spec27_mq_llm8_ci,−5.2 to 4.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_spec27_mq_llm8_n,192,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_add_rk27_dx,−5.8,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/orig_llm-orig/radkev27,"radkev27: original + LLM distractors minus original, eurorad_dx (pp)"
+as_add_rk27_dx_ci,−9.0 to −3.2,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_add_rk27_dx_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_llmrand_rk27_dx,−6.4,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_8-rand_8/radkev27,"radkev27: LLM minus random pool at K=8, eurorad_dx (pp)"
+as_llmrand_rk27_dx_ci,−9.3 to −3.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_llmrand_rk27_dx_n,345,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_add_rk27_mq,−26.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/orig_llm-orig/radkev27,"radkev27: original + LLM distractors minus original, medqa (pp)"
+as_add_rk27_mq_ci,−33.0 to −20.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_add_rk27_mq_n,200,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_llmrand_rk27_mq,−29.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/llm_8-rand_8/radkev27,"radkev27: LLM minus random pool at K=8, medqa (pp)"
+as_llmrand_rk27_mq_ci,−36.5 to −23.4,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_llmrand_rk27_mq_n,192,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_add_k27_dx,−6.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/orig_llm-orig/kev27,"kev27: original + LLM distractors minus original, eurorad_dx (pp)"
+as_add_k27_dx_ci,−10.4 to −3.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_add_k27_dx_n,346,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_llmrand_k27_dx,−15.1,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_8-rand_8/kev27,"kev27: LLM minus random pool at K=8, eurorad_dx (pp)"
+as_llmrand_k27_dx_ci,−19.1 to −11.3,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_llmrand_k27_dx_n,345,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_add_k27_mq,−23.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/orig_llm-orig/kev27,"kev27: original + LLM distractors minus original, medqa (pp)"
+as_add_k27_mq_ci,−30.0 to −16.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_add_k27_mq_n,200,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_llmrand_k27_mq,−29.7,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap medqa/llm_8-rand_8/kev27,"kev27: LLM minus random pool at K=8, medqa (pp)"
+as_llmrand_k27_mq_ci,−36.5 to −22.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_llmrand_k27_mq_n,192,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_llmsim_rk27_dx,15.4,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap eurorad_dx/llm_8-sim_8/radkev27,"RadKev-27B: LLM minus similar pool at K=8, Eurorad (pp)"
+as_llmsim_rk27_dx_ci,10.4 to 20.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_llmsim_rk27_dx_n,345,artifacts/answer_space2/artifacts/answer_space2.json,n,paired questions
+as_drop_rk27_dx,5.8,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,accuracy reduction from adding LLM distractors (pp)
+as_drop_rk27_dx_ci,3.2 to 9.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_drop_rk27_mq,26.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,accuracy reduction from adding LLM distractors (pp)
+as_drop_rk27_mq_ci,20.0 to 33.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_drop_k27_dx,6.9,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,accuracy reduction from adding LLM distractors (pp)
+as_drop_k27_dx_ci,3.5 to 10.4,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_drop_k27_mq,23.5,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,accuracy reduction from adding LLM distractors (pp)
+as_drop_k27_mq_ci,16.5 to 30.0,artifacts/answer_space2/artifacts/answer_space2.json,paired bootstrap,95% CI
+as_cos_orig,0.37,artifacts/answer_space2/artifacts/answer_space2.json,dcos.orig,mean cosine of distractors to the key
+as_cos_rand8,0.11,artifacts/answer_space2/artifacts/answer_space2.json,dcos.rand_8,mean cosine of distractors to the key
+as_cos_sim8,0.66,artifacts/answer_space2/artifacts/answer_space2.json,dcos.sim_8,mean cosine of distractors to the key
+as_cos_llm8,0.38,artifacts/answer_space2/artifacts/answer_space2.json,dcos.llm_8,mean cosine of distractors to the key
+as_gen_full,422,artifacts/answer_space2/artifacts/answer_space2.json,gen.kept,questions with 15 usable LLM distractors
+as_gen_med,15,artifacts/answer_space2/artifacts/answer_space2.json,gen.kept,median usable LLM distractors per question
+as_gen_dropkey,85,artifacts/answer_space2/artifacts/answer_space2.json,gen.dup_key,LLM candidates dropped as near-duplicates of the key
+as_n_llm8,537,artifacts/answer_space2/artifacts/answer_space2.json,K.llm_8,questions with this answer space
+as_n_llm16,422,artifacts/answer_space2/artifacts/answer_space2.json,K.llm_16,questions with this answer space
+as_lat_rk27_2,251,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev27,"median ms, K=2"
+as_lat_rk27_16,350,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev27,"median ms, K=16"
+as_lat_rk27_64,859,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev27,"median ms, K=64"
+as_lat_rk27_128,1622,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev27,"median ms, K=128"
+as_lat_rk9_2,76,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev9,"median ms, K=2"
+as_lat_rk9_16,103,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev9,"median ms, K=16"
+as_lat_rk9_64,234,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev9,"median ms, K=64"
+as_lat_rk9_128,461,artifacts/answer_space2/artifacts/answer_space2.json,latency.radkev9,"median ms, K=128"
+as_lat_n,58,artifacts/answer_space2/artifacts/answer_space2.json,latency,minimum timed requests per size
+asl_q_dx_orig,84.4,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.orig[eurorad_dx],accuracy (%)
+asl_q_dx_sim2,84.1,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_2[eurorad_dx],accuracy (%)
+asl_q_dx_sim8,67.1,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_8[eurorad_dx],accuracy (%)
+asl_q_dx_sim16,68.2,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_16[eurorad_dx],accuracy (%)
+asl_q_dx_rand16,96.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.rand_16[eurorad_dx],accuracy (%)
+asl_q_dx_llm8,80.6,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.llm_8[eurorad_dx],accuracy (%)
+asl_q_mq_orig,88.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.orig[medqa],accuracy (%)
+asl_q_mq_sim2,79.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_2[medqa],accuracy (%)
+asl_q_mq_sim8,65.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_8[medqa],accuracy (%)
+asl_q_mq_sim16,64.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.sim_16[medqa],accuracy (%)
+asl_q_mq_rand16,96.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.rand_16[medqa],accuracy (%)
+asl_q_mq_llm8,66.1,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.correct.llm_8[medqa],accuracy (%)
+asl_lat_q_2,241,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.latency median K=2,ms per request
+asl_lat_q_16,299,artifacts/answer_space_llm/artifacts/answer_space_llm.json,qwen38.latency median K=16,ms per request
+asl_mg_dx_orig,71.7,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.orig[eurorad_dx],accuracy (%)
+asl_mg_dx_sim2,78.6,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_2[eurorad_dx],accuracy (%)
+asl_mg_dx_sim8,56.6,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_8[eurorad_dx],accuracy (%)
+asl_mg_dx_sim16,56.4,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_16[eurorad_dx],accuracy (%)
+asl_mg_dx_rand16,91.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.rand_16[eurorad_dx],accuracy (%)
+asl_mg_dx_llm8,67.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.llm_8[eurorad_dx],accuracy (%)
+asl_mg_mq_orig,70.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.orig[medqa],accuracy (%)
+asl_mg_mq_sim2,71.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_2[medqa],accuracy (%)
+asl_mg_mq_sim8,55.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_8[medqa],accuracy (%)
+asl_mg_mq_sim16,41.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.sim_16[medqa],accuracy (%)
+asl_mg_mq_rand16,90.5,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.rand_16[medqa],accuracy (%)
+asl_mg_mq_llm8,49.0,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.correct.llm_8[medqa],accuracy (%)
+asl_lat_mg_2,236,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.latency median K=2,ms per request
+asl_lat_mg_16,295,artifacts/answer_space_llm/artifacts/answer_space_llm.json,medgemma_fix.latency median K=16,ms per request
+asl_mg_orig_main,72.5,results_book/tables/blind.csv,eurorad_dx.medgemma_fix.full,"MedGemma Eurorad accuracy, main evaluation (%)"
+bb_layers,64,Qwen/Qwen3.8-27B config.json,text_config.num_hidden_layers,backbone layers
+bb_linear,48,Qwen/Qwen3.8-27B config.json,layer_types == linear_attention,Gated DeltaNet layers
+bb_full,16,Qwen/Qwen3.8-27B config.json,layer_types == full_attention,full-attention layers
+bb_hidden,"5,120",Qwen/Qwen3.8-27B config.json,text_config.hidden_size,hidden size
+p_all,6.7,results_book/tables/primary.csv,overall_task_mean.diff_nodemo,prespecified difference (pp)
+p_all_ci,5.7 to 7.7,results_book/tables/primary.csv,overall_task_mean.lo/hi_nodemo,95% CI
+p_all_full,6.8,results_book/tables/primary.csv,overall_task_mean.diff,full test set (pp)
+p_all_full_ci,5.8 to 7.8,results_book/tables/primary.csv,overall_task_mean.lo/hi,95% CI
+p_all_k27,83.3,results_book/tables/primary.csv,overall_task_mean.kev27,"Kev-27B, full test (%)"
+p_all_rk27,90.1,results_book/tables/primary.csv,overall_task_mean.radkev27,"RadKev-27B, full test (%)"
+p_hk,3.6,results_book/tables/primary.csv,human_keys_task_mean.diff_nodemo,prespecified difference (pp)
+p_hk_ci,2.5 to 4.7,results_book/tables/primary.csv,human_keys_task_mean.lo/hi_nodemo,95% CI
+p_hk_full,3.8,results_book/tables/primary.csv,human_keys_task_mean.diff,full test set (pp)
+p_hk_full_ci,2.7 to 4.8,results_book/tables/primary.csv,human_keys_task_mean.lo/hi,95% CI
+p_hk_k27,81.1,results_book/tables/primary.csv,human_keys_task_mean.kev27,"Kev-27B, full test (%)"
+p_hk_rk27,84.9,results_book/tables/primary.csv,human_keys_task_mean.radkev27,"RadKev-27B, full test (%)"
+p_rhk,4.7,results_book/tables/primary.csv,radiology_human_keys_task_mean.diff_nodemo,prespecified difference (pp)
+p_rhk_ci,2.5 to 6.7,results_book/tables/primary.csv,radiology_human_keys_task_mean.lo/hi_nodemo,95% CI
+p_rhk_full,4.8,results_book/tables/primary.csv,radiology_human_keys_task_mean.diff,full test set (pp)
+p_rhk_full_ci,2.6 to 6.8,results_book/tables/primary.csv,radiology_human_keys_task_mean.lo/hi,95% CI
+p_rhk_k27,86.5,results_book/tables/primary.csv,radiology_human_keys_task_mean.kev27,"Kev-27B, full test (%)"
+p_rhk_rk27,91.3,results_book/tables/primary.csv,radiology_human_keys_task_mean.radkev27,"RadKev-27B, full test (%)"
+pf_report_cxr_human,+2.2,results_book/tables/primary.csv,report_cxr_human.diff_nodemo,family difference (pp)
+pf_report_cxr_human_ci,1.8 to 2.5,results_book/tables/primary.csv,report_cxr_human.lo/hi_nodemo,95% CI
+pf_report_cxr_human_n,"9,011",results_book/tables/primary.csv,report_cxr_human.n_nodemo,questions
+pf_report_cxr_human_holm,0.00,results_book/tables/primary.csv,report_cxr_human.p_holm_nodemo,Holm-adjusted p
+pf_case_diagnosis,+10.5,results_book/tables/primary.csv,case_diagnosis.diff_nodemo,family difference (pp)
+pf_case_diagnosis_ci,6.5 to 14.6,results_book/tables/primary.csv,case_diagnosis.lo/hi_nodemo,95% CI
+pf_case_diagnosis_n,286,results_book/tables/primary.csv,case_diagnosis.n_nodemo,questions
+pf_case_diagnosis_holm,0.00,results_book/tables/primary.csv,case_diagnosis.p_holm_nodemo,Holm-adjusted p
+pf_routing,−1.3,results_book/tables/primary.csv,routing.diff_nodemo,family difference (pp)
+pf_routing_ci,−6.0 to 3.1,results_book/tables/primary.csv,routing.lo/hi_nodemo,95% CI
+pf_routing_n,158,results_book/tables/primary.csv,routing.n_nodemo,questions
+pf_routing_holm,1.00,results_book/tables/primary.csv,routing.p_holm_nodemo,Holm-adjusted p
+pf_radiology_knowledge,+11.6,results_book/tables/primary.csv,radiology_knowledge.diff_nodemo,family difference (pp)
+pf_radiology_knowledge_ci,0.0 to 22.2,results_book/tables/primary.csv,radiology_knowledge.lo/hi_nodemo,95% CI
+pf_radiology_knowledge_n,69,results_book/tables/primary.csv,radiology_knowledge.n_nodemo,questions
+pf_radiology_knowledge_holm,0.18,results_book/tables/primary.csv,radiology_knowledge.p_holm_nodemo,Holm-adjusted p
+pf_medical_knowledge,+6.2,results_book/tables/primary.csv,medical_knowledge.diff_nodemo,family difference (pp)
+pf_medical_knowledge_ci,5.4 to 7.0,results_book/tables/primary.csv,medical_knowledge.lo/hi_nodemo,95% CI
+pf_medical_knowledge_n,"8,626",results_book/tables/primary.csv,medical_knowledge.n_nodemo,questions
+pf_medical_knowledge_holm,0.00,results_book/tables/primary.csv,medical_knowledge.p_holm_nodemo,Holm-adjusted p
+pf_report_ct,+3.4,results_book/tables/primary.csv,report_ct.diff_nodemo,family difference (pp)
+pf_report_ct_ci,2.9 to 3.8,results_book/tables/primary.csv,report_ct.lo/hi_nodemo,95% CI
+pf_report_ct_n,"6,950",results_book/tables/primary.csv,report_ct.n_nodemo,questions
+pf_report_ct_holm,0.00,results_book/tables/primary.csv,report_ct.p_holm_nodemo,Holm-adjusted p
+pf_report_cxr,−1.2,results_book/tables/primary.csv,report_cxr.diff_nodemo,family difference (pp)
+pf_report_cxr_ci,−3.9 to 0.0,results_book/tables/primary.csv,report_cxr.lo/hi_nodemo,95% CI
+pf_report_cxr_n,83,results_book/tables/primary.csv,report_cxr.n_nodemo,questions
+pf_report_cxr_holm,1.00,results_book/tables/primary.csv,report_cxr.p_holm_nodemo,Holm-adjusted p
+pf_orders_protocols,+20.6,results_book/tables/primary.csv,orders_protocols.diff_nodemo,family difference (pp)
+pf_orders_protocols_ci,16.7 to 24.3,results_book/tables/primary.csv,orders_protocols.lo/hi_nodemo,95% CI
+pf_orders_protocols_n,520,results_book/tables/primary.csv,orders_protocols.n_nodemo,questions
+pf_orders_protocols_holm,0.00,results_book/tables/primary.csv,orders_protocols.p_holm_nodemo,Holm-adjusted p
+pf_triage_followup,+5.7,results_book/tables/primary.csv,triage_followup.diff_nodemo,family difference (pp)
+pf_triage_followup_ci,3.1 to 8.3,results_book/tables/primary.csv,triage_followup.lo/hi_nodemo,95% CI
+pf_triage_followup_n,422,results_book/tables/primary.csv,triage_followup.n_nodemo,questions
+pf_triage_followup_holm,0.00,results_book/tables/primary.csv,triage_followup.p_holm_nodemo,Holm-adjusted p
+share_teacher,65,results_book/tables/per_task.csv,sum of teacher task differences / sum of all,% of task-averaged gain
+share_teacher_pp,4.4,results_book/tables/per_task.csv,teacher contribution to the task mean,pp
+share_human,31,results_book/tables/per_task.csv,sum of human task differences / sum of all,% of task-averaged gain
+share_human_pp,2.1,results_book/tables/per_task.csv,human contribution to the task mean,pp
+n_teacher_tasks,10,results_book/tables/per_task.csv,teacher_ tasks,teacher-labeled tasks
+pff_report_cxr_human,+2.1,results_book/tables/primary.csv,report_cxr_human.diff,"family difference, full test (pp)"
+pff_report_cxr_human_ci,1.7 to 2.5,results_book/tables/primary.csv,report_cxr_human.lo/hi,"95% CI, full test"
+pff_report_cxr_human_n,"9,218",results_book/tables/primary.csv,report_cxr_human.n,"questions, full test"
+pff_case_diagnosis,+11.3,results_book/tables/primary.csv,case_diagnosis.diff,"family difference, full test (pp)"
+pff_case_diagnosis_ci,7.5 to 15.0,results_book/tables/primary.csv,case_diagnosis.lo/hi,"95% CI, full test"
+pff_case_diagnosis_n,346,results_book/tables/primary.csv,case_diagnosis.n,"questions, full test"
+pff_routing,−1.1,results_book/tables/primary.csv,routing.diff,"family difference, full test (pp)"
+pff_routing_ci,−5.4 to 3.2,results_book/tables/primary.csv,routing.lo/hi,"95% CI, full test"
+pff_routing_n,185,results_book/tables/primary.csv,routing.n,"questions, full test"
+pff_radiology_knowledge,+11.6,results_book/tables/primary.csv,radiology_knowledge.diff,"family difference, full test (pp)"
+pff_radiology_knowledge_ci,0.0 to 22.2,results_book/tables/primary.csv,radiology_knowledge.lo/hi,"95% CI, full test"
+pff_radiology_knowledge_n,69,results_book/tables/primary.csv,radiology_knowledge.n,"questions, full test"
+pff_medical_knowledge,+6.2,results_book/tables/primary.csv,medical_knowledge.diff,"family difference, full test (pp)"
+pff_medical_knowledge_ci,5.4 to 6.9,results_book/tables/primary.csv,medical_knowledge.lo/hi,"95% CI, full test"
+pff_medical_knowledge_n,"8,926",results_book/tables/primary.csv,medical_knowledge.n,"questions, full test"
+pff_report_ct,+3.4,results_book/tables/primary.csv,report_ct.diff,"family difference, full test (pp)"
+pff_report_ct_ci,2.9 to 3.8,results_book/tables/primary.csv,report_ct.lo/hi,"95% CI, full test"
+pff_report_ct_n,"6,950",results_book/tables/primary.csv,report_ct.n,"questions, full test"
+pff_report_cxr,−1.2,results_book/tables/primary.csv,report_cxr.diff,"family difference, full test (pp)"
+pff_report_cxr_ci,−3.9 to 0.0,results_book/tables/primary.csv,report_cxr.lo/hi,"95% CI, full test"
+pff_report_cxr_n,83,results_book/tables/primary.csv,report_cxr.n,"questions, full test"
+pff_orders_protocols,+20.6,results_book/tables/primary.csv,orders_protocols.diff,"family difference, full test (pp)"
+pff_orders_protocols_ci,16.7 to 24.3,results_book/tables/primary.csv,orders_protocols.lo/hi,"95% CI, full test"
+pff_orders_protocols_n,520,results_book/tables/primary.csv,orders_protocols.n,"questions, full test"
+pff_triage_followup,+5.7,results_book/tables/primary.csv,triage_followup.diff,"family difference, full test (pp)"
+pff_triage_followup_ci,3.1 to 8.3,results_book/tables/primary.csv,triage_followup.lo/hi,"95% CI, full test"
+pff_triage_followup_n,422,results_book/tables/primary.csv,triage_followup.n,"questions, full test"
+demo_maxdelta,0.8,results_book/tables/primary.csv,max |diff - diff_nodemo|,largest change from excluding the demonstration sample (pp)
+ha_v2_27,82.4,results_book/tables/accuracy.csv,v2_27.human_keys_micro,accuracy on human-labeled questions (%)
+ha_qwen38,80.3,results_book/tables/accuracy.csv,qwen38.human_keys_micro,accuracy on human-labeled questions (%)
+ha_r9,79.3,results_book/tables/accuracy.csv,r9.human_keys_micro,accuracy on human-labeled questions (%)
+ha_stock27,78.2,results_book/tables/accuracy.csv,stock27.human_keys_micro,accuracy on human-labeled questions (%)
+ha_stock9,75.6,results_book/tables/accuracy.csv,stock9.human_keys_micro,accuracy on human-labeled questions (%)
+ha_medgemma_fix,73.7,results_book/tables/accuracy.csv,medgemma_fix.human_keys_micro,accuracy on human-labeled questions (%)
+ha_kev4,73.0,results_book/tables/accuracy.csv,kev4.human_keys_micro,accuracy on human-labeled questions (%)
+ha_kev08,60.2,results_book/tables/accuracy.csv,kev08.human_keys_micro,accuracy on human-labeled questions (%)
+ha_gliner_decide,49.9,results_book/tables/accuracy.csv,gliner_decide.human_keys_micro,accuracy on human-labeled questions (%)
+ha_laya_typed,49.7,results_book/tables/accuracy.csv,laya_typed.human_keys_micro,accuracy on human-labeled questions (%)
+ha_laya,45.9,results_book/tables/accuracy.csv,laya.human_keys_micro,accuracy on human-labeled questions (%)
+ha_julia1,44.3,results_book/tables/accuracy.csv,julia1.human_keys_micro,accuracy on human-labeled questions (%)
+ha_others_max,49.9,results_book/tables/accuracy.csv,max of the four other decision models,%
+hd_rk27_qwen,2.2,results_book/numbers.json,d_v2_27_qwen38_human_keys,difference on human-labeled questions (pp)
+hd_rk27_qwen_ci,1.7 to 2.6,results_book/numbers.json,d_v2_27_qwen38_human_keys,95% CI
+hd_rk27_mg,8.8,results_book/numbers.json,d_v2_27_medgemma_fix_human_keys,difference on human-labeled questions (pp)
+hd_rk27_mg_ci,8.2 to 9.3,results_book/numbers.json,d_v2_27_medgemma_fix_human_keys,95% CI
+hd_rk9_k27,1.1,results_book/numbers.json,d_r9_stock27_human_keys,difference on human-labeled questions (pp)
+hd_rk9_k27_ci,0.6 to 1.5,results_book/numbers.json,d_r9_stock27_human_keys,95% CI
+hd_qwen_k27,2.1,results_book/numbers.json,d_qwen38_stock27_human_keys,difference on human-labeled questions (pp)
+hd_qwen_k27_ci,1.6 to 2.5,results_book/numbers.json,d_qwen38_stock27_human_keys,95% CI
+rs_v2_27,88.2,results_book/tables/reasoning_levels.csv,v2_27.micro,accuracy on the reasoning sample (%)
+rs_v2_27_ece,0.012,results_book/tables/reasoning_levels.csv,v2_27.ece,ECE on the reasoning sample
+rs_v2_27_cov,84.7,results_book/tables/reasoning_levels.csv,v2_27.cov5,coverage at 5% error (%)
+rs_stock27,83.5,results_book/tables/reasoning_levels.csv,stock27.micro,accuracy on the reasoning sample (%)
+rs_stock27_ece,0.038,results_book/tables/reasoning_levels.csv,stock27.ece,ECE on the reasoning sample
+rs_stock27_cov,74.3,results_book/tables/reasoning_levels.csv,stock27.cov5,coverage at 5% error (%)
+rs_qwen38,85.9,results_book/tables/reasoning_levels.csv,qwen38.micro,accuracy on the reasoning sample (%)
+rs_qwen38_ece,0.032,results_book/tables/reasoning_levels.csv,qwen38.ece,ECE on the reasoning sample
+rs_qwen38_cov,73.4,results_book/tables/reasoning_levels.csv,qwen38.cov5,coverage at 5% error (%)
+rs_qwen38_think,88.8,results_book/tables/reasoning_levels.csv,qwen38_think.micro,accuracy on the reasoning sample (%)
+rs_qwen38_think_ece,0.100,results_book/tables/reasoning_levels.csv,qwen38_think.ece,ECE on the reasoning sample
+rs_qwen38_think_cov,38.3,results_book/tables/reasoning_levels.csv,qwen38_think.cov5,coverage at 5% error (%)
+rs_medgemma_fix,77.5,results_book/tables/reasoning_levels.csv,medgemma_fix.micro,accuracy on the reasoning sample (%)
+rs_medgemma_fix_ece,0.159,results_book/tables/reasoning_levels.csv,medgemma_fix.ece,ECE on the reasoning sample
+rs_medgemma_fix_cov,57.0,results_book/tables/reasoning_levels.csv,medgemma_fix.cov5,coverage at 5% error (%)
+rs_medgemma_think,81.5,results_book/tables/reasoning_levels.csv,medgemma_think.micro,accuracy on the reasoning sample (%)
+rs_medgemma_think_ece,0.183,results_book/tables/reasoning_levels.csv,medgemma_think.ece,ECE on the reasoning sample
+rs_medgemma_think_cov,55.0,results_book/tables/reasoning_levels.csv,medgemma_think.cov5,coverage at 5% error (%)
+rp_qthink,2.9,results_book/tables/reasoning_pairs.csv,qwen38_think-qwen38.micro,difference on the reasoning sample (pp)
+rp_qthink_ci,1.5 to 4.3,results_book/tables/reasoning_pairs.csv,qwen38_think-qwen38.lo/hi,95% CI
+rp_qthink_tm,5.0,results_book/tables/reasoning_pairs.csv,qwen38_think-qwen38.macro,task-mean difference (pp)
+rp_qthink_tm_ci,3.1 to 6.9,results_book/tables/reasoning_pairs.csv,qwen38_think-qwen38.macro_lo/hi,95% CI
+rp_mthink,4.0,results_book/tables/reasoning_pairs.csv,medgemma_think-medgemma_fix.micro,difference on the reasoning sample (pp)
+rp_mthink_ci,2.3 to 5.7,results_book/tables/reasoning_pairs.csv,medgemma_think-medgemma_fix.lo/hi,95% CI
+rp_mthink_tm,5.7,results_book/tables/reasoning_pairs.csv,medgemma_think-medgemma_fix.macro,task-mean difference (pp)
+rp_mthink_tm_ci,3.5 to 8.0,results_book/tables/reasoning_pairs.csv,medgemma_think-medgemma_fix.macro_lo/hi,95% CI
+rp_rk_qthink,−0.6,results_book/tables/reasoning_pairs.csv,v2_27-qwen38_think.micro,difference on the reasoning sample (pp)
+rp_rk_qthink_ci,−1.9 to 0.7,results_book/tables/reasoning_pairs.csv,v2_27-qwen38_think.lo/hi,95% CI
+rp_rk_qthink_tm,−2.5,results_book/tables/reasoning_pairs.csv,v2_27-qwen38_think.macro,task-mean difference (pp)
+rp_rk_qthink_tm_ci,−4.3 to −0.8,results_book/tables/reasoning_pairs.csv,v2_27-qwen38_think.macro_lo/hi,95% CI
+rp_rk_mthink,6.7,results_book/tables/reasoning_pairs.csv,v2_27-medgemma_think.micro,difference on the reasoning sample (pp)
+rp_rk_mthink_ci,4.9 to 8.4,results_book/tables/reasoning_pairs.csv,v2_27-medgemma_think.lo/hi,95% CI
+rp_rk_mthink_tm,5.4,results_book/tables/reasoning_pairs.csv,v2_27-medgemma_think.macro,task-mean difference (pp)
+rp_rk_mthink_tm_ci,3.3 to 7.7,results_book/tables/reasoning_pairs.csv,v2_27-medgemma_think.macro_lo/hi,95% CI
+rp_rk_q,2.3,results_book/tables/reasoning_pairs.csv,v2_27-qwen38.micro,difference on the reasoning sample (pp)
+rp_rk_q_ci,0.9 to 3.6,results_book/tables/reasoning_pairs.csv,v2_27-qwen38.lo/hi,95% CI
+rp_rk_q_tm,2.4,results_book/tables/reasoning_pairs.csv,v2_27-qwen38.macro,task-mean difference (pp)
+rp_rk_q_tm_ci,0.6 to 4.2,results_book/tables/reasoning_pairs.csv,v2_27-qwen38.macro_lo/hi,95% CI
+rs_q_cap,8.8,artifacts/llm_reasoning/artifacts/llm_reasoning.json,generation.qwen38_think.overall.hit_cap_share,% of outputs at the token limit
+rs_q_medtok,204,artifacts/llm_reasoning/artifacts/llm_reasoning.json,generation.qwen38_think.overall.median_new_tokens,median reasoning tokens
+rs_m_medtok,554,artifacts/llm_reasoning/artifacts/llm_reasoning.json,generation.medgemma_think.overall.median_new_tokens,median reasoning tokens
+lt_rk9,44,artifacts/latency_9b/artifacts/latency_9b.json,radkev9.per_question_ms.median,ms
+lt_rk27,130,artifacts/latency/artifacts/latency_bench.json,radkev27,ms
+lt_q,163,artifacts/latency/artifacts/latency_bench.json,qwen38.letter,ms
+lt_qgen,252,artifacts/latency/artifacts/latency_bench.json,qwen38.direct,ms
+lt_qthink,14.1,artifacts/latency/artifacts/latency_bench.json,qwen38.reasoning,s
+lt_qthink_n,39,artifacts/latency/artifacts/latency_bench.json,qwen38.reasoning.n,questions timed
+lt_ratio,109,artifacts/latency/artifacts/latency_bench.json,reasoning / RadKev-27B median,x
+thr_rk27_hr,"28,000",artifacts/latency/artifacts/latency_bench.json,3.6e6 / RadKev-27B median ms,"questions per hour, one request at a time"
+thr_rk9_hr,"82,000",artifacts/latency_9b/artifacts/latency_9b.json,3.6e6 / RadKev-9B median ms,"questions per hour, one request at a time"
+ss_spec27,4.2,results_book/numbers.json,d_v2_27_stock27_human_keys,difference (pp)
+ss_spec27_ci,3.8 to 4.6,results_book/numbers.json,d_v2_27_stock27_human_keys,95% CI
+ss_spec9,3.7,results_book/numbers.json,d_r9_stock9_human_keys,difference (pp)
+ss_spec9_ci,3.2 to 4.1,results_book/numbers.json,d_r9_stock9_human_keys,95% CI
+ss_scale,2.6,results_book/numbers.json,d_stock27_stock9_human_keys,difference (pp)
+ss_scale_ci,2.1 to 3.1,results_book/numbers.json,d_stock27_stock9_human_keys,95% CI
+ss_did27,1.6,results_book/numbers.json,did_specialisation27_minus_scale_hk,difference (pp)
+ss_did27_ci,0.9 to 2.3,results_book/numbers.json,did_specialisation27_minus_scale_hk,95% CI
+ss_did9,1.1,results_book/numbers.json,did_specialisation9_minus_scale_hk,difference (pp)
+ss_did9_ci,0.6 to 1.5,results_book/numbers.json,did_specialisation9_minus_scale_hk,95% CI
+ss_rspec27,2.4,results_book/numbers.json,d_v2_27_stock27_radiology_human_keys,difference (pp)
+ss_rspec27_ci,2.0 to 2.8,results_book/numbers.json,d_v2_27_stock27_radiology_human_keys,95% CI
+ss_rspec9,1.0,results_book/numbers.json,d_r9_stock9_radiology_human_keys,difference (pp)
+ss_rspec9_ci,0.7 to 1.4,results_book/numbers.json,d_r9_stock9_radiology_human_keys,95% CI
+ss_rscale,−1.0,results_book/numbers.json,d_stock27_stock9_radiology_human_keys,difference (pp)
+ss_rscale_ci,−1.5 to −0.6,results_book/numbers.json,d_stock27_stock9_radiology_human_keys,95% CI
+ss_r9k27,1.1,results_book/numbers.json,d_r9_stock27_human_keys,difference (pp)
+ss_r9k27_ci,0.6 to 1.5,results_book/numbers.json,d_r9_stock27_human_keys,95% CI
+ss_r9k27_rad,2.0,results_book/numbers.json,d_r9_stock27_radiology_human_keys,difference (pp)
+ss_r9k27_rad_ci,1.6 to 2.5,results_book/numbers.json,d_r9_stock27_radiology_human_keys,95% CI
+ss_tm_spec27,3.8,results_book/numbers.json,dm_v2_27_stock27_human_keys,difference (pp)
+ss_tm_spec27_ci,2.7 to 4.8,results_book/numbers.json,dm_v2_27_stock27_human_keys,95% CI
+ss_tm_scale,5.5,results_book/numbers.json,dm_stock27_stock9_human_keys,difference (pp)
+ss_tm_scale_ci,4.3 to 6.7,results_book/numbers.json,dm_stock27_stock9_human_keys,95% CI
+in_full,2.3,results_book/numbers.json,d_r9_b9_human_keys,difference (pp)
+in_full_ci,1.9 to 2.8,results_book/numbers.json,d_r9_b9_human_keys,95% CI
+in_f10,0.5,results_book/numbers.json,d_r9f10_b9f10_human_keys,difference (pp)
+in_f10_ci,0.1 to 0.9,results_book/numbers.json,d_r9f10_b9f10_human_keys,95% CI
+in_did,1.9,results_book/numbers.json,did_init_full_minus_init_10pct_hk,difference (pp)
+in_did_ci,1.3 to 2.4,results_book/numbers.json,did_init_full_minus_init_10pct_hk,95% CI
+tr_k,1.7,results_book/numbers.json,tr_r9_stock9,difference (pp)
+tr_k_ci,−0.3 to 3.8,results_book/numbers.json,tr_r9_stock9,95% CI
+tr_b,−6.6,results_book/numbers.json,tr_b9_stock9,difference (pp)
+tr_b_ci,−9.6 to −3.4,results_book/numbers.json,tr_b9_stock9,95% CI
+tr_k10,0.0,results_book/numbers.json,tr_r9f10_stock9,difference (pp)
+tr_k10_ci,−1.4 to 1.2,results_book/numbers.json,tr_r9f10_stock9,95% CI
+tr_b10,−4.7,results_book/numbers.json,tr_b9f10_stock9,difference (pp)
+tr_b10_ci,−7.9 to −1.5,results_book/numbers.json,tr_b9f10_stock9,95% CI
+tr_27,−0.8,results_book/numbers.json,tr_v2_27_stock27,difference (pp)
+tr_27_ci,−2.3 to 0.8,results_book/numbers.json,tr_v2_27_stock27,95% CI
+sa_stock9,75.6,results_book/numbers.json,acc_stock9_human_keys,"accuracy, human-labeled (%)"
+sa_r9,79.3,results_book/numbers.json,acc_r9_human_keys,"accuracy, human-labeled (%)"
+sa_stock27,78.2,results_book/numbers.json,acc_stock27_human_keys,"accuracy, human-labeled (%)"
+sa_v2_27,82.4,results_book/numbers.json,acc_v2_27_human_keys,"accuracy, human-labeled (%)"
+sa_b9,77.0,results_book/numbers.json,acc_b9_human_keys,"accuracy, human-labeled (%)"
+sa_r9f10,78.1,results_book/numbers.json,acc_r9f10_human_keys,"accuracy, human-labeled (%)"
+sa_b9f10,77.6,results_book/numbers.json,acc_b9f10_human_keys,"accuracy, human-labeled (%)"
+sa_b9_change,−0.7,results_book/numbers.json,acc_b9 - acc_b9f10,"base init, 10% -> all data (pp)"
+sa_r9_change,1.2,results_book/numbers.json,acc_r9 - acc_r9f10,"Kev init, 10% -> all data (pp)"
+cal_rk27_ece,0.038,results_book/tables/calibration_human_keys.csv,v2_27.ece,"ECE, human-labeled"
+cal_rk27_brier,0.242,results_book/tables/calibration_human_keys.csv,v2_27.brier,"Brier, human-labeled"
+cal_rk27_ce,2.0,results_book/tables/calibration_human_keys.csv,v2_27.conf_err,confident errors (% of questions)
+cal_rk27_cov,72.4,results_book/tables/calibration_human_keys.csv,v2_27.cov5,coverage at 5% error (%)
+rc_rk27_ece,0.020,results_book/tables/recal.csv,v2_27.ece_after,ECE after cross-fitted recalibration
+rc_rk27_cov,73.3,results_book/tables/recal.csv,v2_27.cov5_after,coverage after recalibration (%)
+rc_rk27_ce,1.2,results_book/tables/recal.csv,v2_27.conf_err_after,confident errors after recalibration (%)
+cal_k27_ece,0.025,results_book/tables/calibration_human_keys.csv,stock27.ece,"ECE, human-labeled"
+cal_k27_brier,0.278,results_book/tables/calibration_human_keys.csv,stock27.brier,"Brier, human-labeled"
+cal_k27_ce,0.5,results_book/tables/calibration_human_keys.csv,stock27.conf_err,confident errors (% of questions)
+cal_k27_cov,66.9,results_book/tables/calibration_human_keys.csv,stock27.cov5,coverage at 5% error (%)
+rc_k27_ece,0.020,results_book/tables/recal.csv,stock27.ece_after,ECE after cross-fitted recalibration
+rc_k27_cov,66.8,results_book/tables/recal.csv,stock27.cov5_after,coverage after recalibration (%)
+rc_k27_ce,0.7,results_book/tables/recal.csv,stock27.conf_err_after,confident errors after recalibration (%)
+cal_q_ece,0.031,results_book/tables/calibration_human_keys.csv,qwen38.ece,"ECE, human-labeled"
+cal_q_brier,0.274,results_book/tables/calibration_human_keys.csv,qwen38.brier,"Brier, human-labeled"
+cal_q_ce,2.2,results_book/tables/calibration_human_keys.csv,qwen38.conf_err,confident errors (% of questions)
+cal_q_cov,65.7,results_book/tables/calibration_human_keys.csv,qwen38.cov5,coverage at 5% error (%)
+rc_q_ece,0.017,results_book/tables/recal.csv,qwen38.ece_after,ECE after cross-fitted recalibration
+rc_q_cov,66.8,results_book/tables/recal.csv,qwen38.cov5_after,coverage after recalibration (%)
+rc_q_ce,0.9,results_book/tables/recal.csv,qwen38.conf_err_after,confident errors after recalibration (%)
+cal_mg_ece,0.177,results_book/tables/calibration_human_keys.csv,medgemma_fix.ece,"ECE, human-labeled"
+cal_mg_brier,0.420,results_book/tables/calibration_human_keys.csv,medgemma_fix.brier,"Brier, human-labeled"
+cal_mg_ce,12.0,results_book/tables/calibration_human_keys.csv,medgemma_fix.conf_err,confident errors (% of questions)
+cal_mg_cov,51.1,results_book/tables/calibration_human_keys.csv,medgemma_fix.cov5,coverage at 5% error (%)
+rc_mg_ece,0.058,results_book/tables/recal.csv,medgemma_fix.ece_after,ECE after cross-fitted recalibration
+rc_mg_cov,57.5,results_book/tables/recal.csv,medgemma_fix.cov5_after,coverage after recalibration (%)
+rc_mg_ce,0.8,results_book/tables/recal.csv,medgemma_fix.conf_err_after,confident errors after recalibration (%)
+cp_k27_ece,+0.013,results_book/tables/calibration_pairs.csv,v2_27-stock27.ece_d,paired difference
+cp_k27_ece_ci,+0.006 to +0.019,results_book/tables/calibration_pairs.csv,v2_27-stock27.ece_lo/hi,95% CI
+cp_k27_conf_err,+1.5,results_book/tables/calibration_pairs.csv,v2_27-stock27.conf_err_d,paired difference
+cp_k27_conf_err_ci,+1.3 to +1.7,results_book/tables/calibration_pairs.csv,v2_27-stock27.conf_err_lo/hi,95% CI
+cp_k27_cov5,+5.5,results_book/tables/calibration_pairs.csv,v2_27-stock27.cov5_d,paired difference
+cp_k27_cov5_ci,+4.5 to +6.6,results_book/tables/calibration_pairs.csv,v2_27-stock27.cov5_lo/hi,95% CI
+cp_k27_brier,−0.036,results_book/tables/calibration_pairs.csv,v2_27-stock27.brier_d,paired difference
+cp_k27_brier_ci,−0.039 to −0.032,results_book/tables/calibration_pairs.csv,v2_27-stock27.brier_lo/hi,95% CI
+cp_q_ece,+0.007,results_book/tables/calibration_pairs.csv,v2_27-qwen38.ece_d,paired difference
+cp_q_ece_ci,+0.002 to +0.011,results_book/tables/calibration_pairs.csv,v2_27-qwen38.ece_lo/hi,95% CI
+cp_q_conf_err,−0.2,results_book/tables/calibration_pairs.csv,v2_27-qwen38.conf_err_d,paired difference
+cp_q_conf_err_ci,−0.4 to +0.1,results_book/tables/calibration_pairs.csv,v2_27-qwen38.conf_err_lo/hi,95% CI
+cp_q_cov5,+6.6,results_book/tables/calibration_pairs.csv,v2_27-qwen38.cov5_d,paired difference
+cp_q_cov5_ci,+5.7 to +7.6,results_book/tables/calibration_pairs.csv,v2_27-qwen38.cov5_lo/hi,95% CI
+cp_q_brier,−0.032,results_book/tables/calibration_pairs.csv,v2_27-qwen38.brier_d,paired difference
+cp_q_brier_ci,−0.036 to −0.029,results_book/tables/calibration_pairs.csv,v2_27-qwen38.brier_lo/hi,95% CI
+bl_dx_rk27_full,93.9,results_book/tables/blind.csv,eurorad_dx.v2_27.full,accuracy with the case (%)
+bl_dx_rk27,78.0,results_book/tables/blind.csv,eurorad_dx.v2_27.blind,"accuracy, case withheld (%)"
+bl_dx_k27_full,82.7,results_book/tables/blind.csv,eurorad_dx.stock27.full,accuracy with the case (%)
+bl_dx_k27,47.7,results_book/tables/blind.csv,eurorad_dx.stock27.blind,"accuracy, case withheld (%)"
+bl_dx_q_full,84.4,results_book/tables/blind.csv,eurorad_dx.qwen38.full,accuracy with the case (%)
+bl_dx_q,50.0,results_book/tables/blind.csv,eurorad_dx.qwen38.blind,"accuracy, case withheld (%)"
+bl_dx_mg_full,72.5,results_book/tables/blind.csv,eurorad_dx.medgemma_fix.full,accuracy with the case (%)
+bl_dx_mg,26.9,results_book/tables/blind.csv,eurorad_dx.medgemma_fix.blind,"accuracy, case withheld (%)"
+bl_dx_rk9_full,91.0,results_book/tables/blind.csv,eurorad_dx.r9.full,accuracy with the case (%)
+bl_dx_rk9,81.2,results_book/tables/blind.csv,eurorad_dx.r9.blind,"accuracy, case withheld (%)"
+bl_dx_k9_full,75.1,results_book/tables/blind.csv,eurorad_dx.stock9.full,accuracy with the case (%)
+bl_dx_k9,38.4,results_book/tables/blind.csv,eurorad_dx.stock9.blind,"accuracy, case withheld (%)"
+bl_dx_gain_full,+11.3,results_book/numbers.json,blind_gain_v2_27_stock27_eurorad_dx_full,RadKev-27B minus Kev-27B (pp)
+bl_dx_gain_blind,+30.3,results_book/numbers.json,blind_gain_v2_27_stock27_eurorad_dx_blind,RadKev-27B minus Kev-27B (pp)
+bl_mq_rk27_full,86.8,results_book/tables/blind.csv,medqa.v2_27.full,accuracy with the case (%)
+bl_mq_rk27,36.1,results_book/tables/blind.csv,medqa.v2_27.blind,"accuracy, case withheld (%)"
+bl_mq_k27_full,83.8,results_book/tables/blind.csv,medqa.stock27.full,accuracy with the case (%)
+bl_mq_k27,32.5,results_book/tables/blind.csv,medqa.stock27.blind,"accuracy, case withheld (%)"
+bl_mq_q_full,84.0,results_book/tables/blind.csv,medqa.qwen38.full,accuracy with the case (%)
+bl_mq_q,33.4,results_book/tables/blind.csv,medqa.qwen38.blind,"accuracy, case withheld (%)"
+bl_mq_mg_full,69.4,results_book/tables/blind.csv,medqa.medgemma_fix.full,accuracy with the case (%)
+bl_mq_mg,27.3,results_book/tables/blind.csv,medqa.medgemma_fix.blind,"accuracy, case withheld (%)"
+bl_mq_rk9_full,77.2,results_book/tables/blind.csv,medqa.r9.full,accuracy with the case (%)
+bl_mq_rk9,35.3,results_book/tables/blind.csv,medqa.r9.blind,"accuracy, case withheld (%)"
+bl_mq_k9_full,72.3,results_book/tables/blind.csv,medqa.stock9.full,accuracy with the case (%)
+bl_mq_k9,29.8,results_book/tables/blind.csv,medqa.stock9.blind,"accuracy, case withheld (%)"
+bl_mq_gain_full,+3.0,results_book/numbers.json,blind_gain_v2_27_stock27_medqa_full,RadKev-27B minus Kev-27B (pp)
+bl_mq_gain_blind,+3.6,results_book/numbers.json,blind_gain_v2_27_stock27_medqa_blind,RadKev-27B minus Kev-27B (pp)
+bl_chance_dx,24,artifacts/answer_space2/artifacts/answer_space2.json,mean 1/K of original options,Eurorad chance (%)
+aw_flag_n,178,artifacts/robustness2/artifacts/robustness2.json,eurorad_leak.answer_word_in_case.n,questions
+aw_none_n,168,artifacts/robustness2/artifacts/robustness2.json,no_answer_word.n,questions
+aw_flag,7.9,artifacts/robustness2/artifacts/robustness2.json,eurorad_leak.aw_flag.v2_27-stock27.d,gain (pp)
+aw_flag_ci,4.3 to 12.2,artifacts/robustness2/artifacts/robustness2.json,ci,95% CI
+aw_none,14.9,artifacts/robustness2/artifacts/robustness2.json,eurorad_leak.aw_none.v2_27-stock27.d,gain (pp)
+aw_none_ci,8.1 to 21.7,artifacts/robustness2/artifacts/robustness2.json,ci,95% CI
+aw_did,−7.0,results_book/numbers.json,leak_did,flagged minus unflagged gain (pp)
+aw_did_ci,−14.7 to 1.1,results_book/numbers.json,leak_did,95% CI
+wd_seen,4.7,artifacts/robustness/artifacts/robustness.json,wording.seen.v2_27-stock27.human_keys.micro,gain (pp)
+wd_seen_ci,4.1 to 5.3,artifacts/robustness/artifacts/robustness.json,micro_ci,95% CI
+wd_held_out,3.8,artifacts/robustness/artifacts/robustness.json,wording.held_out.v2_27-stock27.human_keys.micro,gain (pp)
+wd_held_out_ci,3.2 to 4.3,artifacts/robustness/artifacts/robustness.json,micro_ci,95% CI
+wd_did,−0.9,results_book/numbers.json,did_wording_v2_27-stock27_heldout_minus_seen_hk,held-out minus seen (pp)
+wd_did_ci,−1.8 to −0.1,results_book/numbers.json,did_wording,95% CI
+abl_v1med_hk,0.7,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v1med27.human_keys.micro,"paired difference, full test set, points"
+abl_v1med_hk_ci,0.4 to 1.1,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v1med27.human_keys.micro_ci,95% CI
+abl_v1med_tm,5.6,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v1med27.overall.macro,"paired difference, full test set, points"
+abl_v1med_tm_ci,4.7 to 6.6,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v1med27.overall.macro_ci,95% CI
+abl_v0_hk,2.2,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v0open27.human_keys.micro,"paired difference, full test set, points"
+abl_v0_hk_ci,1.9 to 2.6,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v0open27.human_keys.micro_ci,95% CI
+abl_v0_tm,7.2,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v0open27.overall.macro,"paired difference, full test set, points"
+abl_v0_tm_ci,6.2 to 8.3,artifacts/robustness/artifacts/robustness.json,pairs.v2_27-v0open27.overall.macro_ci,95% CI
+abl_ft9_hk,1.8,artifacts/robustness/artifacts/robustness.json,pairs.ft9-stock9.human_keys.micro,"paired difference, full test set, points"
+abl_ft9_hk_ci,1.4 to 2.1,artifacts/robustness/artifacts/robustness.json,pairs.ft9-stock9.human_keys.micro_ci,95% CI
+abl_ft9_tm,1.2,artifacts/robustness/artifacts/robustness.json,pairs.ft9-stock9.overall.macro,"paired difference, full test set, points"
+abl_ft9_tm_ci,0.4 to 2.1,artifacts/robustness/artifacts/robustness.json,pairs.ft9-stock9.overall.macro_ci,95% CI
+abl_v1med_hk_acc,81.7,artifacts/robustness/artifacts/robustness.json,per_model.v1med27.human_keys.micro,"accuracy, %"
+ovr_qwen_pct,0.0,artifacts/llm_reasoning/artifacts/llm_reasoning.json,generation.qwen38_think.overall.own_parsed_share*(1-own_agrees_share),% of questions
+ovr_mg_pct,7.7,artifacts/llm_reasoning/artifacts/llm_reasoning.json,generation.medgemma_think.overall.own_parsed_share*(1-own_agrees_share),% of questions
+fm_all,+6.5,results_book/numbers.json,fmacro_v2_27_stock27_all,family-mean difference (pp)
+fm_hk,+6.0,results_book/numbers.json,fmacro_v2_27_stock27_hk,"family-mean difference, human-labeled (pp)"
+tagree_rk27,94.2,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev27.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_k27,82.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.kev27.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_rk9,92.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev9.overall.acc,agreement with regenerated teacher test labels (%)
+tagree_k9,80.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.kev9.overall.acc,agreement with regenerated teacher test labels (%)

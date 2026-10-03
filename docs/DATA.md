@@ -1,21 +1,22 @@
 # Data
 
-RadKev is trained and evaluated only on public datasets. This repository ships **no dataset text**: `radkev.data` and
-`radkev.teacher` rebuild every record from the original files, deterministically, and [`results/manifests/`](../results/manifests/)
-lists the exact counts per source, split and task so you can check your build against ours.
+RadKev is trained and evaluated only on public datasets (manuscript, Section 2.1, Table 1 and Supplementary Notes S1 and S2).
+`radkev.data` and `radkev.teacher` rebuild every record from the original files, deterministically, and
+[`results/manifests/`](../results/manifests/) lists the exact counts per source, split and task so that a build can be checked
+against ours. Released records and labels are described under [Released data](#released-data).
 
 ## Sources
 
-| Source | Decision family | Use | Labels from | Licence / access | How to get it |
+| Source | Decision family | Use | Labels from | License / access | How to get it |
 |---|---|---|---|---|---|
-| IU / Open-i chest X-ray reports | report reading | **dev/test only, never trained on** | human MeSH coding | CC BY-NC-ND 4.0 | `python -m radkev.fetch` |
-| Eurorad case vignettes (`wanglab/eurorad-reasoning`) | case → diagnosis, subspecialty routing | train/dev/test | case authors' diagnosis and section | CC BY-NC-SA 4.0 | `python -m radkev.fetch` |
-| MedMCQA (all subjects; radiology uncapped) | radiology and medical knowledge | train/dev; official validation = test | exam keys | Apache-2.0 | `python -m radkev.fetch` |
-| MedQA (USMLE, 4 options) | medical knowledge | train/dev; official test = test | exam keys | CC BY 4.0 | `python -m radkev.fetch` |
-| MMLU medical subjects, PubMedQA (expert set), MedXpertQA (text) | medical knowledge | **dev/test only** | exam / expert keys | MIT | `python -m radkev.fetch` |
-| CT-RATE chest CT reports + 18 abnormality labels | report reading | train/dev; official validation = test | the dataset's report classifier (NLP) | CC BY-NC-SA 4.0, gated on Hugging Face | accept terms at [ibrahimhamamci/CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE) |
-| CheXpert Plus, ReXGradient-160K, CT-RATE, Eurorad presentations | orders/protocols, triage/follow-up, CXR finding status | teacher-labelled questions | two LLM teachers, agreement only | Stanford AIMI research use; ReXGradient research terms (gated) | Stanford AIMI / Redivis; [rajpurkarlab/ReXGradient-160K](https://huggingface.co/datasets/rajpurkarlab/ReXGradient-160K) |
-| MIMIC-CXR reports + CheXpert labels | report reading | supported, **not used** for the released models | CheXpert labeller | PhysioNet credentialed | physionet.org |
+| IU/Open-i chest radiograph reports | report reading | **development and test only** | MeSH indexing by human indexers | CC BY-NC-ND 4.0 | `python -m radkev.fetch` |
+| Eurorad case vignettes (`wanglab/eurorad-reasoning`) | case diagnosis, subspecialty routing | train/dev/test | case authors' final diagnosis and section | CC BY-NC-SA 4.0 | `python -m radkev.fetch` |
+| MedMCQA (all subjects; radiology uncapped) | radiology and medical knowledge | train/dev; official validation = test | examination key | Apache-2.0 | `python -m radkev.fetch` |
+| MedQA (USMLE, 4 options) | medical knowledge | train/dev; official test = test | examination key | CC BY 4.0 | `python -m radkev.fetch` |
+| MMLU medical subjects, PubMedQA (expert set), MedXpertQA (text) | medical knowledge | **dev/test only** | examination key / expert annotation | MIT | `python -m radkev.fetch` |
+| CT-RATE chest CT reports + 18 abnormality labels | report reading | train/dev; official validation = test | the dataset's classifier labels for 18 abnormalities | CC BY-NC-SA 4.0, gated on Hugging Face | accept terms at [ibrahimhamamci/CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE) |
+| CheXpert Plus, ReXGradient-160K, CT-RATE, Eurorad presentations | imaging orders, triage and follow-up, chest radiograph finding status | teacher-labeled questions | agreement of two LLM teachers | Stanford AIMI research use agreement; ReXGradient research terms (gated) | Stanford AIMI / Redivis; [rajpurkarlab/ReXGradient-160K](https://huggingface.co/datasets/rajpurkarlab/ReXGradient-160K) |
+| MIMIC-CXR reports + CheXpert labels | report reading | supported, **not used** for the released models | CheXpert labeler | PhysioNet credentialed | physionet.org |
 
 `python -m radkev.fetch --list` prints where each file is expected under `$RADKEV_HOME/raw`. Gated sources can also live on a
 shared disk: `RADKEV_EXTRA_RAW=/data/a:/data/b` adds search roots.
@@ -34,40 +35,46 @@ One line per record, in Kev's training shape: the System One request plus a `lab
 ```
 
 `src` names the task; [`radkev/compare.py`](../radkev/compare.py) maps tasks to decision families and to answer-key type
-(human vs machine).
+(human-labeled or model-labeled).
 
 ## Splits and controls
 
 - **By patient or case.** Splits hash the patient or case id, so all records of one patient land in one split; the builder
   asserts that no group crosses splits. Official test splits (MedMCQA validation, MedQA test, CT-RATE validation) are kept.
-- **Never-trained sources.** IU (25% dev for model selection, 75% test), MMLU, PubMedQA and MedXpertQA appear only in dev/test.
-- **Held-out wordings.** Every question kind has several instruction templates; the last one is never used in training and is
-  used for half of dev/test questions. The test reports accuracy on seen vs unseen wordings
-  ([`results/tables/wording_test.md`](../results/tables/wording_test.md)).
+- **Sources used only for evaluation.** IU (25% development, 75% test), MMLU, PubMedQA and MedXpertQA appear only in the
+  development and test splits.
+- **Withheld wordings.** Every question kind has several instruction templates; one is withheld from training and used for half
+  of the development and test questions, so the test also measures robustness to unseen phrasing
+  (manuscript, Section 3.5).
 - **Neutral options.** Multiple-choice options are shuffled under neutral keys (`opt_1`...), so neither position nor key name
   carries the answer.
 - **No answer in the question.** Eurorad states keep the history and imaging findings and drop sentences about pathology,
   surgery, treatment or outcome; dev/test cases whose findings or history still name the diagnosis are removed. Order questions
   see only the clinical question, never the findings, and sentences that name an imaging test are dropped.
   [`experiments/leak_sensitivity.py`](../experiments/leak_sensitivity.py) checks what is left: 55 of 520 test order questions
-  still mention an imaging test, and RadKev's gain holds on the leak-free rest (+22.6 pp [+18.6, +26.7] vs Kev-27B).
+  still mention an imaging test, and on the remaining questions RadKev-27B's agreement with the teachers exceeds that of Kev-27B
+  by 22.6 points (95% CI 18.6 to 26.7). Indications taken from Eurorad sometimes name the examination performed, which can reveal
+  the answer to order questions; results on these tasks are therefore reported only as agreement (manuscript, Limitations).
 - **Shape variety.** States arrive as plain text, a dict of sections or a wrapped document, as real callers send them.
 
 ## Teacher labels
 
-Orders, protocols, triage, follow-up and critical-result questions have no open labels. `radkev.teacher` writes them as
-lettered multiple-choice prompts over report and case pools, scores each with two open LLMs by one forward pass (the softmax
-over option-letter logits, thinking off), and keeps a question only when both teachers' top answers agree. Training uses the
-mean of the two distributions as Kev's soft `target`. Agreement rates per question kind are in
-[`results/tables/teacher_agreement.md`](../results/tables/teacher_agreement.md) (from 0.28 for contrast to 0.85 for finding status).
+Imaging orders, triage and follow-up have no public answer keys. `radkev.teacher` generates candidate questions of ten kinds from
+reports in CheXpert Plus, ReXGradient-160K and CT-RATE and from clinical indications in these sources and in Eurorad, poses each
+as a lettered multiple-choice prompt to two LLM teachers, MedGemma-27B-text and Qwen3.8-27B (reasoning disabled; the answer
+distribution is the softmax of the next-token logits over the option letters), and retains a question only if both teachers rank the
+same answer first. That answer is the label, and the mean of the two distributions is the soft training target. Of 33,000
+candidates, 22,557 (68.4%) were retained for training; the rates per question kind range from 28.1% (contrast) to 84.7% (finding
+status) (manuscript, Supplementary Table S1; [`results/manuscript/TableS1_teacher_labels.csv`](../results/manuscript/TableS1_teacher_labels.csv)).
 
-Teachers: MedGemma-27B-text-it and Qwen3.8-27B. Two caveats follow from this and are reported with every result:
+The teacher prompt of MedGemma-27B-text was later revised (see [EVALUATION.md](EVALUATION.md#departures-from-the-analysis-plan)),
+and the labels were regenerated with the revised prompt (22,607 retained). RadKev was trained on the first-run labels; the
+regenerated labels of the test split are used only to report agreement.
 
-1. Teacher-labelled families measure **agreement with the teachers**, not correctness, and are always reported apart from
-   human-key families.
-2. Both LLM baselines produced those labels, so **no RadKev-vs-LLM claim is made on teacher-labelled families**; LLM
-   comparisons use human-key questions only. MedGemma's votes also came from the pre-registered first-token scoring, which later
-   turned out to read its hidden thought channel ([EVALUATION.md](EVALUATION.md#scoring-the-llms)); re-labelling is future work.
+Two rules follow from the use of LLM teachers and apply to every result:
+
+1. Teacher-labeled tasks measure **agreement with the teachers**, not correctness, and are reported apart from human-labeled tasks.
+2. Both LLM comparators produced these labels, so **no comparison between RadKev and the LLMs is made on model-labeled questions**.
 
 ## Counts (released models)
 
@@ -79,11 +86,25 @@ Teachers: MedGemma-27B-text-it and Qwen3.8-27B. Two caveats follow from this and
 | **Total** | **67,164** | **8,553** | **14,379** | **26,719** |
 
 Per source and task: [`results/tables/data_counts.md`](../results/tables/data_counts.md) and [`results/manifests/`](../results/manifests/).
-CheXpert Plus reports contributed through teacher questions only (its CheXbert label file was not part of the download), and
-MIMIC-CXR was not used.
+CheXpert Plus and ReXGradient-160K reports contributed through teacher-labeled questions only, and MIMIC-CXR was not used.
 
-## Licences of what you build
+## Released data
 
-The records you build inherit their sources' terms. In particular IU is no-derivatives and Eurorad and CT-RATE are
-non-commercial share-alike: keep built records for research, and do not redistribute them. Models trained on them are
-released for non-commercial research use only.
+As stated in the manuscript (Data availability), the following are released:
+
+- the question records built from Eurorad, MedMCQA, MedQA, MMLU, PubMedQA and MedXpertQA, each under the license of its source;
+- for IU/Open-i (whose license does not permit derivative works) and for the access-controlled sources (CT-RATE, CheXpert Plus,
+  ReXGradient-160K), no record text: the report identifiers, the answer keys, the teacher labels and a script that rebuilds the
+  records from the original datasets;
+- per-question model outputs (the probability of every answer option, without text) for all systems and analyses.
+
+Location: the Hugging Face dataset [`ramu9703/radkev-data`](https://huggingface.co/datasets/ramu9703/radkev-data) (access requires
+acceptance of its terms). Records without text carry the SHA-256 of their state, so a rebuild with `radkev.data` and
+`experiments/teacher_labels.py` can be checked record by record; `test_index.jsonl` maps the identifiers `rad/<line>` used by every
+output file to source, group identifier and membership of the demonstration sample.
+
+## Licenses
+
+Built records inherit the terms of their sources. IU/Open-i is CC BY-NC-ND 4.0 (no derivatives); Eurorad and CT-RATE are CC BY-NC-SA
+4.0 (non-commercial, share-alike); CheXpert Plus and ReXGradient-160K are available under access agreements that do not permit
+redistribution. Models trained on these records are released for non-commercial research use only.

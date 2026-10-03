@@ -1,0 +1,1 @@
+{"steps": {"kev_env": {"ok": true, "seconds": 123.2, "commit": "f2bb629d670f5b746f712fc05550a098526c836b", "torch": "2.8.0+cu128", "cuda": "12.8", "cuda_ok": true, "n_gpu": 1, "transformers": "5.17.0", "peft": "0.21.0", "fla": "0.5.2"}}}

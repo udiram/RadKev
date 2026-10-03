@@ -11,3 +11,14 @@ runs/
 raw/
 *.jsonl
 !tests/fixtures/*.jsonl
+# manuscript build products (paper/build.py regenerates them from paper/inputs/)
+paper/numbers.csv
+paper/numbers.tex
+paper/abstract.txt
+paper/generated/
+paper/tables_csv/
+paper/figures/
+paper/export/
+paper/*.zip
+paper/main.*
+!paper/main.tex

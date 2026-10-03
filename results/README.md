@@ -1,28 +1,28 @@
 # Results
 
-Every aggregate number behind the README, the model card and the figures. Nothing here contains dataset text or per-item
-predictions. Produced by the runs in [docs/REPRODUCE.md](../docs/REPRODUCE.md); local paths are written as `$RADKEV_HOME/...`.
+Aggregate results of the study. Nothing in this directory contains dataset text. Local paths are written as `$RADKEV_HOME/...`.
 
-| Path | What it is |
+| Path | Contents |
 |---|---|
-| `comparisons.json` | the final comparison over all 21 systems on the held-out test (`radkev.compare` output): per model overall, per family, per task, per answer-key subset and per wording, reliability bins, and paired bootstrap deltas vs Kev-27B (`vs_reference`) and vs RadKev-27B / RadKev-9B (`vs`) |
-| `tables/accuracy_test.*` | accuracy by decision family |
-| `tables/delta_test.*` | paired Δ vs Kev-27B by family, 95% CI |
-| `tables/per_task_test.*` | every task: n, accuracy, Brier, ECE, AUROC |
-| `tables/landscape_test.*` | all 21 systems: overall, human keys, radiology human keys, medical knowledge, ECE, confident errors, coverage, latency |
-| `tables/calibration_test.*`, `coverage5_test.*` | calibration and selective-prediction metrics |
-| `tables/init_ablation_test.*`, `transfer_retention.*` | the 9B initialisation ablation and Kev transfer-suite retention |
-| `tables/wording_test.*` | seen vs held-out instruction wordings |
-| `tables/latency_*` | latency per question and per record; scaling with questions per report |
-| `tables/llm_rescoring_test.*`, `medgemma_scoring_medqa300.*` | how the LLM baselines were read (see docs/EVALUATION.md) |
-| `tables/orders_leak_sensitivity.*` | order questions whose clinical question names an imaging test |
-| `tables/teacher_agreement.*`, `data_counts.*` | two-teacher agreement rates; records per source and split |
-| `tables/training_runs.*`, `dev_*` | training runs and their development-set results |
-| `manifests/` | record and question counts per source, split and task for each built suite; check your build against these |
-| `training/` | the exact `kev.train` configuration and training metrics of every run |
-| `studies/` | raw outputs of the latency, scaling, leak, transfer, baseline and LLM-scoring studies |
+| `numbers.csv` | every number in the manuscript (800 entries): key, value as printed, source file, field and note. Written by [`paper/build.py`](../paper/build.py); the manuscript reads these values through `\V{key}` macros, so no number is typed by hand |
+| `manuscript/` | every table of the manuscript as CSV, named by its number: `Table1_data.csv` and `TableS1_teacher_labels.csv` to `TableS13_ablations.csv`; values exactly as typeset, with 95% confidence intervals in parentheses |
+| `comparisons.json` | the scored comparison of every evaluated run on the held-out test split (`radkev.compare` output): per run overall, per decision family, per task, per label type and per wording, reliability bins, and paired bootstrap differences against Kev-27B (`vs_reference`) and against RadKev (`vs`) |
+| `tables/data_counts.*` | records per source and split |
+| `tables/training_runs.*`, `tables/dev_*` | training runs and their development-split results |
+| `tables/orders_leak_sensitivity.*` | agreement on order questions whose clinical indication names an imaging examination, and on the remaining questions |
+| `manifests/` | record and question counts per source, split and task for each built suite, to check a rebuild against |
+| `training/` | the `kev.train` configuration and training metrics of every run |
+| `studies/` | raw outputs of the latency, latency-scaling, leak, transfer, baseline and LLM-scoring studies |
 
-Model names in the JSON files: `v2_27` = RadKev-27B, `r9` = RadKev-9B, `b9` = the 9B plain-base arm, `*f10` = 10% data,
-`v1med27` = RadKev-27B without report/teacher data, `v0open27` / `ft9` = pilots, `stock27` / `stock9` / `kev4` / `kev08` = released
-Kev, `qwen38` = Qwen3.8-27B, `medgemma` = MedGemma pre-registered scoring, `medgemma_brief` = MedGemma with the thought channel
-closed, `*_gen` = letter read where generated.
+The manuscript's intervals come from one shared bootstrap with 2,000 resamples (see [docs/EVALUATION.md](../docs/EVALUATION.md));
+`comparisons.json`, `tables/` and `studies/` are the outputs of the individual scripts and use their own resampling (1,000
+resamples in `radkev.compare`). Where the two differ in the last digit, the manuscript values in `numbers.csv` and `manuscript/`
+are the reported ones.
+
+Run names in the JSON files: `v2_27` = RadKev-27B; `r9` = RadKev-9B; `b9` = the 9B model fine-tuned from Qwen3.5-9B-Base;
+`*f10` = trained on 10% of the training data; `v1med27` = RadKev-27B trained without the CT-RATE and teacher-labeled data;
+`v0open27` and `ft9` = pilot models; `stock27`, `stock9`, `kev4`, `kev08` = the released Kev models; `qwen38` = Qwen3.8-27B;
+`medgemma` = MedGemma-27B-text with the original prompt; `medgemma_brief` = MedGemma-27B-text with the revised prompt, before the
+duplicated beginning-of-sequence token was removed (the manuscript's MedGemma-27B-text results use the final prompt);
+`*_gen` = the answer letter read from generated text. Family names: `orders_protocols` = imaging orders; `human_keys` =
+human-labeled questions.

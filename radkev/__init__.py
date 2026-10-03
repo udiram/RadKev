@@ -1,4 +1,4 @@
-"""RadKev: a radiology-specialised decision model, fine-tuned from Kev.
+"""RadKev: a radiology-specialized decision model, fine-tuned from Kev.
 
 Modules (each is also a command: python -m radkev.<module> --help):
     data       open and gated sources -> Kev training/eval records (patient/case splits, held-out wordings)

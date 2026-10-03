@@ -1,0 +1,13 @@
+Task,System,Full case,Options only (case removed)
+Eurorad diagnosis,RadKev-27B,"93.9 (91.3, 96.2)","78.0 (73.7, 82.4)"
+Eurorad diagnosis,Kev-27B,"82.7 (78.6, 86.4)","47.7 (42.8, 52.9)"
+Eurorad diagnosis,RadKev-9B,"91.0 (87.9, 93.9)","81.2 (77.5, 85.3)"
+Eurorad diagnosis,Kev-9B,"75.1 (70.8, 79.5)","38.4 (33.5, 43.6)"
+Eurorad diagnosis,Qwen3.8-27B,"84.4 (80.3, 88.2)","50.0 (44.8, 55.2)"
+Eurorad diagnosis,MedGemma-27B-text,"72.5 (67.9, 77.2)","26.9 (22.5, 31.8)"
+MedQA,RadKev-27B,"86.8 (84.8, 88.7)","36.1 (33.5, 38.8)"
+MedQA,Kev-27B,"83.8 (81.7, 85.9)","32.5 (30.0, 35.0)"
+MedQA,RadKev-9B,"77.2 (74.8, 79.7)","35.3 (32.7, 37.9)"
+MedQA,Kev-9B,"72.3 (69.8, 74.8)","29.8 (27.3, 32.2)"
+MedQA,Qwen3.8-27B,"84.0 (81.9, 86.0)","33.4 (30.8, 36.1)"
+MedQA,MedGemma-27B-text,"69.4 (66.9, 71.9)","27.3 (24.9, 29.7)"

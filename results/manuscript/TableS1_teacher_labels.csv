@@ -1,0 +1,13 @@
+,,,,,Retained (%)
+Question kind,Input,Answer type,Answers,Candidates,First run,Regenerated
+Critical finding,Report,Yes/no,2,"3,078","2,201 (71.5)","2,373 (77.1)"
+Urgency,Report,Ordinal,4,"2,985","2,365 (79.2)","2,339 (78.4)"
+Follow-up,Report,Choice,5,"3,097","1,923 (62.1)","1,920 (62.0)"
+Interval change,Report with a comparison,Choice,5,"1,224",983 (80.3),998 (81.5)
+Incidental finding,Report,Yes/no,2,"3,116","2,114 (67.8)","2,258 (72.5)"
+Finding status,Chest radiograph report,Choice,4,"3,000","2,540 (84.7)","2,615 (87.2)"
+First examination,Clinical indication,Choice,14,"3,968","3,058 (77.1)","3,152 (79.4)"
+Contrast,Clinical indication,Choice,4,"3,989","1,121 (28.1)",909 (22.8)
+Priority,Clinical indication,Ordinal,3,"4,043","2,644 (65.4)","2,656 (65.7)"
+Appropriateness,Indication and ordered examination,Ordinal,3,"4,500","3,608 (80.2)","3,387 (75.3)"
+Total,,,,"33,000","22,557 (68.4)","22,607 (68.5)"

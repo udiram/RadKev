@@ -243,7 +243,7 @@ class LetterScorer:
     # 5 MedQA items); this one-line thought gives letter mass 0.90-0.99. Chosen on format compliance only, never on accuracy.
     THOUGHT_OFF = "<unused94>thought\nI will answer with the letter only.<unused95>"
 
-    def __init__(self, model_id, think_off=False):
+    def __init__(self, model_id, think_off=False, single_bos=False):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.torch = torch
@@ -251,6 +251,11 @@ class LetterScorer:
         if self.tok.pad_token is None: self.tok.pad_token = self.tok.eos_token
         self.model = AutoModelForCausalLM.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto").eval()
         self.prefill = self.THOUGHT_OFF if think_off and "<unused94>" in self.tok.get_vocab() else ""
+        # Gemma chat templates already start with <bos> and the Gemma tokenizer adds another one by default, so MedGemma saw two
+        # <bos> tokens on every prompt. single_bos=True tokenizes the templated text without special tokens (post hoc correction;
+        # the MedGemma row of the paper, experiments/medgemma_rescore.py). Qwen's tokenizer adds no <bos>, so its rows are the same
+        # either way. Off by default, so the released rows and teacher labels are reproduced unchanged.
+        self.add_special = not single_bos
         self.letter_ids = []
         for L in LETTERS:
             ids = {self.tok.encode(v, add_special_tokens=False)[0] for v in (L, " " + L) if self.tok.encode(v, add_special_tokens=False)}
@@ -270,7 +275,8 @@ class LetterScorer:
         with self.torch.no_grad():
             for i in range(0, len(prompts), batch):
                 chunk = prompts[i:i + batch]
-                enc = self.tok([c[2] for c in chunk], return_tensors="pt", padding=True, truncation=True, max_length=max_len).to(self.model.device)
+                enc = self.tok([c[2] for c in chunk], return_tensors="pt", padding=True, truncation=True, max_length=max_len,
+                               add_special_tokens=self.add_special).to(self.model.device)
                 logits = self.model(**enc, logits_to_keep=1).logits[:, -1, :].float()   # never materialise [B, L, vocab]
                 for (k, keys, _), z in zip(chunk, logits):
                     s = self.torch.stack([self.torch.logsumexp(z[ids], 0) for ids in self.letter_ids[:len(keys)]])
@@ -289,7 +295,8 @@ class LetterScorer:
         with torch.no_grad():
             for i in range(0, len(prompts), batch):
                 chunk = prompts[i:i + batch]
-                enc = self.tok([c[2] for c in chunk], return_tensors="pt", padding=True, truncation=True, max_length=max_len).to(self.model.device)
+                enc = self.tok([c[2] for c in chunk], return_tensors="pt", padding=True, truncation=True, max_length=max_len,
+                               add_special_tokens=self.add_special).to(self.model.device)
                 out = self.model.generate(**enc, max_new_tokens=max_new, do_sample=False, output_scores=True, return_dict_in_generate=True,
                                           pad_token_id=self.tok.pad_token_id)
                 gen = out.sequences[:, enc["input_ids"].shape[1]:]
@@ -319,7 +326,7 @@ def predict(a):
         r = json.loads(line); n_q[f"rad/{n}"] = len(r["questions"])
         for qid, q in r["questions"].items(): items.append(((f"rad/{n}", qid), r["state"], q))
     out, found, total = {}, 0, 0
-    S = LetterScorer(a.model, getattr(a, "think_off", False))
+    S = LetterScorer(a.model, getattr(a, "think_off", False), getattr(a, "single_bos", False))
     stream = (((k, p, True) for k, p in S.score(items, a.batch, a.max_len, f"{a.model}: ")) if a.mode == "first"
               else S.score_gen(items, a.batch, a.max_len))
     for (rid, qid), p, ok in stream:
@@ -376,6 +383,7 @@ def main():
     pr.add_argument("--mode", choices=["first", "gen"], default="first", help="first: letter logits at the first token (pre-registered); gen: at the generated letter")
     pr.add_argument("--limit", type=int, default=0, help="score only the first N records (sanity checks)")
     pr.add_argument("--think_off", action="store_true", help="close the thought channel with a one-line thought (MedGemma; see LetterScorer.THOUGHT_OFF)")
+    pr.add_argument("--single_bos", action="store_true", help="do not add special tokens to the templated prompt (one <bos> for Gemma; see LetterScorer)")
     a = ap.parse_args()
     {"tasks": make_tasks, "label": label, "merge": merge, "predict": predict}[a.cmd](a)
 

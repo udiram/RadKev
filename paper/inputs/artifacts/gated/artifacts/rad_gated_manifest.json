@@ -1,0 +1,46 @@
+{
+  "seed": 0,
+  "sources": [
+    "ctrate",
+    "chexpert_plus",
+    "mimic"
+  ],
+  "splits": {
+    "train": {
+      "records": 8000,
+      "questions": 35467,
+      "by_source": {
+        "ctrate": 8000
+      },
+      "by_task": {
+        "ctrate_finding": 24000,
+        "ctrate_normal": 8000,
+        "ctrate_which": 3467
+      }
+    },
+    "dev": {
+      "records": 1911,
+      "questions": 8487,
+      "by_source": {
+        "ctrate": 1911
+      },
+      "by_task": {
+        "ctrate_finding": 5733,
+        "ctrate_normal": 1911,
+        "ctrate_which": 843
+      }
+    },
+    "test": {
+      "records": 1564,
+      "questions": 6950,
+      "by_source": {
+        "ctrate": 1564
+      },
+      "by_task": {
+        "ctrate_finding": 4692,
+        "ctrate_normal": 1564,
+        "ctrate_which": 694
+      }
+    }
+  }
+}

@@ -14,8 +14,10 @@ ruff check .
 
 ## Ground rules
 
-- **No dataset text in the repository**, not even a few lines in a test. Tests use invented fixtures (`tests/conftest.py`);
-  examples are written by hand. Most sources here are non-commercial, no-derivatives or credentialed.
+- **No dataset text in the repository**, not even a few lines in a test, apart from the attributed excerpts that the manuscript
+  itself prints (`paper/`: the example records of Supplementary Note S1 and the two Eurorad cases of Figure 1). Tests use
+  invented fixtures (`tests/conftest.py`); examples are written by hand. Released records are distributed through the Hugging
+  Face dataset, not this repository.
 - **No protected health information, ever**, in code, issues, logs or results. If you evaluate on institutional data, report
   aggregates only.
 - **Keep the builders deterministic.** A change to `radkev/data.py` or `radkev/teacher.py` that alters the records for the same

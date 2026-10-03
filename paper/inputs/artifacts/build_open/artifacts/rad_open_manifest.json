@@ -1,0 +1,92 @@
+{
+  "seed": 0,
+  "sources": [
+    "iu",
+    "eurorad",
+    "medmcqa",
+    "medqa",
+    "mmlu_med",
+    "pubmedqa",
+    "medxpertqa"
+  ],
+  "splits": {
+    "train": {
+      "records": 47721,
+      "questions": 49166,
+      "by_source": {
+        "medmcqa": 35634,
+        "medqa": 9175,
+        "eurorad": 2912
+      },
+      "by_task": {
+        "eurorad_dx": 2912,
+        "eurorad_route": 1445,
+        "medmcqa_med": 31483,
+        "medmcqa_rad": 4151,
+        "medqa": 9175
+      }
+    },
+    "dev": {
+      "records": 5765,
+      "questions": 7903,
+      "by_source": {
+        "mmlu_med": 123,
+        "medmcqa": 2456,
+        "medqa": 1003,
+        "iu": 886,
+        "pubmedqa": 469,
+        "eurorad": 329,
+        "medxpertqa": 499
+      },
+      "by_task": {
+        "eurorad_dx": 329,
+        "eurorad_route": 166,
+        "iu_finding": 1772,
+        "iu_normal": 886,
+        "iu_which": 200,
+        "medmcqa_med": 2235,
+        "medmcqa_rad": 221,
+        "medqa": 1003,
+        "medxpertqa": 499,
+        "mmlu_anatomy": 14,
+        "mmlu_clinical_knowledge": 29,
+        "mmlu_college_biology": 16,
+        "mmlu_college_medicine": 22,
+        "mmlu_medical_genetics": 11,
+        "mmlu_professional_medicine": 31,
+        "pubmedqa": 469
+      }
+    },
+    "test": {
+      "records": 12189,
+      "questions": 18744,
+      "by_source": {
+        "medmcqa": 4151,
+        "medxpertqa": 1951,
+        "iu": 2848,
+        "eurorad": 346,
+        "mmlu_med": 1089,
+        "pubmedqa": 531,
+        "medqa": 1273
+      },
+      "by_task": {
+        "eurorad_dx": 346,
+        "eurorad_route": 185,
+        "iu_finding": 5696,
+        "iu_normal": 2848,
+        "iu_which": 674,
+        "medmcqa_med": 4082,
+        "medmcqa_rad": 69,
+        "medqa": 1273,
+        "medxpertqa": 1951,
+        "mmlu_anatomy": 135,
+        "mmlu_clinical_knowledge": 265,
+        "mmlu_college_biology": 144,
+        "mmlu_college_medicine": 173,
+        "mmlu_medical_genetics": 100,
+        "mmlu_professional_medicine": 272,
+        "pubmedqa": 531
+      }
+    }
+  }
+}

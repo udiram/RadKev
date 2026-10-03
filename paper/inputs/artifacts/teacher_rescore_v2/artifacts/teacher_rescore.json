@@ -1,0 +1,880 @@
+{
+ "what": "two-teacher labels with MedGemma think_off (THOUGHT_OFF pre-fill) + reused Qwen3.8 votes; counts and accuracies only",
+ "manifest_new": {
+  "records": {
+   "train": 11240,
+   "test": 629,
+   "dev": 874
+  },
+  "questions": {
+   "critical": {
+    "agree": 2373,
+    "label=True": 254,
+    "label=False": 2119,
+    "disagree": 705
+   },
+   "follow_up": {
+    "agree": 1920,
+    "label=other_test": 516,
+    "label=none": 962,
+    "disagree": 1177,
+    "label=long_interval": 266,
+    "label=short_interval": 50,
+    "label=clinical": 126
+   },
+   "urgency": {
+    "disagree": 646,
+    "agree": 2339,
+    "label=0": 1869,
+    "label=2": 340,
+    "label=1": 121,
+    "label=3": 9
+   },
+   "exam": {
+    "agree": 3152,
+    "label=ct_abd_pelvis_c": 266,
+    "label=xr_chest": 2020,
+    "disagree": 816,
+    "label=ct_head_nc": 170,
+    "label=ct_chest": 136,
+    "label=no_imaging": 161,
+    "label=xr_msk": 97,
+    "label=mammo_us_breast": 35,
+    "label=us_abdomen": 104,
+    "label=us_doppler": 23,
+    "label=mri_brain": 52,
+    "label=cta_chest_pe": 23,
+    "label=mri_spine": 28,
+    "label=mri_msk": 13,
+    "label=us_pelvis": 24
+   },
+   "contrast": {
+    "agree": 909,
+    "label=with_without": 224,
+    "disagree": 3080,
+    "label=none": 291,
+    "label=iv": 383,
+    "label=na": 11
+   },
+   "appropriate": {
+    "agree": 3387,
+    "label=2": 2049,
+    "disagree": 1113,
+    "label=0": 1273,
+    "label=1": 65
+   },
+   "incidental": {
+    "agree": 2258,
+    "label=True": 1365,
+    "disagree": 858,
+    "label=False": 893
+   },
+   "priority": {
+    "disagree": 1387,
+    "agree": 2656,
+    "label=1": 948,
+    "label=0": 716,
+    "label=2": 992
+   },
+   "finding_status": {
+    "agree": 2615,
+    "label=not_mentioned": 539,
+    "label=absent": 1039,
+    "disagree": 385,
+    "label=present": 828,
+    "label=uncertain": 209
+   },
+   "change": {
+    "disagree": 226,
+    "agree": 998,
+    "label=stable": 630,
+    "label=new": 71,
+    "label=improved": 122,
+    "label=worse": 127,
+    "label=mixed": 48
+   }
+  },
+  "agreement": {
+   "critical": 0.771,
+   "follow_up": 0.62,
+   "urgency": 0.784,
+   "exam": 0.794,
+   "contrast": 0.228,
+   "appropriate": 0.753,
+   "incidental": 0.725,
+   "priority": 0.657,
+   "finding_status": 0.872,
+   "change": 0.815
+  }
+ },
+ "manifest_old": {
+  "records": {
+   "train": 11443,
+   "test": 626,
+   "dev": 877
+  },
+  "questions": {
+   "critical": {
+    "agree": 2201,
+    "label=True": 257,
+    "label=False": 1944,
+    "disagree": 877
+   },
+   "follow_up": {
+    "agree": 1923,
+    "label=other_test": 511,
+    "label=none": 1026,
+    "disagree": 1174,
+    "label=long_interval": 133,
+    "label=short_interval": 126,
+    "label=clinical": 127
+   },
+   "urgency": {
+    "disagree": 620,
+    "agree": 2365,
+    "label=0": 1923,
+    "label=1": 168,
+    "label=2": 263,
+    "label=3": 11
+   },
+   "exam": {
+    "agree": 3058,
+    "label=ct_abd_pelvis_c": 269,
+    "label=xr_chest": 2112,
+    "disagree": 910,
+    "label=ct_head_nc": 172,
+    "label=ct_chest": 120,
+    "label=no_imaging": 31,
+    "label=xr_msk": 83,
+    "label=us_abdomen": 90,
+    "label=mammo_us_breast": 32,
+    "label=us_doppler": 20,
+    "label=cta_chest_pe": 15,
+    "label=mri_spine": 29,
+    "label=mri_msk": 13,
+    "label=mri_brain": 48,
+    "label=us_pelvis": 24
+   },
+   "contrast": {
+    "disagree": 2868,
+    "agree": 1121,
+    "label=none": 294,
+    "label=iv": 703,
+    "label=with_without": 105,
+    "label=na": 19
+   },
+   "appropriate": {
+    "agree": 3608,
+    "label=2": 2043,
+    "disagree": 892,
+    "label=0": 1520,
+    "label=1": 45
+   },
+   "incidental": {
+    "agree": 2114,
+    "label=True": 1368,
+    "disagree": 1002,
+    "label=False": 746
+   },
+   "priority": {
+    "disagree": 1399,
+    "agree": 2644,
+    "label=0": 947,
+    "label=1": 576,
+    "label=2": 1121
+   },
+   "finding_status": {
+    "agree": 2540,
+    "label=not_mentioned": 532,
+    "label=absent": 1007,
+    "disagree": 460,
+    "label=present": 834,
+    "label=uncertain": 167
+   },
+   "change": {
+    "disagree": 241,
+    "agree": 983,
+    "label=stable": 598,
+    "label=new": 86,
+    "label=improved": 122,
+    "label=worse": 127,
+    "label=mixed": 50
+   }
+  },
+  "agreement": {
+   "critical": 0.715,
+   "follow_up": 0.621,
+   "urgency": 0.792,
+   "exam": 0.771,
+   "contrast": 0.281,
+   "appropriate": 0.802,
+   "incidental": 0.678,
+   "priority": 0.654,
+   "finding_status": 0.847,
+   "change": 0.803
+  }
+ },
+ "label_changes": {
+  "ALL": {
+   "ALL": {
+    "kept_old": 22427,
+    "kept_new": 22478,
+    "same_label": 20855,
+    "different_label": 0,
+    "dropped": 1572,
+    "added": 1623
+   },
+   "appropriate": {
+    "kept_old": 3561,
+    "kept_new": 3341,
+    "same_label": 3291,
+    "different_label": 0,
+    "dropped": 270,
+    "added": 50
+   },
+   "change": {
+    "kept_old": 983,
+    "kept_new": 998,
+    "same_label": 960,
+    "different_label": 0,
+    "dropped": 23,
+    "added": 38
+   },
+   "contrast": {
+    "kept_old": 1115,
+    "kept_new": 905,
+    "same_label": 747,
+    "different_label": 0,
+    "dropped": 368,
+    "added": 158
+   },
+   "critical": {
+    "kept_old": 2201,
+    "kept_new": 2373,
+    "same_label": 2182,
+    "different_label": 0,
+    "dropped": 19,
+    "added": 191
+   },
+   "exam": {
+    "kept_old": 3014,
+    "kept_new": 3108,
+    "same_label": 2906,
+    "different_label": 0,
+    "dropped": 108,
+    "added": 202
+   },
+   "finding_status": {
+    "kept_old": 2540,
+    "kept_new": 2615,
+    "same_label": 2507,
+    "different_label": 0,
+    "dropped": 33,
+    "added": 108
+   },
+   "follow_up": {
+    "kept_old": 1923,
+    "kept_new": 1920,
+    "same_label": 1740,
+    "different_label": 0,
+    "dropped": 183,
+    "added": 180
+   },
+   "incidental": {
+    "kept_old": 2113,
+    "kept_new": 2257,
+    "same_label": 2110,
+    "different_label": 0,
+    "dropped": 3,
+    "added": 147
+   },
+   "priority": {
+    "kept_old": 2613,
+    "kept_new": 2623,
+    "same_label": 2171,
+    "different_label": 0,
+    "dropped": 442,
+    "added": 452
+   },
+   "urgency": {
+    "kept_old": 2364,
+    "kept_new": 2338,
+    "same_label": 2241,
+    "different_label": 0,
+    "dropped": 123,
+    "added": 97
+   }
+  },
+  "dev": {
+   "ALL": {
+    "kept_old": 1457,
+    "kept_new": 1477,
+    "same_label": 1353,
+    "different_label": 0,
+    "dropped": 104,
+    "added": 124
+   },
+   "appropriate": {
+    "kept_old": 226,
+    "kept_new": 219,
+    "same_label": 210,
+    "different_label": 0,
+    "dropped": 16,
+    "added": 9
+   },
+   "change": {
+    "kept_old": 60,
+    "kept_new": 61,
+    "same_label": 59,
+    "different_label": 0,
+    "dropped": 1,
+    "added": 2
+   },
+   "contrast": {
+    "kept_old": 75,
+    "kept_new": 72,
+    "same_label": 52,
+    "different_label": 0,
+    "dropped": 23,
+    "added": 20
+   },
+   "critical": {
+    "kept_old": 117,
+    "kept_new": 138,
+    "same_label": 117,
+    "different_label": 0,
+    "dropped": 0,
+    "added": 21
+   },
+   "exam": {
+    "kept_old": 229,
+    "kept_new": 238,
+    "same_label": 223,
+    "different_label": 0,
+    "dropped": 6,
+    "added": 15
+   },
+   "finding_status": {
+    "kept_old": 152,
+    "kept_new": 154,
+    "same_label": 145,
+    "different_label": 0,
+    "dropped": 7,
+    "added": 9
+   },
+   "follow_up": {
+    "kept_old": 111,
+    "kept_new": 108,
+    "same_label": 102,
+    "different_label": 0,
+    "dropped": 9,
+    "added": 6
+   },
+   "incidental": {
+    "kept_old": 151,
+    "kept_new": 159,
+    "same_label": 151,
+    "different_label": 0,
+    "dropped": 0,
+    "added": 8
+   },
+   "priority": {
+    "kept_old": 192,
+    "kept_new": 186,
+    "same_label": 155,
+    "different_label": 0,
+    "dropped": 37,
+    "added": 31
+   },
+   "urgency": {
+    "kept_old": 144,
+    "kept_new": 142,
+    "same_label": 139,
+    "different_label": 0,
+    "dropped": 5,
+    "added": 3
+   }
+  },
+  "test": {
+   "ALL": {
+    "kept_old": 1025,
+    "kept_new": 1047,
+    "same_label": 943,
+    "different_label": 0,
+    "dropped": 82,
+    "added": 104
+   },
+   "appropriate": {
+    "kept_old": 166,
+    "kept_new": 160,
+    "same_label": 159,
+    "different_label": 0,
+    "dropped": 7,
+    "added": 1
+   },
+   "change": {
+    "kept_old": 18,
+    "kept_new": 20,
+    "same_label": 18,
+    "different_label": 0,
+    "dropped": 0,
+    "added": 2
+   },
+   "contrast": {
+    "kept_old": 49,
+    "kept_new": 47,
+    "same_label": 28,
+    "different_label": 0,
+    "dropped": 21,
+    "added": 19
+   },
+   "critical": {
+    "kept_old": 90,
+    "kept_new": 100,
+    "same_label": 89,
+    "different_label": 0,
+    "dropped": 1,
+    "added": 11
+   },
+   "exam": {
+    "kept_old": 169,
+    "kept_new": 180,
+    "same_label": 165,
+    "different_label": 0,
+    "dropped": 4,
+    "added": 15
+   },
+   "finding_status": {
+    "kept_old": 83,
+    "kept_new": 86,
+    "same_label": 82,
+    "different_label": 0,
+    "dropped": 1,
+    "added": 4
+   },
+   "follow_up": {
+    "kept_old": 95,
+    "kept_new": 98,
+    "same_label": 85,
+    "different_label": 0,
+    "dropped": 10,
+    "added": 13
+   },
+   "incidental": {
+    "kept_old": 121,
+    "kept_new": 130,
+    "same_label": 121,
+    "different_label": 0,
+    "dropped": 0,
+    "added": 9
+   },
+   "priority": {
+    "kept_old": 136,
+    "kept_new": 133,
+    "same_label": 104,
+    "different_label": 0,
+    "dropped": 32,
+    "added": 29
+   },
+   "urgency": {
+    "kept_old": 98,
+    "kept_new": 93,
+    "same_label": 92,
+    "different_label": 0,
+    "dropped": 6,
+    "added": 1
+   }
+  },
+  "train": {
+   "ALL": {
+    "kept_old": 19945,
+    "kept_new": 19954,
+    "same_label": 18559,
+    "different_label": 0,
+    "dropped": 1386,
+    "added": 1395
+   },
+   "appropriate": {
+    "kept_old": 3169,
+    "kept_new": 2962,
+    "same_label": 2922,
+    "different_label": 0,
+    "dropped": 247,
+    "added": 40
+   },
+   "change": {
+    "kept_old": 905,
+    "kept_new": 917,
+    "same_label": 883,
+    "different_label": 0,
+    "dropped": 22,
+    "added": 34
+   },
+   "contrast": {
+    "kept_old": 991,
+    "kept_new": 786,
+    "same_label": 667,
+    "different_label": 0,
+    "dropped": 324,
+    "added": 119
+   },
+   "critical": {
+    "kept_old": 1994,
+    "kept_new": 2135,
+    "same_label": 1976,
+    "different_label": 0,
+    "dropped": 18,
+    "added": 159
+   },
+   "exam": {
+    "kept_old": 2616,
+    "kept_new": 2690,
+    "same_label": 2518,
+    "different_label": 0,
+    "dropped": 98,
+    "added": 172
+   },
+   "finding_status": {
+    "kept_old": 2305,
+    "kept_new": 2375,
+    "same_label": 2280,
+    "different_label": 0,
+    "dropped": 25,
+    "added": 95
+   },
+   "follow_up": {
+    "kept_old": 1717,
+    "kept_new": 1714,
+    "same_label": 1553,
+    "different_label": 0,
+    "dropped": 164,
+    "added": 161
+   },
+   "incidental": {
+    "kept_old": 1841,
+    "kept_new": 1968,
+    "same_label": 1838,
+    "different_label": 0,
+    "dropped": 3,
+    "added": 130
+   },
+   "priority": {
+    "kept_old": 2285,
+    "kept_new": 2304,
+    "same_label": 1912,
+    "different_label": 0,
+    "dropped": 373,
+    "added": 392
+   },
+   "urgency": {
+    "kept_old": 2122,
+    "kept_new": 2103,
+    "same_label": 2010,
+    "different_label": 0,
+    "dropped": 112,
+    "added": 93
+   }
+  }
+ },
+ "medgemma_argmax_old_vs_corrected": {
+  "ALL": {
+   "same": 28475,
+   "different": 4525
+  },
+  "appropriate": {
+   "same": 4092,
+   "different": 408
+  },
+  "change": {
+   "different": 81,
+   "same": 1143
+  },
+  "contrast": {
+   "different": 1191,
+   "same": 2798
+  },
+  "critical": {
+   "same": 2868,
+   "different": 210
+  },
+  "exam": {
+   "same": 3578,
+   "different": 390
+  },
+  "finding_status": {
+   "same": 2841,
+   "different": 159
+  },
+  "follow_up": {
+   "same": 2538,
+   "different": 559
+  },
+  "incidental": {
+   "same": 2966,
+   "different": 150
+  },
+  "priority": {
+   "same": 2951,
+   "different": 1092
+  },
+  "urgency": {
+   "same": 2700,
+   "different": 285
+  }
+ },
+ "test_split": {
+  "ALL": 1047,
+  "appropriate": 160,
+  "change": 20,
+  "contrast": 47,
+  "critical": 100,
+  "exam": 180,
+  "finding_status": 86,
+  "follow_up": 98,
+  "incidental": 130,
+  "priority": 133,
+  "urgency": 93
+ },
+ "models": {
+  "radkev27": {
+   "run": "radkev:v2mg-kev-27b",
+   "temperature": 1.2599210498948732,
+   "coverage": {
+    "requested_records": 629,
+    "requested_questions": 1047,
+    "evaluated_records": 629,
+    "evaluated_questions": 1047,
+    "rejected_records": 0,
+    "truncated_records": 0
+   },
+   "overall": {
+    "n": 1047,
+    "acc": 0.941738299904489,
+    "ece": 0.18263097434352868,
+    "brier": 0.15334529038439243
+   },
+   "tasks": {
+    "teacher_cxr_findings_finding_status": {
+     "n": 86,
+     "acc": 0.9883720930232558
+    },
+    "teacher_order_appropriate": {
+     "n": 160,
+     "acc": 0.9875
+    },
+    "teacher_order_contrast": {
+     "n": 47,
+     "acc": 0.8085106382978723
+    },
+    "teacher_order_exam": {
+     "n": 180,
+     "acc": 0.9333333333333333
+    },
+    "teacher_order_priority": {
+     "n": 133,
+     "acc": 0.8195488721804511
+    },
+    "teacher_report_change": {
+     "n": 20,
+     "acc": 1.0
+    },
+    "teacher_report_critical": {
+     "n": 100,
+     "acc": 0.99
+    },
+    "teacher_report_follow_up": {
+     "n": 98,
+     "acc": 0.9081632653061225
+    },
+    "teacher_report_incidental": {
+     "n": 130,
+     "acc": 0.9923076923076923
+    },
+    "teacher_report_urgency": {
+     "n": 93,
+     "acc": 0.978494623655914
+    }
+   }
+  },
+  "kev27": {
+   "run": "jaredpalmer/kev-27b@01b81998019be550f0ae858727df49bac9511195",
+   "temperature": 1.381912879967776,
+   "coverage": {
+    "requested_records": 629,
+    "requested_questions": 1047,
+    "evaluated_records": 629,
+    "evaluated_questions": 1047,
+    "rejected_records": 0,
+    "truncated_records": 0
+   },
+   "overall": {
+    "n": 1047,
+    "acc": 0.8261700095510984,
+    "ece": 0.1166187029373074,
+    "brier": 0.2715843606080109
+   },
+   "tasks": {
+    "teacher_cxr_findings_finding_status": {
+     "n": 86,
+     "acc": 0.9883720930232558
+    },
+    "teacher_order_appropriate": {
+     "n": 160,
+     "acc": 0.76875
+    },
+    "teacher_order_contrast": {
+     "n": 47,
+     "acc": 0.5106382978723404
+    },
+    "teacher_order_exam": {
+     "n": 180,
+     "acc": 0.8277777777777777
+    },
+    "teacher_order_priority": {
+     "n": 133,
+     "acc": 0.6015037593984962
+    },
+    "teacher_report_change": {
+     "n": 20,
+     "acc": 0.95
+    },
+    "teacher_report_critical": {
+     "n": 100,
+     "acc": 0.98
+    },
+    "teacher_report_follow_up": {
+     "n": 98,
+     "acc": 0.8163265306122449
+    },
+    "teacher_report_incidental": {
+     "n": 130,
+     "acc": 0.9230769230769231
+    },
+    "teacher_report_urgency": {
+     "n": 93,
+     "acc": 0.9354838709677419
+    }
+   }
+  },
+  "radkev9": {
+   "run": "radkev:v2x9-kev-9b",
+   "temperature": 1.2311444133449163,
+   "coverage": {
+    "requested_records": 629,
+    "requested_questions": 1047,
+    "evaluated_records": 629,
+    "evaluated_questions": 1047,
+    "rejected_records": 0,
+    "truncated_records": 0
+   },
+   "overall": {
+    "n": 1047,
+    "acc": 0.9264565425023877,
+    "ece": 0.16500075125998165,
+    "brier": 0.1604573411295949
+   },
+   "tasks": {
+    "teacher_cxr_findings_finding_status": {
+     "n": 86,
+     "acc": 0.9883720930232558
+    },
+    "teacher_order_appropriate": {
+     "n": 160,
+     "acc": 0.99375
+    },
+    "teacher_order_contrast": {
+     "n": 47,
+     "acc": 0.6382978723404256
+    },
+    "teacher_order_exam": {
+     "n": 180,
+     "acc": 0.9055555555555556
+    },
+    "teacher_order_priority": {
+     "n": 133,
+     "acc": 0.8120300751879699
+    },
+    "teacher_report_change": {
+     "n": 20,
+     "acc": 0.9
+    },
+    "teacher_report_critical": {
+     "n": 100,
+     "acc": 0.99
+    },
+    "teacher_report_follow_up": {
+     "n": 98,
+     "acc": 0.8979591836734694
+    },
+    "teacher_report_incidental": {
+     "n": 130,
+     "acc": 1.0
+    },
+    "teacher_report_urgency": {
+     "n": 93,
+     "acc": 0.967741935483871
+    }
+   }
+  },
+  "kev9": {
+   "run": "jaredpalmer/kev-9b@2629c06a5aeb0feb3b9783bafed17ed8f39ecf5c",
+   "temperature": 2.2973967099940698,
+   "coverage": {
+    "requested_records": 629,
+    "requested_questions": 1047,
+    "evaluated_records": 629,
+    "evaluated_questions": 1047,
+    "rejected_records": 0,
+    "truncated_records": 0
+   },
+   "overall": {
+    "n": 1047,
+    "acc": 0.8061127029608405,
+    "ece": 0.1099189111077543,
+    "brier": 0.2760572799050133
+   },
+   "tasks": {
+    "teacher_cxr_findings_finding_status": {
+     "n": 86,
+     "acc": 0.9534883720930233
+    },
+    "teacher_order_appropriate": {
+     "n": 160,
+     "acc": 0.86875
+    },
+    "teacher_order_contrast": {
+     "n": 47,
+     "acc": 0.2978723404255319
+    },
+    "teacher_order_exam": {
+     "n": 180,
+     "acc": 0.7444444444444445
+    },
+    "teacher_order_priority": {
+     "n": 133,
+     "acc": 0.631578947368421
+    },
+    "teacher_report_change": {
+     "n": 20,
+     "acc": 0.95
+    },
+    "teacher_report_critical": {
+     "n": 100,
+     "acc": 0.96
+    },
+    "teacher_report_follow_up": {
+     "n": 98,
+     "acc": 0.7551020408163265
+    },
+    "teacher_report_incidental": {
+     "n": 130,
+     "acc": 0.8923076923076924
+    },
+    "teacher_report_urgency": {
+     "n": 93,
+     "acc": 0.9247311827956989
+    }
+   }
+  }
+ }
+}

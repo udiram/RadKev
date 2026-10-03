@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "radkev"
 version = "1.0.0"
-description = "A radiology-specialised decision model: data, training and evaluation code for RadKev, a fine-tune of Kev"
+description = "RadKev, a radiology-specialized decision model fine-tuned from Kev: data, training, evaluation and manuscript build"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
@@ -37,7 +37,7 @@ packages = ["radkev"]
 [tool.ruff]
 line-length = 160
 target-version = "py310"
-extend-exclude = ["results", "figures"]
+extend-exclude = ["results", "figures", "paper"]   # paper/: the manuscript build, shared with the authors' working copy
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]

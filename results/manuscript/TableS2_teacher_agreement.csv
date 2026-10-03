@@ -1,0 +1,13 @@
+,,Agreement with the teacher label (%)
+Question kind,Test questions,Kev-27B,RadKev-27B,Kev-9B,RadKev-9B
+Critical finding,100,98.0,99.0,96.0,99.0
+Urgency,93,93.5,97.8,92.5,96.8
+Follow-up,98,81.6,90.8,75.5,89.8
+Interval change,20,95.0,100.0,95.0,90.0
+Incidental finding,130,92.3,99.2,89.2,100.0
+Finding status,86,98.8,98.8,95.3,98.8
+First examination,180,82.8,93.3,74.4,90.6
+Contrast,47,51.1,80.9,29.8,63.8
+Priority,133,60.2,82.0,63.2,81.2
+Appropriateness,160,76.9,98.8,86.9,99.4
+All,"1,047",82.6,94.2,80.6,92.6

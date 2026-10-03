@@ -1,8 +1,0 @@
-Model,How the decision is made,ms per question (median),p95,ms per record (median),accuracy on sample,generated tokens (median)
-Kev-27B (stock),one forward pass per record (all questions),132,324,245,81.6,—
-RadKev-27B (final),one forward pass per record (all questions),130,322,245,91.1,—
-Qwen3.8-27B (zero-shot LLM),"one forward pass per question, option-letter probabilities (the accuracy benchmark's method)",163,375,—,86.8,0
-Qwen3.8-27B (zero-shot LLM),"generates the answer letter, thinking off",252,465,—,86.8,2
-Qwen3.8-27B (zero-shot LLM),"thinking on, then the answer letter (max 2,048 tokens)",14138,179786,—,82.1 (40-question subsample),160
-"MedGemma-27B-text (pre-registered scoring, reads its thought channel)","one forward pass per question, option-letter probabilities (the accuracy benchmark's method)",153,383,—,77.8,0
-"MedGemma-27B-text (pre-registered scoring, reads its thought channel)","generates the answer letter, thinking off",473,945,—,"57.6, answer parsed 61.8",3

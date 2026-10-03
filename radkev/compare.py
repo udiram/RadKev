@@ -17,7 +17,7 @@ FAMILIES = [("report_cxr_human", ("iu_",)), ("report_cxr", ("chexpertplus_", "mi
             ("radiology_knowledge", ("medmcqa_rad",)), ("medical_knowledge", ("medmcqa_med", "medqa", "mmlu_", "medxpertqa", "pubmedqa")),
             ("orders_protocols", ("teacher_order_",)), ("triage_followup", ("teacher_report_",))]
 KEEP = ("n", "acc", "brier", "ece", "nll", "confident_error_rate", "coverage_at_5pct_error")
-# answer keys written by people (MeSH coders, case authors, exam boards) vs machine-derived (dataset NLP labellers, LLM teachers)
+# human-labeled answers (MeSH indexers, case authors, examination boards) vs model-labeled (dataset classifier, LLM teachers)
 HUMAN = {"report_cxr_human", "case_diagnosis", "routing", "radiology_knowledge", "medical_knowledge"}
 RADIOLOGY_HUMAN = {"report_cxr_human", "case_diagnosis", "routing", "radiology_knowledge"}
 SUBSETS = {"human_keys": HUMAN, "radiology_human_keys": RADIOLOGY_HUMAN}
