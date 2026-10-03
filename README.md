@@ -93,9 +93,9 @@ RadKev-27B needs about 55 GB in bf16: one 80 GB GPU, or two 48 GB GPUs with `KEV
 | Model | Started from | Checkpoint | Where |
 |---|---|---|---|
 | **RadKev-27B** | Kev-27B (Qwen3.8-27B backbone, frozen) | LoRA adapter + decision head + fitted temperature (T = 1.26), 455 MB on top of the base | [`ramu9703/radkev-27b-v2`](https://huggingface.co/ramu9703/radkev-27b-v2) |
-| **RadKev-9B** | Kev-9B (Qwen3.5-9B-Base backbone, frozen) | LoRA adapter + decision head + fitted temperature (T = 1.23) | on request |
+| **RadKev-9B** | Kev-9B (Qwen3.5-9B-Base backbone, frozen) | LoRA adapter + decision head + fitted temperature (T = 1.23) | [`ramu9703/radkev-9b`](https://huggingface.co/ramu9703/radkev-9b) (gated) |
 
-Because several training sources are non-commercial (Eurorad, CT-RATE: CC BY-NC-SA 4.0), the weights are for **non-commercial research use only**, and access on the Hub is gated on accepting those terms. They load like any Kev checkpoint (`--run ramu9703/radkev-27b-v2`), or you can train your own with [docs/REPRODUCE.md](docs/REPRODUCE.md). See the [model card](MODEL_CARD.md).
+Because several training sources are non-commercial (Eurorad, CT-RATE: CC BY-NC-SA 4.0), the weights are for **non-commercial research use only**, and access on the Hub is gated on accepting those terms. They load like any Kev checkpoint (`--run ramu9703/radkev-27b-v2` or `--run ramu9703/radkev-9b`), or you can train your own with [docs/REPRODUCE.md](docs/REPRODUCE.md). See the [model card](MODEL_CARD.md).
 
 ## How it works
 

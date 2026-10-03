@@ -11,7 +11,7 @@
 | Training | 1 epoch, lr 3e-5, effective batch 8, bf16, 8,521 steps, 25.7 h on 2× RTX A6000 | 1 epoch, lr 2e-5, 8,521 steps, 10.9 h on 1× RTX A6000 |
 | Temperature (fitted on dev) | 1.26 | 1.23 |
 | Interface | TypeSafe System One (`POST /v1/systemone`) via `kev.serve`; `radkev.predict` in-process | same |
-| Weights | [`ramu9703/radkev-27b-v2`](https://huggingface.co/ramu9703/radkev-27b-v2) (gated) | on request |
+| Weights | [`ramu9703/radkev-27b-v2`](https://huggingface.co/ramu9703/radkev-27b-v2) (gated) | [`ramu9703/radkev-9b`](https://huggingface.co/ramu9703/radkev-9b) (gated) |
 | Licence | weights: non-commercial research use (training data includes CC BY-NC-SA 4.0 sources); code: Apache-2.0 | same |
 
 ## Intended use
