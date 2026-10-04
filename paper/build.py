@@ -269,6 +269,11 @@ def build_methods():
     put("agree_min", pct(agree[lo]), TEACHER_V2, f"agreement.{lo}", "lowest agreement (%)")
     put("agree_max", pct(agree[hi]), TEACHER_V2, f"agreement.{hi}", "highest agreement (%)")
     assert (lo, hi) == ("contrast", "finding_status")
+    agree1 = {k: v["agree"] / (v["agree"] + v["disagree"]) for k, v in tm["questions"].items()}   # first run (training labels)
+    lo1, hi1 = min(agree1, key=agree1.get), max(agree1, key=agree1.get)
+    assert (lo1, hi1) == ("contrast", "finding_status")
+    put("agree_first_min", pct(agree1[lo1]), TEACHER_MAN, f"questions.{lo1}", "lowest agreement, first run (%)")
+    put("agree_first_max", pct(agree1[hi1]), TEACHER_MAN, f"questions.{hi1}", "highest agreement, first run (%)")
     JC = job_constants()
     put("teacher_per_source", n(JC["teacher_job --per-source"]), "constants.json", "teacher_job --per-source", "reports and indications per source")
 

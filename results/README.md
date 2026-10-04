@@ -4,7 +4,7 @@ Aggregate results of the study. Nothing in this directory contains dataset text.
 
 | Path | Contents |
 |---|---|
-| `numbers.csv` | every number in the manuscript (800 entries): key, value as printed, source file, field and note. Written by [`paper/build.py`](../paper/build.py); the manuscript reads these values through `\V{key}` macros, so no number is typed by hand |
+| `numbers.csv` | every number in the manuscript (802 entries): key, value as printed, source file, field and note. Written by [`paper/build.py`](../paper/build.py); the manuscript reads these values through `\V{key}` macros, so no number is typed by hand |
 | `manuscript/` | every table of the manuscript as CSV, named by its number: `Table1_data.csv` and `TableS1_teacher_labels.csv` to `TableS13_ablations.csv`; values exactly as typeset, with 95% confidence intervals in parentheses |
 | `comparisons.json` | the scored comparison of every evaluated run on the held-out test split (`radkev.compare` output): per run overall, per decision family, per task, per label type and per wording, reliability bins, and paired bootstrap differences against Kev-27B (`vs_reference`) and against RadKev (`vs`) |
 | `tables/data_counts.*` | records per source and split |

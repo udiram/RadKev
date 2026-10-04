@@ -33,7 +33,7 @@ source-stratified cluster bootstrap (2,000 resamples).
   points (2.5 to 4.7) over the 16 human-labeled tasks.
 - **Decision models and LLMs.** Kev-27B is built on Qwen3.8-27B. The shared backbone was less accurate as a general-purpose decision
   model than as an LLM (78.2% vs 80.3% on human-labeled questions) and more accurate after specialization (RadKev-27B 82.4%; +2.2
-  points, 1.7 to 2.6), the highest of any system evaluated (MedGemma-27B-text, 73.7%).
+  points, 1.7 to 2.6), the highest of all systems evaluated (MedGemma-27B-text, 73.7%).
 - **Specialization and scale.** On human-labeled questions, the gain from specialization exceeded that of a threefold increase in
   model size (4.2 vs 2.6 points; difference 1.6, 0.9 to 2.3), but not when accuracy was averaged over tasks (3.8 vs 5.5).
 - **Initialization.** Fine-tuning from Kev-9B rather than from its base model raised accuracy on human-labeled questions by 2.3
@@ -227,14 +227,19 @@ question. From two to 16 options, the latency of RadKev-27B rose from 251 to 350
 - The questions on imaging orders, triage and follow-up were labeled by agreement of two LLMs without validation against human
   judgment; results on these tasks are reported only as agreement.
 - Part of the gain in case diagnosis derives from regularities of the answer options (options-only control).
+- All data were drawn from public datasets and teaching collections; the models were not validated on institutional reports, and
+  accuracy was not examined across patient subgroups or institutions.
+- The LLMs were evaluated zero-shot with a single prompt, and no LLM was fine-tuned on the same data. MedGemma-27B-text was
+  evaluated without reasoning in the main evaluation, with a prompt revised after its first test results, and its MedQA accuracy
+  (69.4%) is below that in its technical report, so its results may underestimate the model.
 - The comparison of starting points differs in learning rate as well as in initialization, and every model was trained once, with a
   single random seed.
 - Public examination questions and Eurorad cases may have been part of the pretraining data of every model; paired differences,
   not absolute accuracies, are the basis of the conclusions.
 - The analysis plan was not publicly registered: its commit is in a private repository, and it is reproduced verbatim in
   [docs/ANALYSIS_PLAN.md](docs/ANALYSIS_PLAN.md). All analyses other than the primary and prespecified secondary comparisons
-  were added after the primary results were known.
-- Latency was measured one request at a time; served LLMs with batching would have higher throughput.
+  were added after the primary results were known and are exploratory.
+- Latency was measured one request at a time; LLMs served with batching may achieve higher throughput.
 - All questions were posed on text; the study does not address decisions that require the images.
 
 ## Reproducing the study

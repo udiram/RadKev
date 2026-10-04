@@ -115,6 +115,8 @@ teacher_train_same_pct,93.1,artifacts/teacher_rescore_v2/artifacts/teacher_resco
 teacher_test_v2,"1,047",artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,test_split.ALL,regenerated teacher-labeled test questions
 agree_min,22.8,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,agreement.contrast,lowest agreement (%)
 agree_max,87.2,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,agreement.finding_status,highest agreement (%)
+agree_first_min,28.1,artifacts/teacher/artifacts/teacher_manifest.json,questions.contrast,"lowest agreement, first run (%)"
+agree_first_max,84.7,artifacts/teacher/artifacts/teacher_manifest.json,questions.finding_status,"highest agreement, first run (%)"
 teacher_per_source,"1,500",constants.json,teacher_job --per-source,reports and indications per source
 iu_vocab,14,radkev/data.py,len(IU_VOCAB),IU findings
 n_sections,11,radkev/data.py,len(SECTIONS),Eurorad subspecialty sections
