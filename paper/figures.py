@@ -672,14 +672,19 @@ def fig_spec(pa, pb, pc, pd, out, name="fig_spec"):
     w = 0.36
     for g, (lab, bars) in enumerate(pd):
         for k, (d, lo, hi, c) in enumerate(bars):
-            x = g + (k - 0.5) * (w + 0.02)
-            axd.bar(x, d, w, color=c, zorder=2); axd.plot([x, x], [lo, hi], color=WP_INK, lw=0.8, zorder=3)
+            x = g + (k - 0.5) * (w + 0.04)
+            if abs(d) < 0.05:   # a zero change: a short line at 0 in the bar colour, so the slot does not read as empty
+                axd.plot([x - w / 2, x + w / 2], [0, 0], color=c, lw=2.4, solid_capstyle="butt", zorder=3)
+            else:
+                axd.bar(x, d, w, color=c, zorder=2)
+            axd.errorbar(x, d, yerr=[[d - lo], [hi - d]], fmt="none", ecolor="#4D4D4D", elinewidth=0.8, capsize=2.4, capthick=0.8, zorder=4)
             s_ = ("+" if d > 0.05 else "\u2212" if d < -0.05 else "") + f"{abs(d):.1f}"
-            axd.text(x + 0.03, (hi + 0.4) if d >= 0 else (lo - 0.4), s_, ha="center", va="bottom" if d >= 0 else "top", color=WP_INK, **{**FONT, "size": 6.6})
+            up = d >= 0
+            axd.text(x, (hi + 0.7) if up else (lo - 0.7), s_, ha="center", va="bottom" if up else "top", color=WP_INK, **{**FONT, "size": 6.8})
     axd.set_xticks(range(len(pd))); axd.set_xticklabels([p[0] for p in pd], **{**FONT, "size": 7.2})
     axd.set_xlim(-0.6, len(pd) - 0.4)
     allv = [v for _, bars in pd for b_ in bars for v in b_[1:3]]
-    axd.set_ylim(min(allv) - 2.5, max(allv) + 2.5); axd.yaxis.set_major_locator(mticker.MultipleLocator(5))
+    axd.set_ylim(min(allv) - 3.5, max(allv) + 3.5); axd.yaxis.set_major_locator(mticker.MultipleLocator(5))
     axd.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+g}".replace("-", "\u2212") if v else "0"))
     axd.axhline(0, color="#9A9A9A", lw=0.7, zorder=1)
     for sp in ("top", "right", "left", "bottom"): axd.spines[sp].set_visible(False)
