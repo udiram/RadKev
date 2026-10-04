@@ -310,61 +310,67 @@ def fig_kev(V, out):
     fig = plt.figure(figsize=(W * MM, H * MM))
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, W); ax.set_ylim(0, H); ax.axis("off")
     T = lambda x, y, s, **k: ax.text(x, y, s, **{**FONT, **k})
+    BLUE_EDGE, MASK = "#1F5FAE", "#7A9CC6"
+    def line(xs, ys): ax.plot(xs, ys, color=INK, lw=0.7, solid_capstyle="butt")
+
     # ---- a: one request
     T(1, 93, "a", fontweight="bold", size=9, va="top"); T(5, 93, "One request: a state and its questions", va="top")
-    _rect(ax, 1, 78, 56, 7, C_FROZEN, text="State (report, case or question)")
-    for r, (yq, q) in enumerate(((68, "Q1"), (59, "Q2"))):
-        segs = [(q, 9), ("option 1", 12), ("option 2", 12), ("…", 5), ("option K", 12), ("d", 5)]
+    _rect(ax, 1, 77, 56, 7, C_FROZEN, text="State (report, case or question)")
+    for yq, q in ((67, "Q1"), (58.5, "Q2")):
         x = 1
-        for s, w in segs:
-            _rect(ax, x, yq, w - 0.6, 6, "white", text=s, bold=(s == "d"), size=7.5 if s.startswith("option") else 8)
+        for s, w in ((q, 8.5), ("option 1", 12), ("option 2", 12), ("…", 5.5), ("option K", 12), ("d", 6)):
+            _rect(ax, x, yq, w - 0.7, 6.5, "white", text=s, bold=(s == "d"), size=7.5)
             x += w
-    T(1, 55.5, "d: the question's decision token.", size=8, va="top", color="#555555")
-    # attention mask
-    T(1, 51, "Attention allowed (row attends to column)", va="top")
-    labs = ["State", "Q1", "Q2"]; x0, y0, cs = 12, 17, 8
-    allow = [[1, 0, 0], [1, 1, 0], [1, 0, 1]]
+    T(1, 54.5, "d, decision token of the question", va="center", size=7.5, color="#555555")
+    T(1, 48.5, "Attention mask (row attends to column)", va="center")
+    labs, allow = ["State", "Q1", "Q2"], [[1, 0, 0], [1, 1, 0], [1, 0, 1]]
+    x0, y0, cs = 11, 20, 7
     for i in range(3):
         T(x0 - 1.5, y0 + (2 - i) * cs + cs / 2, labs[i], ha="right", va="center")
-        T(x0 + i * cs + cs / 2, y0 + 3 * cs + 1.2, labs[i], ha="center", va="bottom")
+        T(x0 + i * cs + cs / 2, y0 + 3 * cs + 1.0, labs[i], ha="center", va="bottom")
         for j in range(3):
-            ax.add_patch(plt.Rectangle((x0 + j * cs, y0 + (2 - i) * cs), cs, cs, fc="#7A9CC6" if allow[i][j] else "white", ec="#7A7A7A", lw=0.6))
-    T(x0 + 3 * cs + 2.5, y0 + 1.5 * cs, "Questions see\nthe state and\nthemselves, not\neach other.", va="center", size=8)
-    T(1, 11, "The state is encoded once and shared.", va="center", size=8)
-    # ---- b: backbone
+            ax.add_patch(plt.Rectangle((x0 + j * cs, y0 + (2 - i) * cs), cs, cs, fc=MASK if allow[i][j] else "white", ec=EDGE, lw=0.6))
+    for k, (fc, lab) in enumerate(((MASK, "attends"), ("white", "masked"))):
+        ax.add_patch(plt.Rectangle((x0 + 3 * cs + 4, y0 + 14 - 6 * k), 4, 4, fc=fc, ec=EDGE, lw=0.6))
+        T(x0 + 3 * cs + 9.5, y0 + 16 - 6 * k, lab, va="center", size=7.5)
+    for k, s in enumerate(("Each question attends to the state and to", "itself but not to the other questions, so", "the state is encoded once for all of them.")):
+        T(1, 13 - 3.4 * k, s, va="center", size=7.5)
+    _arrow(ax, 57.5, 64.5, 62.6, 64.5)
+
+    # ---- b: backbone (bottom to top)
     T(63, 93, "b", fontweight="bold", size=9, va="top"); T(67, 93, "Qwen3.8-27B backbone", va="top")
-    ax.add_patch(FancyBboxPatch((63, 14), 52, 70, boxstyle="round,pad=0,rounding_size=1.2", fc="white", ec="#7A7A7A", lw=0.6))
-    _rect(ax, 66, 17, 46, 6, C_FROZEN, text="Token embeddings")
-    ys = [27, 37, 47]
-    for k, yb in enumerate(ys):
-        _rect(ax, 66, yb, 33, 7, C_FROZEN, text="Gated DeltaNet")
-        _rect(ax, 101, yb + 1, 11, 5, C_TRAIN, ec="#1F5FAE", text="LoRA", size=7.5)
-    _rect(ax, 66, 57, 33, 7, C_FROZEN, text="Gated attention")
-    _rect(ax, 101, 58, 11, 5, C_TRAIN, ec="#1F5FAE", text="LoRA", size=7.5)
-    ax.plot([64.5, 64.5], [26.5, 64.5], color=C_TXT, lw=0.8)
-    T(64.2, 45.5, "×16", rotation=90, ha="right", va="center")
-    T(66, 71.5, f"{V['bb_layers']} layers: {V['bb_linear']} linear-attention", va="center", size=8)
-    T(66, 67.5, f"and {V['bb_full']} full-attention; width {V['bb_hidden']}", va="center", size=8)
-    T(66, 79, "Hidden state of every token", va="center", size=8)
-    _arrow(ax, 89, 75.5, 89, 77)
+    ax.add_patch(FancyBboxPatch((63, 11), 52, 74, boxstyle="round,pad=0,rounding_size=1.2", fc="white", ec=EDGE, lw=0.6))
+    T(66, 16.6, f"{V['bb_layers']} layers ({V['bb_linear']} Gated DeltaNet, {V['bb_full']} gated", va="center", size=7.5, color="#555555")
+    T(66, 13.6, f"full attention); hidden size {V['bb_hidden']}", va="center", size=7.5, color="#555555")
+    _rect(ax, 66, 20, 46, 6.5, C_FROZEN, text="Token embeddings")
+    _arrow(ax, 89, 26.5, 89, 29.5)
+    ax.add_patch(FancyBboxPatch((65.5, 29.5), 47, 39, boxstyle="round,pad=0,rounding_size=1.0", fc="none", ec=EDGE, lw=0.6, ls=(0, (3, 2))))
+    for k, (yb, name) in enumerate(((31.5, "Gated DeltaNet"), (39.0, "Gated DeltaNet"), (46.5, "Gated DeltaNet"), (54.0, "Gated attention"))):
+        _rect(ax, 67.5, yb, 30, 6, C_FROZEN, text=name)
+        _rect(ax, 99.5, yb + 0.75, 11, 4.5, C_TRAIN, ec=BLUE_EDGE, text="LoRA", size=7.5)
+    T(67.5, 64.5, "repeated 16 times", va="center", size=7.5)
+    _arrow(ax, 89, 68.5, 89, 75.5)
+    _rect(ax, 66, 75.5, 46, 7, "white", ec=INK, lw=0.7, text="Hidden state of every token")
+
     # ---- c: pointer head
     T(121, 93, "c", fontweight="bold", size=9, va="top"); T(125, 93, "Pointer head", va="top")
-    _rect(ax, 121, 76, 27, 8, C_FROZEN, text="h(d)", size=8)
-    _rect(ax, 152, 76, 27, 8, C_FROZEN, text="h(option k)", size=8)
-    _rect(ax, 121, 62, 27, 8, C_TRAIN, ec="#1F5FAE", text=f"{V['bb_hidden']} → {V['head_dim']}", size=8)
-    _rect(ax, 152, 62, 27, 8, C_TRAIN, ec="#1F5FAE", text=f"{V['bb_hidden']} → {V['head_dim']}", size=8)
-    _arrow(ax, 134.5, 76, 134.5, 70); _arrow(ax, 165.5, 76, 165.5, 70)
-    _rect(ax, 128, 46, 44, 9, "white", text="score: scaled dot product", size=8)
-    _arrow(ax, 134.5, 62, 142, 55); _arrow(ax, 165.5, 62, 158, 55)
-    _rect(ax, 128, 30, 44, 9, "white", text="softmax over the K options (÷ T)", size=8)
-    _arrow(ax, 150, 46, 150, 39)
-    _rect(ax, 128, 14, 44, 9, "white", ec=C_TXT, lw=1.0, text="P(option k)", size=8)
-    _arrow(ax, 150, 30, 150, 23)
-    _arrow(ax, 115, 79.5, 121, 79.5)
-    # legend
-    _rect(ax, 63, 4, 5, 4, C_FROZEN); T(69.5, 6, "frozen backbone weights", va="center")
-    _rect(ax, 112, 4, 5, 4, C_TRAIN, ec="#1F5FAE"); T(118.5, 6, "trained: LoRA (rank " + V["lora_rank"] + ") and pointer head", va="center")
-    _arrow(ax, 57.5, 70, 63, 70)
+    _rect(ax, 121, 75.5, 27, 7, C_FROZEN, text="h(d)")
+    _rect(ax, 152, 75.5, 27, 7, C_FROZEN, text="h(option k)")
+    line([112, 118], [79, 79]); _arrow(ax, 118, 79, 121, 79)            # to h(d)
+    line([118, 118, 165.5], [79, 87, 87]); _arrow(ax, 165.5, 87, 165.5, 82.5)   # to h(option k)
+    _rect(ax, 121, 61.5, 27, 7, C_TRAIN, ec=BLUE_EDGE, text=f"{V['bb_hidden']} → {V['head_dim']}")
+    _rect(ax, 152, 61.5, 27, 7, C_TRAIN, ec=BLUE_EDGE, text=f"{V['bb_hidden']} → {V['head_dim']}")
+    _arrow(ax, 134.5, 75.5, 134.5, 68.5); _arrow(ax, 165.5, 75.5, 165.5, 68.5)
+    _rect(ax, 128, 46, 44, 8, "white", text="score: scaled dot product")
+    _arrow(ax, 134.5, 61.5, 141, 54); _arrow(ax, 165.5, 61.5, 159, 54)
+    _rect(ax, 128, 31.5, 44, 8, "white", text="softmax over the K options (÷ T)")
+    _arrow(ax, 150, 46, 150, 39.5)
+    _rect(ax, 128, 17, 44, 8, "white", ec=INK, lw=1.0, text="P(option k)", bold=True)
+    _arrow(ax, 150, 31.5, 150, 25)
+
+    # ---- legend
+    _rect(ax, 63, 3, 5, 3.6, C_FROZEN); T(69.5, 4.8, "frozen backbone weights", va="center", size=7.5)
+    _rect(ax, 112, 3, 5, 3.6, C_TRAIN, ec=BLUE_EDGE); T(118.5, 4.8, f"trained: LoRA (rank {V['lora_rank']}) and pointer head", va="center", size=7.5)
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
     fig.savefig(out / "fig_kev.pdf"); fig.savefig(out / "fig_kev.png", dpi=300)
     plt.close(fig)
