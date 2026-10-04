@@ -772,7 +772,7 @@ def fig_robust(pa, pb, pc, pd, chance, out, name="fig_robust"):
     import numpy as np
     W, H = 180, 150
     fig = plt.figure(figsize=(W * MM, H * MM))
-    axa = fig.add_axes([0.09, 0.60, 0.37, 0.25]); axb = fig.add_axes([0.60, 0.60, 0.37, 0.25])
+    axa = fig.add_axes([0.09, 0.60, 0.33, 0.25]); axb = fig.add_axes([0.59, 0.60, 0.33, 0.25])
     axc = fig.add_axes([0.09, 0.10, 0.50, 0.25]); axd = fig.add_axes([0.72, 0.10, 0.25, 0.25])
     for ax, items, ch in ((axa, pa, chance[0]), (axb, pb, chance[1])):
         vals = [v for it in items for v in it[1:3]] + [ch]
@@ -780,17 +780,20 @@ def fig_robust(pa, pb, pc, pd, chance, out, name="fig_robust"):
         lo, hi = max(0, min(vals) - 5), max(vals) + 5
         ax.set_yticks([t for t in range(0, 101, 10) if lo <= t <= hi])
         ax.axhline(ch, color=WP_SUB, lw=0.7, ls=(0, (3, 2)), zorder=4)
-        ax.text(ax.get_xlim()[0] + 0.02, ch + (hi - lo) * 0.015, f"chance {ch:.0f}%", ha="left", va="bottom", color=WP_SUB, **{**FONT, "size": 6.8})
+        # chance label in the right margin, level with its line, clear of the bars
+        ax.text(1.015, ch, f"chance\n{ch:.0f}%", transform=ax.get_yaxis_transform(), ha="left", va="center", color=WP_SUB,
+                linespacing=1.0, clip_on=False, **{**FONT, "size": 6.8})
         ax.set_ylabel("Accuracy (%)", color=WP_SUB, **FONT)
     def dbars(ax, rows, ylab):
         x = np.arange(len(rows))
         for i, (lab, d, lo, hi) in enumerate(rows):
-            ax.bar(i, d, 0.55, color=WP_ACC, zorder=2); ax.plot([i, i], [lo, hi], color=WP_INK, lw=0.8, zorder=3)
+            ax.bar(i, d, 0.55, color=WP_ACC, zorder=2)
+            ax.errorbar(i, d, yerr=[[d - lo], [hi - d]], fmt="none", ecolor="#4D4D4D", elinewidth=0.8, capsize=2.4, capthick=0.8, zorder=4)
             s = ("+" if d > 0.05 else "−" if d < -0.05 else "") + f"{abs(d):.1f}"
-            ax.text(i + 0.06, hi + 0.6, s, ha="center", va="bottom", color=WP_INK, **{**FONT, "size": 6.8})
+            ax.text(i, hi + 0.8, s, ha="center", va="bottom", color=WP_INK, **{**FONT, "size": 6.8})
         ax.axhline(0, color="#9A9A9A", lw=0.7, zorder=1)
-        ax.set_xticks(x); ax.set_xticklabels([r[0] for r in rows], **{**FONT, "size": 7.0}, linespacing=1.05)
-        ax.set_xlim(-0.6, len(rows) - 0.4); ax.set_ylim(min(0, min(r[2] for r in rows)) - 2, max(r[3] for r in rows) + 4)
+        ax.set_xticks(x); ax.set_xticklabels([r[0] for r in rows], **{**FONT, "size": 7.0}, linespacing=1.15)
+        ax.set_xlim(-0.6, len(rows) - 0.4); ax.set_ylim(min(0, min(r[2] for r in rows)) - 2, max(r[3] for r in rows) + 3.5)
         ax.yaxis.set_major_locator(mticker.MultipleLocator(5))
         ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:+g}".replace("-", "−") if v else "0"))
         for sp in ("top", "right", "left", "bottom"): ax.spines[sp].set_visible(False)

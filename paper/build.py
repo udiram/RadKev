@@ -1132,7 +1132,7 @@ def build_results_robust():
     S = answer_space_summary(inp(AS_OUT))
     dd = lambda c: S["diff"][("eurorad_dx", c, "radkev27", "kev27")]
     pc = [(lab, 100 * dd(c)["d"], 100 * dd(c)["ci"][0], 100 * dd(c)["ci"][1]) for lab, c in
-          (("Original\noptions", "orig"), ("Original +\nLLM-written", "orig_llm"), ("8 LLM-\nwritten", "llm_8"), ("8 similar\n(dataset)", "sim_8"), ("64 random\n(dataset)", "rand_64"))]
+          (("Case's own\ndifferential", "orig"), ("Own + up to 8\nLLM-written", "orig_llm"), ("8 written\nby an LLM", "llm_8"), ("8 most similar\nin dataset", "sim_8"), ("64 random\nin dataset", "rand_64"))]
     pd = [("Answer word\nin case", 100 * fl["v2_27-stock27"]["d"], 100 * fl["v2_27-stock27"]["ci"][0], 100 * fl["v2_27-stock27"]["ci"][1]),
           ("No answer\nword", 100 * nf["v2_27-stock27"]["d"], 100 * nf["v2_27-stock27"]["ci"][0], 100 * nf["v2_27-stock27"]["ci"][1])]
     import figures
