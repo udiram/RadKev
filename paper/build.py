@@ -1007,6 +1007,98 @@ def build_results_llm():
     figures.fig_llm(acc_rows, reason_rows, lat, HERE / "figures")
 
 
+SPLIT = "artifacts/subset_split/artifacts/subset_split.json"   # jobs/subset_split.py: radiology vs examination human-labeled questions
+
+
+def build_subset_split():
+    """Results 3.2: the human-labeled comparison split into radiology and examination questions (same bootstrap as the book)."""
+    S, R = rj(SPLIT), rj(RB)
+    assert abs(S["pairs"]["v2_27-qwen38"]["radiology_human_keys"]["micro"] - R["d_v2_27_qwen38_radiology_human_keys"]) < 1e-9, "split must reproduce the book"
+    put("ss_n_rad", n(S["n"]["radiology_human_keys"]), SPLIT, "n.radiology_human_keys", "human-labeled radiology questions")
+    put("ss_n_ex", n(S["n"]["exam_human_keys"]), SPLIT, "n.exam_human_keys", "other human-labeled questions")
+    for m, k in (("v2_27", "rk27"), ("qwen38", "q"), ("stock27", "k27"), ("r9", "rk9")):
+        for s_, t in (("radiology_human_keys", "rad"), ("exam_human_keys", "ex")):
+            put(f"ss_{t}_{k}", pct(S["acc"][m][s_]["micro"]), SPLIT, f"acc.{m}.{s_}.micro", "accuracy (%)")
+    for pair, k in (("v2_27-qwen38", "rk27_q"), ("r9-qwen38", "rk9_q"), ("v2_27-stock27", "rk27_k27")):
+        for s_, t in (("radiology_human_keys", "rad"), ("exam_human_keys", "ex")):
+            x = S["pairs"][pair][s_]
+            put(f"ss_{t}_{k}", pct(x["micro"]), SPLIT, f"pairs.{pair}.{s_}.micro", "difference (pp)")
+            put(f"ss_{t}_{k}_ci", ci(*x["micro_ci"]), SPLIT, f"pairs.{pair}.{s_}.micro_ci", "95% CI")
+    assert S["pairs"]["v2_27-qwen38"]["exam_human_keys"]["micro"] > 4 * S["pairs"]["v2_27-qwen38"]["radiology_human_keys"]["micro"], "claim: the lead over Qwen comes mainly from examination questions"
+    T = {r["task"]: r for r in csv.DictReader(open(inp(RB_PERTASK)))}
+    iu = sum(int(T[t]["n"]) for t in T if t.startswith("iu_"))
+    assert sum(int(T[t]["n"]) for t in S["tasks"]["radiology_human_keys"]) == S["n"]["radiology_human_keys"]
+    put("ss_n_iu", n(iu), RB_PERTASK, "sum of n over iu_ tasks", "IU/Open-i test questions")
+    put("ss_iu_share", f"{100 * iu / S['n']['radiology_human_keys']:.0f}", RB_PERTASK, "IU / radiology human-labeled", "%")
+
+
+EXT = "artifacts/external_tests/analysis.json"          # paper/external/analyse.py on the rows of jobs/external_tests.py
+EXT_RC = "artifacts/external_tests/artifacts/external_tests.json"     # RadCases build manifest (job caf510cb)
+EXT_RG = "artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json"
+EXT_NAMES = {"v2_27": "RadKev-27B", "stock27": "Kev-27B", "r9": "RadKev-9B", "stock9": "Kev-9B", "qwen38": "Qwen3.8-27B", "medgemma_fix": "MedGemma-27B-text"}
+
+
+def build_external():
+    """Results: external tests (analysis-plan addendum 2026-10-05), Supplementary Note S6 and Table S-external."""
+    A = rj(EXT)
+    rc = rj(EXT_RC)["radcases_build"]
+    put("ext_rc_matched", n(rc["stats"]["matched_cases"]), EXT_RC, "radcases_build.stats.matched_cases", "RadCases cases with rebuilt text")
+    put("ext_rc_labels", n(rc["stats"]["label_rows"]), EXT_RC, "radcases_build.stats.label_rows", "label rows in the two subsets")
+    put("ext_rc_overlap", n(rc["stats"].get("overlap_with_radkev_splits", 0)), EXT_RC, "radcases_build.stats.overlap_with_radkev_splits", "dropped: verbatim in RadKev splits")
+    put("ext_rc_multi", n(rc["stats"].get("multi_panel_excluded", 0)), EXT_RC, "radcases_build.stats.multi_panel_excluded", "dropped from panel question: several panels")
+    put("ext_rc_ntopics", n(rc["n_topics"]), EXT_RC, "radcases_build.n_topics", "ACR AC topics (options)")
+    put("ext_rc_npanels", n(rc["n_panels"]), EXT_RC, "radcases_build.n_panels", "panel options incl. None")
+    def block(name, tag, subsets):
+        R = A[name]
+        for s_ in subsets:
+            put(f"ext_{tag}_n_{s_}", n(R["n"][s_]), EXT, f"{name}.n.{s_}", "questions")
+        for m, v in R["models"].items():
+            for s_ in subsets:
+                put(f"ext_{tag}_{m}_{s_}", pct(v[s_]["acc"]), EXT, f"{name}.models.{m}.{s_}.acc", "accuracy (%)")
+                put(f"ext_{tag}_{m}_{s_}_ci", ci(*v[s_]["acc_ci"]), EXT, f"{name}.models.{m}.{s_}.acc_ci", "95% CI")
+            put(f"ext_{tag}_{m}_ece", f"{v['all']['ece']:.3f}", EXT, f"{name}.models.{m}.all.ece", "ECE")
+        for pr, v in R["pairs"].items():
+            k = pr.replace("-", "_")
+            for s_ in subsets:
+                put(f"ext_{tag}_d_{k}_{s_}", pct(v[s_]["d"]), EXT, f"{name}.pairs.{pr}.{s_}.d", "difference (pp)")
+                put(f"ext_{tag}_d_{k}_{s_}_ci", ci(*v[s_]["ci"]), EXT, f"{name}.pairs.{pr}.{s_}.ci", "95% CI")
+        return R
+    P = block("radcases_panel", "rcp", ["all", "synthetic", "medbullets", "excl_none", "none_only"])
+    T = block("radcases_topic", "rct", ["all", "synthetic", "medbullets"])
+    have_rg = "radgraph_xl" in A
+    if have_rg:
+        G = rj(EXT_RG)
+        put("ext_rg_reports", n(G["reports"]), EXT_RG, "reports", "Stanford RadGraph-XL reports"); put("ext_rg_excl", n(G["excluded"]), EXT_RG, "excluded", "overlap exclusions")
+        put("ext_rg_excl_cxr", n(G["overlap_chexpert_plus"].get("cxr", 0)), EXT_RG, "overlap_chexpert_plus.cxr", "CXR reports overlapping CheXpert Plus")
+        assert set(G["overlap_chexpert_plus"]) | set(G["overlap_radkev"]) <= {"cxr"}, "claim: all exclusions are chest radiograph reports"
+        put("ext_rg_records", n(G["stats"]["records"]), EXT_RG, "stats.records", "reports with at least one question")
+        mods = [m for m in ("chestct", "abdct", "brainmr", "cxr") if m in A["radgraph_xl"]["n"]]
+        Rg = block("radgraph_xl", "rg", ["all"] + mods)
+    PP = lambda f, pr, s_: A[f]["pairs"][pr][s_]["ci"]
+    assert PP("radcases_panel", "v2_27-stock27", "all")[1] < 0 < PP("radcases_panel", "v2_27-stock27", "excl_none")[0], "claim: panel lower overall, higher excluding None"
+    assert PP("radcases_panel", "v2_27-qwen38", "all")[0] > 0 and PP("radcases_panel", "v2_27-medgemma_fix", "all")[0] > 0, "claim: RadKev-27B above both LLMs (panel)"
+    assert PP("radcases_topic", "v2_27-stock27", "all")[0] < 0 < PP("radcases_topic", "v2_27-stock27", "all")[1], "claim: topic does not differ"
+    if have_rg:
+        assert PP("radgraph_xl", "v2_27-stock27", "all")[0] < 0 < PP("radgraph_xl", "v2_27-stock27", "all")[1], "claim: no change at 27B (RadGraph-XL)"
+        assert PP("radgraph_xl", "r9-stock9", "all")[0] > 0 and PP("radgraph_xl", "v2_27-qwen38", "all")[1] < 0, "claims: 9B gain; below Qwen"
+    # Supplementary table: accuracy (%) of every system on every external test
+    cols = [("radcases_panel", "all"), ("radcases_panel", "excl_none"), ("radcases_topic", "all")]
+    head = r"System & \multicolumn{2}{c}{RadCases panel} & RadCases topic"
+    sub = r" & All & Excluding None & (225 options)"
+    if have_rg:
+        cols += [("radgraph_xl", "all")] + [("radgraph_xl", m) for m in ("chestct", "abdct", "brainmr")]
+        head += r" & \multicolumn{4}{c}{RadGraph-XL status}"; sub += r" & All & Chest CT & Abd./pelvis CT & Brain MRI"
+    rows = []
+    for m in ("v2_27", "stock27", "r9", "stock9", "qwen38", "medgemma_fix"):
+        cells = []
+        for f, s_ in cols:
+            v = A[f]["models"].get(m)
+            cells.append(pct(v[s_]["acc"]) if v else "--")
+        rows.append(f"{EXT_NAMES[m]} & " + " & ".join(cells))
+    rows.insert(0, "Questions" + "".join(f" & {n(A[f]['n'][s_])}" for f, s_ in cols))
+    _tab("supp_external", "@{}l" + "r" * len(cols) + "@{}", head + r" \\" + sub, rows, midrules=(1, 5))
+
+
 def build_results_spec():
     """Results 3.3: specialization vs scale and initialization (results book), Figure 6."""
     R = rj(RB)
@@ -1429,6 +1521,7 @@ def _scrub(x):
     if isinstance(x, list): return [_scrub(v) for v in x]
     if not isinstance(x, str): return x
     x = re.sub(r"/[^\s\"']*?/models--([^/\s]+?)--([^/\s]+)/snapshots/([0-9a-f]+)", r"\1/\2@\3", x)
+    x = re.sub(r"GPU-[0-9a-f]{8}-[0-9a-f-]{27}", "GPU", x)   # device UUIDs of the compute node
     return re.sub(r"/[^\s\"']*?/jobs/radkev/", "$RADKEV_HOME/", x)
 
 
@@ -1512,6 +1605,8 @@ if __name__ == "__main__":
     build_fig_kev()
     build_results_primary()
     build_results_llm()
+    build_subset_split()
+    build_external()
     build_results_spec()
     build_results_calib()
     build_results_robust()

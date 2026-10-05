@@ -1,0 +1,50 @@
+{
+ "reports": 2000,
+ "by_modality": {
+  "abdct": 500,
+  "brainmr": 500,
+  "chestct": 500,
+  "cxr": 500
+ },
+ "cp_columns": [
+  "report",
+  "section_narrative",
+  "section_clinical_history",
+  "section_history",
+  "section_comparison",
+  "section_technique",
+  "section_procedure_comments",
+  "section_findings",
+  "section_impression",
+  "section_end_of_impression",
+  "section_summary",
+  "section_accession_number"
+ ],
+ "overlap_chexpert_plus": {
+  "cxr": 495
+ },
+ "overlap_radkev": {
+  "cxr": 1
+ },
+ "excluded": 495,
+ "stats": {
+  "reports": 2000,
+  "q_abdct": 1392,
+  "key_uncertain": 1046,
+  "key_present": 1503,
+  "key_absent": 1488,
+  "records": 1505,
+  "q_brainmr": 1313,
+  "q_chestct": 1321,
+  "excluded_overlap": 495,
+  "q_cxr": 11
+ },
+ "entity_labels": {
+  "Anatomy::definitely present": 99505,
+  "Observation::definitely present": 74207,
+  "Observation::definitely absent": 20296,
+  "Observation::uncertain": 7291,
+  "Anatomy::uncertain": 190,
+  "Anatomy::definitely absent": 151
+ }
+}

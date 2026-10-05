@@ -644,6 +644,345 @@ lt_qthink_n,39,artifacts/latency/artifacts/latency_bench.json,qwen38.reasoning.n
 lt_ratio,109,artifacts/latency/artifacts/latency_bench.json,reasoning / RadKev-27B median,x
 thr_rk27_hr,"28,000",artifacts/latency/artifacts/latency_bench.json,3.6e6 / RadKev-27B median ms,"questions per hour, one request at a time"
 thr_rk9_hr,"82,000",artifacts/latency_9b/artifacts/latency_9b.json,3.6e6 / RadKev-9B median ms,"questions per hour, one request at a time"
+ss_n_rad,"9,818",artifacts/subset_split/artifacts/subset_split.json,n.radiology_human_keys,human-labeled radiology questions
+ss_n_ex,"8,926",artifacts/subset_split/artifacts/subset_split.json,n.exam_human_keys,other human-labeled questions
+ss_rad_rk27,95.4,artifacts/subset_split/artifacts/subset_split.json,acc.v2_27.radiology_human_keys.micro,accuracy (%)
+ss_ex_rk27,68.1,artifacts/subset_split/artifacts/subset_split.json,acc.v2_27.exam_human_keys.micro,accuracy (%)
+ss_rad_q,94.9,artifacts/subset_split/artifacts/subset_split.json,acc.qwen38.radiology_human_keys.micro,accuracy (%)
+ss_ex_q,64.2,artifacts/subset_split/artifacts/subset_split.json,acc.qwen38.exam_human_keys.micro,accuracy (%)
+ss_rad_k27,93.0,artifacts/subset_split/artifacts/subset_split.json,acc.stock27.radiology_human_keys.micro,accuracy (%)
+ss_ex_k27,62.0,artifacts/subset_split/artifacts/subset_split.json,acc.stock27.exam_human_keys.micro,accuracy (%)
+ss_rad_rk9,95.0,artifacts/subset_split/artifacts/subset_split.json,acc.r9.radiology_human_keys.micro,accuracy (%)
+ss_ex_rk9,62.0,artifacts/subset_split/artifacts/subset_split.json,acc.r9.exam_human_keys.micro,accuracy (%)
+ss_rad_rk27_q,0.5,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-qwen38.radiology_human_keys.micro,difference (pp)
+ss_rad_rk27_q_ci,0.1 to 0.9,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-qwen38.radiology_human_keys.micro_ci,95% CI
+ss_ex_rk27_q,4.0,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-qwen38.exam_human_keys.micro,difference (pp)
+ss_ex_rk27_q_ci,3.2 to 4.8,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-qwen38.exam_human_keys.micro_ci,95% CI
+ss_rad_rk9_q,0.1,artifacts/subset_split/artifacts/subset_split.json,pairs.r9-qwen38.radiology_human_keys.micro,difference (pp)
+ss_rad_rk9_q_ci,−0.3 to 0.5,artifacts/subset_split/artifacts/subset_split.json,pairs.r9-qwen38.radiology_human_keys.micro_ci,95% CI
+ss_ex_rk9_q,−2.2,artifacts/subset_split/artifacts/subset_split.json,pairs.r9-qwen38.exam_human_keys.micro,difference (pp)
+ss_ex_rk9_q_ci,−3.1 to −1.3,artifacts/subset_split/artifacts/subset_split.json,pairs.r9-qwen38.exam_human_keys.micro_ci,95% CI
+ss_rad_rk27_k27,2.4,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-stock27.radiology_human_keys.micro,difference (pp)
+ss_rad_rk27_k27_ci,2.0 to 2.8,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-stock27.radiology_human_keys.micro_ci,95% CI
+ss_ex_rk27_k27,6.2,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-stock27.exam_human_keys.micro,difference (pp)
+ss_ex_rk27_k27_ci,5.4 to 6.9,artifacts/subset_split/artifacts/subset_split.json,pairs.v2_27-stock27.exam_human_keys.micro_ci,95% CI
+ss_n_iu,"9,218",results_book/tables/per_task.csv,sum of n over iu_ tasks,IU/Open-i test questions
+ss_iu_share,94,results_book/tables/per_task.csv,IU / radiology human-labeled,%
+ext_rc_matched,468,artifacts/external_tests/artifacts/external_tests.json,radcases_build.stats.matched_cases,RadCases cases with rebuilt text
+ext_rc_labels,471,artifacts/external_tests/artifacts/external_tests.json,radcases_build.stats.label_rows,label rows in the two subsets
+ext_rc_overlap,37,artifacts/external_tests/artifacts/external_tests.json,radcases_build.stats.overlap_with_radkev_splits,dropped: verbatim in RadKev splits
+ext_rc_multi,12,artifacts/external_tests/artifacts/external_tests.json,radcases_build.stats.multi_panel_excluded,dropped from panel question: several panels
+ext_rc_ntopics,225,artifacts/external_tests/artifacts/external_tests.json,radcases_build.n_topics,ACR AC topics (options)
+ext_rc_npanels,12,artifacts/external_tests/artifacts/external_tests.json,radcases_build.n_panels,panel options incl. None
+ext_rcp_n_all,419,artifacts/external_tests/analysis.json,radcases_panel.n.all,questions
+ext_rcp_n_synthetic,169,artifacts/external_tests/analysis.json,radcases_panel.n.synthetic,questions
+ext_rcp_n_medbullets,250,artifacts/external_tests/analysis.json,radcases_panel.n.medbullets,questions
+ext_rcp_n_excl_none,287,artifacts/external_tests/analysis.json,radcases_panel.n.excl_none,questions
+ext_rcp_n_none_only,132,artifacts/external_tests/analysis.json,radcases_panel.n.none_only,questions
+ext_rcp_medgemma_fix_all,56.1,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.all.acc,accuracy (%)
+ext_rcp_medgemma_fix_all_ci,51.3 to 60.6,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.all.acc_ci,95% CI
+ext_rcp_medgemma_fix_synthetic,65.7,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.synthetic.acc,accuracy (%)
+ext_rcp_medgemma_fix_synthetic_ci,58.6 to 72.8,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.synthetic.acc_ci,95% CI
+ext_rcp_medgemma_fix_medbullets,49.6,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.medbullets.acc,accuracy (%)
+ext_rcp_medgemma_fix_medbullets_ci,43.2 to 55.6,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.medbullets.acc_ci,95% CI
+ext_rcp_medgemma_fix_excl_none,71.1,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.excl_none.acc,accuracy (%)
+ext_rcp_medgemma_fix_excl_none_ci,65.7 to 76.3,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.excl_none.acc_ci,95% CI
+ext_rcp_medgemma_fix_none_only,23.5,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.none_only.acc,accuracy (%)
+ext_rcp_medgemma_fix_none_only_ci,16.3 to 30.3,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.none_only.acc_ci,95% CI
+ext_rcp_medgemma_fix_ece,0.396,artifacts/external_tests/analysis.json,radcases_panel.models.medgemma_fix.all.ece,ECE
+ext_rcp_qwen38_all,55.6,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.all.acc,accuracy (%)
+ext_rcp_qwen38_all_ci,50.8 to 60.1,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.all.acc_ci,95% CI
+ext_rcp_qwen38_synthetic,68.0,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.synthetic.acc,accuracy (%)
+ext_rcp_qwen38_synthetic_ci,60.4 to 75.1,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.synthetic.acc_ci,95% CI
+ext_rcp_qwen38_medbullets,47.2,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.medbullets.acc,accuracy (%)
+ext_rcp_qwen38_medbullets_ci,41.2 to 53.2,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.medbullets.acc_ci,95% CI
+ext_rcp_qwen38_excl_none,73.9,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.excl_none.acc,accuracy (%)
+ext_rcp_qwen38_excl_none_ci,68.5 to 78.6,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.excl_none.acc_ci,95% CI
+ext_rcp_qwen38_none_only,15.9,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.none_only.acc,accuracy (%)
+ext_rcp_qwen38_none_only_ci,9.5 to 21.9,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.none_only.acc_ci,95% CI
+ext_rcp_qwen38_ece,0.265,artifacts/external_tests/analysis.json,radcases_panel.models.qwen38.all.ece,ECE
+ext_rcp_r9_all,61.1,artifacts/external_tests/analysis.json,radcases_panel.models.r9.all.acc,accuracy (%)
+ext_rcp_r9_all_ci,56.3 to 65.6,artifacts/external_tests/analysis.json,radcases_panel.models.r9.all.acc_ci,95% CI
+ext_rcp_r9_synthetic,69.8,artifacts/external_tests/analysis.json,radcases_panel.models.r9.synthetic.acc,accuracy (%)
+ext_rcp_r9_synthetic_ci,62.1 to 76.3,artifacts/external_tests/analysis.json,radcases_panel.models.r9.synthetic.acc_ci,95% CI
+ext_rcp_r9_medbullets,55.2,artifacts/external_tests/analysis.json,radcases_panel.models.r9.medbullets.acc,accuracy (%)
+ext_rcp_r9_medbullets_ci,48.8 to 61.2,artifacts/external_tests/analysis.json,radcases_panel.models.r9.medbullets.acc_ci,95% CI
+ext_rcp_r9_excl_none,71.4,artifacts/external_tests/analysis.json,radcases_panel.models.r9.excl_none.acc,accuracy (%)
+ext_rcp_r9_excl_none_ci,65.9 to 76.2,artifacts/external_tests/analysis.json,radcases_panel.models.r9.excl_none.acc_ci,95% CI
+ext_rcp_r9_none_only,38.6,artifacts/external_tests/analysis.json,radcases_panel.models.r9.none_only.acc,accuracy (%)
+ext_rcp_r9_none_only_ci,30.4 to 46.7,artifacts/external_tests/analysis.json,radcases_panel.models.r9.none_only.acc_ci,95% CI
+ext_rcp_r9_ece,0.106,artifacts/external_tests/analysis.json,radcases_panel.models.r9.all.ece,ECE
+ext_rcp_stock27_all,66.1,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.all.acc,accuracy (%)
+ext_rcp_stock27_all_ci,61.3 to 70.4,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.all.acc_ci,95% CI
+ext_rcp_stock27_synthetic,73.4,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.synthetic.acc,accuracy (%)
+ext_rcp_stock27_synthetic_ci,66.3 to 79.9,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.synthetic.acc_ci,95% CI
+ext_rcp_stock27_medbullets,61.2,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.medbullets.acc,accuracy (%)
+ext_rcp_stock27_medbullets_ci,55.2 to 66.8,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.medbullets.acc_ci,95% CI
+ext_rcp_stock27_excl_none,73.2,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.excl_none.acc,accuracy (%)
+ext_rcp_stock27_excl_none_ci,67.9 to 78.2,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.excl_none.acc_ci,95% CI
+ext_rcp_stock27_none_only,50.8,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.none_only.acc,accuracy (%)
+ext_rcp_stock27_none_only_ci,42.4 to 59.1,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.none_only.acc_ci,95% CI
+ext_rcp_stock27_ece,0.075,artifacts/external_tests/analysis.json,radcases_panel.models.stock27.all.ece,ECE
+ext_rcp_stock9_all,70.6,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.all.acc,accuracy (%)
+ext_rcp_stock9_all_ci,66.1 to 74.9,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.all.acc_ci,95% CI
+ext_rcp_stock9_synthetic,74.0,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.synthetic.acc,accuracy (%)
+ext_rcp_stock9_synthetic_ci,66.9 to 80.5,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.synthetic.acc_ci,95% CI
+ext_rcp_stock9_medbullets,68.4,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.medbullets.acc,accuracy (%)
+ext_rcp_stock9_medbullets_ci,62.8 to 73.6,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.medbullets.acc_ci,95% CI
+ext_rcp_stock9_excl_none,72.8,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.excl_none.acc,accuracy (%)
+ext_rcp_stock9_excl_none_ci,67.6 to 78.1,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.excl_none.acc_ci,95% CI
+ext_rcp_stock9_none_only,65.9,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.none_only.acc,accuracy (%)
+ext_rcp_stock9_none_only_ci,57.4 to 73.8,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.none_only.acc_ci,95% CI
+ext_rcp_stock9_ece,0.153,artifacts/external_tests/analysis.json,radcases_panel.models.stock9.all.ece,ECE
+ext_rcp_v2_27_all,62.8,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.all.acc,accuracy (%)
+ext_rcp_v2_27_all_ci,58.0 to 67.1,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.all.acc_ci,95% CI
+ext_rcp_v2_27_synthetic,72.8,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.synthetic.acc,accuracy (%)
+ext_rcp_v2_27_synthetic_ci,65.7 to 79.3,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.synthetic.acc_ci,95% CI
+ext_rcp_v2_27_medbullets,56.0,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.medbullets.acc,accuracy (%)
+ext_rcp_v2_27_medbullets_ci,50.0 to 61.6,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.medbullets.acc_ci,95% CI
+ext_rcp_v2_27_excl_none,77.0,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.excl_none.acc,accuracy (%)
+ext_rcp_v2_27_excl_none_ci,72.0 to 81.7,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.excl_none.acc_ci,95% CI
+ext_rcp_v2_27_none_only,31.8,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.none_only.acc,accuracy (%)
+ext_rcp_v2_27_none_only_ci,23.7 to 40.0,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.none_only.acc_ci,95% CI
+ext_rcp_v2_27_ece,0.122,artifacts/external_tests/analysis.json,radcases_panel.models.v2_27.all.ece,ECE
+ext_rcp_d_v2_27_stock27_all,−3.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.all.d,difference (pp)
+ext_rcp_d_v2_27_stock27_all_ci,−6.4 to −0.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.all.ci,95% CI
+ext_rcp_d_v2_27_stock27_synthetic,−0.6,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.synthetic.d,difference (pp)
+ext_rcp_d_v2_27_stock27_synthetic_ci,−4.1 to 3.0,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.synthetic.ci,95% CI
+ext_rcp_d_v2_27_stock27_medbullets,−5.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.medbullets.d,difference (pp)
+ext_rcp_d_v2_27_stock27_medbullets_ci,−10.0 to −0.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.medbullets.ci,95% CI
+ext_rcp_d_v2_27_stock27_excl_none,3.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.excl_none.d,difference (pp)
+ext_rcp_d_v2_27_stock27_excl_none_ci,1.0 to 6.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.excl_none.ci,95% CI
+ext_rcp_d_v2_27_stock27_none_only,−18.9,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.none_only.d,difference (pp)
+ext_rcp_d_v2_27_stock27_none_only_ci,−25.6 to −12.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-stock27.none_only.ci,95% CI
+ext_rcp_d_r9_stock9_all,−9.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.all.d,difference (pp)
+ext_rcp_d_r9_stock9_all_ci,−12.6 to −6.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.all.ci,95% CI
+ext_rcp_d_r9_stock9_synthetic,−4.1,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.synthetic.d,difference (pp)
+ext_rcp_d_r9_stock9_synthetic_ci,−8.3 to −0.6,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.synthetic.ci,95% CI
+ext_rcp_d_r9_stock9_medbullets,−13.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.medbullets.d,difference (pp)
+ext_rcp_d_r9_stock9_medbullets_ci,−17.6 to −8.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.medbullets.ci,95% CI
+ext_rcp_d_r9_stock9_excl_none,−1.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.excl_none.d,difference (pp)
+ext_rcp_d_r9_stock9_excl_none_ci,−3.8 to 0.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.excl_none.ci,95% CI
+ext_rcp_d_r9_stock9_none_only,−27.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.none_only.d,difference (pp)
+ext_rcp_d_r9_stock9_none_only_ci,−35.3 to −19.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-stock9.none_only.ci,95% CI
+ext_rcp_d_v2_27_qwen38_all,7.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.all.d,difference (pp)
+ext_rcp_d_v2_27_qwen38_all_ci,4.3 to 10.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.all.ci,95% CI
+ext_rcp_d_v2_27_qwen38_synthetic,4.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.synthetic.d,difference (pp)
+ext_rcp_d_v2_27_qwen38_synthetic_ci,1.2 to 8.9,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.synthetic.ci,95% CI
+ext_rcp_d_v2_27_qwen38_medbullets,8.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.medbullets.d,difference (pp)
+ext_rcp_d_v2_27_qwen38_medbullets_ci,4.4 to 13.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.medbullets.ci,95% CI
+ext_rcp_d_v2_27_qwen38_excl_none,3.1,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.excl_none.d,difference (pp)
+ext_rcp_d_v2_27_qwen38_excl_none_ci,0.0 to 6.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.excl_none.ci,95% CI
+ext_rcp_d_v2_27_qwen38_none_only,15.9,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.none_only.d,difference (pp)
+ext_rcp_d_v2_27_qwen38_none_only_ci,9.5 to 22.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-qwen38.none_only.ci,95% CI
+ext_rcp_d_v2_27_medgemma_fix_all,6.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.all.d,difference (pp)
+ext_rcp_d_v2_27_medgemma_fix_all_ci,3.1 to 10.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.all.ci,95% CI
+ext_rcp_d_v2_27_medgemma_fix_synthetic,7.1,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.synthetic.d,difference (pp)
+ext_rcp_d_v2_27_medgemma_fix_synthetic_ci,1.8 to 12.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.synthetic.ci,95% CI
+ext_rcp_d_v2_27_medgemma_fix_medbullets,6.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.medbullets.d,difference (pp)
+ext_rcp_d_v2_27_medgemma_fix_medbullets_ci,1.6 to 11.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.medbullets.ci,95% CI
+ext_rcp_d_v2_27_medgemma_fix_excl_none,5.9,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.excl_none.d,difference (pp)
+ext_rcp_d_v2_27_medgemma_fix_excl_none_ci,1.7 to 10.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.excl_none.ci,95% CI
+ext_rcp_d_v2_27_medgemma_fix_none_only,8.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.none_only.d,difference (pp)
+ext_rcp_d_v2_27_medgemma_fix_none_only_ci,1.6 to 14.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.v2_27-medgemma_fix.none_only.ci,95% CI
+ext_rcp_d_r9_qwen38_all,5.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.all.d,difference (pp)
+ext_rcp_d_r9_qwen38_all_ci,1.9 to 9.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.all.ci,95% CI
+ext_rcp_d_r9_qwen38_synthetic,1.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.synthetic.d,difference (pp)
+ext_rcp_d_r9_qwen38_synthetic_ci,−3.6 to 6.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.synthetic.ci,95% CI
+ext_rcp_d_r9_qwen38_medbullets,8.0,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.medbullets.d,difference (pp)
+ext_rcp_d_r9_qwen38_medbullets_ci,3.2 to 13.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.medbullets.ci,95% CI
+ext_rcp_d_r9_qwen38_excl_none,−2.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.excl_none.d,difference (pp)
+ext_rcp_d_r9_qwen38_excl_none_ci,−6.4 to 1.4,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.excl_none.ci,95% CI
+ext_rcp_d_r9_qwen38_none_only,22.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.none_only.d,difference (pp)
+ext_rcp_d_r9_qwen38_none_only_ci,15.9 to 30.2,artifacts/external_tests/analysis.json,radcases_panel.pairs.r9-qwen38.none_only.ci,95% CI
+ext_rcp_d_qwen38_stock27_all,−10.5,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.all.d,difference (pp)
+ext_rcp_d_qwen38_stock27_all_ci,−14.3 to −6.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.all.ci,95% CI
+ext_rcp_d_qwen38_stock27_synthetic,−5.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.synthetic.d,difference (pp)
+ext_rcp_d_qwen38_stock27_synthetic_ci,−10.7 to −0.6,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.synthetic.ci,95% CI
+ext_rcp_d_qwen38_stock27_medbullets,−14.0,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.medbullets.d,difference (pp)
+ext_rcp_d_qwen38_stock27_medbullets_ci,−19.2 to −8.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.medbullets.ci,95% CI
+ext_rcp_d_qwen38_stock27_excl_none,0.7,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.excl_none.d,difference (pp)
+ext_rcp_d_qwen38_stock27_excl_none_ci,−2.8 to 4.3,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.excl_none.ci,95% CI
+ext_rcp_d_qwen38_stock27_none_only,−34.8,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.none_only.d,difference (pp)
+ext_rcp_d_qwen38_stock27_none_only_ci,−43.0 to −27.0,artifacts/external_tests/analysis.json,radcases_panel.pairs.qwen38-stock27.none_only.ci,95% CI
+ext_rct_n_all,266,artifacts/external_tests/analysis.json,radcases_topic.n.all,questions
+ext_rct_n_synthetic,147,artifacts/external_tests/analysis.json,radcases_topic.n.synthetic,questions
+ext_rct_n_medbullets,119,artifacts/external_tests/analysis.json,radcases_topic.n.medbullets,questions
+ext_rct_r9_all,65.0,artifacts/external_tests/analysis.json,radcases_topic.models.r9.all.acc,accuracy (%)
+ext_rct_r9_all_ci,59.4 to 70.7,artifacts/external_tests/analysis.json,radcases_topic.models.r9.all.acc_ci,95% CI
+ext_rct_r9_synthetic,60.5,artifacts/external_tests/analysis.json,radcases_topic.models.r9.synthetic.acc,accuracy (%)
+ext_rct_r9_synthetic_ci,51.7 to 68.7,artifacts/external_tests/analysis.json,radcases_topic.models.r9.synthetic.acc_ci,95% CI
+ext_rct_r9_medbullets,70.6,artifacts/external_tests/analysis.json,radcases_topic.models.r9.medbullets.acc,accuracy (%)
+ext_rct_r9_medbullets_ci,62.2 to 78.2,artifacts/external_tests/analysis.json,radcases_topic.models.r9.medbullets.acc_ci,95% CI
+ext_rct_r9_ece,0.066,artifacts/external_tests/analysis.json,radcases_topic.models.r9.all.ece,ECE
+ext_rct_stock27_all,66.5,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.all.acc,accuracy (%)
+ext_rct_stock27_all_ci,61.3 to 72.2,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.all.acc_ci,95% CI
+ext_rct_stock27_synthetic,61.2,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.synthetic.acc,accuracy (%)
+ext_rct_stock27_synthetic_ci,53.1 to 69.4,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.synthetic.acc_ci,95% CI
+ext_rct_stock27_medbullets,73.1,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.medbullets.acc,accuracy (%)
+ext_rct_stock27_medbullets_ci,65.5 to 80.7,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.medbullets.acc_ci,95% CI
+ext_rct_stock27_ece,0.132,artifacts/external_tests/analysis.json,radcases_topic.models.stock27.all.ece,ECE
+ext_rct_stock9_all,63.2,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.all.acc,accuracy (%)
+ext_rct_stock9_all_ci,57.5 to 69.2,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.all.acc_ci,95% CI
+ext_rct_stock9_synthetic,59.9,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.synthetic.acc,accuracy (%)
+ext_rct_stock9_synthetic_ci,51.7 to 67.3,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.synthetic.acc_ci,95% CI
+ext_rct_stock9_medbullets,67.2,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.medbullets.acc,accuracy (%)
+ext_rct_stock9_medbullets_ci,58.8 to 75.6,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.medbullets.acc_ci,95% CI
+ext_rct_stock9_ece,0.362,artifacts/external_tests/analysis.json,radcases_topic.models.stock9.all.ece,ECE
+ext_rct_v2_27_all,66.2,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.all.acc,accuracy (%)
+ext_rct_v2_27_all_ci,60.5 to 71.8,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.all.acc_ci,95% CI
+ext_rct_v2_27_synthetic,61.9,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.synthetic.acc,accuracy (%)
+ext_rct_v2_27_synthetic_ci,53.7 to 70.1,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.synthetic.acc_ci,95% CI
+ext_rct_v2_27_medbullets,71.4,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.medbullets.acc,accuracy (%)
+ext_rct_v2_27_medbullets_ci,63.0 to 79.8,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.medbullets.acc_ci,95% CI
+ext_rct_v2_27_ece,0.061,artifacts/external_tests/analysis.json,radcases_topic.models.v2_27.all.ece,ECE
+ext_rct_d_v2_27_stock27_all,−0.4,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.all.d,difference (pp)
+ext_rct_d_v2_27_stock27_all_ci,−3.4 to 2.6,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.all.ci,95% CI
+ext_rct_d_v2_27_stock27_synthetic,0.7,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.synthetic.d,difference (pp)
+ext_rct_d_v2_27_stock27_synthetic_ci,−2.7 to 4.1,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.synthetic.ci,95% CI
+ext_rct_d_v2_27_stock27_medbullets,−1.7,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.medbullets.d,difference (pp)
+ext_rct_d_v2_27_stock27_medbullets_ci,−7.6 to 4.2,artifacts/external_tests/analysis.json,radcases_topic.pairs.v2_27-stock27.medbullets.ci,95% CI
+ext_rct_d_r9_stock9_all,1.9,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.all.d,difference (pp)
+ext_rct_d_r9_stock9_all_ci,−1.1 to 4.9,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.all.ci,95% CI
+ext_rct_d_r9_stock9_synthetic,0.7,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.synthetic.d,difference (pp)
+ext_rct_d_r9_stock9_synthetic_ci,−2.7 to 4.1,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.synthetic.ci,95% CI
+ext_rct_d_r9_stock9_medbullets,3.4,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.medbullets.d,difference (pp)
+ext_rct_d_r9_stock9_medbullets_ci,−1.7 to 8.4,artifacts/external_tests/analysis.json,radcases_topic.pairs.r9-stock9.medbullets.ci,95% CI
+ext_rg_reports,"2,000",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,reports,Stanford RadGraph-XL reports
+ext_rg_excl,495,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,excluded,overlap exclusions
+ext_rg_excl_cxr,495,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,overlap_chexpert_plus.cxr,CXR reports overlapping CheXpert Plus
+ext_rg_records,"1,505",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.records,reports with at least one question
+ext_rg_n_all,"4,037",artifacts/external_tests/analysis.json,radgraph_xl.n.all,questions
+ext_rg_n_chestct,"1,321",artifacts/external_tests/analysis.json,radgraph_xl.n.chestct,questions
+ext_rg_n_abdct,"1,392",artifacts/external_tests/analysis.json,radgraph_xl.n.abdct,questions
+ext_rg_n_brainmr,"1,313",artifacts/external_tests/analysis.json,radgraph_xl.n.brainmr,questions
+ext_rg_n_cxr,11,artifacts/external_tests/analysis.json,radgraph_xl.n.cxr,questions
+ext_rg_medgemma_fix_all,65.0,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.all.acc,accuracy (%)
+ext_rg_medgemma_fix_all_ci,63.7 to 66.4,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.all.acc_ci,95% CI
+ext_rg_medgemma_fix_chestct,70.9,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.chestct.acc,accuracy (%)
+ext_rg_medgemma_fix_chestct_ci,68.5 to 73.2,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.chestct.acc_ci,95% CI
+ext_rg_medgemma_fix_abdct,58.8,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.abdct.acc,accuracy (%)
+ext_rg_medgemma_fix_abdct_ci,56.3 to 61.2,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.abdct.acc_ci,95% CI
+ext_rg_medgemma_fix_brainmr,65.7,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.brainmr.acc,accuracy (%)
+ext_rg_medgemma_fix_brainmr_ci,63.3 to 68.1,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.brainmr.acc_ci,95% CI
+ext_rg_medgemma_fix_cxr,72.7,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.cxr.acc,accuracy (%)
+ext_rg_medgemma_fix_cxr_ci,46.2 to 100.0,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.cxr.acc_ci,95% CI
+ext_rg_medgemma_fix_ece,0.236,artifacts/external_tests/analysis.json,radgraph_xl.models.medgemma_fix.all.ece,ECE
+ext_rg_qwen38_all,78.4,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.all.acc,accuracy (%)
+ext_rg_qwen38_all_ci,77.2 to 79.6,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.all.acc_ci,95% CI
+ext_rg_qwen38_chestct,81.5,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.chestct.acc,accuracy (%)
+ext_rg_qwen38_chestct_ci,79.5 to 83.4,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.chestct.acc_ci,95% CI
+ext_rg_qwen38_abdct,76.7,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.abdct.acc,accuracy (%)
+ext_rg_qwen38_abdct_ci,74.5 to 78.6,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.abdct.acc_ci,95% CI
+ext_rg_qwen38_brainmr,77.2,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.brainmr.acc,accuracy (%)
+ext_rg_qwen38_brainmr_ci,74.9 to 79.4,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.brainmr.acc_ci,95% CI
+ext_rg_qwen38_cxr,100.0,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.cxr.acc,accuracy (%)
+ext_rg_qwen38_cxr_ci,100.0 to 100.0,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.cxr.acc_ci,95% CI
+ext_rg_qwen38_ece,0.082,artifacts/external_tests/analysis.json,radgraph_xl.models.qwen38.all.ece,ECE
+ext_rg_r9_all,73.2,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.all.acc,accuracy (%)
+ext_rg_r9_all_ci,72.0 to 74.4,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.all.acc_ci,95% CI
+ext_rg_r9_chestct,78.2,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.chestct.acc,accuracy (%)
+ext_rg_r9_chestct_ci,76.1 to 80.3,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.chestct.acc_ci,95% CI
+ext_rg_r9_abdct,69.5,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.abdct.acc,accuracy (%)
+ext_rg_r9_abdct_ci,67.4 to 71.5,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.abdct.acc_ci,95% CI
+ext_rg_r9_brainmr,72.1,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.brainmr.acc,accuracy (%)
+ext_rg_r9_brainmr_ci,69.9 to 74.3,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.brainmr.acc_ci,95% CI
+ext_rg_r9_cxr,72.7,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.cxr.acc,accuracy (%)
+ext_rg_r9_cxr_ci,54.5 to 90.9,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.cxr.acc_ci,95% CI
+ext_rg_r9_ece,0.033,artifacts/external_tests/analysis.json,radgraph_xl.models.r9.all.ece,ECE
+ext_rg_stock27_all,77.4,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.all.acc,accuracy (%)
+ext_rg_stock27_all_ci,76.2 to 78.5,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.all.acc_ci,95% CI
+ext_rg_stock27_chestct,81.0,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.chestct.acc,accuracy (%)
+ext_rg_stock27_chestct_ci,79.1 to 82.9,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.chestct.acc_ci,95% CI
+ext_rg_stock27_abdct,74.9,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.abdct.acc,accuracy (%)
+ext_rg_stock27_abdct_ci,72.9 to 76.8,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.abdct.acc_ci,95% CI
+ext_rg_stock27_brainmr,76.3,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.brainmr.acc,accuracy (%)
+ext_rg_stock27_brainmr_ci,74.3 to 78.4,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.brainmr.acc_ci,95% CI
+ext_rg_stock27_cxr,90.9,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.cxr.acc,accuracy (%)
+ext_rg_stock27_cxr_ci,76.9 to 100.0,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.cxr.acc_ci,95% CI
+ext_rg_stock27_ece,0.037,artifacts/external_tests/analysis.json,radgraph_xl.models.stock27.all.ece,ECE
+ext_rg_stock9_all,70.7,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.all.acc,accuracy (%)
+ext_rg_stock9_all_ci,69.5 to 71.9,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.all.acc_ci,95% CI
+ext_rg_stock9_chestct,76.2,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.chestct.acc,accuracy (%)
+ext_rg_stock9_chestct_ci,74.2 to 78.3,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.chestct.acc_ci,95% CI
+ext_rg_stock9_abdct,66.7,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.abdct.acc,accuracy (%)
+ext_rg_stock9_abdct_ci,64.6 to 68.8,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.abdct.acc_ci,95% CI
+ext_rg_stock9_brainmr,69.3,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.brainmr.acc,accuracy (%)
+ext_rg_stock9_brainmr_ci,67.0 to 71.5,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.brainmr.acc_ci,95% CI
+ext_rg_stock9_cxr,72.7,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.cxr.acc,accuracy (%)
+ext_rg_stock9_cxr_ci,54.5 to 90.9,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.cxr.acc_ci,95% CI
+ext_rg_stock9_ece,0.101,artifacts/external_tests/analysis.json,radgraph_xl.models.stock9.all.ece,ECE
+ext_rg_v2_27_all,77.5,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.all.acc,accuracy (%)
+ext_rg_v2_27_all_ci,76.4 to 78.7,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.all.acc_ci,95% CI
+ext_rg_v2_27_chestct,81.0,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.chestct.acc,accuracy (%)
+ext_rg_v2_27_chestct_ci,79.1 to 83.0,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.chestct.acc_ci,95% CI
+ext_rg_v2_27_abdct,74.6,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.abdct.acc,accuracy (%)
+ext_rg_v2_27_abdct_ci,72.6 to 76.6,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.abdct.acc_ci,95% CI
+ext_rg_v2_27_brainmr,77.0,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.brainmr.acc,accuracy (%)
+ext_rg_v2_27_brainmr_ci,75.1 to 79.0,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.brainmr.acc_ci,95% CI
+ext_rg_v2_27_cxr,90.9,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.cxr.acc,accuracy (%)
+ext_rg_v2_27_cxr_ci,76.9 to 100.0,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.cxr.acc_ci,95% CI
+ext_rg_v2_27_ece,0.026,artifacts/external_tests/analysis.json,radgraph_xl.models.v2_27.all.ece,ECE
+ext_rg_d_v2_27_stock27_all,0.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.all.d,difference (pp)
+ext_rg_d_v2_27_stock27_all_ci,−0.4 to 0.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.all.ci,95% CI
+ext_rg_d_v2_27_stock27_chestct,0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.chestct.d,difference (pp)
+ext_rg_d_v2_27_stock27_chestct_ci,−1.0 to 0.9,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.chestct.ci,95% CI
+ext_rg_d_v2_27_stock27_abdct,−0.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.abdct.d,difference (pp)
+ext_rg_d_v2_27_stock27_abdct_ci,−1.5 to 0.9,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.abdct.ci,95% CI
+ext_rg_d_v2_27_stock27_brainmr,0.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.brainmr.d,difference (pp)
+ext_rg_d_v2_27_stock27_brainmr_ci,−0.2 to 1.6,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.brainmr.ci,95% CI
+ext_rg_d_v2_27_stock27_cxr,0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.cxr.d,difference (pp)
+ext_rg_d_v2_27_stock27_cxr_ci,0.0 to 0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-stock27.cxr.ci,95% CI
+ext_rg_d_r9_stock9_all,2.5,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.all.d,difference (pp)
+ext_rg_d_r9_stock9_all_ci,1.8 to 3.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.all.ci,95% CI
+ext_rg_d_r9_stock9_chestct,2.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.chestct.d,difference (pp)
+ext_rg_d_r9_stock9_chestct_ci,0.7 to 3.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.chestct.ci,95% CI
+ext_rg_d_r9_stock9_abdct,2.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.abdct.d,difference (pp)
+ext_rg_d_r9_stock9_abdct_ci,1.4 to 4.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.abdct.ci,95% CI
+ext_rg_d_r9_stock9_brainmr,2.8,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.brainmr.d,difference (pp)
+ext_rg_d_r9_stock9_brainmr_ci,1.5 to 4.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.brainmr.ci,95% CI
+ext_rg_d_r9_stock9_cxr,0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.cxr.d,difference (pp)
+ext_rg_d_r9_stock9_cxr_ci,0.0 to 0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-stock9.cxr.ci,95% CI
+ext_rg_d_v2_27_qwen38_all,−0.9,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.all.d,difference (pp)
+ext_rg_d_v2_27_qwen38_all_ci,−1.8 to −0.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.all.ci,95% CI
+ext_rg_d_v2_27_qwen38_chestct,−0.5,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.chestct.d,difference (pp)
+ext_rg_d_v2_27_qwen38_chestct_ci,−1.7 to 0.8,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.chestct.ci,95% CI
+ext_rg_d_v2_27_qwen38_abdct,−2.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.abdct.d,difference (pp)
+ext_rg_d_v2_27_qwen38_abdct_ci,−3.5 to −0.6,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.abdct.ci,95% CI
+ext_rg_d_v2_27_qwen38_brainmr,−0.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.brainmr.d,difference (pp)
+ext_rg_d_v2_27_qwen38_brainmr_ci,−1.7 to 1.4,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.brainmr.ci,95% CI
+ext_rg_d_v2_27_qwen38_cxr,−9.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.cxr.d,difference (pp)
+ext_rg_d_v2_27_qwen38_cxr_ci,−23.1 to 0.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-qwen38.cxr.ci,95% CI
+ext_rg_d_v2_27_medgemma_fix_all,12.5,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.all.d,difference (pp)
+ext_rg_d_v2_27_medgemma_fix_all_ci,11.3 to 13.8,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.all.ci,95% CI
+ext_rg_d_v2_27_medgemma_fix_chestct,10.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.chestct.d,difference (pp)
+ext_rg_d_v2_27_medgemma_fix_chestct_ci,8.0 to 12.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.chestct.ci,95% CI
+ext_rg_d_v2_27_medgemma_fix_abdct,15.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.abdct.d,difference (pp)
+ext_rg_d_v2_27_medgemma_fix_abdct_ci,13.5 to 18.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.abdct.ci,95% CI
+ext_rg_d_v2_27_medgemma_fix_brainmr,11.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.brainmr.d,difference (pp)
+ext_rg_d_v2_27_medgemma_fix_brainmr_ci,9.3 to 13.5,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.brainmr.ci,95% CI
+ext_rg_d_v2_27_medgemma_fix_cxr,18.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.cxr.d,difference (pp)
+ext_rg_d_v2_27_medgemma_fix_cxr_ci,0.0 to 36.4,artifacts/external_tests/analysis.json,radgraph_xl.pairs.v2_27-medgemma_fix.cxr.ci,95% CI
+ext_rg_d_r9_qwen38_all,−5.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.all.d,difference (pp)
+ext_rg_d_r9_qwen38_all_ci,−6.2 to −4.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.all.ci,95% CI
+ext_rg_d_r9_qwen38_chestct,−3.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.chestct.d,difference (pp)
+ext_rg_d_r9_qwen38_chestct_ci,−4.8 to −1.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.chestct.ci,95% CI
+ext_rg_d_r9_qwen38_abdct,−7.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.abdct.d,difference (pp)
+ext_rg_d_r9_qwen38_abdct_ci,−8.8 to −5.4,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.abdct.ci,95% CI
+ext_rg_d_r9_qwen38_brainmr,−5.0,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.brainmr.d,difference (pp)
+ext_rg_d_r9_qwen38_brainmr_ci,−6.8 to −3.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.brainmr.ci,95% CI
+ext_rg_d_r9_qwen38_cxr,−27.3,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.cxr.d,difference (pp)
+ext_rg_d_r9_qwen38_cxr_ci,−45.5 to −9.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.r9-qwen38.cxr.ci,95% CI
+ext_rg_d_qwen38_stock27_all,1.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.all.d,difference (pp)
+ext_rg_d_qwen38_stock27_all_ci,0.2 to 1.9,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.all.ci,95% CI
+ext_rg_d_qwen38_stock27_chestct,0.5,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.chestct.d,difference (pp)
+ext_rg_d_qwen38_stock27_chestct_ci,−0.8 to 1.7,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.chestct.ci,95% CI
+ext_rg_d_qwen38_stock27_abdct,1.8,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.abdct.d,difference (pp)
+ext_rg_d_qwen38_stock27_abdct_ci,0.2 to 3.2,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.abdct.ci,95% CI
+ext_rg_d_qwen38_stock27_brainmr,0.8,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.brainmr.d,difference (pp)
+ext_rg_d_qwen38_stock27_brainmr_ci,−0.8 to 2.4,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.brainmr.ci,95% CI
+ext_rg_d_qwen38_stock27_cxr,9.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.cxr.d,difference (pp)
+ext_rg_d_qwen38_stock27_cxr_ci,0.0 to 23.1,artifacts/external_tests/analysis.json,radgraph_xl.pairs.qwen38-stock27.cxr.ci,95% CI
 ss_spec27,4.2,results_book/numbers.json,d_v2_27_stock27_human_keys,difference (pp)
 ss_spec27_ci,3.8 to 4.6,results_book/numbers.json,d_v2_27_stock27_human_keys,95% CI
 ss_spec9,3.7,results_book/numbers.json,d_r9_stock9_human_keys,difference (pp)

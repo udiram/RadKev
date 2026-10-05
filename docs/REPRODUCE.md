@@ -105,6 +105,7 @@ probabilities without text under `$RADKEV_HOME/runs/`.
 | MedGemma-27B-text with the final prompt (the row reported in the manuscript) | `experiments/medgemma_rescore.py` | 2× A6000 |
 | LLMs with reasoning on the 1,800-question sample | `experiments/llm_reasoning.py` (vLLM) | 2× A6000 |
 | Options-only control | `experiments/options_only.py` | 2× or 4× A6000 |
+| External test sets (RadCases, RadGraph-XL) | `experiments/external_tests.py` | 2× or 4× A6000 |
 | Answer space: decision models and latency against the number of options | `experiments/answer_space.py` | 2× or 4× A6000 |
 | Answer space: LLMs (at most 16 options) | `experiments/answer_space_llm.py` | 2× or 4× A6000 |
 | Regenerated teacher labels and agreement of the decision models | `experiments/teacher_rescore.py` | 2× or 4× A6000 |

@@ -90,6 +90,7 @@ These were added after the primary results were known. Apart from the initializa
 | Latency | 150 test records (293 questions), one request at a time, one NVLink pair of RTX A6000 GPUs, Hugging Face Transformers, bfloat16, first 5 requests of each mode excluded (first request for the LLM with reasoning, 40 questions); the per-question latency of a decision model is its latency per record divided by its number of questions |
 | Latency and answer-space size | one question per request with 2 to 128 options on 60 Eurorad cases, first 10 requests excluded |
 | Agreement with regenerated teacher labels | agreement of the decision models with the teacher labels of the test split regenerated after the MedGemma-27B-text rescoring |
+| External test sets | RadCases (ACR Appropriateness Criteria panel among 11 panels and "no topic applies", 419 questions; topic among 225 topics, 266 questions, decision models only) and RadGraph-XL (status of radiologist-annotated findings in Stanford CT and MRI reports, 4,037 questions), built by `radkev.external` and scored by `experiments/external_tests.py` under the addendum to the analysis plan (Supplementary Note S6) |
 
 The scripts for each analysis are listed in [REPRODUCE.md](REPRODUCE.md#post-hoc-analyses).
 
