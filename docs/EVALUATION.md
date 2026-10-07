@@ -27,6 +27,7 @@ questions are not benchmarked.
 | Kev-27B, Kev-9B | starting points (specialization) and scale | as above |
 | Qwen3.8-27B | the backbone of Kev-27B queried as an LLM | zero-shot, one question per prompt, softmax of the next-token logits over the option letters, reasoning disabled; questions with at most 16 options |
 | OpenAI Decisions API (gpt-6-luna) | hosted general-purpose decision model | each record once, all of its questions in one request; probabilities as returned (two decimals), not recalibrated |
+| Jev (jev-1.13.0, TypeSafe System One API) | hosted general-purpose decision model whose interface Kev reproduces | each record once, all of its questions in one request in the benchmark's own format; probabilities as returned (two decimals), not recalibrated |
 
 ## Outcomes and statistics
 
@@ -59,6 +60,7 @@ systems. All reported results for the RadKev models include it (`experiments/fin
 | Options-only control (case removed) and distinctive words of the correct option | `blind_v3.py` | Results 3.5 |
 | LLMs with reasoning on a sample of 1,675 questions | `llm_reasoning.py` (`v3`), `eval_v3_prior.py` | Results 3.2 |
 | OpenAI Decisions API | `openai_decisions.py` | Results 3.2 |
+| Jev | `jev_decisions.py`, `eval_v3_prior.py` | Results 3.2 |
 | Latency, one request at a time (60 records) | `latency_bench.py` | Results 3.2 |
 | Size and composition of the answer space | `answer_space3.py` | Results 3.6 |
 | RadGraph-XL external test (4,037 questions) | `radgraph_xl_build.py`, `external_tests.py`, `external_analyse_node.py`, `radgraph_xl_errors_v3.py` | Results 3.7 |

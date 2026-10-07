@@ -489,13 +489,32 @@ def write_data_v3(o, g, tm, t_test):
     assert rgq == st["key_present"] + st["key_absent"] + st["key_uncertain"]
     put("rg_q", n(rgq), RG, "stats.q_*", "RadGraph-XL questions")
     put("rg_q_cxr", n(st["q_cxr"]), RG, "stats.q_cxr", "RadGraph-XL chest radiograph questions remaining")
+    # Table 1 (user layout 2026-10-07): one row per dataset; Train and Dev in records; Benchmark = questions held out of training.
+    ct_q = sum(v for k, v in g["test"]["by_task"].items() if k.startswith("ctrate"))
+    put("ct_test_q", n(ct_q), GATED_MAN, "splits.test.by_task[ctrate_*]", "CT-RATE held-out test questions")
+    put("teacher_test_q", n(t_test), COMP, "models.v2_27.tasks[teacher_*].n", "teacher-labeled held-out test questions")
+    R_ = lambda *ks: sum(recs["train"].get(k, 0) for k in ks), lambda *ks: sum(recs["dev"].get(k, 0) for k in ks)
+    tr, dv = R_
+    dag = r"\textsuperscript{a}"; ddag = r"\textsuperscript{b}"
+    rows_t = [("Structured label extraction", tr("iu"), dv("iu"), n(bq["iu"])),
+              ("Structured label extraction (classifier labels)", tr("ctrate"), dv("ctrate"), n(ct_q) + dag),
+              ("Structured label extraction (external test)", 0, 0, n(rgq) + ddag),
+              ("Report error detection", tr("rexerr"), dv("rexerr"), n(bq["rexerr"])),
+              ("Case diagnosis and classification", tr("eurorad", "rsna"), dv("eurorad", "rsna"), n(bq["eurorad"] + bq["rsna"])),
+              ("Imaging appropriateness", tr("radcases"), dv("radcases"), n(bq["radcases"])),
+              ("Radiology knowledge (train)", tr("medmcqa", "medqa"), dv("medmcqa", "medqa"), n(bq["medmcqa"] + bq["medqa"])),
+              ("Radiology knowledge (benchmark)", tr("mmlu_med", "pubmedqa", "medxpertqa"), dv("mmlu_med", "pubmedqa", "medxpertqa"),
+               n(bq["mmlu_med"] + bq["pubmedqa"] + bq["medxpertqa"])),
+              ("Orders, triage and follow-up (LLM labels)", tr("teacher"), dv("teacher"), n(t_test) + dag)]
+    assert sum(r[1] for r in rows_t) == sum(recs["train"].values()) and sum(r[2] for r in rows_t) == sum(recs["dev"].values())
+    held = bench + ct_q + rgq + t_test
+    put("heldout_q", n(held), "Table 1", "benchmark + CT-RATE + RadGraph-XL + teacher test questions", "questions held out of training")
     (HERE / "generated" / "tab_data.tex").write_text("\n".join([
-        r"\begin{tabular}{@{}lllrrrr@{}}", r"\toprule",
-        r"Source & Task & Ground truth & \multicolumn{3}{c}{Records} & Benchmark \\ \cmidrule(lr){4-6}",
-        r" & & & Train & Dev & Test & questions \\", r"\midrule", *body[:10], r"\midrule", *body[10:], r"\midrule",
-        r"RadGraph-XL \citep{delbrouck2024radgraphxl} & Structured label extraction (report) & Human & – & – & " + n(st["records"]) + r" & – \\",   # external test set
-        r"\midrule",
-        " & ".join(["Total", "", ""] + tot[:2] + [n(int(tot[2].replace(",", "")) + st["records"])] + [n(bench)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
+        r"\begin{tabular}{@{}lrrr@{}}", r"\toprule",
+        r"Dataset & \multicolumn{2}{c}{Records} & Benchmark \\ \cmidrule(lr){2-3}",
+        r" & Train & Dev & \\", r"\midrule",
+        *[" & ".join([nm, cell(a), cell(b), c]) + r" \\" for nm, a, b, c in rows_t], r"\midrule",
+        " & ".join(["Total", n(sum(recs["train"].values())), n(sum(recs["dev"].values())), n(held)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
 
 def write_train_v3():
     """Training of the present models (v3f runs: RadKev-27B two data-parallel processes over NVLink pairs, RadKev-9B four

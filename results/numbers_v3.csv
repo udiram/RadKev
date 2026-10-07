@@ -176,6 +176,29 @@ r3_t_openai_dec_rcpanel,64.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_pri
 r3_t_openai_dec_rctopic,29.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.tasks.radcases_topic.acc,"OpenAI Decisions, RadCases: ACR topic"
 r3_t_openai_dec_rexerr,78.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.tasks.rexerr_error.acc,"OpenAI Decisions, ReXErr: report error"
 r3_t_openai_dec_rsna,75.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.tasks.rsna_radioqa.acc,"OpenAI Decisions, RSNA-RadioQA: diagnosis"
+r3_a_jev_tm,77.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.bench.task_mean,"Jev, task mean (bench, 15 tasks)"
+r3_a_jev_tm_ci,76.2 to 79.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.bench.task_mean_ci,95% CI
+r3_a_jev_pool,86.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.bench.pooled,"Jev, pooled (bench, n=14142)"
+r3_a_jev_pool_ci,85.6 to 86.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.bench.pooled_ci,95% CI
+r3_a_jev_htm,78.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.human.task_mean,"Jev, task mean (human, 14 tasks)"
+r3_a_jev_htm_ci,76.3 to 79.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.human.task_mean_ci,95% CI
+r3_a_jev_hpool,88.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.human.pooled,"Jev, pooled (human, n=11434)"
+r3_a_jev_hpool_ci,88.1 to 89.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.human.pooled_ci,95% CI
+r3_t_jev_eurodx,81.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.eurorad_dx.acc,"Jev, Eurorad: diagnosis"
+r3_t_jev_euroroute,82.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.eurorad_route.acc,"Jev, Eurorad: subspecialty classification"
+r3_t_jev_iufind,97.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.iu_finding.acc,"Jev, IU: finding present"
+r3_t_jev_iunorm,87.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.iu_normal.acc,"Jev, IU: normal study"
+r3_t_jev_iuwhich,96.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.iu_which.acc,"Jev, IU: which finding"
+r3_t_jev_mcqother,75.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.medmcqa_other_rad.acc,"Jev, MedMCQA: other subjects"
+r3_t_jev_mcqrad,76.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.medmcqa_rad.acc,"Jev, MedMCQA: radiology"
+r3_t_jev_medqa,87.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.medqa_rad.acc,"Jev, MedQA"
+r3_t_jev_medx,31.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.medxpertqa_rad.acc,"Jev, MedXpertQA"
+r3_t_jev_mmlu,97.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.mmlu_rad.acc,"Jev, MMLU"
+r3_t_jev_pubmed,78.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.pubmedqa_rad.acc,"Jev, PubMedQA"
+r3_t_jev_rcpanel,62.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.radcases_panel.acc,"Jev, RadCases: ACR panel"
+r3_t_jev_rctopic,63.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.radcases_topic.acc,"Jev, RadCases: ACR topic"
+r3_t_jev_rexerr,75.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.rexerr_error.acc,"Jev, ReXErr: report error"
+r3_t_jev_rsna,73.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.jev.tasks.rsna_radioqa.acc,"Jev, RSNA-RadioQA: diagnosis"
 r3_ncommon,thirteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,tasks in every system,human-assigned tasks scored for every system
 r3_c_v3_27,81.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.v3_27.tasks[common].acc,"RadKev-27B, task mean over the common human-assigned tasks"
 r3_c_v3_9,77.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.v3_9.tasks[common].acc,"RadKev-9B, task mean over the common human-assigned tasks"
@@ -183,6 +206,7 @@ r3_c_stock27,77.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mea
 r3_c_stock9,72.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.stock9.tasks[common].acc,"Kev-9B, task mean over the common human-assigned tasks"
 r3_c_qwen38,78.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.qwen38.tasks[common].acc,"Qwen3.8-27B, task mean over the common human-assigned tasks"
 r3_c_openai_dec,79.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.openai_dec.tasks[common].acc,"OpenAI Decisions, task mean over the common human-assigned tasks"
+r3_c_jev,79.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.jev.tasks[common].acc,"Jev, task mean over the common human-assigned tasks"
 r3_c_best,RadKev-27B,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,"most accurate system, common human-assigned tasks"
 r3_prim_tm,4.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-stock27.bench.task_mean_d,"RadKev-27B minus Kev-27B, task mean (pp)"
 r3_prim_tm_ci,3.8 to 6.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-stock27.bench.task_mean_ci,95% CI
@@ -776,6 +800,234 @@ r3_odq_t_rexerr,9.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,p
 r3_odq_t_rexerr_ci,7.7 to 11.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rexerr_error.ci,95% CI
 r3_odq_t_rsna,−1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rsna_radioqa.d,"OpenAI Decisions minus Qwen3.8-27B, RSNA-RadioQA: diagnosis (pp)"
 r3_odq_t_rsna_ci,−7.6 to 5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rsna_radioqa.ci,95% CI
+r3_jv_tm,3.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.task_mean_d,"RadKev-27B minus Jev, task mean (pp)"
+r3_jv_tm_ci,1.7 to 4.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.task_mean_ci,95% CI
+r3_jv_tm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-jev.bench.task_mean_ci,comparison words
+r3_jv_ntask,fifteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.tasks,tasks compared
+r3_jv_pool,4.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.pooled_d,"RadKev-27B minus Jev, pooled (pp)"
+r3_jv_pool_ci,4.0 to 5.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.pooled_ci,95% CI
+r3_jv_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-jev.bench.pooled_ci,comparison words
+r3_jv_nq,"14,142",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.bench.n,questions compared
+r3_jv_htm,1.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.task_mean_d,"RadKev-27B minus Jev, task mean (pp)"
+r3_jv_htm_ci,0.4 to 3.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.task_mean_ci,95% CI
+r3_jv_htm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-jev.human.task_mean_ci,comparison words
+r3_jv_hntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.tasks,tasks compared
+r3_jv_hpool,1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.pooled_d,"RadKev-27B minus Jev, pooled (pp)"
+r3_jv_hpool_ci,0.5 to 1.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.pooled_ci,95% CI
+r3_jv_hpool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-jev.human.pooled_ci,comparison words
+r3_jv_hnq,"11,434",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.human.n,questions compared
+r3_jv_t_eurodx,13.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.eurorad_dx.d,"RadKev-27B minus Jev, Eurorad: diagnosis (pp)"
+r3_jv_t_eurodx_ci,9.2 to 17.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.eurorad_dx.ci,95% CI
+r3_jv_t_euroroute,3.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.eurorad_route.d,"RadKev-27B minus Jev, Eurorad: subspecialty classification (pp)"
+r3_jv_t_euroroute_ci,−0.6 to 7.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.eurorad_route.ci,95% CI
+r3_jv_t_iufind,−0.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_finding.d,"RadKev-27B minus Jev, IU: finding present (pp)"
+r3_jv_t_iufind_ci,−0.6 to 0.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_finding.ci,95% CI
+r3_jv_t_iunorm,2.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_normal.d,"RadKev-27B minus Jev, IU: normal study (pp)"
+r3_jv_t_iunorm_ci,1.2 to 3.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_normal.ci,95% CI
+r3_jv_t_iuwhich,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_which.d,"RadKev-27B minus Jev, IU: which finding (pp)"
+r3_jv_t_iuwhich_ci,−0.4 to 1.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.iu_which.ci,95% CI
+r3_jv_t_mcqother,0.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medmcqa_other_rad.d,"RadKev-27B minus Jev, MedMCQA: other subjects (pp)"
+r3_jv_t_mcqother_ci,−6.1 to 7.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medmcqa_other_rad.ci,95% CI
+r3_jv_t_mcqrad,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medmcqa_rad.d,"RadKev-27B minus Jev, MedMCQA: radiology (pp)"
+r3_jv_t_mcqrad_ci,−8.5 to 11.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medmcqa_rad.ci,95% CI
+r3_jv_t_medqa,0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medqa_rad.d,"RadKev-27B minus Jev, MedQA (pp)"
+r3_jv_t_medqa_ci,−2.7 to 4.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medqa_rad.ci,95% CI
+r3_jv_t_medx,−1.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medxpertqa_rad.d,"RadKev-27B minus Jev, MedXpertQA (pp)"
+r3_jv_t_medx_ci,−4.8 to 3.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.medxpertqa_rad.ci,95% CI
+r3_jv_t_mmlu,−2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.mmlu_rad.d,"RadKev-27B minus Jev, MMLU (pp)"
+r3_jv_t_mmlu_ci,−6.3 to 0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.mmlu_rad.ci,95% CI
+r3_jv_t_pubmed,0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.pubmedqa_rad.d,"RadKev-27B minus Jev, PubMedQA (pp)"
+r3_jv_t_pubmed_ci,−4.6 to 7.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.pubmedqa_rad.ci,95% CI
+r3_jv_t_rcpanel,4.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.radcases_panel.d,"RadKev-27B minus Jev, RadCases: ACR panel (pp)"
+r3_jv_t_rcpanel_ci,−4.5 to 13.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.radcases_panel.ci,95% CI
+r3_jv_t_rctopic,0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.radcases_topic.d,"RadKev-27B minus Jev, RadCases: ACR topic (pp)"
+r3_jv_t_rctopic_ci,−5.8 to 5.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.radcases_topic.ci,95% CI
+r3_jv_t_rexerr,19.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.rexerr_error.d,"RadKev-27B minus Jev, ReXErr: report error (pp)"
+r3_jv_t_rexerr_ci,17.4 to 20.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.rexerr_error.ci,95% CI
+r3_jv_t_rsna,2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.rsna_radioqa.d,"RadKev-27B minus Jev, RSNA-RadioQA: diagnosis (pp)"
+r3_jv_t_rsna_ci,−6.3 to 11.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-jev.tasks.rsna_radioqa.ci,95% CI
+r3_jv9_tm,−0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.task_mean_d,"RadKev-9B minus Jev, task mean (pp)"
+r3_jv9_tm_ci,−2.5 to 0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.task_mean_ci,95% CI
+r3_jv9_tm_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_9-jev.bench.task_mean_ci,comparison words
+r3_jv9_ntask,fifteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.tasks,tasks compared
+r3_jv9_pool,4.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.pooled_d,"RadKev-9B minus Jev, pooled (pp)"
+r3_jv9_pool_ci,3.5 to 4.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.pooled_ci,95% CI
+r3_jv9_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_9-jev.bench.pooled_ci,comparison words
+r3_jv9_nq,"14,142",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.bench.n,questions compared
+r3_jv9_htm,−2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.task_mean_d,"RadKev-9B minus Jev, task mean (pp)"
+r3_jv9_htm_ci,−3.8 to −0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.task_mean_ci,95% CI
+r3_jv9_htm_cmp,less accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_9-jev.human.task_mean_ci,comparison words
+r3_jv9_hntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.tasks,tasks compared
+r3_jv9_hpool,0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.pooled_d,"RadKev-9B minus Jev, pooled (pp)"
+r3_jv9_hpool_ci,0.4 to 1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.pooled_ci,95% CI
+r3_jv9_hpool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_9-jev.human.pooled_ci,comparison words
+r3_jv9_hnq,"11,434",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.human.n,questions compared
+r3_jv9_t_eurodx,9.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.eurorad_dx.d,"RadKev-9B minus Jev, Eurorad: diagnosis (pp)"
+r3_jv9_t_eurodx_ci,5.8 to 13.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.eurorad_dx.ci,95% CI
+r3_jv9_t_euroroute,2.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.eurorad_route.d,"RadKev-9B minus Jev, Eurorad: subspecialty classification (pp)"
+r3_jv9_t_euroroute_ci,−2.1 to 6.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.eurorad_route.ci,95% CI
+r3_jv9_t_iufind,1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_finding.d,"RadKev-9B minus Jev, IU: finding present (pp)"
+r3_jv9_t_iufind_ci,0.6 to 1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_finding.ci,95% CI
+r3_jv9_t_iunorm,4.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_normal.d,"RadKev-9B minus Jev, IU: normal study (pp)"
+r3_jv9_t_iunorm_ci,3.6 to 5.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_normal.ci,95% CI
+r3_jv9_t_iuwhich,0.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_which.d,"RadKev-9B minus Jev, IU: which finding (pp)"
+r3_jv9_t_iuwhich_ci,−1.0 to 1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.iu_which.ci,95% CI
+r3_jv9_t_mcqother,−9.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medmcqa_other_rad.d,"RadKev-9B minus Jev, MedMCQA: other subjects (pp)"
+r3_jv9_t_mcqother_ci,−17.4 to −2.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medmcqa_other_rad.ci,95% CI
+r3_jv9_t_mcqrad,−7.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medmcqa_rad.d,"RadKev-9B minus Jev, MedMCQA: radiology (pp)"
+r3_jv9_t_mcqrad_ci,−19.7 to 4.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medmcqa_rad.ci,95% CI
+r3_jv9_t_medqa,−13.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medqa_rad.d,"RadKev-9B minus Jev, MedQA (pp)"
+r3_jv9_t_medqa_ci,−18.4 to −9.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medqa_rad.ci,95% CI
+r3_jv9_t_medx,−10.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medxpertqa_rad.d,"RadKev-9B minus Jev, MedXpertQA (pp)"
+r3_jv9_t_medx_ci,−13.7 to −6.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.medxpertqa_rad.ci,95% CI
+r3_jv9_t_mmlu,−6.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.mmlu_rad.d,"RadKev-9B minus Jev, MMLU (pp)"
+r3_jv9_t_mmlu_ci,−12.7 to 0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.mmlu_rad.ci,95% CI
+r3_jv9_t_pubmed,0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.pubmedqa_rad.d,"RadKev-9B minus Jev, PubMedQA (pp)"
+r3_jv9_t_pubmed_ci,−4.6 to 6.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.pubmedqa_rad.ci,95% CI
+r3_jv9_t_rcpanel,5.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.radcases_panel.d,"RadKev-9B minus Jev, RadCases: ACR panel (pp)"
+r3_jv9_t_rcpanel_ci,−3.8 to 14.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.radcases_panel.ci,95% CI
+r3_jv9_t_rctopic,−2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.radcases_topic.d,"RadKev-9B minus Jev, RadCases: ACR topic (pp)"
+r3_jv9_t_rctopic_ci,−9.3 to 5.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.radcases_topic.ci,95% CI
+r3_jv9_t_rexerr,17.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.rexerr_error.d,"RadKev-9B minus Jev, ReXErr: report error (pp)"
+r3_jv9_t_rexerr_ci,15.5 to 19.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.rexerr_error.ci,95% CI
+r3_jv9_t_rsna,−3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.rsna_radioqa.d,"RadKev-9B minus Jev, RSNA-RadioQA: diagnosis (pp)"
+r3_jv9_t_rsna_ci,−15.2 to 7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-jev.tasks.rsna_radioqa.ci,95% CI
+r3_jvk_tm,1.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.task_mean_d,"Jev minus Kev-27B, task mean (pp)"
+r3_jvk_tm_ci,0.3 to 3.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.task_mean_ci,95% CI
+r3_jvk_tm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-stock27.bench.task_mean_ci,comparison words
+r3_jvk_ntask,fifteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.tasks,tasks compared
+r3_jvk_pool,1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.pooled_d,"Jev minus Kev-27B, pooled (pp)"
+r3_jvk_pool_ci,0.8 to 1.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.pooled_ci,95% CI
+r3_jvk_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-stock27.bench.pooled_ci,comparison words
+r3_jvk_nq,"14,142",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.bench.n,questions compared
+r3_jvk_htm,1.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.task_mean_d,"Jev minus Kev-27B, task mean (pp)"
+r3_jvk_htm_ci,0.2 to 3.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.task_mean_ci,95% CI
+r3_jvk_htm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-stock27.human.task_mean_ci,comparison words
+r3_jvk_hntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.tasks,tasks compared
+r3_jvk_hpool,0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.pooled_d,"Jev minus Kev-27B, pooled (pp)"
+r3_jvk_hpool_ci,0.4 to 1.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.pooled_ci,95% CI
+r3_jvk_hpool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-stock27.human.pooled_ci,comparison words
+r3_jvk_hnq,"11,434",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.human.n,questions compared
+r3_jvk_t_eurodx,−1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.eurorad_dx.d,"Jev minus Kev-27B, Eurorad: diagnosis (pp)"
+r3_jvk_t_eurodx_ci,−4.9 to 2.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.eurorad_dx.ci,95% CI
+r3_jvk_t_euroroute,−2.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.eurorad_route.d,"Jev minus Kev-27B, Eurorad: subspecialty classification (pp)"
+r3_jvk_t_euroroute_ci,−6.6 to 2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.eurorad_route.ci,95% CI
+r3_jvk_t_iufind,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_finding.d,"Jev minus Kev-27B, IU: finding present (pp)"
+r3_jvk_t_iufind_ci,0.1 to 0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_finding.ci,95% CI
+r3_jvk_t_iunorm,0.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_normal.d,"Jev minus Kev-27B, IU: normal study (pp)"
+r3_jvk_t_iunorm_ci,−0.6 to 1.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_normal.ci,95% CI
+r3_jvk_t_iuwhich,1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_which.d,"Jev minus Kev-27B, IU: which finding (pp)"
+r3_jvk_t_iuwhich_ci,0.0 to 2.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.iu_which.ci,95% CI
+r3_jvk_t_mcqother,10.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medmcqa_other_rad.d,"Jev minus Kev-27B, MedMCQA: other subjects (pp)"
+r3_jvk_t_mcqother_ci,2.7 to 18.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medmcqa_other_rad.ci,95% CI
+r3_jvk_t_mcqrad,4.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medmcqa_rad.d,"Jev minus Kev-27B, MedMCQA: radiology (pp)"
+r3_jvk_t_mcqrad_ci,−9.1 to 18.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medmcqa_rad.ci,95% CI
+r3_jvk_t_medqa,3.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medqa_rad.d,"Jev minus Kev-27B, MedQA (pp)"
+r3_jvk_t_medqa_ci,−0.9 to 6.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medqa_rad.ci,95% CI
+r3_jvk_t_medx,5.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medxpertqa_rad.d,"Jev minus Kev-27B, MedXpertQA (pp)"
+r3_jvk_t_medx_ci,1.7 to 8.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.medxpertqa_rad.ci,95% CI
+r3_jvk_t_mmlu,5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.mmlu_rad.d,"Jev minus Kev-27B, MMLU (pp)"
+r3_jvk_t_mmlu_ci,1.3 to 10.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.mmlu_rad.ci,95% CI
+r3_jvk_t_pubmed,0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.pubmedqa_rad.d,"Jev minus Kev-27B, PubMedQA (pp)"
+r3_jvk_t_pubmed_ci,−5.6 to 5.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.pubmedqa_rad.ci,95% CI
+r3_jvk_t_rcpanel,−3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.radcases_panel.d,"Jev minus Kev-27B, RadCases: ACR panel (pp)"
+r3_jvk_t_rcpanel_ci,−9.9 to 3.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.radcases_panel.ci,95% CI
+r3_jvk_t_rctopic,2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.radcases_topic.d,"Jev minus Kev-27B, RadCases: ACR topic (pp)"
+r3_jvk_t_rctopic_ci,−3.3 to 8.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.radcases_topic.ci,95% CI
+r3_jvk_t_rexerr,3.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rexerr_error.d,"Jev minus Kev-27B, ReXErr: report error (pp)"
+r3_jvk_t_rexerr_ci,1.3 to 5.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rexerr_error.ci,95% CI
+r3_jvk_t_rsna,0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rsna_radioqa.d,"Jev minus Kev-27B, RSNA-RadioQA: diagnosis (pp)"
+r3_jvk_t_rsna_ci,−7.6 to 7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rsna_radioqa.ci,95% CI
+r3_jvq_tm,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.task_mean_d,"Jev minus Qwen3.8-27B, task mean (pp)"
+r3_jvq_tm_ci,−0.0 to 2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.task_mean_ci,95% CI
+r3_jvq_tm_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-qwen38.bench.task_mean_ci,comparison words
+r3_jvq_ntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.tasks,tasks compared
+r3_jvq_pool,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.pooled_d,"Jev minus Qwen3.8-27B, pooled (pp)"
+r3_jvq_pool_ci,−0.1 to 0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.pooled_ci,95% CI
+r3_jvq_pool_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-qwen38.bench.pooled_ci,comparison words
+r3_jvq_nq,"14,047",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.n,questions compared
+r3_jvq_htm,1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.task_mean_d,"Jev minus Qwen3.8-27B, task mean (pp)"
+r3_jvq_htm_ci,−0.5 to 2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.task_mean_ci,95% CI
+r3_jvq_htm_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-qwen38.human.task_mean_ci,comparison words
+r3_jvq_hntask,thirteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.tasks,tasks compared
+r3_jvq_hpool,−1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.pooled_d,"Jev minus Qwen3.8-27B, pooled (pp)"
+r3_jvq_hpool_ci,−1.5 to −0.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.pooled_ci,95% CI
+r3_jvq_hpool_cmp,less accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-qwen38.human.pooled_ci,comparison words
+r3_jvq_hnq,"11,339",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.human.n,questions compared
+r3_jvq_t_eurodx,−3.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.eurorad_dx.d,"Jev minus Qwen3.8-27B, Eurorad: diagnosis (pp)"
+r3_jvq_t_eurodx_ci,−6.9 to 0.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.eurorad_dx.ci,95% CI
+r3_jvq_t_euroroute,−4.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.eurorad_route.d,"Jev minus Qwen3.8-27B, Eurorad: subspecialty classification (pp)"
+r3_jvq_t_euroroute_ci,−9.2 to −1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.eurorad_route.ci,95% CI
+r3_jvq_t_iufind,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_finding.d,"Jev minus Qwen3.8-27B, IU: finding present (pp)"
+r3_jvq_t_iufind_ci,0.1 to 0.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_finding.ci,95% CI
+r3_jvq_t_iunorm,−5.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_normal.d,"Jev minus Qwen3.8-27B, IU: normal study (pp)"
+r3_jvq_t_iunorm_ci,−6.8 to −4.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_normal.ci,95% CI
+r3_jvq_t_iuwhich,0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_which.d,"Jev minus Qwen3.8-27B, IU: which finding (pp)"
+r3_jvq_t_iuwhich_ci,−0.7 to 1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.iu_which.ci,95% CI
+r3_jvq_t_mcqother,7.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medmcqa_other_rad.d,"Jev minus Qwen3.8-27B, MedMCQA: other subjects (pp)"
+r3_jvq_t_mcqother_ci,0.7 to 15.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medmcqa_other_rad.ci,95% CI
+r3_jvq_t_mcqrad,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medmcqa_rad.d,"Jev minus Qwen3.8-27B, MedMCQA: radiology (pp)"
+r3_jvq_t_mcqrad_ci,−10.0 to 12.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medmcqa_rad.ci,95% CI
+r3_jvq_t_medqa,2.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medqa_rad.d,"Jev minus Qwen3.8-27B, MedQA (pp)"
+r3_jvq_t_medqa_ci,−1.5 to 6.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medqa_rad.ci,95% CI
+r3_jvq_t_medx,0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medxpertqa_rad.d,"Jev minus Qwen3.8-27B, MedXpertQA (pp)"
+r3_jvq_t_medx_ci,−3.6 to 4.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.medxpertqa_rad.ci,95% CI
+r3_jvq_t_mmlu,5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.mmlu_rad.d,"Jev minus Qwen3.8-27B, MMLU (pp)"
+r3_jvq_t_mmlu_ci,1.3 to 10.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.mmlu_rad.ci,95% CI
+r3_jvq_t_pubmed,5.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.pubmedqa_rad.d,"Jev minus Qwen3.8-27B, PubMedQA (pp)"
+r3_jvq_t_pubmed_ci,−0.9 to 12.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.pubmedqa_rad.ci,95% CI
+r3_jvq_t_rcpanel,7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.radcases_panel.d,"Jev minus Qwen3.8-27B, RadCases: ACR panel (pp)"
+r3_jvq_t_rcpanel_ci,2.3 to 13.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.radcases_panel.ci,95% CI
+r3_jvq_t_rexerr,6.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.rexerr_error.d,"Jev minus Qwen3.8-27B, ReXErr: report error (pp)"
+r3_jvq_t_rexerr_ci,4.8 to 8.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.rexerr_error.ci,95% CI
+r3_jvq_t_rsna,−3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.rsna_radioqa.d,"Jev minus Qwen3.8-27B, RSNA-RadioQA: diagnosis (pp)"
+r3_jvq_t_rsna_ci,−11.4 to 3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.tasks.rsna_radioqa.ci,95% CI
+r3_odjv_tm,−1.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.task_mean_d,"OpenAI Decisions minus Jev, task mean (pp)"
+r3_odjv_tm_ci,−3.4 to −0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.task_mean_ci,95% CI
+r3_odjv_tm_cmp,less accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-jev.bench.task_mean_ci,comparison words
+r3_odjv_ntask,fifteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.tasks,tasks compared
+r3_odjv_pool,0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.pooled_d,"OpenAI Decisions minus Jev, pooled (pp)"
+r3_odjv_pool_ci,0.4 to 1.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.pooled_ci,95% CI
+r3_odjv_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-jev.bench.pooled_ci,comparison words
+r3_odjv_nq,"14,142",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.bench.n,questions compared
+r3_odjv_htm,−2.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.task_mean_d,"OpenAI Decisions minus Jev, task mean (pp)"
+r3_odjv_htm_ci,−3.9 to −0.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.task_mean_ci,95% CI
+r3_odjv_htm_cmp,less accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-jev.human.task_mean_ci,comparison words
+r3_odjv_hntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.tasks,tasks compared
+r3_odjv_hpool,0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.pooled_d,"OpenAI Decisions minus Jev, pooled (pp)"
+r3_odjv_hpool_ci,−0.1 to 0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.pooled_ci,95% CI
+r3_odjv_hpool_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-jev.human.pooled_ci,comparison words
+r3_odjv_hnq,"11,434",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.human.n,questions compared
+r3_odjv_t_eurodx,3.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.eurorad_dx.d,"OpenAI Decisions minus Jev, Eurorad: diagnosis (pp)"
+r3_odjv_t_eurodx_ci,−0.3 to 7.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.eurorad_dx.ci,95% CI
+r3_odjv_t_euroroute,−3.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.eurorad_route.d,"OpenAI Decisions minus Jev, Eurorad: subspecialty classification (pp)"
+r3_odjv_t_euroroute_ci,−7.8 to 1.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.eurorad_route.ci,95% CI
+r3_odjv_t_iufind,−0.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_finding.d,"OpenAI Decisions minus Jev, IU: finding present (pp)"
+r3_odjv_t_iufind_ci,−1.1 to −0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_finding.ci,95% CI
+r3_odjv_t_iunorm,1.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_normal.d,"OpenAI Decisions minus Jev, IU: normal study (pp)"
+r3_odjv_t_iunorm_ci,1.1 to 2.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_normal.ci,95% CI
+r3_odjv_t_iuwhich,−0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_which.d,"OpenAI Decisions minus Jev, IU: which finding (pp)"
+r3_odjv_t_iuwhich_ci,−1.9 to 0.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.iu_which.ci,95% CI
+r3_odjv_t_mcqother,1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medmcqa_other_rad.d,"OpenAI Decisions minus Jev, MedMCQA: other subjects (pp)"
+r3_odjv_t_mcqother_ci,−5.1 to 7.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medmcqa_other_rad.ci,95% CI
+r3_odjv_t_mcqrad,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medmcqa_rad.d,"OpenAI Decisions minus Jev, MedMCQA: radiology (pp)"
+r3_odjv_t_mcqrad_ci,−10.1 to 13.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medmcqa_rad.ci,95% CI
+r3_odjv_t_medqa,1.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medqa_rad.d,"OpenAI Decisions minus Jev, MedQA (pp)"
+r3_odjv_t_medqa_ci,−1.8 to 4.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medqa_rad.ci,95% CI
+r3_odjv_t_medx,8.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medxpertqa_rad.d,"OpenAI Decisions minus Jev, MedXpertQA (pp)"
+r3_odjv_t_medx_ci,5.0 to 12.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.medxpertqa_rad.ci,95% CI
+r3_odjv_t_mmlu,−3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.mmlu_rad.d,"OpenAI Decisions minus Jev, MMLU (pp)"
+r3_odjv_t_mmlu_ci,−8.9 to 0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.mmlu_rad.ci,95% CI
+r3_odjv_t_pubmed,−10.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.pubmedqa_rad.d,"OpenAI Decisions minus Jev, PubMedQA (pp)"
+r3_odjv_t_pubmed_ci,−18.5 to −1.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.pubmedqa_rad.ci,95% CI
+r3_odjv_t_rcpanel,1.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.radcases_panel.d,"OpenAI Decisions minus Jev, RadCases: ACR panel (pp)"
+r3_odjv_t_rcpanel_ci,−5.1 to 7.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.radcases_panel.ci,95% CI
+r3_odjv_t_rctopic,−33.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.radcases_topic.d,"OpenAI Decisions minus Jev, RadCases: ACR topic (pp)"
+r3_odjv_t_rctopic_ci,−45.7 to −22.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.radcases_topic.ci,95% CI
+r3_odjv_t_rexerr,2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.rexerr_error.d,"OpenAI Decisions minus Jev, ReXErr: report error (pp)"
+r3_odjv_t_rexerr_ci,1.5 to 4.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.rexerr_error.ci,95% CI
+r3_odjv_t_rsna,2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.rsna_radioqa.d,"OpenAI Decisions minus Jev, RSNA-RadioQA: diagnosis (pp)"
+r3_odjv_t_rsna_ci,−3.8 to 8.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-jev.tasks.rsna_radioqa.ci,95% CI
 r3_prim_tmin,0.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,min pairs.v3_27-stock27.tasks[BENCH].d,smallest per-task difference (pp)
 r3_prim_tmin_task,IU: finding present,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmin,task with the smallest difference
 r3_prim_tmax,22.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-stock27.tasks[BENCH].d,largest per-task difference (pp)
@@ -796,6 +1048,11 @@ r3_od_tmin_task,MedXpertQA,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior
 r3_od_tmax,33.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-openai_dec.tasks[BENCH].d,largest per-task difference (pp)
 r3_od_tmax_task,RadCases: ACR topic,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,task with the largest difference
 r3_od_npos,ten,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,count d>0,tasks with a positive point estimate
+r3_jv_tmin,−2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,min pairs.v3_27-jev.tasks[BENCH].d,smallest per-task difference (pp)
+r3_jv_tmin_task,MMLU,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmin,task with the smallest difference
+r3_jv_tmax,19.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-jev.tasks[BENCH].d,largest per-task difference (pp)
+r3_jv_tmax_task,ReXErr: report error,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,task with the largest difference
+r3_jv_npos,eleven,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,count d>0,tasks with a positive point estimate
 r3_specscale_tm,not detectably different from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,did.r3_did27_tm_ci,specialization (27B) vs scale
 r3_specscale_h,not detectably different from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,did.r3_did27_h_ci,specialization (27B) vs scale
 r3_specscale_hpool,larger than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,did.r3_did27_hpool_ci,specialization (27B) vs scale
@@ -878,12 +1135,21 @@ r3_rc_openai_dec_ece,0.095,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior
 r3_rc_openai_dec_brier,0.187,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.recalibrated.brier,Brier score
 r3_rc_openai_dec_ce,0.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.recalibrated.conf_err,confident errors (%)
 r3_rc_openai_dec_cov,87.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.recalibrated.cov5,coverage at 5% error (%)
+r3_cal_jev_ece,0.031,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.as_scored.ece,expected calibration error
+r3_cal_jev_brier,0.161,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.as_scored.brier,Brier score
+r3_cal_jev_ce,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.as_scored.conf_err,confident errors (%)
+r3_cal_jev_cov,86.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.as_scored.cov5,coverage at 5% error (%)
+r3_rc_jev_ece,0.084,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.recalibrated.ece,expected calibration error
+r3_rc_jev_brier,0.175,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.recalibrated.brier,Brier score
+r3_rc_jev_ce,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.recalibrated.conf_err,confident errors (%)
+r3_rc_jev_cov,87.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.human.recalibrated.cov5,coverage at 5% error (%)
 r3_bcov_v3_27,90.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.v3_27.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_v3_9,90.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.v3_9.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_stock27,76.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.stock27.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_stock9,70.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.stock9.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_qwen38,77.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.qwen38.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_openai_dec,77.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
+r3_bcov_jev,77.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.jev.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_calp_cov,2.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,cov5 v3_27 - stock27,"coverage difference (pp, point)"
 r3_calp_cov_ci,1.9 to 3.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs,95% CI
 r3_wd_held,0.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,wording.v3_27-stock27.heldout.d,gain on heldout wordings (pp)
@@ -909,6 +1175,15 @@ r3_lt_od_seq_n,27,paper/artifacts/openai_dec/artifacts/openai_dec_latency.json,s
 r3_lt_od_server,45,paper/artifacts/openai_dec/artifacts/openai_dec_latency.json,concurrent.server_ms.median,server-reported ms per request
 r3_od_cov_d,2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs.v3_27-openai_dec.cov5_d,"coverage difference, human-assigned (pp)"
 r3_od_cov_ci,0.8 to 4.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs.v3_27-openai_dec.cov5_ci,95% CI
+r3_jv_unsup,0,paper/artifacts/jev/artifacts/jev_status.json,refusals.questions + sum(unsupported_questions),questions without a distribution from the API (scored as uniform)
+r3_jv_cost,0.17,paper/artifacts/jev/artifacts/jev_status.json,spent.usd,API cost of the benchmark run (USD)
+r3_jv_model,jev-1.13.0,paper/artifacts/jev/artifacts/jev_status.json,models,model version reported in every response
+r3_lt_jv,168,paper/artifacts/jev/artifacts/jev_latency.json,concurrent.per_question_ms.median,"end-to-end ms per question, 4 requests in flight"
+r3_lt_jv_n,"7,471",paper/artifacts/jev/artifacts/jev_latency.json,concurrent.per_question_ms.n,requests
+r3_lt_jv_seq,185,paper/artifacts/jev/artifacts/jev_latency.json,sequential.per_question_ms.median,"end-to-end ms per question, one request at a time"
+r3_lt_jv_seq_n,27,paper/artifacts/jev/artifacts/jev_latency.json,sequential.per_question_ms.n,sequential requests
+r3_jv_cov_d,1.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs.v3_27-jev.cov5_d,"coverage difference, human-assigned (pp)"
+r3_jv_cov_ci,0.6 to 2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs.v3_27-jev.cov5_ci,95% CI
 r3_rc_none_panel_rk27,70.7,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.v3_27.pick_none_rate.panel,"% selecting 'no topic applies', key = panel"
 r3_rc_none_panel_k27,5.1,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.stock27.pick_none_rate.panel,"% selecting 'no topic applies', key = panel"
 r3_rc_none_panel_rk9,68.7,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.v3_9.pick_none_rate.panel,"% selecting 'no topic applies', key = panel"

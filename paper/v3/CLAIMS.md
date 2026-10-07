@@ -18,6 +18,9 @@ Each directional statement in the v3 prose is marked `% [Cn]` in the .tex. FAILS
 | C25 | yes | results 3.6, discussion | RadKev-27B: mean confidence exceeds accuracy by > 10 pp with the 255 most similar options; accuracy at confidence >= 0.9 at least 90% in every answer space; share at >= 0.9 lower for sim_255 than rand_16 |
 | C24 | yes | results 3.1 | Primary outcome positive without the RadCases prior correction (CI above 0) |
 | C23 | yes | results 3.2 | RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean) |
+| C26 | yes | abstract, results 3.2, discussion, conclusions | RadKev-27B more accurate than Jev (benchmark and human-labeled task means) |
+| C27 | yes | discussion | Kev-27B less accurate than Jev (benchmark task mean), i.e. specialization reversed the ordering |
+| C28 | yes | results 3.2 | Jev returned a probability distribution for every question (no refusals or unsupported questions) |
 | C18 | yes | abstract, results 3.5, discussion, conclusions | Eurorad gain larger without the case (did CI < 0) and RadKev-27B options-only accuracy above 50% |
 | C19 | yes | abstract, discussion, conclusions | RadKev-27B more accurate than Qwen3.8-27B with reasoning: task mean (examination tasks pooled) and pooled CIs above 0 |
 | C20 | yes | abstract | RadKev-27B covers more of all benchmark questions at 5% error than Kev-27B (point estimate) |

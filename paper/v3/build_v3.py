@@ -36,8 +36,8 @@ PUBLIC_V3 = (RW / "inputs").is_dir()   # public bundle (github.com/udiram/RadKev
 A_ = RW / "inputs" / "artifacts" if PUBLIC_V3 else PAPER / "artifacts"
 INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contract from the session that runs the jobs (2026-10-05).
     # RadCases panel prior correction is the default for RadKev (user 2026-10-06): jobs/eval_v3_prior.py, job ffe4c999, reruns eval_v3 ANALYSE
-    # (+ openai_dec) and the reasoning-sample analysis with v3_27/v3_9 panel distributions divided by the training-split answer frequencies.
-    "eval": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior.json"], "jobs/eval_v3_prior.py (job ffe4c999; final rows of job 354b0d5e, RadCases panel prior-corrected for RadKev)"),
+    # (+ openai_dec, + jev) and the reasoning-sample analysis with v3_27/v3_9 panel distributions divided by the training-split answer frequencies.
+    "eval": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior.json"], "jobs/eval_v3_prior.py (job 156c7585, with Jev added; job ffe4c999 before it; final rows of job 354b0d5e, RadCases panel prior-corrected for RadKev)"),
     "preread": ([A_ / "preread_v3/artifacts/preread_route.json", A_ / "preread_route/artifacts/preread_route.json"], "jobs/preread_route.py (v3f runs)"),
     "transfer": ([A_ / "transfer_v3/artifacts/transfer_paired_v3.json", A_ / "transfer_paired_v3/artifacts/transfer_paired_v3.json", A_ / "transfer_paired/artifacts/transfer_paired_v3.json"], "jobs/transfer_paired.py v3"),
     "latency": ([A_ / "latency_v3/artifacts/latency_v3.json"], "jobs/latency_bench.py --sample radbench"),
@@ -49,6 +49,8 @@ INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contr
     "odec_eval": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior.json"], "OpenAI Decisions API (gpt-6-luna) within jobs/eval_v3_prior.py"),
     "odec_lat": ([A_ / "openai_dec/artifacts/openai_dec_latency.json"], "OpenAI Decisions API, end-to-end latency from the node"),
     "odec_status": ([A_ / "openai_dec/artifacts/openai_dec_status.json"], "OpenAI Decisions API, refusals and cost"),
+    "jev_lat": ([A_ / "jev/artifacts/jev_latency.json"], "Jev (TypeSafe System One API), end-to-end latency from the node (jobs/jev_decisions.py)"),
+    "jev_status": ([A_ / "jev/artifacts/jev_status.json"], "Jev (TypeSafe System One API), unsupported questions, model version and cost (jobs/jev_decisions.py)"),
     "rcdiag": ([A_ / "radcases_panel_diag/radcases_panel_diag.json"], "jobs/radcases_panel_diag.py (RadCases panel errors by key type)"),
     "rcprior": ([A_ / "radcases_prior/artifacts/radcases_prior.json"], "jobs/radcases_prior.py (RadCases panel, as scored vs prior-corrected; job e6474944)"),
     "eval_raw": ([A_ / "eval_v3_rerun/artifacts/eval_v3.json"], "jobs/eval_v3.py (job 354b0d5e), RadKev as scored, without the RadCases panel prior correction"),
@@ -120,8 +122,10 @@ def cmp_words(c, more="more accurate than", less="less accurate than", same="not
 # which are ignored. Add a model here only if the user asks for the smaller baselines.
 # MedGemma-27B-text is not a comparator (user decision 2026-10-07); it appears only as a teacher (Methods, Supplementary Note S2).
 NAME = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen3.8-27B",
-        "openai_dec": "OpenAI Decisions"}   # hosted decision model gpt-6-luna (amendment 10, user request 2026-10-06)
-SHORT = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen", "openai_dec": "OpenAI"}
+        "openai_dec": "OpenAI Decisions",   # hosted decision model gpt-6-luna (amendment 10, user request 2026-10-06)
+        "jev": "Jev"}   # hosted decision model jev-1.13.0, TypeSafe System One API (amendment 11, user request 2026-10-07)
+SHORT = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen", "openai_dec": "OpenAI", "jev": "Jev"}
+HOSTED = ("openai_dec", "jev")   # probabilities rounded to two decimals by both APIs: calibration as scored only, never recalibrated
 SYSTEMS = list(NAME)
 MAIN = lambda E: {s: E["systems"][s] for s in SYSTEMS if s in E["systems"]}   # the ablation arms are reported in 3.3 only
 LLMS = ["qwen38"]
@@ -155,7 +159,8 @@ KEYTASK = TID.__getitem__   # macro-safe task id
 PAIRS = {"prim": ("v3_27", "stock27"), "spec9": ("v3_9", "stock9"),
          "q": ("v3_27", "qwen38"), "q9": ("v3_9", "qwen38"), "size": ("v3_27", "v3_9"),
          "scale": ("stock27", "stock9"), "r9k27": ("v3_9", "stock27"), "qk": ("qwen38", "stock27"),
-         "od": ("v3_27", "openai_dec"), "od9": ("v3_9", "openai_dec"), "odk": ("openai_dec", "stock27"), "odq": ("openai_dec", "qwen38")}
+         "od": ("v3_27", "openai_dec"), "od9": ("v3_9", "openai_dec"), "odk": ("openai_dec", "stock27"), "odq": ("openai_dec", "qwen38"),
+         "jv": ("v3_27", "jev"), "jv9": ("v3_9", "jev"), "jvk": ("jev", "stock27"), "jvq": ("jev", "qwen38"), "odjv": ("openai_dec", "jev")}
 
 
 # ------------------------------------------------------------------------------------------------ main evaluation
@@ -217,7 +222,7 @@ def build_eval():
             if t not in TASK: continue
             put(f"r3_{al}_t_{KEYTASK(t)}", pct(v["d"]), src, f"pairs.{key}.tasks.{t}.d", f"{NAME[a]} minus {NAME[b]}, {TASK[t]} (pp)")
             put(f"r3_{al}_t_{KEYTASK(t)}_ci", pci(v["ci"]), src, f"pairs.{key}.tasks.{t}.ci", "95% CI")
-    for al in ("prim", "q", "spec9", "od"):   # range of the per-task differences (subgroups before summaries)
+    for al in ("prim", "q", "spec9", "od", "jv"):   # range of the per-task differences (subgroups before summaries)
         key = "-".join(PAIRS[al])
         if key not in P: continue
         tt = {t: v["d"] for t, v in P[key]["tasks"].items() if t in BENCH}
@@ -385,6 +390,28 @@ def build_odec():
     else: _pend_all(["r3_od_cov_d", "r3_od_cov_ci"], "OpenAI coverage pair")
 
 
+def build_jev():
+    """Jev (TypeSafe System One API): unsupported questions, model version, cost, end-to-end latency from the node (4 requests in
+    flight; sequential probes), cov5 pair. Jev reports no server processing time."""
+    keys = ["r3_jv_unsup", "r3_jv_cost", "r3_jv_model", "r3_lt_jv", "r3_lt_jv_n", "r3_lt_jv_seq", "r3_lt_jv_seq_n", "r3_jv_cov_d", "r3_jv_cov_ci"]
+    S, L, E = J.get("jev_status"), J.get("jev_lat"), J.get("eval")
+    if not (S and L and E and "jev" in E["systems"]): return _pend_all(keys, "Jev")
+    ss = REL("jev_status")
+    put("r3_jv_unsup", n_(S["refusals"]["questions"] + sum(S.get("unsupported_questions", {}).values())), ss,
+        "refusals.questions + sum(unsupported_questions)", "questions without a distribution from the API (scored as uniform)")
+    put("r3_jv_cost", f"{S['spent']['usd']:.2f}", ss, "spent.usd", "API cost of the benchmark run (USD)")
+    assert len(S["models"]) == 1, S["models"]
+    put("r3_jv_model", next(iter(S["models"])).replace("_", r"\_"), ss, "models", "model version reported in every response")
+    c, q = L["concurrent"], L["sequential"]; src = REL("jev_lat")
+    put("r3_lt_jv", f"{c['per_question_ms']['median']:.0f}", src, "concurrent.per_question_ms.median", "end-to-end ms per question, 4 requests in flight")
+    put("r3_lt_jv_n", n_(c["per_question_ms"]["n"]), src, "concurrent.per_question_ms.n", "requests")
+    put("r3_lt_jv_seq", f"{q['per_question_ms']['median']:.0f}", src, "sequential.per_question_ms.median", "end-to-end ms per question, one request at a time")
+    put("r3_lt_jv_seq_n", n_(q["per_question_ms"]["n"]), src, "sequential.per_question_ms.n", "sequential requests")
+    cp = E["calibration_pairs"].get("v3_27-jev")
+    put("r3_jv_cov_d", pct(cp["cov5_d"]), REL("eval"), "calibration_pairs.v3_27-jev.cov5_d", "coverage difference, human-assigned (pp)")
+    put("r3_jv_cov_ci", pci(cp["cov5_ci"]), REL("eval"), "calibration_pairs.v3_27-jev.cov5_ci", "95% CI")
+
+
 def build_rcprior():
     """RadCases panel question before and after the prior correction (the corrected accuracy is the eval default)."""
     D = J.get("rcprior"); keys = ["r3_rcp_raw_rk27", "r3_rcp_raw_rk9", "r3_rcp_none_panel_rk27", "r3_rcp_none_panel_rk9", "r3_rcp_none_none_rk27", "r3_rcp_none_none_rk9"]
@@ -461,6 +488,7 @@ def build_latency():
     rows = [("RadKev-27B", med(M["v3_27"])), ("Kev-27B", med(M["stock27"]))] + ([("RadKev-9B", med(M["v3_9"]))] if "v3_9" in M else []) + \
            [("Qwen3.8-27B, letter logits", med(q["letter"])), ("Qwen3.8-27B, generated letter", med(q["direct"])), ("Qwen3.8-27B, reasoning", med(q["reasoning"]))]
     if J.get("odec_lat"): rows.insert(3, ("OpenAI Decisions (network)", J["odec_lat"]["sequential"]["per_question_ms"]["median"]))   # one request at a time, like the others
+    if J.get("jev_lat"): rows.insert(4 if J.get("odec_lat") else 3, ("Jev (network)", J["jev_lat"]["sequential"]["per_question_ms"]["median"]))
     L["rows"] = rows
 
 
@@ -728,12 +756,12 @@ def _bars3(ax, groups, series, colors):
 
 
 def fig_llm():
-    """RadKev in blue, other decision models in greys (Kev light, OpenAI Decisions slate), LLMs in muted tans; same type and grids as Figure 4."""
+    """RadKev in blue, other decision models in greys (Kev light, OpenAI Decisions slate, Jev dark slate), LLMs in muted tans; same type and grids as Figure 4."""
     from matplotlib.patches import Patch
     import matplotlib.ticker as mt
     E = J.get("eval"); fig = F.plt.figure(figsize=(180 * F.MM, 128 * F.MM))
     axa = fig.add_axes([0.175, 0.535, 0.30, 0.33]); axb = fig.add_axes([0.60, 0.535, 0.38, 0.33]); axc = fig.add_axes([0.255, 0.075, 0.60, 0.30])
-    sysc = lambda s: F.C_RAD if s.startswith("v3") else F.WP_BASE if s.startswith("stock") else F.C_ODEC if s == "openai_dec" else F.C_LLM if s == "qwen38" else F.C_DMO
+    sysc = lambda s: F.C_RAD if s.startswith("v3") else F.WP_BASE if s.startswith("stock") else F.C_ODEC if s == "openai_dec" else F.C_JEV if s == "jev" else F.C_LLM if s == "qwen38" else F.C_DMO
     if E:
         S = MAIN(E); common = [t for t in HUMAN if all(t in S[s]["tasks"] for s in S)]
         hc = {s: 100 * sum(S[s]["tasks"][t]["acc"] for t in common) / len(common) for s in S}
@@ -751,7 +779,7 @@ def fig_llm():
         _placeholder(axa, "pending: eval_v3"); _placeholder(axb, "pending: eval_v3")
     L = J.get("latency")
     if L and "rows" in L:
-        lc = lambda lab: F.C_RAD if "RadKev" in lab else F.WP_BASE if lab.startswith("Kev") else F.C_ODEC if "OpenAI" in lab else F.C_LLMQ if "reasoning" in lab else F.C_LLM
+        lc = lambda lab: F.C_RAD if "RadKev" in lab else F.WP_BASE if lab.startswith("Kev") else F.C_ODEC if "OpenAI" in lab else F.C_JEV if lab.startswith("Jev") else F.C_LLMQ if "reasoning" in lab else F.C_LLM
         F._hbars(axc, [(r[0], r[1], lc(r[0]), "RadKev" in r[0]) for r in L["rows"]],
                  lambda v: (f"{v / 1000:.1f} s" if v >= 1000 else f"{v:.0f} ms"), 1, log=True)
         axc.set_xscale("log"); axc.set_xlim(20, 60000)
@@ -762,10 +790,10 @@ def fig_llm():
         _placeholder(axc, "pending:\nlatency\nwith v3")
     _head(fig, axa, "a", "All systems", "Human-labeled tasks answered by every system", dx=-86, y=1.10, ysub=1.035)
     _head(fig, axb, "b", "RadKev-27B and Qwen3.8-27B", "Questions with at most 16 options", dx=-30, y=1.10, ysub=1.035)
-    _head(fig, axc, "c", "Latency", "One request at a time on two RTX A6000 GPUs; OpenAI Decisions over the network", dx=-123, y=1.10, ysub=1.035)
-    fig.legend(handles=[Patch(color=F.C_RAD, label="RadKev"), Patch(color=F.WP_BASE, label="Kev"), Patch(color=F.C_ODEC, label="OpenAI Decisions"),
+    _head(fig, axc, "c", "Latency", "One request at a time on two RTX A6000 GPUs; OpenAI Decisions and Jev over the network", dx=-123, y=1.10, ysub=1.035)
+    fig.legend(handles=[Patch(color=F.C_RAD, label="RadKev"), Patch(color=F.WP_BASE, label="Kev"), Patch(color=F.C_ODEC, label="OpenAI Decisions"), Patch(color=F.C_JEV, label="Jev"),
                         Patch(color=F.C_LLM, label="Qwen3.8-27B"), Patch(color=F.C_LLMQ, label="Qwen3.8-27B, reasoning")],
-               loc="upper right", ncol=5, frameon=False, prop={**F.FONT, "size": 7.0}, bbox_to_anchor=(0.99, 1.0), handlelength=1.0, handleheight=0.8, columnspacing=1.0)
+               loc="upper right", ncol=6, frameon=False, prop={**F.FONT, "size": 7.0}, bbox_to_anchor=(0.99, 1.0), handlelength=1.0, handleheight=0.8, columnspacing=1.0)
     _save(fig, "v3_fig_llm")
 
 
@@ -809,7 +837,7 @@ def fig_calib():
     from matplotlib.patches import Patch
     E = J.get("eval"); fig = F.plt.figure(figsize=(180 * F.MM, 70 * F.MM))
     axs = [fig.add_axes([0.16 + 0.285 * i, 0.17, 0.235, 0.58]) for i in range(3)]
-    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "openai_dec"]   # the API: as scored only (probabilities rounded to 0.01)
+    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "openai_dec", "jev"]   # the APIs: as scored only (probabilities rounded to 0.01)
     specs = [("cov5", 100, "{:.1f}", "a", "Coverage at 5% error", "Questions answered (%)"),
              ("ece", 1, "{:.3f}", "b", "Calibration error", "ECE, ten bins"),
              ("conf_err", 100, "{:.1f}", "c", "Confident errors", "Incorrect with confidence ≥ 0.9 (%)")]
@@ -817,7 +845,7 @@ def fig_calib():
         C = E["calibration"]; ss = [s for s in sys_ if s in C]
         for ax, (k, mul, fmt, l, t, xl) in zip(axs, specs):
             a = [mul * C[s]["human"]["as_scored"][k] for s in ss]
-            b = [mul * C[s]["human"]["recalibrated"][k] if s != "openai_dec" else None for s in ss]
+            b = [mul * C[s]["human"]["recalibrated"][k] if s not in HOSTED else None for s in ss]
             bb = [v for v in b if v is not None]
             y = np.arange(len(ss)); h = 0.38; lo = 0 if k != "cov5" else max(0, min(a + bb) - 5); hi = max(a + bb) * 1.12
             ax.barh(y - h / 2, np.array(a) - lo, h, left=lo, color="#5A6577", zorder=2)
@@ -974,7 +1002,7 @@ def build_tables():
         C = E["calibration"]; rows = []
         for s in [s for s in SYSTEMS if s in C]:
             a, r = C[s]["human"]["as_scored"], C[s]["human"]["recalibrated"]
-            rc_ = (lambda f: "--") if s == "openai_dec" else (lambda f: f())   # API probabilities are rounded to 2 decimals: no recalibration reported
+            rc_ = (lambda f: "--") if s in HOSTED else (lambda f: f())   # API probabilities are rounded to 2 decimals: no recalibration reported
             rows.append([NAME[s], num(a["ece"], 3), rc_(lambda: num(r["ece"], 3)), num(a["brier"], 3), pct(a["conf_err"]), rc_(lambda: pct(r["conf_err"])), pct(a["cov5"]), rc_(lambda: pct(r["cov5"]))])
         tab("v3_calib", "@{}lrrrrrrr@{}", r"System & ECE & ECE (recal.) & Brier & Conf.\ err. & Conf.\ err. (recal.) & Cov.\ 5\% & Cov.\ 5\% (recal.)", rows)
     R = J.get("preread")
@@ -1013,6 +1041,9 @@ def build_tables():
         if J.get("odec_lat"):
             for k_, mlab in (("concurrent", "end to end, 4 in flight"), ("sequential", "end to end, one at a time")):
                 x = J["odec_lat"][k_]["per_question_ms"]; rows.append(["OpenAI Decisions", mlab, f"{x['median']:.0f}", f"{x['p95']:.0f}", n_(x["n"])])
+        if J.get("jev_lat"):
+            for k_, mlab in (("concurrent", "end to end, 4 in flight"), ("sequential", "end to end, one at a time")):
+                x = J["jev_lat"][k_]["per_question_ms"]; rows.append(["Jev", mlab, f"{x['median']:.0f}", f"{x['p95']:.0f}", n_(x["n"])])
         for m, lab in (("qwen38", "Qwen3.8-27B"),):
             for mode, mlab in (("letter", "option-letter logits"), ("direct", "generated letter"), ("reasoning", "reasoning")):
                 if m in M and mode in M[m]:
@@ -1077,6 +1108,13 @@ def claims():
                     sig(J["eval_raw"]["pairs"]["v3_27-stock27"]["bench"]["task_mean_ci"]) == 1))
     if "v3_27-openai_dec" in P:
         out.append(("C23", "results 3.2", "RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean)", sig(c("v3_27-openai_dec")) == 1))
+    if "v3_27-jev" in P:
+        out.append(("C26", "abstract, results 3.2, discussion, conclusions", "RadKev-27B more accurate than Jev (benchmark and human-labeled task means)",
+                    sig(c("v3_27-jev")) == 1 and sig(c("v3_27-jev", "human")) == 1))
+        out.append(("C27", "discussion", "Kev-27B less accurate than Jev (benchmark task mean), i.e. specialization reversed the ordering", sig(c("jev-stock27")) == 1))
+        St = J.get("jev_status") or {}
+        out.append(("C28", "results 3.2", "Jev returned a probability distribution for every question (no refusals or unsupported questions)",
+                    bool(St) and St["refusals"]["questions"] == 0 and not St.get("unsupported_questions") and St["cache"]["records"] == St["cache"]["of"]))
     B = J.get("blind")
     if B:
         pr = B["tasks"]["eurorad_dx"]["pairs"]["v3_27-stock27"]; M = B["tasks"]["eurorad_dx"]["models"]
@@ -1187,7 +1225,7 @@ def compile_and_export(tex):
 
 
 def main():
-    have = build_eval(); build_odec(); build_rcdiag(); build_rcprior(); build_preread(); build_training(); build_transfer(); build_latency(); build_reasoning(); build_blind(); build_radgraph(); build_answer_space()
+    have = build_eval(); build_odec(); build_jev(); build_rcdiag(); build_rcprior(); build_preread(); build_training(); build_transfer(); build_latency(); build_reasoning(); build_blind(); build_radgraph(); build_answer_space()
     for f in (fig_primary, fig_llm, fig_spec, fig_calib, fig_robust, fig_answer_space): f()
     build_tables()
     WIRED = "\\input{v3/results.tex}" in (RW / "main.tex").read_text()   # since 2026-10-06 main.tex inputs these sections; build.py compiles

@@ -632,6 +632,7 @@ def fig_bars_one(groups, out, name="fig_primary", models=("Kev-27B", "RadKev-27B
 # ---------------------------------------------------------------- Figure: decision models and language models
 C_RAD, C_KEV, C_DMO, C_LLM, C_LLMR = "#2F6BD8", "#9AA3B2", "#C9CED6", "#D2AE82", "#9C7B5B"   # LLMs in a muted tan family (2026-10-06)
 C_LLMQ, C_ODEC = "#E9D8C1", "#7C8594"   # LLM with reasoning; OpenAI Decisions (hosted decision model, slate)
+C_JEV = "#3E4655"   # Jev (hosted decision model, dark slate)
 
 
 def _hbars(ax, rows, fmt, xmax, log=False, xmin=0):

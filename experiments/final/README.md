@@ -15,6 +15,7 @@ the inputs of the manuscript build in [`paper/inputs/artifacts/`](../../paper/in
 | `radcases_panel_diag.py` | selection of the catch-all option on the RadCases panel question by key type | Results 3.1 |
 | `llm_reasoning.py` (`v3`) | Qwen3.8-27B and MedGemma-27B-text with reasoning on a sample of 1,675 questions | Results 3.2 |
 | `openai_decisions.py` | the OpenAI Decisions API on the benchmark, its latency and cost | Methods 2.6, Results 3.2 |
+| `jev_decisions.py` | Jev on the benchmark, its latency and cost (scored within `eval_v3_prior.py`) | Methods 2.6, Results 3.2 |
 | `latency_bench.py` | median latency per question, one request at a time | Results 3.2, Figure 5c |
 | `transfer_paired.py` | Kev's out-of-domain transfer suite, specialized vs released models | Results 3.3 |
 | `preread_route.py`, `blind_v3.py` | subspecialty classification before the read; the options-only control | Results 3.5 |

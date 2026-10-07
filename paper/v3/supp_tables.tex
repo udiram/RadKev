@@ -31,7 +31,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Latency per question on \V{r3_lat_records} benchmark records (one request at a time, two RTX A6000 GPUs, Hugging Face Transformers, bfloat16): median and 95th percentile. $n$: timed records for the decision models, including the OpenAI Decisions API, whose latency per question is the latency of the record divided by its number of questions, and timed questions for Qwen3.8-27B.}
+  \caption{Latency per question on \V{r3_lat_records} benchmark records (one request at a time, two RTX A6000 GPUs, Hugging Face Transformers, bfloat16): median and 95th percentile. $n$: timed records for the decision models, including the OpenAI Decisions API and Jev, whose latency per question is the latency of the record divided by its number of questions, and timed questions for Qwen3.8-27B.}
   \label{tab:v3_latency}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_latency.tex}
@@ -45,7 +45,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Calibration and selective prediction on the human-labeled questions: expected calibration error (ECE) over ten equal-width bins, Brier score, confident errors (\% of questions answered incorrectly with a confidence of at least 0.9) and coverage at a 5\% error budget (\%), as scored and after two-fold cross-fitted temperature recalibration on the test split (recal.). The OpenAI Decisions API returns probabilities rounded to two decimals, so it is reported as scored only.}
+  \caption{Calibration and selective prediction on the human-labeled questions: expected calibration error (ECE) over ten equal-width bins, Brier score, confident errors (\% of questions answered incorrectly with a confidence of at least 0.9) and coverage at a 5\% error budget (\%), as scored and after two-fold cross-fitted temperature recalibration on the test split (recal.). The OpenAI Decisions API and Jev return probabilities rounded to two decimals, so they are reported as scored only.}
   \label{tab:v3_calib}
   \centering\scriptsize\setlength{\tabcolsep}{3pt}
   \input{generated/v3_calib.tex}

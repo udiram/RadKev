@@ -252,3 +252,23 @@ externally hosted general-purpose decision model, is added as a comparison syste
 - *Note (2026-10-06 ~19:15, after all requests were sent and before any accuracy was computed):* the API answered 5 of 14,142
   questions with `"type": "refusal"` (RadCases records). These are handled as unsupported questions (uniform distribution) and
   reported; no request was resent.
+
+## Amendment 11 (2026-10-07 ~12:10, while requests were being sent and before any accuracy was computed): Jev as an additional comparison system
+At the user's request, Jev (TypeSafe System One API, `POST https://api.typesafe.ai/v1/systemone`, model `jev-latest`, which resolved
+to `jev-1.13.0` on every probe request), the externally hosted general-purpose decision model whose interface Kev reproduces, is added
+as a comparison system (`jev`; `jobs/jev_decisions.py`), with the protocol of amendment 10 unchanged except where the API differs.
+- **Questions.** The same records and questions as amendment 10 (7,498 records, 14,142 questions; CT-RATE and knowledge questions
+  outside the radiology filter are not sent). Jev accepts the benchmark's own format, so each request carries the record's state and
+  each question's `type`, `instructions` and `criteria` unchanged (no label or metadata field), keyed by an anonymous name. No prompt
+  engineering, no system prompt, no repeated sampling: each record is sent once and the response is cached.
+- **Scoring.** Jev returns the probability of `true` (noul) or a probability per option (choice, score); these are the system's
+  distribution, scored exactly as the other systems (`kev_eval --preds`, then `jobs/eval_v3_prior.py` with `jev` added; the RadCases
+  prior correction applies to RadKev only, as before). A request rejected as invalid (HTTP 400/422) is resent once per question; a
+  question still rejected, or answered without a distribution, receives a uniform distribution and is reported as unsupported.
+  Jev's probabilities are rounded to two decimals (as the OpenAI API's), so calibration is reported as scored only.
+- **Pairs.** RadKev-27B and RadKev-9B minus jev; jev minus Kev-27B, Kev-9B and Qwen3.8-27B; OpenAI Decisions minus jev (task mean,
+  pooled, per task with Holm); calibration as scored, and the cov5/ECE pair differences for both RadKev models and for Kev-27B.
+- **Latency.** End-to-end wall time per request from the compute node, probe records sequential, the remainder with four concurrent
+  requests. Jev reports no server processing time.
+- **Cost cap.** $5 in total (the job stops at $4.50 of reported input tokens; $0.042 per million input tokens, output not billed).
+- The result is reported as obtained, whatever its direction.

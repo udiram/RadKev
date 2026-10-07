@@ -3,7 +3,9 @@
     python jobs/submit.py jobs/eval_v3_prior.py --gpus 0 --cpus 4 --mem 16 --timeout 60 --outputs 'eval_v3_prior*.json'
 
 Reruns, from the rows already scored on the node, (1) eval_v3's analysis with the OpenAI Decisions system added exactly as in
-openai_decisions.analyse (systems, pairs, calibration pairs; CT-RATE dropped for openai_dec), and (2) the reasoning-sample paired
+openai_decisions.analyse (systems, pairs, calibration pairs; CT-RATE dropped for openai_dec), and Jev (jobs/jev_decisions.py,
+amendment 11) added in the same way (2026-10-07; its rows cover the same records, so the bootstrap resamples and every other
+number are unchanged), and (2) the reasoning-sample paired
 analysis of llm_reasoning (v3), with one change: on the RadCases panel question, the answer distributions of RadKev-27B (v3_27)
 and RadKev-9B (v3_9) are prior-corrected as in jobs/radcases_prior.py: each option's probability is divided by that option's
 frequency among the RadCases training-split panel answers (add-one smoothed over the 12 options) and renormalized. Only training
@@ -77,25 +79,27 @@ def run(code, args, log):
 
 def main():
     prior, crit = prior_and_options(); P = patch(prior, crit); save()
-    # (1) eval_v3 analysis + OpenAI (as openai_decisions.analyse) + correction
+    # (1) eval_v3 analysis + OpenAI (as openai_decisions.analyse) + Jev (the same) + correction
     A = const(BUNDLE["jobs/eval_v3.py"], "ANALYSE")
-    for old, new in (('"qwen38", "medgemma_fix"]\nD = ', '"qwen38", "medgemma_fix", "openai_dec"]\nD = '),
-                     ("PAIRS = [", 'PAIRS = [("v3_27", "openai_dec"), ("v3_9", "openai_dec"), ("openai_dec", "stock27"), ("openai_dec", "qwen38"), ("openai_dec", "medgemma_fix"), '),
+    for old, new in (('"qwen38", "medgemma_fix"]\nD = ', '"qwen38", "medgemma_fix", "openai_dec", "jev"]\nD = '),
+                     ("PAIRS = [", 'PAIRS = [("v3_27", "openai_dec"), ("v3_9", "openai_dec"), ("openai_dec", "stock27"), ("openai_dec", "qwen38"), ("openai_dec", "medgemma_fix"), '
+                                   '("v3_27", "jev"), ("v3_9", "jev"), ("jev", "stock27"), ("jev", "stock9"), ("jev", "qwen38"), ("jev", "medgemma_fix"), ("openai_dec", "jev"), '),
                      ('res["calibration_pairs"] = {}\nfor a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9")):',
-                      'res["calibration_pairs"] = {}\nfor a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9"), ("v3_27", "openai_dec"), ("v3_9", "openai_dec")):')):
+                      'res["calibration_pairs"] = {}\nfor a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9"), ("v3_27", "openai_dec"), ("v3_9", "openai_dec"), ("v3_27", "jev"), ("v3_9", "jev"), ("stock27", "jev")):')):
         assert A.count(old) == 1, old[:60]; A = A.replace(old, new, 1)
     anchor = "D = {s: load(s) for s in SYSTEMS}; D = {s: v for s, v in D.items() if v}\n"
     assert A.count(anchor) == 1; A = A.replace(anchor, anchor + P, 1)
     run(A, [EV / "code", EV, FINAL, OUT / "eval_v3_prior.json"], OUT / "eval_v3_prior_analyse.log")
-    r = json.loads((OUT / "eval_v3_prior.json").read_text())   # openai_decisions.strip_unsent: CT-RATE never sent to the API
-    for t in list(r["systems"].get("openai_dec", {}).get("tasks", {})):
-        if t.startswith("ctrate:"): del r["systems"]["openai_dec"]["tasks"][t]
+    r = json.loads((OUT / "eval_v3_prior.json").read_text())   # openai_decisions.strip_unsent: CT-RATE never sent to either API
+    for api in ("openai_dec", "jev"):
+        for t in list(r["systems"].get(api, {}).get("tasks", {})):
+            if t.startswith("ctrate:"): del r["systems"][api]["tasks"][t]
     for k, o in r["pairs"].items():
-        if "openai_dec" in k.split("-"):
+        if {"openai_dec", "jev"} & set(k.split("-")):
             for t in list(o.get("tasks", {})):
                 if t.startswith("ctrate:"): del o["tasks"][t]
     r["prior_correction"] = status["prior"]; (OUT / "eval_v3_prior.json").write_text(json.dumps(r, indent=1))
-    status["eval"] = {s: r["systems"][s]["bench"]["task_mean"] for s in ("v3_27", "v3_9", "stock27", "stock9", "qwen38", "openai_dec") if s in r["systems"]}; save()
+    status["eval"] = {s: r["systems"][s]["bench"]["task_mean"] for s in ("v3_27", "v3_9", "stock27", "stock9", "qwen38", "openai_dec", "jev") if s in r["systems"]}; save()
     # (2) reasoning-sample paired analysis + correction
     R = const(BUNDLE["jobs/llm_reasoning.py"], "ANALYSE_V3")
     anchor = "D = {m: v for m, v in D.items() if v}\n"
