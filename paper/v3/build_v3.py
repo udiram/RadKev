@@ -786,18 +786,22 @@ def fig_calib():
     from matplotlib.patches import Patch
     E = J.get("eval"); fig = F.plt.figure(figsize=(180 * F.MM, 70 * F.MM))
     axs = [fig.add_axes([0.16 + 0.285 * i, 0.17, 0.235, 0.58]) for i in range(3)]
-    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix"]
+    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix", "openai_dec"]   # the API: as scored only (probabilities rounded to 0.01)
     specs = [("cov5", 100, "{:.1f}", "a", "Coverage at 5% error", "Questions answered (%)"),
              ("ece", 1, "{:.3f}", "b", "Calibration error", "ECE, ten bins"),
              ("conf_err", 100, "{:.1f}", "c", "Confident errors", "Wrong with confidence ≥ 0.9 (%)")]
     if E:
         C = E["calibration"]; ss = [s for s in sys_ if s in C]
         for ax, (k, mul, fmt, l, t, xl) in zip(axs, specs):
-            a = [mul * C[s]["human"]["as_scored"][k] for s in ss]; b = [mul * C[s]["human"]["recalibrated"][k] for s in ss]
-            y = np.arange(len(ss)); h = 0.38; lo = 0 if k != "cov5" else max(0, min(a + b) - 5); hi = max(a + b) * 1.12
-            ax.barh(y - h / 2, np.array(a) - lo, h, left=lo, color="#5A6577", zorder=2); ax.barh(y + h / 2, np.array(b) - lo, h, left=lo, color="#B7C0CC", zorder=2)
+            a = [mul * C[s]["human"]["as_scored"][k] for s in ss]
+            b = [mul * C[s]["human"]["recalibrated"][k] if s != "openai_dec" else None for s in ss]
+            bb = [v for v in b if v is not None]
+            y = np.arange(len(ss)); h = 0.38; lo = 0 if k != "cov5" else max(0, min(a + bb) - 5); hi = max(a + bb) * 1.12
+            ax.barh(y - h / 2, np.array(a) - lo, h, left=lo, color="#5A6577", zorder=2)
             for i in range(len(ss)):
                 ax.text(a[i] + (hi - lo) * 0.012, i - h / 2, fmt.format(a[i]), va="center", color=F.WP_INK, **{**F.FONT, "size": 6.2})
+                if b[i] is None: continue
+                ax.barh(y[i] + h / 2, b[i] - lo, h, left=lo, color="#B7C0CC", zorder=2)
                 ax.text(b[i] + (hi - lo) * 0.012, i + h / 2, fmt.format(b[i]), va="center", color=F.WP_SUB, **{**F.FONT, "size": 6.2})
             ax.set_yticks(y); ax.set_yticklabels([NAME[s] for s in ss] if ax is axs[0] else [], **{**F.FONT, "size": 7}); ax.set_ylim(len(ss) - 0.45, -0.55)
             ax.set_xlim(lo, hi); ax.set_xlabel(xl, color=F.WP_SUB, **F.FONT)
@@ -879,7 +883,9 @@ def fig_answer_space():
             name = {"v3_27": "RadKev-27B", "stock27": "Kev-27B", "v3_9": "RadKev-9B", "stock9": "Kev-9B", "qwen38_num": "Qwen3.8-27B, numbered",
                     "medgemma_fix_num": "MedGemma, numbered", "qwen38_letter": "Qwen3.8-27B, letter", "medgemma_fix_letter": "MedGemma, letter"}.get(m)
             if not name: continue
-            ks = sorted(rows); axs[2].plot(ks, [rows[k] for k in ks], marker="o", ms=3, lw=1.0, color=col.get(m, "#999"), ls="--" if "letter" in m else "-", label=name)
+            ks = sorted(rows); kv = m.startswith("stock")   # RadKev and Kev of the same size coincide: Kev drawn wider underneath RadKev
+            axs[2].plot(ks, [rows[k] for k in ks], marker="o", ms=4.5 if kv else 3, lw=2.6 if kv else 1.0, color=col.get(m, "#999"),
+                        ls="--" if "letter" in m else "-", label=name, zorder=2 if kv else 4)
         axs[2].set_xscale("log", base=2); axs[2].set_yscale("log"); axs[2].set_xticks([2, 16, 64, 255]); axs[2].set_xticklabels(["2", "16", "64", "255"])
         axs[2].set_xlabel("Options offered", color=F.WP_SUB, **F.FONT); axs[2].set_ylabel("Median latency per request", color=F.WP_SUB, **F.FONT)
         import matplotlib.ticker as _mt

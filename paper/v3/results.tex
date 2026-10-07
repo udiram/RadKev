@@ -64,7 +64,7 @@ Its expected calibration error was \V{r3_cal_v3_27_ece}, compared with \V{r3_cal
 
 \begin{figure}[!htb]
   \centering\includegraphics[width=\textwidth]{figures/v3_fig_calib.pdf}
-  \caption{Calibration and selective prediction on the \V{r3_nhq} human-assigned benchmark questions. (a) Proportion of questions that can be answered, in descending order of confidence, with at most 5\% error among the answered questions. (b) Expected calibration error over ten equal-width confidence bins. (c) Questions answered incorrectly with a confidence of at least 0.9. Dark bars show the models as scored, each with its own temperature, and light bars after two-fold cross-fitted temperature recalibration on the test split, which leaves accuracy unchanged.}
+  \caption{Calibration and selective prediction on the \V{r3_nhq} human-assigned benchmark questions. (a) Proportion of questions that can be answered, in descending order of confidence, with at most 5\% error among the answered questions. (b) Expected calibration error over ten equal-width confidence bins. (c) Questions answered incorrectly with a confidence of at least 0.9. Dark bars show the models as scored, each with its own temperature, and light bars after two-fold cross-fitted temperature recalibration on the test split, which leaves accuracy unchanged. The OpenAI Decisions API returns probabilities rounded to two decimals and is shown as scored only.}
   \label{fig:calib}
 \end{figure}
 
@@ -79,7 +79,7 @@ On RSNA-RadioQA, whose incorrect options were written by LLMs, options-only accu
 
 \begin{figure}[!htb]
   \centering\includegraphics[width=\textwidth]{figures/v3_fig_robust.pdf}
-  \caption{Robustness of the gains. (a) Eurorad subspecialty classification with the full state (dark) and with the imaging findings removed (light), as before the read. (b) Gain of RadKev-27B over Kev-27B on instruction wordings withheld from and seen in training; whiskers, 95\% confidence intervals. (c, d) Options-only control: accuracy of Kev-27B (grey) and RadKev-27B (blue) with the full case and with only the question and its options, for Eurorad diagnosis (c) and RSNA-RadioQA (d); a model that needs the case should fall to chance (dashed lines).}
+  \caption{Robustness of the gains. (a) Eurorad subspecialty classification with the full state (dark) and with the imaging findings removed (light), as before the read; accuracies as recomputed in this analysis (Supplementary Table~\ref{tab:v3_preread}). (b) Gain of RadKev-27B over Kev-27B on instruction wordings withheld from and seen in training; whiskers, 95\% confidence intervals. (c, d) Options-only control: accuracy of Kev-27B (grey) and RadKev-27B (blue) with the full case and with only the question and its options, for Eurorad diagnosis (c) and RSNA-RadioQA (d); a model that needs the case should fall to chance (dashed lines).}
   \label{fig:robust}
 \end{figure}
 
@@ -90,7 +90,7 @@ In the answer-space analysis of \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_
 
 \begin{figure}[!htb]
   \centering\includegraphics[width=\textwidth]{figures/v3_fig_answer_space.pdf}
-  \caption{Accuracy and latency as the answer space grows (2, 4, 16, 64 and 255 options): \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions with the correct answer offered together with the most similar alternatives, and median latency per request with one question per request on \V{r3_as_lat_cases} Eurorad cases. The LLMs were scored by generating the number of the chosen option. Results with random and LLM-written alternatives are given in Supplementary Table~\ref{tab:v3_answer_space}; Supplementary Note~S5 describes the construction of the answer spaces.}
+  \caption{Accuracy and latency as the answer space grows (2, 4, 16, 64 and 255 options): \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions with the correct answer offered together with the most similar alternatives, and median latency per request with one question per request on \V{r3_as_lat_cases} Eurorad cases, in which the lines of RadKev and Kev models of the same size coincide. The LLMs were scored by generating the number of the chosen option. Results with random and LLM-written alternatives are given in Supplementary Table~\ref{tab:v3_answer_space}; Supplementary Note~S5 describes the construction of the answer spaces.}
   \label{fig:answerspace}
 \end{figure}
 
