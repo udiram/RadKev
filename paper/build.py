@@ -1640,17 +1640,16 @@ def export_latex():
 
 
 # Manuscript tables as CSV, named by their number in the manuscript (published in the code repository's results/tables/).
-TABLE_CSV = [("Table1_data", "tab_data"), ("TableS1_teacher_labels", "tab_teacher"),
-             ("TableS2_teacher_agreement", "tab_teacher_agreement"), ("TableS3_primary_by_family", "supp_primary"),
-             ("TableS4_per_task", "supp_pertask"), ("TableS5_accuracy", "supp_accuracy"), ("TableS6_reasoning", "supp_reasoning"),
-             ("TableS7_latency", "supp_latency"), ("TableS8_initialization", "supp_init"), ("TableS9_calibration", "supp_calib"),
-             ("TableS10_options_only", "supp_blind"), ("TableS11_answer_space", "tab_answer_space"),
-             ("TableS12_answer_space_llm", "supp_answer_space_llm"), ("TableS13_ablations", "supp_ablation")]
+TABLE_CSV = [("Table1_data", "tab_data"), ("TableS1_teacher_labels", "tab_teacher"),   # manuscript order (2026-10-06); S2-S12 by v3/build_v3.py
+             ("TableS2_primary_by_task", "v3_primary_tasks"), ("TableS3_per_task", "v3_pertask"), ("TableS4_paired_differences", "v3_pairs"),
+             ("TableS5_calibration", "v3_calib"), ("TableS6_preread", "v3_preread"), ("TableS7_transfer", "v3_transfer"),
+             ("TableS8_reasoning", "v3_reasoning"), ("TableS9_latency", "v3_latency"), ("TableS10_options_only", "v3_blind"),
+             ("TableS11_answer_space", "v3_answer_space"), ("TableS12_external", "v3_radgraph")]
 
 
 def _plain(cell):
     """LaTeX table cell -> plain text."""
-    t = re.sub(r"\\citep?\{[^}]*\}", "", cell)
+    t = re.sub(r"\\citep?\{[^}]*\}", "", cell).replace("\\ ", " ")
     t = re.sub(r"\\(?:multicolumn|multirow)\{[^}]*\}\{[^}]*\}\{(.*)\}", r"\1", t)
     t = re.sub(r"\\(?:textbf|textit|emph|mathrm|text)\{([^}]*)\}", r"\1", t)
     t = t.replace("\\%", "%").replace("\\&", "&").replace("$", "").replace("\\,", "").replace("~", " ")
@@ -1665,6 +1664,7 @@ def export_tables_csv():
     vals = {r["key"]: r["value"] for r in LEDGER}
     out = HERE / "tables_csv"; shutil.rmtree(out, ignore_errors=True); out.mkdir()
     for name, src in TABLE_CSV:
+        if not (HERE / "generated" / f"{src}.tex").exists(): print(f"  {name}: generated/{src}.tex not built yet (run v3/build_v3.py)"); continue
         tex = re.sub(r"\\V\{([^}]+)\}", lambda m: vals[m.group(1)], (HERE / "generated" / f"{src}.tex").read_text())
         body = re.search(r"\\begin\{tabular\}\{(?:[^{}]|\{[^{}]*\})*\}\n?(.*?)\\end\{tabular\}", tex, flags=re.S).group(1)
         rows = []
