@@ -594,10 +594,10 @@ def build_answer_space():
         for K in Ks:
             v = S["lat"].get(m, {}).get(K)
             if v is None: pending(f"r3_as_lat_{key}_{K}", f"answer-space latency {m} K={K}")
-            else: put(f"r3_as_lat_{key}_{K}", f"{v:.0f}", src, f"latency.{m} median at K={K}", "ms per request")
+            else: put(f"r3_as_lat_{key}_{K}", n_(round(v)), src, f"latency.{m} median at K={K}", "ms per request")
     L = S["lat"].get("v3_27", {})
     for K in (2, 255):
-        if K in L: put(f"r3_as_lat_rk27_{K}", f"{L[K]:.0f}", src, f"latency.v3_27 median at K={K}", "ms per request")
+        if K in L: put(f"r3_as_lat_rk27_{K}", n_(round(L[K])), src, f"latency.v3_27 median at K={K}", "ms per request")
         else: pending(f"r3_as_lat_rk27_{K}", f"answer-space latency K={K}")
     # Supplementary table: accuracy (%) by source, condition and K for every system
     rows, mids = [], []

@@ -1214,8 +1214,8 @@ r3_as_k27_rsna_sim16,63.3,paper/artifacts/answer_space3/artifacts/answer_space3.
 r3_as_q_rsna_sim16,43.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.qwen38_num.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
 r3_as_mg_rsna_sim16,30.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.medgemma_fix_num.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
 r3_as_lat_q_2,331,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=2,ms per request
-r3_as_lat_q_255,2207,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=255,ms per request
+r3_as_lat_q_255,"2,207",paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=255,ms per request
 r3_as_lat_qletter_2,242,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_letter median at K=2,ms per request
 r3_as_lat_qletter_16,299,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_letter median at K=16,ms per request
 r3_as_lat_rk27_2,255,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.v3_27 median at K=2,ms per request
-r3_as_lat_rk27_255,3414,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.v3_27 median at K=255,ms per request
+r3_as_lat_rk27_255,"3,414",paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.v3_27 median at K=255,ms per request
