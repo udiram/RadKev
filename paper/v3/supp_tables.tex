@@ -3,7 +3,7 @@
 \subsection*{Supplementary Tables}
 
 \begin{table}[!h]
-  \caption{Primary comparison by task: accuracy (\%) of Kev-27B and RadKev-27B and their difference in percentage points (95\% confidence interval, paired cluster bootstrap with \V{n_boot} resamples). Holm $p$: adjusted across the \V{r3_ntask} benchmark tasks. Top: tasks with human-assigned keys; middle: ReXErr, with keys known by construction; bottom: averages (the first row is the prespecified primary outcome).}
+  \caption{Primary comparison by task: accuracy (\%) of Kev-27B and RadKev-27B and their difference in percentage points (95\% confidence interval, paired cluster bootstrap with \V{n_boot} resamples). Holm $p$: adjusted across the \V{r3_ntask} benchmark tasks. Top: tasks with human-labeled ground truth; middle: ReXErr, with ground truth known by construction; bottom: averages (the first row is the prespecified primary outcome).}
   \label{tab:v3_primary_tasks}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_primary_tasks.tex}
@@ -17,7 +17,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Paired comparisons in percentage points (95\% confidence interval): task-averaged accuracy over all benchmark tasks and over the tasks with human-assigned keys, and accuracy pooled over all questions. Comparisons with an LLM use the questions with at most 16 options. Tasks: number of tasks compared.}
+  \caption{Paired comparisons in percentage points (95\% confidence interval): task-averaged accuracy over all benchmark tasks and over the tasks with human-labeled ground truth, and accuracy pooled over all questions. Comparisons with an LLM use the questions with at most 16 options. Tasks: number of tasks compared.}
   \label{tab:v3_pairs}
   \centering\scriptsize\setlength{\tabcolsep}{3pt}
   \input{generated/v3_pairs.tex}
@@ -45,14 +45,14 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Calibration and selective prediction on the human-assigned questions: expected calibration error (ECE) over ten equal-width bins, Brier score, confident errors (\% of questions answered incorrectly with a confidence of at least 0.9) and coverage at a 5\% error budget (\%), as scored and after two-fold cross-fitted temperature recalibration on the test split (recal.). The OpenAI Decisions API returns probabilities rounded to two decimals, so it is reported as scored only.}
+  \caption{Calibration and selective prediction on the human-labeled questions: expected calibration error (ECE) over ten equal-width bins, Brier score, confident errors (\% of questions answered incorrectly with a confidence of at least 0.9) and coverage at a 5\% error budget (\%), as scored and after two-fold cross-fitted temperature recalibration on the test split (recal.). The OpenAI Decisions API returns probabilities rounded to two decimals, so it is reported as scored only.}
   \label{tab:v3_calib}
   \centering\scriptsize\setlength{\tabcolsep}{3pt}
   \input{generated/v3_calib.tex}
 \end{table}
 
 \begin{table}[!h]
-  \caption{Eurorad subspecialty classification with the full state and with the imaging findings removed (age, sex and clinical history kept), as before the read: accuracy (\%) and change in percentage points (95\% confidence interval), \V{r3_pr_n} questions. Accuracies with the full state were recomputed in this analysis, with each question in its own request; they differ from the main evaluation by one question for Kev-27B and two for Qwen3.8-27B.}
+  \caption{Eurorad subspecialty classification with the full state and with the imaging findings removed (age, sex and clinical history retained), as before the read: accuracy (\%) and change in percentage points (95\% confidence interval), \V{r3_pr_n} questions. Accuracies with the full state were recomputed in this analysis, with each question in its own request; they differ from the main evaluation by one question for Kev-27B and two for Qwen3.8-27B.}
   \label{tab:v3_preread}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_preread.tex}
@@ -66,7 +66,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Accuracy (\%) under each answer space on \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions; K, number of options offered. Random and most similar: alternatives drawn from the pool of diagnoses at random or in order of similarity to the key. LLM-written: alternatives written by Qwen3.8-27B; with 16 options, \V{r3_as_n_dx_llm16} Eurorad and \V{r3_as_n_rsna_llm16} RSNA-RadioQA questions retained enough alternatives after filtering. Original + LLM-written: the original options supplemented with up to 8 LLM-written alternatives. The LLMs (Qwen, MedGemma) generated the number of the chosen option.}
+  \caption{Accuracy (\%) under each answer space on \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions; K, number of options offered. Random and most similar: alternatives drawn from the pool of diagnoses at random or in order of similarity to the correct answer. LLM-written: alternatives written by Qwen3.8-27B; with 16 options, \V{r3_as_n_dx_llm16} Eurorad and \V{r3_as_n_rsna_llm16} RSNA-RadioQA questions retained enough alternatives after filtering. Original + LLM-written: the original options supplemented with up to 8 LLM-written alternatives. The LLMs (Qwen, MedGemma) generated the number of the chosen option.}
   \label{tab:v3_answer_space}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_answer_space.tex}

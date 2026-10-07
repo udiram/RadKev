@@ -491,7 +491,7 @@ def write_data_v3(o, g, tm, t_test):
     put("rg_q_cxr", n(st["q_cxr"]), RG, "stats.q_cxr", "RadGraph-XL chest radiograph questions remaining")
     (HERE / "generated" / "tab_data.tex").write_text("\n".join([
         r"\begin{tabular}{@{}lllrrrr@{}}", r"\toprule",
-        r"Source & Task & Key & \multicolumn{3}{c}{Records} & Benchmark \\ \cmidrule(lr){4-6}",
+        r"Source & Task & Ground truth & \multicolumn{3}{c}{Records} & Benchmark \\ \cmidrule(lr){4-6}",
         r" & & & Train & Dev & Test & questions \\", r"\midrule", *body[:10], r"\midrule", *body[10:], r"\midrule",
         " & ".join(["Total", "", ""] + tot + [n(bench)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
 

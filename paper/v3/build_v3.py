@@ -690,8 +690,8 @@ def fig_primary():
              ("c", GROUPS[1][0], "Eurorad, RSNA-RadioQA and RadCases"), ("d", GROUPS[2][0], "Radiology questions of the examination collections")]
     if E:
         S, P = E["systems"], E["pairs"]["v3_27-stock27"]
-        avg = [("Task mean\n(all 15)", 100 * S["stock27"]["bench"]["task_mean"], 100 * S["v3_27"]["bench"]["task_mean"], 100 * P["bench"]["task_mean_d"]),
-               ("Task mean\n(human, 14)", 100 * S["stock27"]["human"]["task_mean"], 100 * S["v3_27"]["human"]["task_mean"], 100 * P["human"]["task_mean_d"]),
+        avg = [("Task mean,\n15 tasks", 100 * S["stock27"]["bench"]["task_mean"], 100 * S["v3_27"]["bench"]["task_mean"], 100 * P["bench"]["task_mean_d"]),
+               ("Task mean,\n14 human-\nlabeled tasks", 100 * S["stock27"]["human"]["task_mean"], 100 * S["v3_27"]["human"]["task_mean"], 100 * P["human"]["task_mean_d"]),
                ("All questions\npooled", 100 * S["stock27"]["bench"]["pooled"], 100 * S["v3_27"]["bench"]["pooled"], 100 * P["bench"]["pooled_d"])]
         F._gbar(fig, axs[0], avg, (F.WP_BASE, F.WP_ACC), delta=False, tick_size=6.8)
         for ax, (_, ts) in zip(axs[1:], GROUPS):
@@ -743,7 +743,7 @@ def fig_llm():
         axa.xaxis.set_major_locator(mt.MultipleLocator(5)); axa.set_xlabel("Accuracy (%), task mean", color=F.WP_SUB, **F.FONT)
         P = E["pairs"]; trio = ["v3_27", "qwen38", "medgemma_fix"]
         groups = []   # on the questions the LLMs answered: Qwen and MedGemma as scored; RadKev-27B = Qwen + paired difference
-        for lab, k, f in (("Task mean\n(all tasks)", "bench", "task_mean"), ("Task mean\n(human-assigned)", "human", "task_mean"), ("All questions\npooled", "bench", "pooled")):
+        for lab, k, f in (("Task mean\n(all tasks)", "bench", "task_mean"), ("Task mean\n(human-labeled)", "human", "task_mean"), ("All questions\npooled", "bench", "pooled")):
             q = 100 * S["qwen38"][k][f]
             groups.append((lab, [q + 100 * P["v3_27-qwen38"][k][f + "_d"], q, 100 * S["medgemma_fix"][k][f]]))
         _bars3(axb, groups, trio, [F.C_RAD, F.C_LLM, F.C_LLMR]); axb.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
@@ -760,7 +760,7 @@ def fig_llm():
         axc.set_xlabel("Median latency per question (logarithmic axis)", color=F.WP_SUB, **F.FONT)
     else:
         _placeholder(axc, "pending:\nlatency\nwith v3")
-    _head(fig, axa, "a", "All systems", "Human-assigned tasks answered by every system", dx=-86, y=1.10, ysub=1.035)
+    _head(fig, axa, "a", "All systems", "Human-labeled tasks answered by every system", dx=-86, y=1.10, ysub=1.035)
     _head(fig, axb, "b", "RadKev-27B and the LLMs", "Questions with at most 16 options", dx=-30, y=1.10, ysub=1.035)
     _head(fig, axc, "c", "Latency", "One request at a time on two RTX A6000 GPUs; OpenAI Decisions over the network", dx=-123, y=1.10, ysub=1.035)
     fig.legend(handles=[Patch(color=F.C_RAD, label="RadKev"), Patch(color=F.WP_BASE, label="Kev"), Patch(color=F.C_ODEC, label="OpenAI Decisions"),
@@ -797,7 +797,7 @@ def fig_spec():
     else:
         _placeholder(axc, "pending:\ntransfer suite")
     _head(fig, axa, "a", "Benchmark task mean", "Kev (grey) and RadKev (blue) at each size", dx=-30, y=1.12, ysub=1.04)
-    _head(fig, axb, "b", "Human-assigned questions, pooled", "Kev (grey) and RadKev (blue) at each size", dx=-30, y=1.12, ysub=1.04)
+    _head(fig, axb, "b", "Human-labeled questions, pooled", "Kev (grey) and RadKev (blue) at each size", dx=-30, y=1.12, ysub=1.04)
     _head(fig, axc, "c", "Outside radiology", "Kev's transfer suite, RadKev − Kev", dx=-30, y=1.12, ysub=1.04)
     fig.legend(handles=[Patch(color=F.WP_BASE, label="Kev (released)"), Patch(color=F.WP_ACC, label="RadKev (specialized)")],
                loc="upper right", ncol=2, frameon=False, prop={**F.FONT, "size": 7.5}, bbox_to_anchor=(0.99, 1.0), handlelength=1.0, handleheight=0.8)
@@ -812,7 +812,7 @@ def fig_calib():
     sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix", "openai_dec"]   # the API: as scored only (probabilities rounded to 0.01)
     specs = [("cov5", 100, "{:.1f}", "a", "Coverage at 5% error", "Questions answered (%)"),
              ("ece", 1, "{:.3f}", "b", "Calibration error", "ECE, ten bins"),
-             ("conf_err", 100, "{:.1f}", "c", "Confident errors", "Wrong with confidence ≥ 0.9 (%)")]
+             ("conf_err", 100, "{:.1f}", "c", "Confident errors", "Incorrect with confidence ≥ 0.9 (%)")]
     if E:
         C = E["calibration"]; ss = [s for s in sys_ if s in C]
         for ax, (k, mul, fmt, l, t, xl) in zip(axs, specs):
@@ -953,15 +953,15 @@ def build_tables():
             v = pr["tasks"][t]
             rows.append([TASK[t], n_(E["n"][t]), pct(S["stock27"]["tasks"][t]["acc"]), pct(S["v3_27"]["tasks"][t]["acc"]),
                          f"{pct(v['d'])} ({pci(v['ci'])})", fmt_p(v["p_holm"])])
-        for lab, k, f in (("Task mean, all tasks (primary)", "bench", "task_mean"), ("Task mean, human-assigned", "human", "task_mean"),
-                          ("All questions pooled", "bench", "pooled"), ("Human-assigned questions pooled", "human", "pooled")):
+        for lab, k, f in (("Task mean, all tasks (primary)", "bench", "task_mean"), ("Task mean, human-labeled", "human", "task_mean"),
+                          ("All questions pooled", "bench", "pooled"), ("Human-labeled questions pooled", "human", "pooled")):
             rows.append([lab, n_(S["v3_27"][k]["n"]), pct(S["stock27"][k][f]), pct(S["v3_27"][k][f]),
                          f"{pct(pr[k][f + '_d'])} ({pci(pr[k][f + '_ci'])})", "--"])
         tab("v3_primary_tasks", "@{}lrrrlr@{}", r"Task & n & Kev-27B & RadKev-27B & $\Delta$ (95\% CI) & Holm $p$", rows, midrules=(len(HUMAN), len(BENCH)))
         cols = [s for s in SYSTEMS if s in S]
         rows = [[TASK[t]] + [pct(S[s]["tasks"][t]["acc"]) if t in S[s]["tasks"] else "--" for s in cols] for t in BENCH]
         rows += [["Task mean, all tasks"] + [pct(S[s]["bench"]["task_mean"]) if S[s]["bench"]["tasks"] == len(BENCH) else "--" for s in cols],
-                 ["Task mean, human-assigned"] + [pct(S[s]["human"]["task_mean"]) if S[s]["human"]["tasks"] == len(HUMAN) else "--" for s in cols]]
+                 ["Task mean, human-labeled"] + [pct(S[s]["human"]["task_mean"]) if S[s]["human"]["tasks"] == len(HUMAN) else "--" for s in cols]]
         rows += [[TASK[t]] + [pct(S[s]["tasks"][t]["acc"]) if t in S[s]["tasks"] else "--" for s in cols] for t in CTRATE]
         tab("v3_pertask", "@{}l" + "r" * len(cols) + "@{}", "Task & " + " & ".join(SHORT[s] for s in cols), rows, midrules=(len(HUMAN), len(BENCH), len(BENCH) + 2))
         rows = []

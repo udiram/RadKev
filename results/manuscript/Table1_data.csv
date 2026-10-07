@@ -1,4 +1,4 @@
-Source,Task,Key,Records,Benchmark
+Source,Task,Ground truth,Records,Benchmark
 ,,,Train,Dev,Test,questions
 IU/Open-i,Finding detection (report),Human,–,886,"2,848","9,218"
 Eurorad,Diagnosis; subspecialty,Human,"2,912",329,346,531
