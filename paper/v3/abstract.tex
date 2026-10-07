@@ -3,7 +3,7 @@
 \setlength{\parskip}{6pt}
 \V{r3_banner}
 
-\noindent\textbf{Background:} System One-like decision models are built to return probabilities over a pre-populated answer space to specific questions in a single forward pass, a format well suited to radiology decisions, and an open-weight decision model can be deployed within an institution to assist with decision-making workflows. However, no decision model has been specialized for radiology and compared with large language models (LLMs).
+\noindent\textbf{Background:} Many radiology decisions, such as whether a report describes a finding or how urgently a study should be read, are choices among a fixed set of answers. Decision models return a probability for each permitted answer in one step, without generating text, and an open-weight model can run within a hospital so that patient data stay local. No decision model has yet been specialized for radiology and compared with large language models (LLMs).
 
 \noindent\textbf{Methods:} We fine-tuned the general-purpose decision models Kev-27B (Qwen3.8-27B backbone) and Kev-9B on \V{v3_train_records} records from public radiology datasets to obtain RadKev-27B and RadKev-9B, and compared them with the Kev models, the hosted decision models Jev and OpenAI Decisions, and the LLM Qwen3.8-27B, on \V{v3_bench_q} held-out questions in \V{r3_ntask} tasks (report reading, case diagnosis and classification, radiological knowledge). The prespecified primary outcome was task-averaged accuracy relative to Kev-27B.
 

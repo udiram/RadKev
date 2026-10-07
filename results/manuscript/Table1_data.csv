@@ -1,12 +1,14 @@
-Dataset,Records,Benchmark
-,Train,Dev,
+Dataset,Train,Dev,Held out
+4@lRadiology benchmark
 Structured label extraction,–,886,"9,218"
-Structured label extraction (classifier labels),"8,000","1,911","6,950a"
-Structured label extraction (external test),–,–,"4,037b"
 Report error detection,"6,000",500,"2,708"
 Case diagnosis and classification,"2,912",329,610
 Imaging appropriateness,264,29,227
-Radiology knowledge (train),"7,490",553,551
-Radiology knowledge (benchmark),–,"1,091",828
-"Orders, triage and follow-up (LLM labels)","11,443",877,"1,025a"
+Radiology knowledge,"7,490","1,644","1,379"
+Benchmark total,"16,666","3,388","14,142"
+4@lTraining only
+"Structured label extraction, classifier labels","8,000","1,911","6,950"
+"Orders, triage and follow-up, LLM labels","11,443",877,"1,025"
+4@lExternal test
+Structured label extraction,–,–,"4,037"
 Total,"36,109","6,176","26,154"

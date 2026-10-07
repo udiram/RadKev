@@ -495,26 +495,31 @@ def write_data_v3(o, g, tm, t_test):
     put("teacher_test_q", n(t_test), COMP, "models.v2_27.tasks[teacher_*].n", "teacher-labeled held-out test questions")
     R_ = lambda *ks: sum(recs["train"].get(k, 0) for k in ks), lambda *ks: sum(recs["dev"].get(k, 0) for k in ks)
     tr, dv = R_
-    dag = r"\textsuperscript{a}"; ddag = r"\textsuperscript{b}"
-    rows_t = [("Structured label extraction", tr("iu"), dv("iu"), n(bq["iu"])),
-              ("Structured label extraction (classifier labels)", tr("ctrate"), dv("ctrate"), n(ct_q) + dag),
-              ("Structured label extraction (external test)", 0, 0, n(rgq) + ddag),
-              ("Report error detection", tr("rexerr"), dv("rexerr"), n(bq["rexerr"])),
-              ("Case diagnosis and classification", tr("eurorad", "rsna"), dv("eurorad", "rsna"), n(bq["eurorad"] + bq["rsna"])),
-              ("Imaging appropriateness", tr("radcases"), dv("radcases"), n(bq["radcases"])),
-              ("Radiology knowledge (train)", tr("medmcqa", "medqa"), dv("medmcqa", "medqa"), n(bq["medmcqa"] + bq["medqa"])),
-              ("Radiology knowledge (benchmark)", tr("mmlu_med", "pubmedqa", "medxpertqa"), dv("mmlu_med", "pubmedqa", "medxpertqa"),
-               n(bq["mmlu_med"] + bq["pubmedqa"] + bq["medxpertqa"])),
-              ("Orders, triage and follow-up (LLM labels)", tr("teacher"), dv("teacher"), n(t_test) + dag)]
-    assert sum(r[1] for r in rows_t) == sum(recs["train"].values()) and sum(r[2] for r in rows_t) == sum(recs["dev"].values())
-    held = bench + ct_q + rgq + t_test
-    put("heldout_q", n(held), "Table 1", "benchmark + CT-RATE + RadGraph-XL + teacher test questions", "questions held out of training")
+    # Layout (user 2026-10-07: "make it clean"): three sections by use; plain task names; records for Train/Dev, questions held out.
+    rows_b = [("Structured label extraction", tr("iu"), dv("iu"), bq["iu"]),
+              ("Report error detection", tr("rexerr"), dv("rexerr"), bq["rexerr"]),
+              ("Case diagnosis and classification", tr("eurorad", "rsna"), dv("eurorad", "rsna"), bq["eurorad"] + bq["rsna"]),
+              ("Imaging appropriateness", tr("radcases"), dv("radcases"), bq["radcases"]),
+              ("Radiology knowledge", tr("medmcqa", "medqa", "mmlu_med", "pubmedqa", "medxpertqa"), dv("medmcqa", "medqa", "mmlu_med", "pubmedqa", "medxpertqa"),
+               sum(bq[k] for k in ("medmcqa", "medqa", "mmlu_med", "pubmedqa", "medxpertqa")))]
+    rows_o = [("Structured label extraction, classifier labels", tr("ctrate"), dv("ctrate"), ct_q),
+              ("Orders, triage and follow-up, LLM labels", tr("teacher"), dv("teacher"), t_test)]
+    rows_x = [("Structured label extraction", 0, 0, rgq)]
+    allr = rows_b + rows_o + rows_x
+    assert sum(r[1] for r in allr) == sum(recs["train"].values()) and sum(r[2] for r in allr) == sum(recs["dev"].values())
+    assert sum(r[3] for r in rows_b) == bench
+    held = sum(r[3] for r in allr)
+    put("heldout_q", n(held), "Table 1", "benchmark + CT-RATE + teacher + RadGraph-XL test questions", "questions held out of training")
+    line = lambda nm, a, b, c, ind=True: " & ".join([(r"\quad " if ind else "") + nm, cell(a), cell(b), cell(c)]) + r" \\"
+    sec = lambda t: r"\multicolumn{4}{@{}l}{\textit{" + t + r"}} \\"
     (HERE / "generated" / "tab_data.tex").write_text("\n".join([
         r"\begin{tabular}{@{}lrrr@{}}", r"\toprule",
-        r"Dataset & \multicolumn{2}{c}{Records} & Benchmark \\ \cmidrule(lr){2-3}",
-        r" & Train & Dev & \\", r"\midrule",
-        *[" & ".join([nm, cell(a), cell(b), c]) + r" \\" for nm, a, b, c in rows_t], r"\midrule",
-        " & ".join(["Total", n(sum(recs["train"].values())), n(sum(recs["dev"].values())), n(held)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
+        r"Dataset & Train & Dev & Held out \\", r"\midrule",
+        sec("Radiology benchmark"), *[line(*r) for r in rows_b],
+        r"\cmidrule(l){1-4}", line(r"\textit{Benchmark total}", sum(r[1] for r in rows_b), sum(r[2] for r in rows_b), bench), r"\addlinespace",
+        sec("Training only"), *[line(*r) for r in rows_o], r"\addlinespace",
+        sec("External test"), *[line(*r) for r in rows_x], r"\midrule",
+        line("Total", sum(recs["train"].values()), sum(recs["dev"].values()), held, False), r"\bottomrule", r"\end{tabular}"]) + "\n")
 
 def write_train_v3():
     """Training of the present models (v3f runs: RadKev-27B two data-parallel processes over NVLink pairs, RadKev-9B four

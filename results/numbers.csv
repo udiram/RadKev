@@ -255,7 +255,7 @@ rg_q,"4,037",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.
 rg_q_cxr,11,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.q_cxr,RadGraph-XL chest radiograph questions remaining
 ct_test_q,"6,950",artifacts/gated/artifacts/rad_gated_manifest.json,splits.test.by_task[ctrate_*],CT-RATE held-out test questions
 teacher_test_q,"1,025",results/final_test/comparisons.json,models.v2_27.tasks[teacher_*].n,teacher-labeled held-out test questions
-heldout_q,"26,154",Table 1,benchmark + CT-RATE + RadGraph-XL + teacher test questions,questions held out of training
+heldout_q,"26,154",Table 1,benchmark + CT-RATE + teacher + RadGraph-XL test questions,questions held out of training
 v3_hours_27b,13.1,artifacts/train_v3/artifacts/training_metrics_27b.json,wall_seconds / 3600,"training hours, RadKev-27B"
 v3_examples_27b,"44,068",artifacts/train_v3/artifacts/training_metrics_27b.json,records_seen,examples seen incl. minimal pairs
 v3_peak_27b,33.5,artifacts/train_v3/artifacts/training_metrics_27b.json,peak_device_bytes / 2^30,"peak memory, first GPU of the first process (GiB)"

@@ -740,11 +740,11 @@ def _bars3(ax, groups, series, colors):
     """groups: [(label, [v per series])]; grouped bars with value labels (whitepaper style), axis zoomed to the data."""
     import numpy as np
     vals = [v for _, vs in groups for v in vs if v is not None]; lo, hi = max(0, min(vals) - 5), max(vals) + 5
-    w = 0.8 / len(series)
+    w = 0.84 / len(series)
     for i, (lab, vs) in enumerate(groups):
-        for k, (v, c) in enumerate(zip(vs, colors)):
-            if v is None: continue
-            x = i - 0.4 + w * (k + 0.5)
+        present = [(v, c) for v, c in zip(vs, colors) if v is not None]   # bars of a group are centred on its tick
+        for k, (v, c) in enumerate(present):
+            x = i - w * len(present) / 2 + w * (k + 0.5)
             ax.bar(x, v - lo, w * 0.94, bottom=lo, color=c, zorder=2)
             ax.text(x, v + (hi - lo) * 0.012, f"{v:.1f}", ha="center", va="bottom", color=F.WP_INK, **{**F.FONT, "size": 6.2})
     ax.set_xticks(range(len(groups))); ax.set_xticklabels([g[0] for g in groups], **{**F.FONT, "size": 7.2}, linespacing=1.1)
@@ -774,8 +774,13 @@ def fig_llm():
         groups = []   # on the questions Qwen answered: Qwen as scored; RadKev-27B = Qwen + paired difference
         for lab, k, f in (("Task mean\n(all tasks)", "bench", "task_mean"), ("Task mean\n(human-labeled)", "human", "task_mean"), ("All questions\npooled", "bench", "pooled")):
             q = 100 * S["qwen38"][k][f]
-            groups.append((lab, [q + 100 * P["v3_27-qwen38"][k][f + "_d"], q]))
-        _bars3(axb, groups, duo, [F.C_RAD, F.C_LLM]); axb.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
+            groups.append((lab, [q + 100 * P["v3_27-qwen38"][k][f + "_d"], q, None]))
+        RS = (J.get("reasoning") or {}).get("paired")
+        if RS:   # reasoning sample: task mean with the examination tasks pooled (the reported reasoning comparison)
+            rb = lambda m: 100 * RS["systems"][m]["bench"]["task_mean_k"]
+            groups.append(("Reasoning\nsample", [rb("v3_27"), rb("qwen38"), rb("qwen38_think")]))
+        _bars3(axb, groups, duo + ["qwen38_think"], [F.C_RAD, F.C_LLM, F.C_LLMQ]); axb.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
+        if RS: axb.axvline(len(groups) - 1.5, color="#BDBDBD", lw=0.7, ls=(0, (3, 2)), zorder=1)
     else:
         _placeholder(axa, "pending: eval_v3"); _placeholder(axb, "pending: eval_v3")
     L = J.get("latency")
@@ -790,7 +795,7 @@ def fig_llm():
     else:
         _placeholder(axc, "pending:\nlatency\nwith v3")
     _head(fig, axa, "a", "All systems", "Human-labeled tasks answered by every system", dx=-86, y=1.10, ysub=1.035)
-    _head(fig, axb, "b", "RadKev-27B and Qwen3.8-27B", "Questions with at most 16 options", dx=-30, y=1.10, ysub=1.035)
+    _head(fig, axb, "b", "RadKev-27B and Qwen3.8-27B", "Questions with at most 16 options; right, the reasoning sample", dx=-30, y=1.10, ysub=1.035)
     _head(fig, axc, "c", "Latency", "One request at a time on two RTX A6000 GPUs; OpenAI Decisions and Jev over the network", dx=-123, y=1.10, ysub=1.035)
     fig.legend(handles=[Patch(color=F.C_RAD, label="RadKev"), Patch(color=F.WP_BASE, label="Kev"), Patch(color=F.C_ODEC, label="OpenAI Decisions"), Patch(color=F.C_JEV, label="Jev"),
                         Patch(color=F.C_LLM, label="Qwen3.8-27B"), Patch(color=F.C_LLMQ, label="Qwen3.8-27B, reasoning")],
