@@ -1640,10 +1640,10 @@ def export_latex():
 
 
 # Manuscript tables as CSV, named by their number in the manuscript (published in the code repository's results/tables/).
-TABLE_CSV = [("Table1_data", "tab_data"), ("TableS1_teacher_labels", "tab_teacher"),   # manuscript order (2026-10-06); S2-S12 by v3/build_v3.py
+TABLE_CSV = [("Table1_data", "tab_data"), ("TableS1_teacher_labels", "tab_teacher"),   # manuscript order (order of first citation); S2-S12 by v3/build_v3.py
              ("TableS2_primary_by_task", "v3_primary_tasks"), ("TableS3_per_task", "v3_pertask"), ("TableS4_paired_differences", "v3_pairs"),
-             ("TableS5_calibration", "v3_calib"), ("TableS6_preread", "v3_preread"), ("TableS7_transfer", "v3_transfer"),
-             ("TableS8_reasoning", "v3_reasoning"), ("TableS9_latency", "v3_latency"), ("TableS10_options_only", "v3_blind"),
+             ("TableS5_reasoning", "v3_reasoning"), ("TableS6_latency", "v3_latency"), ("TableS7_transfer", "v3_transfer"),
+             ("TableS8_calibration", "v3_calib"), ("TableS9_preread", "v3_preread"), ("TableS10_options_only", "v3_blind"),
              ("TableS11_answer_space", "v3_answer_space"), ("TableS12_external", "v3_radgraph")]
 
 
