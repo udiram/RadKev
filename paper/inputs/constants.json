@@ -4,7 +4,8 @@
   "--cap ctrate": "jobs/build_gated.py: --cap ctrate=N",
   "NB": "jobs/robustness2.py: NB = min(B, N)",
   "docstring": "jobs/llm_reasoning.py: vLLM version in the module docstring",
-  "CFG": "jobs/answer_space2.py: CFG"
+  "CFG": "jobs/answer_space2.py: CFG",
+  "answer_space3 CFG": "jobs/answer_space3.py: CFG (source text)"
  },
  "teacher_job --per-source": 1500,
  "--cap ctrate": 8000,
@@ -40,5 +41,6 @@
   "lat_cases": 60,
   "lat_warmup": 10,
   "sim_dup": 0.95
- }
+ },
+ "answer_space3 CFG": "CFG = {\"sizes\": [2, 4, 16, 64, 255], \"llm_sizes\": [2, 4, 8, 16], \"add\": 8, \"n_alt\": 15, \"second_draw\": False,\n       \"n_questions\": {\"eurorad_dx\": 30, \"rsna_radioqa\": 30},\n       \"lat_sizes\": [2, 16, 64, 255], \"lat_cases\": 15, \"lat_warmup\": 5, \"sim_dup\": 0.95}"
 }

@@ -1,0 +1,19 @@
+{
+ "records": 79,
+ "missing_in_appendix": [
+  44
+ ],
+ "radsafe_answer_index_discrepancies": [
+  [
+   62,
+   "Takayasu arteritis",
+   "Fibromuscular dysplasia"
+  ],
+  [
+   77,
+   "Right vocal cord palsy",
+   "Lateral medullary (Wallenberg) syndrome"
+  ]
+ ],
+ "weak_matches": []
+}

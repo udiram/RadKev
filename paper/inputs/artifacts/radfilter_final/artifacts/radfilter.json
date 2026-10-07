@@ -1,0 +1,59 @@
+{
+ "test": {
+  "medmcqa_med": {
+   "n": 4082,
+   "kept": 151
+  },
+  "medmcqa_rad": {
+   "n": 69,
+   "kept": 69
+  },
+  "medqa": {
+   "n": 1273,
+   "kept": 331
+  },
+  "medxpertqa": {
+   "n": 1951,
+   "kept": 641
+  },
+  "mmlu_anatomy": {
+   "n": 135,
+   "kept": 4
+  },
+  "mmlu_clinical_knowledge": {
+   "n": 265,
+   "kept": 1
+  },
+  "mmlu_college_biology": {
+   "n": 144,
+   "kept": 0
+  },
+  "mmlu_college_medicine": {
+   "n": 173,
+   "kept": 1
+  },
+  "mmlu_medical_genetics": {
+   "n": 100,
+   "kept": 2
+  },
+  "mmlu_professional_medicine": {
+   "n": 272,
+   "kept": 71
+  },
+  "pubmedqa": {
+   "n": 531,
+   "kept": 108
+  }
+ },
+ "test_kept_only_by_radiopaque": {},
+ "train_final_list": {
+  "medmcqa": {
+   "n": 35634,
+   "kept": 5070
+  },
+  "medqa": {
+   "n": 9175,
+   "kept": 2420
+  }
+ }
+}

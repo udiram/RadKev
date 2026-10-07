@@ -1,0 +1,92 @@
+{
+ "radcases": {
+  "build": {
+   "stats": {
+    "label_rows": 471,
+    "source_texts": 792,
+    "unmatched_text": 6,
+    "matched_cases": 468,
+    "unmatched_labels": 3,
+    "overlap_with_radkev_splits": 37,
+    "topic_excluded_multi_or_unknown": 33,
+    "multi_panel_excluded": 12
+   },
+   "by_subset": {
+    "medbullets": {
+     "panel": 250,
+     "panel_none": 112,
+     "topic": 119
+    },
+    "synthetic": {
+     "panel": 169,
+     "panel_none": 20,
+     "topic": 147
+    }
+   },
+   "n_panels": 12,
+   "n_topics": 225
+  },
+  "split": {
+   "test": 138,
+   "test_q": 227,
+   "train": 264,
+   "train_q": 413,
+   "dev": 29,
+   "dev_q": 45
+  }
+ },
+ "rexerr": {
+  "train": 6000,
+  "train_error": 2998,
+  "dev": 500,
+  "dev_error": 270,
+  "test": 2708,
+  "test_error": 1376
+ },
+ "radiology_filter": {
+  "medmcqa_med": {
+   "n": 4082,
+   "kept": 151
+  },
+  "medmcqa_rad": {
+   "n": 69,
+   "kept": 69
+  },
+  "medqa": {
+   "n": 1273,
+   "kept": 331
+  },
+  "medxpertqa": {
+   "n": 1951,
+   "kept": 641
+  },
+  "mmlu_anatomy": {
+   "n": 135,
+   "kept": 4
+  },
+  "mmlu_clinical_knowledge": {
+   "n": 265,
+   "kept": 1
+  },
+  "mmlu_college_biology": {
+   "n": 144,
+   "kept": 0
+  },
+  "mmlu_college_medicine": {
+   "n": 173,
+   "kept": 1
+  },
+  "mmlu_medical_genetics": {
+   "n": 100,
+   "kept": 2
+  },
+  "mmlu_professional_medicine": {
+   "n": 272,
+   "kept": 71
+  },
+  "pubmedqa": {
+   "n": 531,
+   "kept": 108
+  }
+ }
+}

@@ -192,7 +192,7 @@ def fig_compare(rows, out):
 
 
 # ---------------------------------------------------------------- Figure: training loss and development accuracy
-C27, C9, CBASE = "#1F5FAE", "#D9711F", "#8C8C8C"
+C27, C9, CBASE = "#2F6BD8", "#8FB0EE", "#8C8C8C"   # RadKev-27B / RadKev-9B blues, as in Figures 5 and 9 (2026-10-06)
 
 
 def _smooth(y, w):
@@ -246,8 +246,64 @@ def fig_training(L, dev_rows, out):
     plt.close(fig)
 
 
+def fig_training_v3(L, A, TS, dev_rows, out, smooth=30):
+    """Present models (runs v3f-kev-27b-dp, v3f-kev-9b-dp). L, A: {"rk27"|"rk9": [(step, value)]}, rank-0 loss and micro-batch
+    accuracy logged every 10 optimizer steps; TS: {"rk27"|"rk9": [seconds]} wall time of every optimizer step; dev_rows: (label,
+    acc27_before, acc27_after, acc9_before, acc9_after). a-c: thin, logged values; thick, moving average over 300 optimizer steps.
+    d: development accuracy by source before (released Kev) and after fine-tuning."""
+    import numpy as np
+    W, H = 180, 125
+    fig = plt.figure(figsize=(W * MM, H * MM))
+    axa = fig.add_axes([0.075, 0.60, 0.385, 0.34]); axb = fig.add_axes([0.595, 0.60, 0.385, 0.34])
+    axc = fig.add_axes([0.075, 0.09, 0.385, 0.34]); axd = fig.add_axes([0.745, 0.09, 0.235, 0.34])
+    models = (("rk27", C27, "RadKev-27B"), ("rk9", C9, "RadKev-9B"))
+    def fit(ax, ms, floor=None):   # y-range from the moving averages (+15% of their span); logged values outside it are clipped
+        lo, hi = min(float(m.min()) for m in ms), max(float(m.max()) for m in ms); pad = 0.15 * (hi - lo)
+        ax.set_ylim(lo - pad if floor is None else max(floor, lo - pad), hi + pad)
+    for ax, D, scale in ((axa, L, 1), (axb, A, 100)):
+        ms = []
+        for key, color, label in models:
+            s = np.array([p[0] for p in D[key]]); y = scale * np.array([p[1] for p in D[key]])
+            ax.plot(s, y, color=color, lw=0.3, alpha=0.12)
+            m, off = _smooth(y, smooth); ax.plot(s[off:off + len(m)], m, color=color, lw=1.2, label=label); ms.append(m)
+        fit(ax, ms, floor=0)
+    ms = []
+    for key, color, label in models:
+        y = np.asarray(TS[key], float); s = np.arange(1, len(y) + 1)
+        axc.plot(s, y, color=color, lw=0.2, alpha=0.07)
+        m, off = _smooth(y, 10 * smooth); axc.plot(s[off:off + len(m)], m, color=color, lw=1.2, label=label); ms.append(m)
+    fit(axc, ms, floor=0)
+    axa.set_ylabel("Training loss", **FONT)
+    axb.set_ylabel("Training accuracy (%)", **FONT); axb.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(5))
+    axc.set_ylabel("Time per optimizer step (s)", **FONT)
+    for ax in (axa, axb, axc):
+        ax.set_xlabel("Optimizer step", **FONT); ax.set_xlim(0, 4700)
+    axa.legend(loc="upper right", frameon=False, prop=FONT, handlelength=1.6)
+    ys = np.arange(len(dev_rows))
+    for i, (lab, b27, a27, b9, a9) in enumerate(dev_rows):
+        for b, a, c, dy in ((b27, a27, C27, -0.17), (b9, a9, C9, 0.17)):
+            axd.plot([100 * b, 100 * a], [i + dy, i + dy], color=c, lw=0.8, zorder=2)
+            axd.plot([100 * b], [i + dy], marker="o", ms=3.4, mfc="white", mec=c, mew=0.9, ls="none", zorder=3)
+            axd.plot([100 * a], [i + dy], marker="o", ms=3.4, mfc=c, mec=c, mew=0.9, ls="none", zorder=3)
+    axd.set_yticks(ys); axd.set_yticklabels([r[0] for r in dev_rows], **FONT); axd.set_ylim(len(dev_rows) - 0.5, -0.5)
+    axd.set_xlabel("Development accuracy (%)", **FONT); axd.grid(axis="x", color="#e3e3e3", lw=0.6, zorder=0)
+    from matplotlib.lines import Line2D
+    h = [Line2D([], [], marker="o", ms=3.4, mfc="white", mec="0.3", ls="", label="released Kev"),
+         Line2D([], [], marker="o", ms=3.4, mfc="0.3", mec="0.3", ls="", label="fine-tuned")]
+    axd.legend(handles=h, loc="lower left", frameon=False, prop=FONT, bbox_to_anchor=(-0.62, 1.0), ncol=2, handletextpad=0.3, columnspacing=0.8)
+    for ax, lab, x in ((axa, "a", -0.15), (axb, "b", -0.15), (axc, "c", -0.15), (axd, "d", -0.80)):
+        ax.text(x, 1.08, lab, transform=ax.transAxes, fontweight="bold", **{**FONT, "size": 9})
+        ax.tick_params(labelsize=8, width=0.6, length=2.5)
+        for sp in ("top", "right"): ax.spines[sp].set_visible(False)
+        for sp in ("left", "bottom"): ax.spines[sp].set_linewidth(0.6); ax.spines[sp].set_color("#BDBDBD")
+    axd.tick_params(axis="y", length=0); axd.spines["left"].set_visible(False)
+    out = Path(out); out.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out / "fig_training.pdf"); fig.savefig(out / "fig_training.png", dpi=300)
+    plt.close(fig)
+
+
 # ---------------------------------------------------------------- Figure: two-teacher agreement, worked examples
-C_MG, C_QW, C_T = "#2a78d6", "#eb6834", "#1a1a1a"
+C_MG, C_QW, C_T = "#9C7B5B", "#D2AE82", "#4A4F59"   # LLM teachers in the tan family of the results figures; soft target slate
 
 
 def fig_teacher(examples, out):
@@ -274,7 +330,7 @@ def fig_teacher(examples, out):
         bx.set_xlim(0, 100); bx.set_xlabel("Probability (%)", **FONT)
         bx.tick_params(labelsize=8, width=0.6, length=2.5); bx.tick_params(axis="y", length=0)
         for sp in ("top", "right"): bx.spines[sp].set_visible(False)
-        for sp in ("left", "bottom"): bx.spines[sp].set_linewidth(0.6)
+        for sp in ("left", "bottom"): bx.spines[sp].set_linewidth(0.6); bx.spines[sp].set_color("#BDBDBD")
         if r == 0:
             hs, ls_ = bx.get_legend_handles_labels()
             fig.legend(hs, ls_, loc="upper center", ncol=3, frameon=False, prop=FONT, bbox_to_anchor=(0.62, 0.995), handlelength=1.2, columnspacing=1.6)
@@ -574,7 +630,8 @@ def fig_bars_one(groups, out, name="fig_primary", models=("Kev-27B", "RadKev-27B
 
 
 # ---------------------------------------------------------------- Figure: decision models and language models
-C_RAD, C_KEV, C_DMO, C_LLM, C_LLMR = "#2F6BD8", "#9AA3B2", "#C9CED6", "#E8833A", "#B4561A"
+C_RAD, C_KEV, C_DMO, C_LLM, C_LLMR = "#2F6BD8", "#9AA3B2", "#C9CED6", "#D2AE82", "#9C7B5B"   # LLMs in a muted tan family (2026-10-06)
+C_LLMQ, C_ODEC = "#E9D8C1", "#7C8594"   # LLM with reasoning; OpenAI Decisions (hosted decision model, slate)
 
 
 def _hbars(ax, rows, fmt, xmax, log=False, xmin=0):
@@ -626,7 +683,7 @@ def fig_llm(acc_rows, reason_rows, lat_rows, out, name="fig_llm"):
     plt.close(fig)
 
 
-def _gbar(fig, ax, items, colors, pad=5, letter=None, title=None, extra=()):
+def _gbar(fig, ax, items, colors, pad=5, letter=None, title=None, extra=(), delta=True, tick_size=7.2):
     """One grouped-bar panel in the whitepaper style. items: (label, a, b, delta)."""
     import numpy as np
     import matplotlib.transforms as mtrans
@@ -640,9 +697,10 @@ def _gbar(fig, ax, items, colors, pad=5, letter=None, title=None, extra=()):
         off = (hi - lo) * 0.012
         ax.text(i - w / 2 - 0.01, a + off, f"{a:.1f}", ha="center", va="bottom", color=WP_SUB, **{**FONT, "size": 6.5})
         ax.text(i + w / 2 + 0.01, b + off, f"{b:.1f}", ha="center", va="bottom", color=WP_INK, **{**FONT, "size": 6.5})
+        if not delta: continue
         ds = ("+" if d > 0.05 else "−" if d < -0.05 else "") + f"{abs(d):.1f}"
         ax.text(i, 1.05, ds, transform=tr, ha="center", va="center", color=colors[1] if d > 0 else WP_SUB, fontweight="bold", **{**FONT, "size": 7.5})
-    ax.set_xticks(range(len(items))); ax.set_xticklabels([it[0] for it in items], **{**FONT, "size": 7.2}, linespacing=1.1)
+    ax.set_xticks(range(len(items))); ax.set_xticklabels([it[0] for it in items], **{**FONT, "size": tick_size}, linespacing=1.1)
     ax.set_ylim(lo, hi); ax.set_xlim(-0.6, len(items) - 0.4)
     step = 1 if hi - lo < 8 else 2 if hi - lo < 16 else 5
     ax.set_yticks([t for t in np.arange(np.ceil(lo / step) * step, hi + 1e-9, step)])

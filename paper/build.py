@@ -52,12 +52,14 @@ def job_constants():
             "--cap ctrate": int(re.search(r"ctrate=(\d+)", rd("jobs/build_gated.py")).group(1)),
             "NB": int(re.search(r"NB = min\(B, (\d+)\)", rd("jobs/robustness2.py")).group(1)),
             "docstring": re.search(r"vLLM \d+\.\d+", rd("jobs/llm_reasoning.py")).group(0),
-            "CFG": ast.literal_eval(re.search(r"^CFG = (\{.*?\})$", rd("jobs/answer_space2.py"), re.S | re.M).group(1))}
+            "CFG": ast.literal_eval(re.search(r"^CFG = (\{.*?\})$", rd("jobs/answer_space2.py"), re.S | re.M).group(1)),
+            "answer_space3 CFG": (lambda s: s[s.index("CFG = {"):s.index("}", s.index('"sim_dup"')) + 1])(rd("jobs/answer_space3.py"))}
 
 
 JOB_CONSTANTS = {"teacher_job --per-source": "jobs/pipeline.py: --per-source argument of the teacher job",
                  "--cap ctrate": "jobs/build_gated.py: --cap ctrate=N", "NB": "jobs/robustness2.py: NB = min(B, N)",
-                 "docstring": "jobs/llm_reasoning.py: vLLM version in the module docstring", "CFG": "jobs/answer_space2.py: CFG"}
+                 "docstring": "jobs/llm_reasoning.py: vLLM version in the module docstring", "CFG": "jobs/answer_space2.py: CFG",
+                 "answer_space3 CFG": "jobs/answer_space3.py: CFG (source text)"}
 
 
 def code_modules():
@@ -389,10 +391,126 @@ def build_methods():
     put("as_lat_warmup", str(AS["lat_warmup"]), J, "CFG.lat_warmup", "warm-up requests excluded")
 
     write_tables(o, g, tm, M, t_test, te)
+    write_data_v3(o, g, tm, t_test)
+    write_train_v3()
     write_teacher_agreement(M)
     write_examples(pg, bd, te)
     import figures
     figures.fig_pipeline({x["key"]: x["value"] for x in LEDGER}, HERE / "figures")
+
+
+V3R = "artifacts/build_v3r/artifacts/build_v3r.json"  # Amendment 3: radiology-only training and development records (data/mix-v3r)
+V3 = "artifacts/build_v3/artifacts/build_v3.json"   # RadCases and ReXErr splits, radiology filter of the knowledge test questions
+
+
+def write_data_v3(o, g, tm, t_test):
+    """Table 1 for the v3 design: every source with its records per split and the questions it contributes to the radiology
+    benchmark (Addendum 2). Knowledge sources contribute only the questions kept by build_external.is_radiology()."""
+    B = rj(V3); rc, rx, rf = B["radcases"], B["rexerr"], B["radiology_filter"]
+    put("rc_label_rows", n(rc["build"]["stats"]["label_rows"]), V3, "radcases.build.stats.label_rows", "RadCases label rows (open subsets)")
+    put("rc_matched", n(rc["build"]["stats"]["matched_cases"]), V3, "radcases.build.stats.matched_cases", "RadCases cases matched to their text")
+    put("rc_multi_panel", n(rc["build"]["stats"]["multi_panel_excluded"]), V3, "radcases.build.stats.multi_panel_excluded", "RadCases cases with several panels (no panel question)")
+    put("rc_overlap", n(rc["build"]["stats"]["overlap_with_radkev_splits"]), V3, "radcases.build.stats.overlap_with_radkev_splits", "excluded: text in a RadKev split")
+    for s_ in ("train", "dev", "test"):
+        put(f"rc_{s_}", n(rc["split"][s_]), V3, f"radcases.split.{s_}", f"RadCases {s_} cases")
+    put("rc_test_q", n(rc["split"]["test_q"]), V3, "radcases.split.test_q", "RadCases test questions")
+    put("rc_topics", n(rc["build"]["n_topics"]), V3, "radcases.build.n_topics", "ACR Appropriateness Criteria topics")
+    put("rc_panel_options", n(rc["build"]["n_panels"]), V3, "radcases.build.n_panels", "panel question options (panels and none)")
+    for s_ in ("train", "dev", "test"):
+        put(f"rx_{s_}", n(rx[s_]), V3, f"rexerr.{s_}", f"ReXErr {s_} reports")
+    put("rx_test_err", n(rx["test_error"]), V3, "rexerr.test_error", "ReXErr test reports with an injected error")
+    kept = {"medmcqa": rf["medmcqa_med"]["kept"] + rf["medmcqa_rad"]["kept"], "medqa": rf["medqa"]["kept"], "pubmedqa": rf["pubmedqa"]["kept"],
+            "medxpertqa": rf["medxpertqa"]["kept"], "mmlu_med": sum(v["kept"] for k, v in rf.items() if k.startswith("mmlu_"))}
+    FL = rj("artifacts/radfilter_final/artifacts/radfilter.json")   # final word list (adds "radiopaque"); identical counts
+    assert FL["test"] == {k: {"n": v["n"], "kept": v["kept"]} for k, v in rf.items()} and not FL["test_kept_only_by_radiopaque"]
+    assert {k: v["kept"] for k, v in FL["train_final_list"].items()} == {k: rj(V3R)["train"]["kept"][k] for k in ("medmcqa", "medqa")}
+    tot_k = sum(kept.values()); tot_n = sum(v["n"] for v in rf.values())
+    put("rf_kept", n(tot_k), V3, "radiology_filter.*.kept", "knowledge test questions kept by the radiology filter")
+    put("rf_n", n(tot_n), V3, "radiology_filter.*.n", "knowledge test questions screened")
+    put("rf_medmcqa_rad", n(rf["medmcqa_rad"]["kept"]), V3, "radiology_filter.medmcqa_rad.kept", "MedMCQA radiology questions (all kept)")
+    recs = {s_: {**o[s_]["by_source"], **g[s_]["by_source"], "teacher": tm["records"][s_], "radcases": rc["split"][s_], "rexerr": rx[s_]}
+            for s_ in ("train", "dev", "test")}
+    R3 = rj(V3R)
+    for s_ in ("train", "dev"):   # Amendment 3: MedMCQA and MedQA training and development records restricted to radiology
+        k3 = R3[s_]["kept"]
+        for key, v in recs[s_].items():
+            if key not in ("medmcqa", "medqa"): assert k3.get({"mmlu_med": "mmlu"}.get(key, key), 0) == v, (s_, key, v)
+        recs[s_]["medmcqa"], recs[s_]["medqa"] = k3["medmcqa"], k3["medqa"]
+        assert sum(recs[s_].values()) == R3[s_]["total"], (s_, sum(recs[s_].values()), R3[s_]["total"])
+        for key in ("medmcqa", "medqa"):
+            put(f"v3r_{key}_{s_}", n(k3[key]), V3R, f"{s_}.kept.{key}", f"{key} {s_} records kept (radiology)")
+            put(f"v3r_{key}_{s_}_all", n(k3[key] + R3[s_]["dropped"][key]), V3R, f"{s_}.kept+dropped.{key}", f"{key} {s_} records before the filter")
+    RQ = "artifacts/rsna_radioqa/rsna_radioqa_manifest.json"; MQ = rj(RQ)
+    assert MQ["missing_in_appendix"] == [44] and len(MQ["radsafe_answer_index_discrepancies"]) == 2 and not MQ["weak_matches"]
+    put("rsna_q", n(MQ["records"]), RQ, "records", "RSNA-RadioQA questions (Appendix S1 of RadioRAG; Q44 absent)")
+    put("rsna_published", n(MQ["records"] + len(MQ["missing_in_appendix"])), RQ, "records + missing_in_appendix", "RSNA-RadioQA questions in the original study")
+    put("rsna_keyfix", n(len(MQ["radsafe_answer_index_discrepancies"])), RQ, "radsafe_answer_index_discrepancies", "questions whose RadSaFE answer index differs from the published reference answer")
+    recs["test"]["rsna"] = MQ["records"]
+    bq = {"rsna": MQ["records"], "iu": sum(v for k, v in o["test"]["by_task"].items() if src_of(k) == "iu"),
+          "eurorad": sum(v for k, v in o["test"]["by_task"].items() if src_of(k) == "eurorad"),
+          **kept, "radcases": rc["split"]["test_q"], "rexerr": rx["test"]}
+    rows_ = [("iu", r"IU/Open-i \citep{demnerfushman2016iu}", "Finding detection (report)", "Human"),
+             ("eurorad", r"Eurorad \citep{eurorad}", "Diagnosis; subspecialty", "Human"),
+             ("medmcqa", r"MedMCQA \citep{pal2022medmcqa}", "Radiology knowledge", "Human"),
+             ("medqa", r"MedQA \citep{jin2021medqa}", "Radiology knowledge", "Human"),
+             ("mmlu_med", r"MMLU \citep{hendrycks2021mmlu}", "Radiology knowledge", "Human"),
+             ("pubmedqa", r"PubMedQA \citep{jin2019pubmedqa}", "Radiology knowledge", "Human"),
+             ("medxpertqa", r"MedXpertQA \citep{zuo2025medxpertqa}", "Radiology knowledge", "Human"),
+             ("rsna", r"RSNA-RadioQA \citep{tayebiarasteh2025radiorag}", "Diagnosis", "Human"),
+             ("radcases", r"RadCases \citep{yao2025radcases}", "Imaging appropriateness (ACR)", "Human"),
+             ("rexerr", r"ReXErr \citep{rao2025rexerr}", "Error detection (report)", "Construction"),
+             ("ctrate", r"CT-RATE \citep{hamamci2026ctrate}", "Finding detection (report)", "Classifier"),
+             ("teacher", "Teacher-labeled", "Orders, triage, follow-up", "LLM agreement")]
+    cell = lambda x: n(x) if x else "–"
+    body = []
+    for key, name, task, keysrc in rows_:
+        b = cell(bq.get(key, 0)) if key not in ("ctrate", "teacher") else "–"
+        body.append(" & ".join([name, task, keysrc] + [cell(recs[s_].get(key, 0)) for s_ in ("train", "dev", "test")] + [b]) + r" \\")
+    tot = [n(sum(recs[s_].values())) for s_ in ("train", "dev", "test")]
+    bench = sum(bq.values())
+    put("v3r_steps", "4,620", "runs/v3f-kev-27b-dp.log, job 8d6337a4 (final RadKev-27B v3 run; same count in the cancelled v3r run 1b065b97)", "step N/4620", "optimizer steps, RadKev-27B v3 and RadKev-9B v3")
+    acc = 36954   # kev.train rank-0 log, "36954 training requests", identical for 27B and 9B (runs/v3r-kev-{27b,9b}.log, job 1b065b97)
+    # same log: "dropped 155 of 37109 records that exceed the training context (1536 state / 2176 branch / 3200 packed tokens)"
+    fed = sum(recs["train"].values()) + 1000
+    assert (acc + 7) // 8 == 4620 and 0 < fed - acc < 1000, (fed, acc)
+    put("v3r_accepted", n(acc), "runs/v3r-kev-27b.log and runs/v3r-kev-9b.log, job 1b065b97", "N training requests", "training records accepted by kev.train, incl. replay")
+    put("v3r_fed", n(fed), f"{V3R} + replay", "train total + 1,000", "training records supplied, incl. replay")
+    put("v3r_rejected", n(fed - acc), "v3r_fed - v3r_accepted", "difference", "records not accepted by kev.train at loading")
+    put("v3_train_records", tot[0], f"{V3} + manifests", "sum of training records", "training records, v3")
+    put("v3_bench_q", n(bench), f"{V3} + manifests", "benchmark questions", "radiology benchmark test questions")
+    put("v3_bench_human_q", n(bench - rx["test"]), f"{V3} + manifests", "benchmark questions minus ReXErr", "human-assigned benchmark questions")
+    RG = "artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json"; R = rj(RG); st = R["stats"]
+    put("rg_reports", n(R["reports"]), RG, "reports", "RadGraph-XL reports (Stanford release)")
+    put("rg_per_mod", n(R["by_modality"]["cxr"]), RG, "by_modality.cxr", "reports per modality")
+    assert len(set(R["by_modality"].values())) == 1
+    put("rg_excluded", n(R["excluded"]), RG, "excluded", "reports excluded for overlap")
+    put("rg_records", n(st["records"]), RG, "stats.records", "RadGraph-XL records used")
+    rgq = sum(v for k, v in st.items() if k.startswith("q_"))
+    assert rgq == st["key_present"] + st["key_absent"] + st["key_uncertain"]
+    put("rg_q", n(rgq), RG, "stats.q_*", "RadGraph-XL questions")
+    put("rg_q_cxr", n(st["q_cxr"]), RG, "stats.q_cxr", "RadGraph-XL chest radiograph questions remaining")
+    (HERE / "generated" / "tab_data.tex").write_text("\n".join([
+        r"\begin{tabular}{@{}lllrrrr@{}}", r"\toprule",
+        r"Source & Task & Key & \multicolumn{3}{c}{Records} & Benchmark \\ \cmidrule(lr){4-6}",
+        r" & & & Train & Dev & Test & questions \\", r"\midrule", *body[:10], r"\midrule", *body[10:], r"\midrule",
+        " & ".join(["Total", "", ""] + tot + [n(bench)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
+
+def write_train_v3():
+    """Training of the present models (v3f runs: RadKev-27B two data-parallel processes over NVLink pairs, RadKev-9B four
+    single-GPU processes), from the training metrics, configs and development calibration copied from the runs."""
+    T = "artifacts/train_v3/artifacts/"
+    for m, ws in (("27b", 2), ("9b", 4)):
+        M = rj(T + f"training_metrics_{m}.json"); C = rj(T + f"kev-{m}-dp_training_config.json")["args"]; D = rj(T + f"dev_cal_{m}.json")
+        assert M["optimizer_steps"] == 4620 and M["requested_records"] == 36954 and M["world_size"] == ws
+        assert C["batch"] * C["accum"] * ws == 8 and C["replay"] == 1000 and C["seed"] == 0
+        put(f"v3_hours_{m}", f"{M['wall_seconds'] / 3600:.1f}", T + f"training_metrics_{m}.json", "wall_seconds / 3600", f"training hours, RadKev-{m.upper()}")
+        put(f"v3_examples_{m}", n(M["records_seen"]), T + f"training_metrics_{m}.json", "records_seen", "examples seen incl. minimal pairs")
+        put(f"v3_peak_{m}", f"{M['peak_device_bytes'] / 2**30:.1f}", T + f"training_metrics_{m}.json", "peak_device_bytes / 2^30",
+            "peak memory, first GPU of the first process (GiB)")
+        put(f"v3_T_{m}", f"{D['temperature']:.2f}", T + f"dev_cal_{m}.json", "temperature", "fitted temperature")
+        put(f"v3_accum_{m}", n(C["accum"]), T + f"kev-{m}-dp_training_config.json", "args.accum", "accumulation steps per process")
+        put(f"v3_wdtype_{m}", {"bf16": "bfloat16", "fp32": "32-bit"}[C["weights_dtype"]], T + f"kev-{m}-dp_training_config.json", "args.weights_dtype", "frozen weight precision")
+
 
 def tex(s):
     s = str(s)
@@ -792,6 +910,71 @@ def build_fig_compare():
     figures.fig_compare(rows, HERE / "figures")
 
 
+def write_design_v3():
+    """Design constants of the answer-space and latency studies as run (jobs/answer_space3.py CFG, jobs latency_v3 arguments)."""
+    import re
+    cfg = job_constants()["answer_space3 CFG"]   # read from the job script here, from inputs/constants.json in the public bundle
+    assert '"sizes": [2, 4, 16, 64, 255]' in cfg and '"eurorad_dx": 30, "rsna_radioqa": 30' in cfg and '"second_draw": False' in cfg
+    assert '"lat_sizes": [2, 16, 64, 255], "lat_cases": 15, "lat_warmup": 5' in cfg and '"llm_sizes": [2, 4, 8, 16]' in cfg
+    J = "jobs/answer_space3.py CFG"
+    for k, v, note in (("as3_n_dx", "30", "Eurorad diagnosis questions"), ("as3_n_rsna", "30", "RSNA-RadioQA questions"),
+                       ("as3_sizes", "2, 4, 16, 64 and 255", "answer-space sizes"), ("as3_llm_sizes", "2, 4, 8 and 16", "LLM-distractor sizes"),
+                       ("as3_lat_cases", "15", "latency cases"), ("as3_lat_sizes", "2, 16, 64 and 255", "latency sizes"), ("as3_lat_warmup", "5", "warm-up excluded")):
+        put(k, v, J, k, note)
+    put("lat3_records", "60", "monitor queue commit 3bbfb94, latency_bench --n_records (latency_v3.json sample.records)", "n_records", "latency records")
+    V3N = HERE / "v3" / "numbers_v3.csv"   # once the jobs land, the measured n must equal the design constants stated in the Methods
+    if V3N.exists():
+        R3 = {r["key"]: r["value"] for r in csv.DictReader(open(V3N))}
+        for mk, rk in (("lat3_records", "r3_lat_records"), ("lat3_reason_q", "r3_lt_qthink_n"), ("as3_n_dx", "r3_as_n_dx"),
+                       ("as3_n_rsna", "r3_as_n_rsna"), ("as3_lat_cases", "r3_as_lat_cases")):
+            mv = {"lat3_records": "60", "lat3_reason_q": "54", "as3_n_dx": "30", "as3_n_rsna": "30", "as3_lat_cases": "15"}[mk]   # reasoning: 8 timed, the first excluded as warm-up (Supplementary Note S5)
+            if rk in R3 and "missing" not in R3[rk]: assert R3[rk].replace(",", "") == mv, f"{rk}={R3[rk]} but the Methods state {mv}"
+    put("lat3_reason_q", "55", "monitor queue commit 3bbfb94, latency_bench --n_reasoning", "n_reasoning", "questions timed with reasoning (first excluded as warm-up)")
+
+
+def build_fig_training_v3():
+    """Figure 3 for the present models: rank-0 training loss of the v3f runs and development accuracy by source (released Kev
+    vs fine-tuned, dev_stock vs dev_cal). Overwrites the pilot figure written by build_fig_training()."""
+    import numpy as np
+    T = "artifacts/train_v3/artifacts/"
+    # provenance: the checkpoints scored as RadKev-27B / RadKev-9B in eval_v3 must be the runs whose logs are plotted
+    CK = rj("artifacts/eval_v3/artifacts/eval_v3_status.json")["checkpoints"]
+    for k, run in (("v3_27", "v3f-kev-27b-dp"), ("v3_9", "v3f-kev-9b-dp")):
+        assert CK[k].rstrip("/").endswith(f"runs/{run}/checkpoint"), f"{k} was evaluated from {CK[k]}, not {run}"
+    L, A, TS = {}, {}, {}
+    for k, f, cfg, met in (("rk27", "trainlog_v3f-kev-27b-dp.json", "kev-27b-dp_training_config.json", "training_metrics_27b.json"),
+                           ("rk9", "trainlog_v3f-kev-9b-dp.json", "kev-9b-dp_training_config.json", "training_metrics_9b.json")):
+        run = f[len("trainlog_"):-len(".json")]
+        assert rj(T + f)["run"] == run and rj(T + cfg)["args"]["out"].rstrip("/").endswith(f"runs/{run}/checkpoint"), f"{f}: not run {run}"
+        M = rj(T + met)
+        assert M["optimizer_steps"] == 4620 == len(M["step_seconds"]) and abs(sum(M["step_seconds"]) - M["wall_seconds"]) < 1, f"{met}: step times incomplete"
+        TS[k] = M["step_seconds"]
+        R = rj(T + f); st = R["steps"]
+        A[k] = [(e["step"], e["acc"]) for e in st]
+        assert all("equal=True" in c for c in R["param_checks"]), f"{f}: data-parallel weight check failed"
+        pts = [(e["step"], e["loss"]) for e in st]
+        assert pts[0][0] == 10 and pts[-1][0] == 4620 and all(b[0] > a[0] for a, b in zip(pts, pts[1:])), f"{f}: incomplete log"
+        L[k] = pts
+        put(f"v3_loss_{k}_start", f"{np.mean([y for s_, y in pts if s_ <= 300]):.2f}", T + f, "steps[].loss, steps 10-300", "training loss, first 300 steps")
+        put(f"v3_loss_{k}_end", f"{np.mean([y for s_, y in pts if s_ > 4320]):.2f}", T + f, "steps[].loss, last 300 steps", "training loss, last 300 steps")
+        put(f"v3_dpchecks_{k}", n(len(R["param_checks"])), T + f, "param_checks", "data-parallel weight-equality checks, all equal")
+    assert len(rj(T + "trainlog_v3f-kev-27b-dp.json")["param_checks"]) == len(rj(T + "trainlog_v3f-kev-9b-dp.json")["param_checks"])
+    groups = [("IU", ("iu_",)), ("CT-RATE", ("ctrate_",)), ("ReXErr", ("rexerr",)), ("Eurorad diagnosis", ("eurorad_dx",)),
+              ("Eurorad subspecialty", ("eurorad_route",)), ("RadCases", ("radcases_",)), ("MedMCQA", ("medmcqa_",)), ("MedQA", ("medqa",)),
+              ("MMLU", ("mmlu_",)), ("PubMedQA", ("pubmedqa",)), ("MedXpertQA", ("medxpertqa",)), ("Teacher-labeled", ("teacher_",))]
+    F = {"b27": "kev-27b-dp_dev_stock.json", "a27": "dev_cal_27b.json", "b9": "kev-9b-dp_dev_stock.json", "a9": "dev_cal_9b.json"}
+    D = {k: rj(T + f)["tasks"] for k, f in F.items()}
+    def acc(Tk, pre):
+        ts = [v for t, v in Tk.items() if t.startswith(pre)]
+        return sum(v["n"] * v["acc"] for v in ts) / sum(v["n"] for v in ts)
+    assert all(any(t.startswith(p) for p in sum((g[1] for g in groups), ())) for t in D["a27"]), "a development task is not in any group"
+    rows = [(lab, acc(D["b27"], pre), acc(D["a27"], pre), acc(D["b9"], pre), acc(D["a9"], pre)) for lab, pre in groups]
+    for k, f in F.items():
+        put(f"v3_dev_{k}", pct(rj(T + f)["overall"]["acc"]), T + f, "overall.acc", "development accuracy (%)")
+    import figures
+    figures.fig_training_v3(L, A, TS, rows, HERE / "figures")
+
+
 FIGDATA = "artifacts/figure_data/artifacts/figure_data.json"   # jobs/figure_data.py: kev.train logs (loss every 10 steps)
 
 
@@ -810,7 +993,7 @@ def build_fig_training():
         put(f"loss_{k}_start", f"{win(k, 1, 200):.2f}", FIGDATA, f"logs.{names[k]} mean of steps 1-200", "training loss, first 200 steps")
         put(f"loss_{k}_end", f"{win(k, 8000, 8521):.2f}", FIGDATA, f"logs.{names[k]} mean of steps 8000-8521", "training loss, last 521 steps")
     assert win("base9", 1, 200) > win("rk9", 1, 200), "claim: base initialization starts at a higher loss"
-    groups = [("IU", ("iu_",)), ("CT-RATE", ("ctrate_",)), ("Eurorad diagnosis", ("eurorad_dx",)), ("Eurorad routing", ("eurorad_route",)),
+    groups = [("IU", ("iu_",)), ("CT-RATE", ("ctrate_",)), ("Eurorad diagnosis", ("eurorad_dx",)), ("Eurorad subspecialty", ("eurorad_route",)),
               ("MedMCQA", ("medmcqa_",)), ("MedQA", ("medqa",)), ("MMLU", ("mmlu_",)), ("PubMedQA", ("pubmedqa",)),
               ("MedXpertQA", ("medxpertqa",)), ("Teacher-labeled", ("teacher_",))]
     D = {k: rj(f"results/train/{p}")["tasks"] for k, p in (("b27", "v2mg/kev-27b_dev_stock.json"), ("a27", "v2mg/kev-27b_dev_cal.json"),
@@ -864,7 +1047,7 @@ def build_fig_kev():
 
 RB_PRIMARY = "results_book/tables/primary.csv"
 RB_PERTASK = "results_book/tables/per_task.csv"
-FAMILY_LABEL = {"report_cxr_human": "Chest radiograph report reading", "case_diagnosis": "Case diagnosis", "routing": "Subspecialty routing",
+FAMILY_LABEL = {"report_cxr_human": "Chest radiograph report reading", "case_diagnosis": "Case diagnosis", "routing": "Subspecialty classification",
                 "radiology_knowledge": "Radiology knowledge", "medical_knowledge": "Medical knowledge", "report_ct": "CT report reading",
                 "report_cxr": "Chest radiograph finding status", "orders_protocols": "Imaging orders", "triage_followup": "Triage and follow-up"}
 HUMAN_FAMS = ["report_cxr_human", "case_diagnosis", "routing", "radiology_knowledge", "medical_knowledge"]
@@ -927,7 +1110,7 @@ def build_results_primary():
     assert full_improves == improved, "the full test set must lead to the same family conclusions"
     delta = max(abs(f(P[k], "diff") - f(P[k], "diff_nodemo")) for k in HUMAN_FAMS + MACHINE_FAMS + ["overall_task_mean", "human_keys_task_mean"])
     put("demo_maxdelta", pct(delta), RB_PRIMARY, "max |diff - diff_nodemo|", "largest change from excluding the demonstration sample (pp)")
-    SHORT = {"report_cxr_human": "Radiograph\nreports", "case_diagnosis": "Case\ndiagnosis", "routing": "Routing",
+    SHORT = {"report_cxr_human": "Radiograph\nreports", "case_diagnosis": "Case\ndiagnosis", "routing": "Sub-\nspecialty",
              "radiology_knowledge": "Radiology\nknowledge", "medical_knowledge": "Medical\nknowledge", "report_ct": "CT\nreports",
              "report_cxr": "Finding\nstatus", "orders_protocols": "Imaging\norders", "triage_followup": "Triage,\nfollow-up"}
     item = lambda lab, r, nn: (lab, nn, 100 * f(r, "kev27"), 100 * f(r, "radkev27"), 100 * f(r, "diff"))
@@ -1232,7 +1415,7 @@ def build_results_robust():
 
 
 TASK_LABEL = {"iu_finding": "IU: finding present", "iu_normal": "IU: normal study", "iu_which": "IU: which finding",
-              "eurorad_dx": "Eurorad: diagnosis", "eurorad_route": "Eurorad: subspecialty routing", "medmcqa_rad": "MedMCQA: radiology",
+              "eurorad_dx": "Eurorad: diagnosis", "eurorad_route": "Eurorad: subspecialty classification", "medmcqa_rad": "MedMCQA: radiology",
               "medmcqa_med": "MedMCQA: other subjects", "medqa": "MedQA", "medxpertqa": "MedXpertQA", "pubmedqa": "PubMedQA",
               "mmlu_anatomy": "MMLU: anatomy", "mmlu_clinical_knowledge": "MMLU: clinical knowledge", "mmlu_college_biology": "MMLU: college biology",
               "mmlu_college_medicine": "MMLU: college medicine", "mmlu_medical_genetics": "MMLU: medical genetics",
@@ -1389,8 +1572,11 @@ def abstract_text():
     if not m:
         return None
     vals = {r["key"]: r["value"] for r in LEDGER}
+    if (HERE / "v3" / "numbers_v3.csv").exists():
+        vals |= {r["key"]: r["value"] for r in csv.DictReader(open(HERE / "v3" / "numbers_v3.csv"))}
+    body0 = re.sub(r"\\input\{(v3/[^}]+\.tex)\}", lambda k: (HERE / k.group(1)).read_text(), m.group(1))
     paras = []
-    for para in re.split(r"\n\s*\n", m.group(1)):
+    for para in re.split(r"\n\s*\n", body0):
         body = re.sub(r"(?<!\\)%.*", "", para)  # comments, not \%
         body = re.sub(r"\\setlength\{[^}]*\}\{[^}]*\}", "", body)
         body = re.sub(r"\\V\{([^}]*)\}", lambda k: vals.get(k.group(1), "??"), body)
@@ -1419,13 +1605,17 @@ def export_latex():
     with refs.bib, the .bbl and the figures, so it compiles on its own (Overleaf, arXiv). Compiled once to verify."""
     out = HERE / "export"; shutil.rmtree(out, ignore_errors=True); (out / "figures").mkdir(parents=True)
     vals = {r["key"]: r["value"] for r in LEDGER}
+    V3L = {r["key"]: r["value"] for r in csv.DictReader(open(HERE / "v3" / "numbers_v3.csv"))}   # v3 results ledger (v3/build_v3.py)
+    assert not set(V3L) & set(vals), "v3 ledger keys collide with build.py keys"
+    vals |= V3L
     tex = (HERE / "main.tex").read_text()
-    tex = re.sub(r"^\\input\{numbers\.tex\}.*\n", "", tex, flags=re.M)
+    tex = re.sub(r"^\\input\{(?:numbers\.tex|v3/numbers_v3\.tex)\}.*\n", "", tex, flags=re.M)
     def inline(m):
         body = (HERE / m.group(1)).read_text()
         return body.rstrip("\n")
     for _ in range(3):
-        tex = re.sub(r"\\input\{(generated/[^}]+\.tex)\}", inline, tex)
+        tex = re.sub(r"\\input\{((?:generated|v3)/[^}]+\.tex)\}", inline, tex)
+    tex = tex.replace("\\V{r3_*}", "r3_*")   # a wildcard in a comment of v3/results.tex, not a number
     missing = sorted(set(re.findall(r"\\V\{([^}]+)\}", tex)) - vals.keys())
     assert not missing, f"undefined numbers: {missing}"
     tex = re.sub(r"\\V\{([^}]+)\}", lambda m: vals[m.group(1)], tex)
@@ -1445,10 +1635,8 @@ def export_latex():
         assert "??" not in txt, "unresolved reference in the exported copy"
         for f in out.iterdir():
             if f.suffix in (".aux", ".log", ".blg", ".out", ".toc") or f.name.endswith(".synctex.gz"): f.unlink()
-    zp = HERE / "RadKev_manuscript_latex.zip"
-    zp.unlink(missing_ok=True)
-    shutil.make_archive(str(zp.with_suffix("")), "zip", out)
-    print(f"editable LaTeX: {out / 'RadKev_manuscript.tex'} (+ {zp.name})")
+    (HERE / "RadKev_manuscript_latex.zip").unlink(missing_ok=True)   # user 2026-10-06: deliverables are the local PDF and Overleaf only, no zip
+    print(f"PDF: {out / 'RadKev_manuscript.pdf'} (export .tex is the Overleaf sync source)")
 
 
 # Manuscript tables as CSV, named by their number in the manuscript (published in the code repository's results/tables/).
@@ -1599,6 +1787,8 @@ if __name__ == "__main__":
     build_rb()
     build_fig_compare()
     build_fig_training()
+    build_fig_training_v3()
+    write_design_v3()
     build_fig_teacher()
     build_methods()
     build_answer_space()

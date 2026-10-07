@@ -1,0 +1,38 @@
+{
+ "train": {
+  "kept": {
+   "eurorad": 2912,
+   "medmcqa": 5070,
+   "medqa": 2420,
+   "ctrate": 8000,
+   "teacher": 11443,
+   "radcases": 264,
+   "rexerr": 6000
+  },
+  "dropped": {
+   "medmcqa": 30564,
+   "medqa": 6755
+  },
+  "total": 36109
+ },
+ "dev": {
+  "kept": {
+   "mmlu": 123,
+   "medqa": 250,
+   "medmcqa": 303,
+   "iu": 886,
+   "pubmedqa": 469,
+   "eurorad": 329,
+   "medxpertqa": 499,
+   "ctrate": 1911,
+   "teacher": 877,
+   "radcases": 29,
+   "rexerr": 500
+  },
+  "dropped": {
+   "medmcqa": 2153,
+   "medqa": 753
+  },
+  "total": 6176
+ }
+}
