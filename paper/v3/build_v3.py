@@ -109,7 +109,10 @@ def pending(key, what):
     put(key, r"\missing{pending: " + what.replace("_", r"\_") + "}", "PENDING", "", what)
 
 
-num = lambda x, d=1: f"{x:.{d}f}".replace("-", "\u2212")
+def num(x, d=1):
+    s = f"{x:.{d}f}"
+    if s.startswith("-") and float(s) == 0: s = s[1:]   # no negative zero after rounding
+    return s.replace("-", "\u2212")
 pct = lambda x: num(100 * x)
 pci = lambda c: f"{pct(c[0])} to {pct(c[1])}"
 n_ = lambda x: f"{int(x):,}"

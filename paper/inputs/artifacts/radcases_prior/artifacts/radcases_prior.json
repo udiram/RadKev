@@ -1,0 +1,107 @@
+{
+ "n": 132,
+ "train_panel_questions": 258,
+ "train_none_share": 0.34108527131782945,
+ "train_prior": {
+  "Breast": 0.0481,
+  "Cardiac": 0.0889,
+  "Gastrointestinal": 0.063,
+  "Gyn and OB": 0.0593,
+  "Musculoskeletal": 0.0704,
+  "Neurologic": 0.1852,
+  "None: no ACR Appropriateness Criteria topic applies": 0.3296,
+  "Pediatric": 0.0333,
+  "Polytrauma": 0.0333,
+  "Thoracic": 0.0407,
+  "Urologic": 0.0296,
+  "Vascular": 0.0185
+ },
+ "systems": {
+  "v3_27_corrected": {
+   "acc": 0.6742424242424242,
+   "none_picked_on_panel_keys": 0.1111111111111111,
+   "acc_on_none_keys": 0.8484848484848485,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  },
+  "v3_27": {
+   "acc": 0.4393939393939394,
+   "none_picked_on_panel_keys": 0.7070707070707071,
+   "acc_on_none_keys": 1.0,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  },
+  "v3_9_corrected": {
+   "acc": 0.6818181818181818,
+   "none_picked_on_panel_keys": 0.21212121212121213,
+   "acc_on_none_keys": 0.9393939393939394,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  },
+  "v3_9": {
+   "acc": 0.44696969696969696,
+   "none_picked_on_panel_keys": 0.6868686868686869,
+   "acc_on_none_keys": 0.9696969696969697,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  },
+  "stock27": {
+   "acc": 0.6666666666666666,
+   "none_picked_on_panel_keys": 0.050505050505050504,
+   "acc_on_none_keys": 0.5151515151515151,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  },
+  "stock9": {
+   "acc": 0.75,
+   "none_picked_on_panel_keys": 0.050505050505050504,
+   "acc_on_none_keys": 0.8181818181818182,
+   "n_panel_keys": 99,
+   "n_none_keys": 33
+  }
+ },
+ "pairs": {
+  "v3_27_corrected-stock27": {
+   "d": 0.007575757575757576,
+   "ci": [
+    -0.07575757575757576,
+    0.09090909090909091
+   ]
+  },
+  "v3_27_corrected-v3_27": {
+   "d": 0.23484848484848486,
+   "ci": [
+    0.13636363636363635,
+    0.3333333333333333
+   ]
+  },
+  "v3_27-stock27": {
+   "d": -0.22727272727272727,
+   "ci": [
+    -0.3333333333333333,
+    -0.11363636363636363
+   ]
+  },
+  "v3_9_corrected-stock9": {
+   "d": -0.06818181818181818,
+   "ci": [
+    -0.15151515151515152,
+    0.007575757575757576
+   ]
+  },
+  "v3_9_corrected-v3_9": {
+   "d": 0.23484848484848486,
+   "ci": [
+    0.1590909090909091,
+    0.3106060606060606
+   ]
+  },
+  "v3_9-stock9": {
+   "d": -0.30303030303030304,
+   "ci": [
+    -0.3939393939393939,
+    -0.21212121212121213
+   ]
+  }
+ }
+}

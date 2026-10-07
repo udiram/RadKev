@@ -939,7 +939,7 @@ r3_jvk_t_rexerr_ci,1.3 to 5.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_pr
 r3_jvk_t_rsna,0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rsna_radioqa.d,"Jev minus Kev-27B, RSNA-RadioQA: diagnosis (pp)"
 r3_jvk_t_rsna_ci,−7.6 to 7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-stock27.tasks.rsna_radioqa.ci,95% CI
 r3_jvq_tm,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.task_mean_d,"Jev minus Qwen3.8-27B, task mean (pp)"
-r3_jvq_tm_ci,−0.0 to 2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.task_mean_ci,95% CI
+r3_jvq_tm_ci,0.0 to 2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.task_mean_ci,95% CI
 r3_jvq_tm_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.jev-qwen38.bench.task_mean_ci,comparison words
 r3_jvq_ntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.tasks,tasks compared
 r3_jvq_pool,0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.jev-qwen38.bench.pooled_d,"Jev minus Qwen3.8-27B, pooled (pp)"
