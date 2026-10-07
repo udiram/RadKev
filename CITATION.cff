@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use RadKev, please cite the manuscript below."
-title: "RadKev: code, results and models for RadKev: An Open-Weight Decision Model for Radiology"
+title: "RadKev: An Open-Weight Decision Model for Radiology (code, results and models)"
 type: software
 authors:
   - family-names: Ram
@@ -10,13 +10,15 @@ authors:
   - family-names: Zhang
     given-names: Ran
     affiliation: "Departments of Radiology and Medical Physics, University of Wisconsin–Madison"
-version: 2.0.0
-date-released: 2026-10-06
+version: 2.1.0
+date-released: 2026-10-07
 license: Apache-2.0
 repository-code: "https://github.com/udiram/RadKev"
+url: "https://huggingface.co/ramu9703/radkev-27b"
 keywords:
   - radiology
   - decision model
+  - open-weight model
   - calibration
   - selective prediction
   - clinical NLP

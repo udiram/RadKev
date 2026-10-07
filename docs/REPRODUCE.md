@@ -1,31 +1,32 @@
 # Reproducing the study
 
-**Final models and manuscript.** The manuscript's results come from the final runs: the job scripts are in
-[`experiments/final/`](../experiments/final/) (README there), and [`paper/`](../paper/) regenerates every number, table and figure
-from their aggregate outputs (`python3 build.py --no-pdf && python3 v3/build_v3.py --strict && python3 build.py`). The sections below
-describe the environment, data construction and teacher labeling, which the final runs share, and the commands of earlier training
-runs (run names `v2mg`, `v2x9`, ...), which the final runs superseded.
-
-Every number in the manuscript and in this repository came from the commands below, run on RTX A6000 (48 GB) GPUs. Run names (`v2mg`, `v2x9`, ...) are the
-ones the results use, so a rerun lands next to the same labels. [`scripts/reproduce.sh`](../scripts/reproduce.sh) runs the main line
-end to end.
+The study runs in four stages: data construction, teacher labeling, training and evaluation, and the manuscript build. The first
+two use the `radkev` package and `experiments/teacher_labels.py`; training and evaluation use the job scripts of the reported runs
+in [`experiments/final/`](../experiments/final/); the manuscript build in [`paper/`](../paper/) regenerates every number, table and
+figure from the aggregate outputs of those jobs. All runs used RTX A6000 (48 GB) GPUs.
 
 ## 0. Environment
 
 ```bash
-scripts/setup.sh --laya            # Kev @ f2bb629 + its venv, the two-GPU patch, CUDA kernels, radkev; Laya for the baselines
+scripts/setup.sh                   # Kev @ f2bb629 and its environment, the two-GPU patch, CUDA kernels, radkev
 source ~/.cache/radkev/kev/.venv/bin/activate
-hf auth login                      # MedGemma-27B-text and CT-RATE are gated: accept their terms on the Hub first
+hf auth login                      # MedGemma-27B-text, CT-RATE and the RadKev weights are gated: accept their terms first
 ```
 
-Everything is written under `$RADKEV_HOME` (default `~/.cache/radkev`): `raw/`, `data/`, `runs/`. Pinned versions: Kev
-`f2bb629d670f5b746f712fc05550a098526c836b`; Qwen3.8-27B `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`; Qwen3.5-9B-Base
-`68c46c4b3498877f3ef123c856ecfde50c39f404`; Kev-27B as initialized: Hub snapshot `01b81998019be550f0ae858727df49bac9511195`.
+Local data, runs and caches are written under `$RADKEV_HOME` (default `~/.cache/radkev`): `raw/`, `data/` and `runs/`.
 
-**Pinned Kev weights.** The Hugging Face repositories of Kev received new weights after this study. Every result used Kev-27B
-revision `01b81998019be550f0ae858727df49bac9511195` and Kev-9B revision `2629c06a5aeb0feb3b9783bafed17ed8f39ecf5c`
-(`radkev.paths.KEV_27B_PINNED`, `KEV_9B_PINNED`; the post hoc scripts load these). For training and for the held-out test, download
-these snapshots and pass their local paths wherever the commands below name `jaredpalmer/kev-27b` or `jaredpalmer/kev-9b`:
+**Pinned versions.**
+
+| Component | Revision |
+|---|---|
+| Kev | `f2bb629d670f5b746f712fc05550a098526c836b` |
+| Kev-27B (initialization) | `01b81998019be550f0ae858727df49bac9511195` |
+| Kev-9B (initialization) | `2629c06a5aeb0feb3b9783bafed17ed8f39ecf5c` |
+| Qwen3.8-27B | `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0` |
+| Qwen3.5-9B-Base | `68c46c4b3498877f3ef123c856ecfde50c39f404` |
+
+The Hugging Face repositories of Kev received new weights after this study. Every result used the revisions above
+(`radkev.paths.KEV_27B_PINNED`, `KEV_9B_PINNED`):
 
 ```bash
 hf download jaredpalmer/kev-27b --revision 01b81998019be550f0ae858727df49bac9511195 --local-dir ~/.cache/radkev/kev-27b-01b8199
@@ -35,102 +36,73 @@ hf download jaredpalmer/kev-9b  --revision 2629c06a5aeb0feb3b9783bafed17ed8f39ec
 ## 1. Data
 
 ```bash
-python -m radkev.fetch                                  # open sources -> $RADKEV_HOME/raw (no login)
-# gated: put CT-RATE's report and label CSVs under raw/ctrate/, ReXGradient-160K metadata under raw/rexgradient/,
-# CheXpert Plus tables under raw/chexpert_plus/ (python -m radkev.fetch --list shows the layout)
+python -m radkev.fetch                                  # openly licensed sources -> $RADKEV_HOME/raw (no login)
+# access-controlled sources: place CT-RATE's report and label CSVs under raw/ctrate/, ReXGradient-160K metadata under
+# raw/rexgradient/ and CheXpert Plus tables under raw/chexpert_plus/ (python -m radkev.fetch --list shows the layout)
 
 python -m radkev.data --raw ~/.cache/radkev/raw --out ~/.cache/radkev/data/rad-open \
     --only iu,eurorad,medmcqa,medqa,mmlu_med,pubmedqa,medxpertqa
 python -m radkev.data --raw ~/.cache/radkev/raw --out ~/.cache/radkev/data/rad-gated --only ctrate --cap ctrate=8000
 ```
 
-Compare `data/*/manifest.json` with [`results/manifests/`](../results/manifests/). Hugging Face parquet conversions can change upstream;
-the counts tell you whether yours match. (Our gated build was run with `--only ctrate,chexpert_plus,mimic --cap
-mimic=12000,ctrate=8000,chexpert_plus=12000`, and only CT-RATE was present; the command above gives the identical records.)
+RadCases, ReXErr and the radiology filter of the knowledge sources are added by
+[`experiments/final/build_v3.py`](../experiments/final/build_v3.py), and the radiology-only training and development records by
+[`experiments/final/build_v3r.py`](../experiments/final/build_v3r.py). The per-source counts in [DATA.md](DATA.md#counts) and the
+state hashes in the released data allow a rebuild to be checked record by record.
 
-## 2. Teacher labels (imaging orders, triage and follow-up, finding status)
+## 2. Teacher labels (imaging orders, triage and follow-up)
 
 ```bash
-CUDA_VISIBLE_DEVICES=0,1 python experiments/teacher_labels.py --per-source 1500     # -> data/teacher, ~1.4 h
+CUDA_VISIBLE_DEVICES=0,1 python experiments/teacher_labels.py --per-source 1500     # -> data/teacher, approximately 1.4 h
 ```
 
 ## 3. Training
 
-| Run | Command | Result |
+[`experiments/final/train.py`](../experiments/final/train.py) trains each model with `kev.train` (one epoch, 1,000 replayed
+records of Kev's training data), fits a temperature on the development split, and evaluates the development split and Kev's
+out-of-domain transfer suite for the specialized and the released model. RadKev-27B was trained on four GPUs as two data-parallel
+ranks, each holding the backbone split over one NVLink pair; RadKev-9B as four data-parallel ranks of one GPU each. The exact
+`kev.train` configurations are in
+[`paper/inputs/artifacts/train_v3/artifacts/`](../paper/inputs/artifacts/train_v3/artifacts/).
+
+| Model | Training time |
+|---|---|
+| RadKev-27B | 13.1 h on four RTX A6000 GPUs |
+| RadKev-9B | 3.4 h on four RTX A6000 GPUs |
+
+## 4. Evaluation
+
+| Analysis (manuscript) | Script in `experiments/final/` | Hardware |
 |---|---|---|
-| RadKev-27B (primary) | `CUDA_VISIBLE_DEVICES=0,1 python experiments/train.py --models kev-27b --data rad-open,rad-gated,teacher --tag v2mg` | `runs/v2mg-kev-27b`, 25.7 h |
-| RadKev-27B without report/teacher data (ablation) | `... --models kev-27b --data rad-open --tag v1med` | `runs/v1med-kev-27b`, 11.5 h |
-| Pilot (ablation) | `... --models kev-27b,kev-9b --data rad-open --tag v0open --replay 4000 --max_steps kev-27b=400` | 1.0 h / 1.6 h |
-| RadKev-9B + plain-base arm | `CUDA_VISIBLE_DEVICES=0,1 python experiments/train.py --models kev-9b,base-9b --data rad-open,rad-gated,teacher --tag v2x9` | 10.9 h each, in parallel |
-| Same at 10% data | `... --models kev-9b,base-9b --data rad-open,rad-gated,teacher --tag v2x9f10 --train_fraction 0.1` | 1.2 h each |
+| Every system on the 14,142 benchmark questions: accuracy, paired differences, calibration, wording | `eval_v3.py` | 4× A6000 |
+| RadCases panel prior correction and the reported benchmark analysis (Methods 2.4, Results) | `radcases_prior.py`, `eval_v3_prior.py` | CPU |
+| Qwen3.8-27B with reasoning on 1,675 questions (Results 3.2, Supplementary Note S4) | `llm_reasoning.py`, `reasoning_v3_fix.py` | 4× A6000 (vLLM); CPU for the analysis |
+| OpenAI Decisions and Jev (Results 3.2) | `openai_decisions.py`, `jev_decisions.py` | CPU, API keys |
+| Latency, one request at a time (Results 3.2) | `latency_bench.py` | 2× A6000 |
+| Kev's transfer suite, paired (Results 3.3) | `transfer_paired.py` | CPU |
+| Subspecialty classification before the read; options-only control (Results 3.5) | `preread_route.py`, `blind_v3.py` | 4× A6000 |
+| Answer space (Results 3.6) | `answer_space3.py`, `answer_space_hosted.py` | 4× A6000; CPU for the hosted models |
+| RadGraph-XL external test (Results 3.7) | `radgraph_xl_build.py`, `external_tests.py`, `external_analyse_node.py`, `radgraph_xl_errors_v3.py`, `radgraph_xl_definite.py`, `radgraph_xl_hosted.py` | 4× A6000; CPU for the analyses |
 
-Each run trains with `kev.train`, scores dev with the inherited temperature, fits a new temperature on dev
-(`scripts/calibrate_checkpoint.py` from Kev), rescores dev, scores the released checkpoint on the same dev items, and runs Kev's
-transfer suite for both. The exact `kev.train` arguments each run used are in [`results/training/`](../results/training/).
+The job scripts are reproduced as they were run on the study's compute node: each reads `$XDG_CACHE_HOME/radkev` (the Kev
+checkout, its environment, the built data and the trained runs) and writes aggregate outputs only to `$ZCB_OUTPUT_DIR`. To run one
+elsewhere, set both variables. [`experiments/final/README.md`](../experiments/final/README.md) lists what each script produces.
 
-**Selection rule (prespecified).** `v2mg` stays primary unless its calibrated dev accuracy, macro over the tasks both runs share,
-is more than 1.0 percentage point below `v1med`'s. It was 0.03 points below (86.71% vs 86.74%), so `v2mg` is RadKev-27B.
-
-## 4. Held-out test
-
-```bash
-export T=rad-open,rad-gated,teacher
-# every Kev-family model, Qwen3.8-27B and MedGemma-27B-text (original prompt), Laya
-python experiments/final_test.py --tag final --data $T --no-compare \
-    --runs stock27=jaredpalmer/kev-27b,v0open27=v0open-kev-27b,stock9=jaredpalmer/kev-9b,ft9=v0open-kev-9b,v1med27=v1med-kev-27b,v2_27=v2mg-kev-27b,r9=v2x9-kev-9b,b9=v2x9-base-9b,r9f10=v2x9f10-kev-9b,b9f10=v2x9f10-base-9b,kev08=jaredpalmer/kev-0.8b,kev4=jaredpalmer/kev-4b \
-    --llms qwen38=Qwen/Qwen3.8-27B,medgemma=google/medgemma-27b-text-it --laya 1
-python experiments/decision_baselines.py          # Laya-typed, Julia-1, GLiNER2.5-Decide (post hoc)
-python experiments/llm_scoring.py                 # qwen38_gen, medgemma_gen, medgemma_brief (revised MedGemma prompt; post hoc)
-# one comparison over everything already scored (no GPU needed)
-python experiments/final_test.py --tag final --data $T --laya 1 --also v2_27,r9,r9f10 \
-    --runs stock27=cached,v0open27=cached,stock9=cached,ft9=cached,v1med27=cached,v2_27=cached,r9=cached,b9=cached,r9f10=cached,b9f10=cached,kev08=cached,kev4=cached,laya_typed=cached,julia1=cached,gliner_decide=cached \
-    --llms qwen38=cached,medgemma=cached,qwen38_gen=cached,medgemma_gen=cached,medgemma_brief=cached
-```
-
-`runs/test-final/comparisons.json` is the file [`results/comparisons.json`](../results/comparisons.json) was copied from.
-
-## 5. Studies
+## 5. Manuscript
 
 ```bash
-CUDA_VISIBLE_DEVICES=0,1 python experiments/latency.py                                         # 27B tier
-CUDA_VISIBLE_DEVICES=0,1 python experiments/latency.py --kev stock9=jaredpalmer/kev-9b,radkev9=v2x9-kev-9b,base9=v2x9-base-9b --llms "" --out latency_9b.json
-CUDA_VISIBLE_DEVICES=0,1 python experiments/latency_scaling.py
-python experiments/leak_sensitivity.py
-python experiments/transfer_paired.py
+cd paper
+python3 build.py --no-pdf          # Introduction, Methods, Table 1, Figures 1 to 3, numbers.csv
+python3 v3/build_v3.py --strict    # abstract, Results, Discussion, Figures 4 to 9, supplementary tables, numbers_v3.csv
+python3 build.py                   # compiles main.pdf (Tectonic) and writes an editable export
 ```
 
-## 6. Post hoc analyses
-
-These reproduce the analyses added after the primary results (manuscript, Section 2.6). Each writes aggregates or per-question
-probabilities without text under `$RADKEV_HOME/runs/`.
-
-| Analysis (manuscript) | Script | Hardware we used |
-|---|---|---|
-| Shared 2,000-resample bootstrap: intervals of every system, paired differences with Holm adjustment, withheld wordings, selective prediction | `experiments/robustness.py` | CPU |
-| Primary comparison without the demonstration sample, calibration differences, specialization vs scale, recalibration, family average, prevalence baseline, distinctive words | `experiments/robustness2.py` | CPU |
-| LLMs with reasoning on the 1,800-question sample | `experiments/llm_reasoning.py` (vLLM) | 2× A6000 |
-| Options-only control | `experiments/options_only.py` | 2× or 4× A6000 |
-| External test sets (RadCases, RadGraph-XL) | `experiments/external_tests.py` | 2× or 4× A6000 |
-| Answer space: decision models and latency against the number of options | `experiments/answer_space.py` | 2× or 4× A6000 |
-| Answer space: LLMs (at most 16 options) | `experiments/answer_space_llm.py` | 2× or 4× A6000 |
-| Regenerated teacher labels and agreement of the decision models | `experiments/teacher_rescore.py` | 2× or 4× A6000 |
-| Training-loss curves and the teacher examples of Figures 1 and 3 | `experiments/figure_data.py` | CPU |
-| Latency (Table S7) and latency against questions per record | `experiments/latency.py`, `experiments/latency_scaling.py` | 2× A6000 (NVLink) |
-| Leakage of order questions; Kev's transfer suite | `experiments/leak_sensitivity.py`, `experiments/transfer_paired.py` | CPU |
-
-## 7. Manuscript
-
-[`paper/build.py`](../paper/build.py) generates every number, table and figure of the manuscript from the aggregate outputs in
-`paper/inputs/` and compiles it (Tectonic). Every number is written to [`results/numbers.csv`](../results/numbers.csv) with the file
-and field it came from, and the manuscript reads it through `\V{key}` macros:
-
-```bash
-cd paper && python build.py            # numbers, tables, figures, main.pdf and an editable export
-cd paper && python build.py --no-pdf   # without LaTeX
-```
+Every number in the manuscript is a `\V{key}` macro whose value, source file and field are listed in
+[`results/numbers.csv`](../results/numbers.csv) and [`results/numbers_v3.csv`](../results/numbers_v3.csv). The public build
+reproduces both ledgers exactly; see [paper/README.md](../paper/README.md).
 
 ## Without a GPU
 
-The data builders, the teacher merge, `radkev.evaluate --preds` and `radkev.compare` run on a laptop, and `pytest` exercises them
-(including Kev's metrics and bootstrap) on synthetic fixtures. Kev-0.8B and Kev-4B also run on Apple Silicon through Kev's MLX
-backend, which is enough to try `radkev.predict` and the examples.
+The data builders, the teacher merge, `radkev.evaluate --preds`, `radkev.compare` and the manuscript build run on a laptop, and
+`pytest` exercises the library (including Kev's metrics and bootstrap) on synthetic fixtures. Kev-0.8B and Kev-4B also run on
+Apple Silicon through Kev's MLX backend, which suffices to try `radkev.predict` and the examples.

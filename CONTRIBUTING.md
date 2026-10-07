@@ -16,12 +16,12 @@ ruff check .
 
 - **No dataset text in the repository**, not even a few lines in a test, apart from the attributed excerpts that the manuscript
   itself prints (`paper/`: the example records of Supplementary Note S1 and the two Eurorad cases of Figure 1). Tests use
-  invented fixtures (`tests/conftest.py`); examples are written by hand. Released records are distributed through the Hugging
+  invented fixtures (`tests/conftest.py`); examples are written manually. Released records are distributed through the Hugging
   Face dataset, not this repository.
 - **No protected health information, ever**, in code, issues, logs or results. If you evaluate on institutional data, report
   aggregates only.
 - **Keep the builders deterministic.** A change to `radkev/data.py` or `radkev/teacher.py` that alters the records for the same
-  raw files changes every result; call it out in the pull request and update `results/manifests/` only with a new run.
+  raw files changes every result; state this in the pull request; published results change only with a new run.
 - **Report what you measured.** New numbers need the command that produced them and the comparison they are paired with.
 - Match the existing style: compact, commented where the reason is not obvious, `ruff check .` clean.
 

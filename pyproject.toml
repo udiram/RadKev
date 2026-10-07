@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "radkev"
-version = "1.0.0"
-description = "RadKev, a radiology-specialized decision model fine-tuned from Kev: data, training, evaluation and manuscript build"
+version = "2.1.0"
+description = "RadKev, an open-weight decision model for radiology fine-tuned from Kev: data, training, evaluation and manuscript build"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
@@ -28,6 +28,9 @@ dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.urls]
 Repository = "https://github.com/udiram/RadKev"
+"RadKev-27B" = "https://huggingface.co/ramu9703/radkev-27b"
+"RadKev-9B" = "https://huggingface.co/ramu9703/radkev-9b"
+Dataset = "https://huggingface.co/datasets/ramu9703/radkev-data"
 Issues = "https://github.com/udiram/RadKev/issues"
 Kev = "https://github.com/jaredpalmer/kev"
 

@@ -7,8 +7,8 @@ registered in a public registry, so its timestamp is not independently verifiabl
 
 Run names in the plan: v2 = `v2mg` (RadKev-27B); v1med = RadKev-27B trained without the CT-RATE and teacher-labeled data;
 v0 = the pilot. `paper/handoff/RESULTS.md` was the internal results file, and the "playground" was an internal demonstration, whose
-420 test records form the demonstration sample. The departures from the plan are listed in
-[EVALUATION.md](EVALUATION.md#departures-from-the-analysis-plan).
+420 test records form the demonstration sample. The final models, benchmark and outcomes were specified in
+the addenda in [ANALYSIS_PLAN_ADDENDUM.md](ANALYSIS_PLAN_ADDENDUM.md).
 
 ---
 

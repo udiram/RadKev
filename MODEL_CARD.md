@@ -25,9 +25,9 @@ Manuscript: *RadKev: An Open-Weight Decision Model for Radiology* (Udbhav Ram an
 
 - **Clinical use.** RadKev is not a medical device, has not been prospectively validated, and its outputs must not inform the care
   of a patient.
-- Images. RadKev reads text only (reports, case descriptions, clinical indications, examination questions).
-- Languages other than English, and institutional conventions not represented in the training data.
-- Commercial use (the license of the training data does not permit it).
+- **Images.** RadKev reads text only (reports, case descriptions, clinical indications, examination questions).
+- **Other languages.** Languages other than English, and institutional conventions not represented in the training data.
+- **Commercial use** (the license of the training data does not permit it).
 
 ## Inputs and outputs
 
@@ -40,20 +40,20 @@ accepts up to 255 options per question; training used states of up to 1,536 toke
 
 36,109 records from public radiology datasets, plus 1,000 replayed records of Kev's own training data: IU/Open-i is used only for
 development and testing; CT-RATE chest CT reports (classifier labels), ReXErr reports with and without injected errors, Eurorad
-teaching cases (final diagnosis, subspecialty), RadCases one-liners (ACR Appropriateness Criteria panel and topic), the radiology
+teaching cases (final diagnosis, subspecialty), RadCases single-sentence patient summaries (ACR Appropriateness Criteria panel and topic), the radiology
 questions of MedMCQA and MedQA, and 11,443 records of LLM-labeled questions on imaging orders, triage and follow-up (labeled by
 agreement of MedGemma-27B-text and Qwen3.8-27B). Details: [docs/DATA.md](docs/DATA.md) and the manuscript's Methods.
 
 ## Evaluation
 
-Radiology benchmark: 14,142 held-out questions in fifteen tasks, of which 11,434 have keys assigned by people. Accuracy in percent,
-unweighted mean over tasks; calibration and coverage on the human-assigned questions. 95% confidence intervals of paired differences
+Radiology benchmark: 14,142 held-out questions in fifteen tasks, of which 11,434 have ground-truth labels generated or verified by human annotators. Accuracy in percent,
+unweighted mean over tasks; calibration and coverage on the human-labeled questions. 95% confidence intervals of paired differences
 in the manuscript and in [`results/manuscript/`](results/manuscript/).
 
 | | RadKev-27B | RadKev-9B | Kev-27B | Kev-9B | Qwen3.8-27B | OpenAI Decisions | Jev |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Task mean, benchmark (15 tasks) | **80.8** | 77.0 | 75.9 | 70.1 | – | 76.0 | 77.8 |
-| Task mean, 13 human-assigned tasks answered by every system | **81.1** | 77.0 | 77.3 | 72.0 | 78.1 | 79.4 | 79.1 |
+| Task mean, 13 human-labeled tasks answered by every system | **81.1** | 77.0 | 77.3 | 72.0 | 78.1 | 79.4 | 79.1 |
 | Expected calibration error | 0.015 | 0.021 | 0.018 | 0.023 | 0.022 | 0.019 | 0.031 |
 | Confident errors (%) | 1.4 | 1.1 | 0.6 | 0.7 | 2.0 | 2.4 | 1.4 |
 | Coverage at a 5% error budget (%) | 88.4 | **89.4** | 85.5 | 86.3 | 86.6 | 85.9 | 86.8 |
@@ -64,20 +64,20 @@ in one pass; Qwen3.8-27B was scored from its option-letter logits, one question 
 answer letter and 16.9 s with reasoning. ² End to end from the institution's network, one request at a time.</sub>
 
 Primary outcome (prespecified), RadKev-27B minus Kev-27B, benchmark task mean: **+4.9 percentage points (95% CI 3.8 to 6.2)**;
-over the fourteen human-assigned tasks, +3.6 (2.4 to 5.0). RadKev-27B minus Qwen3.8-27B: +4.7 (3.4 to 6.0); minus the OpenAI
+over the fourteen human-labeled tasks, +3.6 (2.4 to 5.0). RadKev-27B minus Qwen3.8-27B: +4.7 (3.4 to 6.0); minus the OpenAI
 Decisions API: +4.8 (3.2 to 6.4); minus Jev: +3.0 (1.7 to 4.4).
 
-**RadCases panel question.** The catch-all option "no ACR Appropriateness Criteria topic applies" was the most frequent training
-answer (34%), and the raw outputs of these weights select it by default (RadKev-27B accuracy 43.9%). The manuscript's results
+**RadCases panel question.** The residual option "no ACR Appropriateness Criteria topic applies" was the most frequent training
+answer (34%), and the raw outputs of these weights select it preferentially (RadKev-27B accuracy 43.9%). The manuscript's results
 divide each option's probability by its add-one-smoothed frequency among the training-split panel answers and renormalize
-(RadKev-27B accuracy 67.4%, Kev-27B 66.7%); apply the same correction, or curate the training frequency of catch-all options, when
-using a catch-all answer.
+(RadKev-27B accuracy 67.4%, Kev-27B 66.7%); apply the same correction, or curate the training frequency of residual options, when
+using a residual answer.
 
 ## Limitations and risks
 
-- **External data.** On 4,037 status questions from radiologist-annotated RadGraph-XL reports of another institution, specialization
-  lowered the accuracy of RadKev-27B by 1.1 points (−1.6 to −0.6) relative to Kev-27B; hedged findings were frequently classified
-  as present.
+- **External data.** On 2,991 definite findings in radiologist-annotated RadGraph-XL reports from another institution, RadKev-27B
+  was less accurate than Kev-27B (90.2% vs 91.3%; −1.1 points, 95% CI −1.6 to −0.6), and RadKev-9B more accurate than Kev-9B
+  (2.4 points, 1.5 to 3.3). On 1,046 hedged findings, every decision model predominantly answered "present".
 - **Answer options.** In the options-only control, RadKev-27B selected the correct Eurorad diagnosis in 76.9% of questions without
   the case (Kev-27B 47.7%, chance 24%); its gain in Eurorad diagnosis reflects recognition of the correct option rather than reading
   of the case.
