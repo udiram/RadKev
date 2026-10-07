@@ -103,18 +103,21 @@ CheXpert Plus and ReXGradient-160K reports contributed through teacher-labeled q
 
 ## Released data
 
-As stated in the manuscript (Data availability), the following are released:
+The Hugging Face dataset [`ramu9703/radkev-data`](https://huggingface.co/datasets/ramu9703/radkev-data) (access requires
+acceptance of its terms) holds the data of the manuscript's Data availability statement:
 
-- the question records built from Eurorad, MedMCQA, MedQA, MMLU, PubMedQA and MedXpertQA, each under the license of its source;
-- for IU/Open-i (whose license does not permit derivative works) and for the access-controlled sources (CT-RATE, CheXpert Plus,
-  ReXGradient-160K), no record text: the report identifiers, the ground-truth labels, the teacher labels and a script that rebuilds the
-  records from the original datasets;
-- per-question model outputs (the probability of every answer option, without text) for all systems and analyses.
+| Path | Contents |
+|---|---|
+| `records/<source>/<split>.jsonl` | question records built from Eurorad, MedMCQA, MedQA, MMLU, PubMedQA and MedXpertQA, each under the license of its source |
+| `labels/<source>/<split>.jsonl` | records without text (IU/Open-i, CT-RATE, RadCases, ReXErr, RSNA-RadioQA, RadGraph-XL): identifier, group identifier, SHA-256 of the state and the ground-truth labels |
+| `labels/teacher/`, `labels/teacher_regenerated/`, `labels/teacher_candidates.jsonl` | the LLM-labeled questions (training labels and the regenerated labels of Supplementary Note S2) and every candidate with both teachers' distributions |
+| `training/{train,dev}.jsonl` | the training and development records of RadKev-27B and RadKev-9B, by state hash and question identifiers |
+| `test_index.jsonl` | every held-out test record, with the task, benchmark task and type of ground truth of each question |
+| `outputs/` | per-question probabilities, without text, of every system on the test records and in every additional analysis (reasoning sample, options-only control, subspecialty classification before the read, answer space, external test, Kev's transfer suite), and the RadCases panel prior |
 
-Location: the Hugging Face dataset [`ramu9703/radkev-data`](https://huggingface.co/datasets/ramu9703/radkev-data) (access requires
-acceptance of its terms). Records without text carry the SHA-256 of their state, so a rebuild with `radkev.data` and
-`experiments/teacher_labels.py` can be checked record by record; `test_index.jsonl` maps the identifiers `rad/<line>` used by every
-output file to source, group identifier and membership of the demonstration sample.
+Records without text carry the SHA-256 of their state, so a rebuild with `radkev.data` and `experiments/teacher_labels.py` can be
+checked record by record. The output files contain the raw model probabilities; the reported results of RadKev-27B and RadKev-9B
+apply the RadCases panel prior correction ([EVALUATION.md](EVALUATION.md#radcases-panel-prior-correction-post-hoc)).
 
 ## Licenses
 
