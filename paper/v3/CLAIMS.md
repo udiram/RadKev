@@ -8,14 +8,13 @@ Each directional statement in the v3 prose is marked `% [Cn]` in the .tex. FAILS
 | C2 | yes | abstract, results 3.1 | ...and the human-assigned task mean |
 | C3 | yes | results 3.1, discussion, conclusions | RadCases panel: as scored RadKev-27B defaulted to the catch-all option (below Kev-27B); prior-corrected it does not differ detectably from Kev-27B |
 | C4 | yes | abstract, results 3.2, discussion, conclusions | RadKev-27B more accurate than Qwen3.8-27B (task mean on shared tasks) |
-| C5 | yes | abstract, results 3.2, conclusions | RadKev-27B more accurate than MedGemma-27B-text |
 | C6 | yes | results 3.2, discussion | Kev-27B and Qwen3.8-27B not detectably different (benchmark task mean) |
 | C16 | yes | results 3.2, discussion, conclusions | RadKev-27B more accurate than Qwen3.8-27B over the human-assigned tasks |
 | C8 | yes | results 3.3, discussion, conclusions | 27B: specialization vs scale not detectably different on the task means (CIs include 0), larger pooled over human-assigned questions |
 | C9 | yes | results 3.3, discussion | Specialization increased the task mean at 9B too |
 | C11 | yes | results 3.4, discussion | RadKev-27B covers more questions at 5% error than Kev-27B (point estimate) |
 | C12 | yes | results 3.4, discussion, conclusions | RadKev-27B ECE within 0.005 of Kev-27B as scored, but more confident errors |
-| C15 | yes | discussion, conclusions | Both specialized models cover more questions at 5% error than their starting points and both LLMs |
+| C15 | yes | discussion, conclusions | Both specialized models cover more questions at 5% error than their starting points and Qwen3.8-27B |
 | C25 | yes | results 3.6, discussion | RadKev-27B: mean confidence exceeds accuracy by > 10 pp with the 255 most similar options; accuracy at confidence >= 0.9 at least 90% in every answer space; share at >= 0.9 lower for sim_255 than rand_16 |
 | C24 | yes | results 3.1 | Primary outcome positive without the RadCases prior correction (CI above 0) |
 | C23 | yes | results 3.2 | RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean) |

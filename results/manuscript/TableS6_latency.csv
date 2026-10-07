@@ -8,5 +8,3 @@ OpenAI Decisions,"end to end, one at a time",175,276,27
 Qwen3.8-27B,option-letter logits,145,245,99
 Qwen3.8-27B,generated letter,234,332,99
 Qwen3.8-27B,reasoning,16906,179802,54
-MedGemma-27B-text,option-letter logits,141,242,99
-MedGemma-27B-text,generated letter,237,337,99

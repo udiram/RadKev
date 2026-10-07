@@ -118,12 +118,13 @@ def cmp_words(c, more="more accurate than", less="less accurate than", same="not
 # Comparison set (user decision 2026-10-06): RadKev v3 replaces the pilot (v2), so no v3-vs-v2 comparison is reported anywhere;
 # eval_v3.json still holds v2_27/r9 and the smaller decision models (kev4, kev08, laya, laya_typed, gliner_decide, julia1),
 # which are ignored. Add a model here only if the user asks for the smaller baselines.
-NAME = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen3.8-27B", "medgemma_fix": "MedGemma-27B-text",
+# MedGemma-27B-text is not a comparator (user decision 2026-10-07); it appears only as a teacher (Methods, Supplementary Note S2).
+NAME = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen3.8-27B",
         "openai_dec": "OpenAI Decisions"}   # hosted decision model gpt-6-luna (amendment 10, user request 2026-10-06)
-SHORT = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen", "medgemma_fix": "MedGemma", "openai_dec": "OpenAI"}
+SHORT = {"v3_27": "RadKev-27B", "v3_9": "RadKev-9B", "stock27": "Kev-27B", "stock9": "Kev-9B", "qwen38": "Qwen", "openai_dec": "OpenAI"}
 SYSTEMS = list(NAME)
 MAIN = lambda E: {s: E["systems"][s] for s in SYSTEMS if s in E["systems"]}   # the ablation arms are reported in 3.3 only
-LLMS = ["qwen38", "medgemma_fix"]
+LLMS = ["qwen38"]
 HUMAN = ["iu_finding", "iu_normal", "iu_which", "eurorad_dx", "eurorad_route", "rsna_radioqa", "radcases_panel", "radcases_topic",
          "medmcqa_rad", "medmcqa_other_rad", "medqa_rad", "medxpertqa_rad", "mmlu_rad", "pubmedqa_rad"]
 CONSTR = ["rexerr_error"]
@@ -152,9 +153,9 @@ TID = {"iu_finding": "iufind", "iu_normal": "iunorm", "iu_which": "iuwhich", "re
        "pubmedqa_rad": "pubmed", "ctrate:ctrate_finding": "ctfind", "ctrate:ctrate_normal": "ctnorm", "ctrate:ctrate_which": "ctwhich"}
 KEYTASK = TID.__getitem__   # macro-safe task id
 PAIRS = {"prim": ("v3_27", "stock27"), "spec9": ("v3_9", "stock9"),
-         "q": ("v3_27", "qwen38"), "mg": ("v3_27", "medgemma_fix"), "q9": ("v3_9", "qwen38"), "size": ("v3_27", "v3_9"),
+         "q": ("v3_27", "qwen38"), "q9": ("v3_9", "qwen38"), "size": ("v3_27", "v3_9"),
          "scale": ("stock27", "stock9"), "r9k27": ("v3_9", "stock27"), "qk": ("qwen38", "stock27"),
-         "od": ("v3_27", "openai_dec"), "od9": ("v3_9", "openai_dec"), "odk": ("openai_dec", "stock27"), "odq": ("openai_dec", "qwen38"), "odmg": ("openai_dec", "medgemma_fix")}
+         "od": ("v3_27", "openai_dec"), "od9": ("v3_9", "openai_dec"), "odk": ("openai_dec", "stock27"), "odq": ("openai_dec", "qwen38")}
 
 
 # ------------------------------------------------------------------------------------------------ main evaluation
@@ -216,7 +217,7 @@ def build_eval():
             if t not in TASK: continue
             put(f"r3_{al}_t_{KEYTASK(t)}", pct(v["d"]), src, f"pairs.{key}.tasks.{t}.d", f"{NAME[a]} minus {NAME[b]}, {TASK[t]} (pp)")
             put(f"r3_{al}_t_{KEYTASK(t)}_ci", pci(v["ci"]), src, f"pairs.{key}.tasks.{t}.ci", "95% CI")
-    for al in ("prim", "q", "mg", "spec9", "od"):   # range of the per-task differences (subgroups before summaries)
+    for al in ("prim", "q", "spec9", "od"):   # range of the per-task differences (subgroups before summaries)
         key = "-".join(PAIRS[al])
         if key not in P: continue
         tt = {t: v["d"] for t, v in P[key]["tasks"].items() if t in BENCH}
@@ -268,7 +269,7 @@ def build_eval():
         if "did" in E: put(k, pci(E["did"][k]), src, f"did.{k}", "95% CI")
         else: pending(k, "difference-of-differences intervals (add to eval_v3 ANALYSE)")
     # CT-RATE: agreement with the classifier
-    for s in ("v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix"):
+    for s in ("v3_27", "stock27", "v3_9", "stock9", "qwen38"):
         if s in S and all(t in S[s]["tasks"] for t in CTRATE):
             put(f"r3_ct_{s}", pct(sum(S[s]["tasks"][t]["acc"] for t in CTRATE) / 3), src, f"mean systems.{s}.tasks[ctrate:*].acc", f"{NAME[s]}, CT-RATE agreement, mean of 3 tasks")
     # calibration (human-assigned questions)
@@ -313,13 +314,13 @@ def build_eval():
 
 
 # ------------------------------------------------------------------------------------------------ pre-read subspecialty
-PR_SYS = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix"]
+PR_SYS = ["v3_27", "stock27", "v3_9", "stock9", "qwen38"]
 
 
 def build_preread():
     R = J.get("preread"); src = REL("preread")
     keys = ["r3_pr_n", "r3_pr_v3_27_full", "r3_pr_v3_27_pre", "r3_pr_stock27_full", "r3_pr_stock27_pre", "r3_pr_qwen38_full",
-            "r3_pr_qwen38_pre", "r3_pr_medgemma_fix_full", "r3_pr_medgemma_fix_pre", "r3_pr_minchg", "r3_pr_maxchg",
+            "r3_pr_qwen38_pre", "r3_pr_minchg", "r3_pr_maxchg",
             "r3_prp_prim_full", "r3_prp_prim_full_ci", "r3_prp_prim_pre", "r3_prp_prim_pre_ci", "r3_prp_q_pre", "r3_prp_q_pre_ci", "r3_pr_v3_27_chg", "r3_pr_v3_27_chg_ci"]
     if not R:
         for k in keys: pending(k, "pre-read job (preread_route.json)")
@@ -333,7 +334,7 @@ def build_preread():
         put(f"r3_pr_{m}_chg_ci", pci(v["change_ci"]), src, f"models.{m}.change_ci", "95% CI")
     ch = [v["change"] for m, v in R["models"].items() if m in NAME]
     put("r3_pr_minchg", pct(-max(ch)), src, "min |change|", "smallest loss (pp)"); put("r3_pr_maxchg", pct(-min(ch)), src, "max |change|", "largest loss (pp)")
-    for al, key in (("prim", "v3_27-stock27"), ("q", "v3_27-qwen38"), ("mg", "v3_27-medgemma_fix"), ("spec9", "v3_9-stock9")):
+    for al, key in (("prim", "v3_27-stock27"), ("q", "v3_27-qwen38"), ("spec9", "v3_9-stock9")):
         if key not in R["pairs"]: continue
         for c, x in (("full", "full"), ("preread", "pre")):
             put(f"r3_prp_{al}_{x}", pct(R["pairs"][key][c]["diff"]), src, f"pairs.{key}.{c}.diff", f"{key}, {c} (pp)")
@@ -402,14 +403,14 @@ def build_rcprior():
 def build_rcdiag():
     """RadCases panel question: how often each system selects the option that no ACR topic applies, by key type."""
     D = J.get("rcdiag"); keys = ["r3_rc_none_panel_rk27", "r3_rc_none_panel_k27", "r3_rc_none_none_rk27", "r3_rc_none_none_k27", "r3_rc_none_none_q",
-                                 "r3_rc_none_none_mg", "r3_rc_npanel", "r3_rc_nnone", "r3_rc_train_none", "r3_rc_train_q", "r3_rc_train_none_pct",
+                                 "r3_rc_npanel", "r3_rc_nnone", "r3_rc_train_none", "r3_rc_train_q", "r3_rc_train_none_pct",
                                  "r3_rc_none_panel_rk9", "r3_rc_none_panel_k9", "r3_rc_none_none_rk9"]
     if not D: return _pend_all(keys, "RadCases panel diagnosis")
     src = REL("rcdiag"); S = D["systems"]
     assert all(v["key_or_label_mismatch"] == 0 for v in D["fairness"].values())
     for k, m, kind in (("r3_rc_none_panel_rk27", "v3_27", "panel"), ("r3_rc_none_panel_k27", "stock27", "panel"), ("r3_rc_none_panel_rk9", "v3_9", "panel"),
                        ("r3_rc_none_panel_k9", "stock9", "panel"), ("r3_rc_none_none_rk27", "v3_27", "None"), ("r3_rc_none_none_k27", "stock27", "None"),
-                       ("r3_rc_none_none_q", "qwen38", "None"), ("r3_rc_none_none_rk9", "v3_9", "None"), ("r3_rc_none_none_mg", "medgemma_fix", "None")):
+                       ("r3_rc_none_none_q", "qwen38", "None"), ("r3_rc_none_none_rk9", "v3_9", "None")):
         put(k, pct(S[m]["pick_none_rate"][kind]), src, f"systems.{m}.pick_none_rate.{kind}", f"% selecting 'no topic applies', key = {kind}")
     put("r3_rc_npanel", n_(S["v3_27"]["acc"]["panel"]["n"]), src, "systems.v3_27.acc.panel.n", "panel questions whose key is a panel")
     put("r3_rc_nnone", n_(S["v3_27"]["acc"]["None"]["n"]), src, "systems.v3_27.acc.None.n", "panel questions whose key is 'no topic applies'")
@@ -467,13 +468,13 @@ LAT_FACTS = {}
 
 
 def build_reasoning():
-    R = (J.get("reasoning") or {}).get("paired"); keys = ["r3_rs_q", "r3_rs_qwen38", "r3_rs_qwen38_think", "r3_rs_v3_27", "r3_rs_medgemma_think",
+    R = (J.get("reasoning") or {}).get("paired"); keys = ["r3_rs_q", "r3_rs_qwen38", "r3_rs_qwen38_think", "r3_rs_v3_27",
                                                          "r3_rp_rk_qthink", "r3_rp_rk_qthink_ci", "r3_rp_rk_qthink_tm", "r3_rp_rk_qthink_tm_ci", "r3_rp_qthink", "r3_rp_qthink_ci", "r3_rs_ntk", "r3_rp_rk_qthink_tm14", "r3_rp_rk_qthink_tm14_ci"]
     if not R: return _pend_all(keys, "reasoning sample with v3")
     src = REL("reasoning"); S, P = R["systems"], R["pairs"]
     put("r3_rs_q", n_(S["v3_27"]["bench"]["n"]), src, "paired.systems.v3_27.bench.n", "questions in the reasoning sample")
     put("r3_rs_ntk", word(S["v3_27"]["bench"]["tasks_k"]), src, "paired.systems.v3_27.bench.tasks_k", "tasks of the reasoning sample, examination tasks pooled")
-    for k, m in (("r3_rs_qwen38", "qwen38"), ("r3_rs_qwen38_think", "qwen38_think"), ("r3_rs_v3_27", "v3_27"), ("r3_rs_medgemma_think", "medgemma_think")):
+    for k, m in (("r3_rs_qwen38", "qwen38"), ("r3_rs_qwen38_think", "qwen38_think"), ("r3_rs_v3_27", "v3_27")):
         if m in S: put(k, pct(S[m]["bench"]["pooled"]), src, f"paired.systems.{m}.bench.pooled", "accuracy on the sample (%)")
         else: pending(k, f"reasoning sample: {m}")
     for k, key in (("r3_rp_rk_qthink", "v3_27-qwen38_think"), ("r3_rp_qthink", "qwen38_think-qwen38")):
@@ -498,9 +499,8 @@ def build_blind():
         put(f"r3_bl_{x}_k27", pct(M["stock27"]["blind"]), src, f"tasks.{t}.models.stock27.blind", "options-only accuracy (%)")
         if "qwen38" in M: put(f"r3_bl_{x}_q", pct(M["qwen38"]["blind"]), src, f"tasks.{t}.models.qwen38.blind", "options-only accuracy (%)")
         else: pending(f"r3_bl_{x}_q", "options-only control: Qwen3.8-27B rerun")
-        for m, k in (("v3_27", "rk27"), ("stock27", "k27"), ("v3_9", "rk9"), ("stock9", "k9"), ("medgemma_fix", "mg"), ("qwen38", "q")):
+        for m, k in (("v3_27", "rk27"), ("stock27", "k27"), ("v3_9", "rk9"), ("stock9", "k9"), ("qwen38", "q")):
             if m in M: put(f"r3_bl_{x}_{k}_full", pct(M[m]["full"]), src, f"tasks.{t}.models.{m}.full", "accuracy with the case (%)")
-        if "medgemma_fix" in M: put(f"r3_bl_{x}_mg", pct(M["medgemma_fix"]["blind"]), src, f"tasks.{t}.models.medgemma_fix.blind", "options-only accuracy (%)")
         for m, k in (("v3_9", "rk9"), ("stock9", "k9")):
             if m in M: put(f"r3_bl_{x}_{k}", pct(M[m]["blind"]), src, f"tasks.{t}.models.{m}.blind", "options-only accuracy (%)")
         pr_ = T[t]["pairs"]["v3_27-stock27"]
@@ -528,12 +528,12 @@ def build_blind():
 
 
 def build_radgraph():
-    G = (J.get("radgraph") or {}).get("radgraph_xl"); keys = ["r3_rg_n", "r3_rg_v3_27", "r3_rg_stock27", "r3_rg_qwen38", "r3_rg_medgemma_fix", "r3_rg_d", "r3_rg_d_ci",
+    G = (J.get("radgraph") or {}).get("radgraph_xl"); keys = ["r3_rg_n", "r3_rg_v3_27", "r3_rg_stock27", "r3_rg_qwen38", "r3_rg_d", "r3_rg_d_ci",
                                                                "r3_rg_d9", "r3_rg_d9_ci", "r3_rg_dq", "r3_rg_dq_ci"]
     if not G: return _pend_all(keys, "RadGraph-XL with v3")
     src = REL("radgraph")
     put("r3_rg_n", n_(G["n"]["all"]), src, "radgraph_xl.n.all", "questions")
-    for m in ("v3_27", "stock27", "qwen38", "medgemma_fix", "v3_9", "stock9"):
+    for m in ("v3_27", "stock27", "qwen38", "v3_9", "stock9"):
         if m in G["models"]: put(f"r3_rg_{m}", pct(G["models"][m]["all"]["acc"]), src, f"radgraph_xl.models.{m}.all.acc", "accuracy (%)")
     for k, key in (("r3_rg_d", "v3_27-stock27"), ("r3_rg_d9", "v3_9-stock9"), ("r3_rg_dq", "v3_27-qwen38")):
         put(k, pct(G["pairs"][key]["all"]["d"]), src, f"radgraph_xl.pairs.{key}.all.d", "difference (pp)")
@@ -553,7 +553,7 @@ def build_radgraph():
 
 
 AS_SYS = [("v3_27", "RadKev-27B", "rk27"), ("stock27", "Kev-27B", "k27"), ("v3_9", "RadKev-9B", "rk9"), ("stock9", "Kev-9B", "k9"),
-          ("qwen38_num", "Qwen3.8-27B", "q"), ("medgemma_fix_num", "MedGemma-27B-text", "mg")]
+          ("qwen38_num", "Qwen3.8-27B", "q")]
 AS_K = [2, 4, 16, 64, 255]
 AS_WARMUP = 5   # jobs/answer_space3.py CFG["lat_warmup"]: first 5 latency requests of each model excluded
 
@@ -581,7 +581,7 @@ def as_summary():
 
 
 def build_answer_space():
-    keys = ["r3_as_n_dx", "r3_as_n_rsna", "r3_as_lat_cases", "r3_as_rk27_dx_sim16", "r3_as_k27_dx_sim16", "r3_as_q_dx_sim16", "r3_as_mg_dx_sim16",
+    keys = ["r3_as_n_dx", "r3_as_n_rsna", "r3_as_lat_cases", "r3_as_rk27_dx_sim16", "r3_as_k27_dx_sim16", "r3_as_q_dx_sim16",
             "r3_as_rk27_dx_rand255", "r3_as_rk27_dx_sim255", "r3_as_lat_rk27_2", "r3_as_lat_rk27_255", "r3_as_lat_requests"]   # final grid: K = 2, 4, 16, 64, 255
     S = as_summary()
     if not S:
@@ -593,7 +593,7 @@ def build_answer_space():
     put("r3_as_lat_requests", n_(S.get("lat_requests") or 0), src, "len(latency.v3_27)", "timed latency requests after warm-up, RadKev-27B")
     for m, _, k in AS_SYS:
         v = acc(m, "eurorad_dx", "sim_16")
-        if k in ("rk27", "k27", "q", "mg"):
+        if k in ("rk27", "k27", "q"):
             if v is None: pending(f"r3_as_{k}_dx_sim16", f"answer space: {m} sim_16")
             else: put(f"r3_as_{k}_dx_sim16", pct(v), src, f"models.{m}.correct.sim_16 (eurorad_dx)", "accuracy, 16 most similar options (%)")
     for c in ("rand_255", "sim_255"):
@@ -602,7 +602,7 @@ def build_answer_space():
         if v is None: pending(key, f"answer space: {c}")
         else: put(key, pct(v), src, f"models.v3_27.correct.{c} (eurorad_dx)", "accuracy (%)")
     for m, _, k in AS_SYS:
-        if k in ("rk27", "k27", "q", "mg"):
+        if k in ("rk27", "k27", "q"):
             v = acc(m, "rsna_radioqa", "sim_16")
             if v is None: pending(f"r3_as_{k}_rsna_sim16", f"answer space: {m} rsna sim_16")
             else: put(f"r3_as_{k}_rsna_sim16", pct(v), src, f"models.{m}.correct.sim_16 (rsna_radioqa)", "accuracy, 16 most similar options (%)")
@@ -648,7 +648,7 @@ def build_answer_space():
                 for m, _, _ in AS_SYS:
                     v = acc(m, s_, c); cells.append(pct(v) if v is not None else "--")
                 rows.append([lab if (fam == "orig") else "", flab if (K in (None, 2)) else "", "--" if K is None else str(K)] + cells)
-    tab("v3_answer_space", "@{}lllrrrrrr@{}", "Source & Alternatives & K & " + " & ".join(SHORT.get(m.replace("_num", ""), m) for m, _, _ in AS_SYS), rows, midrules=tuple(mids))
+    tab("v3_answer_space", "@{}lll" + "r" * len(AS_SYS) + "@{}", "Source & Alternatives & K & " + " & ".join(SHORT.get(m.replace("_num", ""), m) for m, _, _ in AS_SYS), rows, midrules=tuple(mids))
     AS_FIG["S"] = S
 
 
@@ -733,7 +733,7 @@ def fig_llm():
     import matplotlib.ticker as mt
     E = J.get("eval"); fig = F.plt.figure(figsize=(180 * F.MM, 128 * F.MM))
     axa = fig.add_axes([0.175, 0.535, 0.30, 0.33]); axb = fig.add_axes([0.60, 0.535, 0.38, 0.33]); axc = fig.add_axes([0.255, 0.075, 0.60, 0.30])
-    sysc = lambda s: F.C_RAD if s.startswith("v3") else F.WP_BASE if s.startswith("stock") else F.C_ODEC if s == "openai_dec" else F.C_LLM if s == "qwen38" else F.C_LLMR if s == "medgemma_fix" else F.C_DMO
+    sysc = lambda s: F.C_RAD if s.startswith("v3") else F.WP_BASE if s.startswith("stock") else F.C_ODEC if s == "openai_dec" else F.C_LLM if s == "qwen38" else F.C_DMO
     if E:
         S = MAIN(E); common = [t for t in HUMAN if all(t in S[s]["tasks"] for s in S)]
         hc = {s: 100 * sum(S[s]["tasks"][t]["acc"] for t in common) / len(common) for s in S}
@@ -741,12 +741,12 @@ def fig_llm():
         lo = 5 * int((min(r[1] for r in rows) - 4) // 5); hi = max(r[1] for r in rows) + 4
         F._hbars(axa, rows, lambda v: f"{v:.1f}", hi, xmin=lo); axa.set_xlim(lo, hi)
         axa.xaxis.set_major_locator(mt.MultipleLocator(5)); axa.set_xlabel("Accuracy (%), task mean", color=F.WP_SUB, **F.FONT)
-        P = E["pairs"]; trio = ["v3_27", "qwen38", "medgemma_fix"]
-        groups = []   # on the questions the LLMs answered: Qwen and MedGemma as scored; RadKev-27B = Qwen + paired difference
+        P = E["pairs"]; duo = ["v3_27", "qwen38"]
+        groups = []   # on the questions Qwen answered: Qwen as scored; RadKev-27B = Qwen + paired difference
         for lab, k, f in (("Task mean\n(all tasks)", "bench", "task_mean"), ("Task mean\n(human-labeled)", "human", "task_mean"), ("All questions\npooled", "bench", "pooled")):
             q = 100 * S["qwen38"][k][f]
-            groups.append((lab, [q + 100 * P["v3_27-qwen38"][k][f + "_d"], q, 100 * S["medgemma_fix"][k][f]]))
-        _bars3(axb, groups, trio, [F.C_RAD, F.C_LLM, F.C_LLMR]); axb.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
+            groups.append((lab, [q + 100 * P["v3_27-qwen38"][k][f + "_d"], q]))
+        _bars3(axb, groups, duo, [F.C_RAD, F.C_LLM]); axb.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
     else:
         _placeholder(axa, "pending: eval_v3"); _placeholder(axb, "pending: eval_v3")
     L = J.get("latency")
@@ -761,11 +761,11 @@ def fig_llm():
     else:
         _placeholder(axc, "pending:\nlatency\nwith v3")
     _head(fig, axa, "a", "All systems", "Human-labeled tasks answered by every system", dx=-86, y=1.10, ysub=1.035)
-    _head(fig, axb, "b", "RadKev-27B and the LLMs", "Questions with at most 16 options", dx=-30, y=1.10, ysub=1.035)
+    _head(fig, axb, "b", "RadKev-27B and Qwen3.8-27B", "Questions with at most 16 options", dx=-30, y=1.10, ysub=1.035)
     _head(fig, axc, "c", "Latency", "One request at a time on two RTX A6000 GPUs; OpenAI Decisions over the network", dx=-123, y=1.10, ysub=1.035)
     fig.legend(handles=[Patch(color=F.C_RAD, label="RadKev"), Patch(color=F.WP_BASE, label="Kev"), Patch(color=F.C_ODEC, label="OpenAI Decisions"),
-                        Patch(color=F.C_LLM, label="Qwen3.8-27B"), Patch(color=F.C_LLMQ, label="Qwen3.8-27B, reasoning"), Patch(color=F.C_LLMR, label="MedGemma-27B-text")],
-               loc="upper right", ncol=6, frameon=False, prop={**F.FONT, "size": 7.0}, bbox_to_anchor=(0.99, 1.0), handlelength=1.0, handleheight=0.8, columnspacing=1.0)
+                        Patch(color=F.C_LLM, label="Qwen3.8-27B"), Patch(color=F.C_LLMQ, label="Qwen3.8-27B, reasoning")],
+               loc="upper right", ncol=5, frameon=False, prop={**F.FONT, "size": 7.0}, bbox_to_anchor=(0.99, 1.0), handlelength=1.0, handleheight=0.8, columnspacing=1.0)
     _save(fig, "v3_fig_llm")
 
 
@@ -809,7 +809,7 @@ def fig_calib():
     from matplotlib.patches import Patch
     E = J.get("eval"); fig = F.plt.figure(figsize=(180 * F.MM, 70 * F.MM))
     axs = [fig.add_axes([0.16 + 0.285 * i, 0.17, 0.235, 0.58]) for i in range(3)]
-    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix", "openai_dec"]   # the API: as scored only (probabilities rounded to 0.01)
+    sys_ = ["v3_27", "stock27", "v3_9", "stock9", "qwen38", "openai_dec"]   # the API: as scored only (probabilities rounded to 0.01)
     specs = [("cov5", 100, "{:.1f}", "a", "Coverage at 5% error", "Questions answered (%)"),
              ("ece", 1, "{:.3f}", "b", "Calibration error", "ECE, ten bins"),
              ("conf_err", 100, "{:.1f}", "c", "Confident errors", "Incorrect with confidence ≥ 0.9 (%)")]
@@ -848,7 +848,7 @@ def fig_robust():
     axc = fig.add_axes([0.09, 0.085, 0.34, 0.31]); axd = fig.add_axes([0.60, 0.085, 0.32, 0.31])
     if R:
         ms = [m for m in PR_SYS if m in R["models"]]
-        items = [(SHORT[m].replace("-", "-\n", 1) if m != "medgemma_fix" else "Med-\nGemma", 100 * R["models"][m]["full"], 100 * R["models"][m]["preread"], 100 * R["models"][m]["change"]) for m in ms]
+        items = [(SHORT[m].replace("-", "-\n", 1), 100 * R["models"][m]["full"], 100 * R["models"][m]["preread"], 100 * R["models"][m]["change"]) for m in ms]
         F._gbar(fig, axa, items, ("#5A6577", "#B7C0CC"), delta=False); axa.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
     else:
         _placeholder(axa, "pending: pre-read job")
@@ -891,8 +891,7 @@ def fig_answer_space():
     S = AS_FIG.get("S")
     fig = F.plt.figure(figsize=(180 * F.MM, 76 * F.MM))
     axs = [fig.add_axes([0.07 + 0.33 * i, 0.16, 0.25, 0.54]) for i in range(3)]
-    col = {"v3_27": F.C_RAD, "stock27": "#5A6577", "v3_9": "#8FB0EE", "stock9": "#B7C0CC", "qwen38_num": F.C_LLM, "medgemma_fix_num": F.C_LLMR,
-           "qwen38_letter": F.C_LLM, "medgemma_fix_letter": F.C_LLMR}
+    col = {"v3_27": F.C_RAD, "stock27": "#5A6577", "v3_9": "#8FB0EE", "stock9": "#B7C0CC", "qwen38_num": F.C_LLM, "qwen38_letter": F.C_LLM}
     if not S:
         for ax in axs: _placeholder(ax, "pending: answer space")
     else:
@@ -904,7 +903,7 @@ def fig_answer_space():
             ax.set_xlabel("Options offered", color=F.WP_SUB, **F.FONT); ax.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
         for m, rows in S["lat"].items():
             name = {"v3_27": "RadKev-27B", "stock27": "Kev-27B", "v3_9": "RadKev-9B", "stock9": "Kev-9B", "qwen38_num": "Qwen3.8-27B, numbered",
-                    "medgemma_fix_num": "MedGemma, numbered", "qwen38_letter": "Qwen3.8-27B, letter", "medgemma_fix_letter": "MedGemma, letter"}.get(m)
+                    "qwen38_letter": "Qwen3.8-27B, letter"}.get(m)
             if not name: continue
             ks = sorted(rows); kv = m.startswith("stock")   # RadKev and Kev of the same size coincide: Kev drawn wider underneath RadKev
             axs[2].plot(ks, [rows[k] for k in ks], marker="o", ms=4.5 if kv else 3, lw=2.6 if kv else 1.0, color=col.get(m, "#999"),
@@ -920,7 +919,7 @@ def fig_answer_space():
             ax.grid(color=F.WP_GRID, lw=0.6); ax.tick_params(length=0, labelsize=7, colors=F.WP_SUB)
         from matplotlib.lines import Line2D
         fig.legend(handles=[Line2D([], [], color=col[m], marker="o", ms=3, lw=1.2, label=lab) for m, lab, _ in AS_SYS] +
-                   [Line2D([], [], color="#777", ls="--", lw=1.0, label="LLM, letter scoring")],
+                   [Line2D([], [], color="#777", ls="--", lw=1.0, label="Qwen3.8-27B, letter scoring")],
                    loc="upper center", ncol=7, frameon=False, prop={**F.FONT, "size": 6.8}, bbox_to_anchor=(0.5, 1.0), handlelength=1.6, columnspacing=1.0)
     _head(fig, axs[0], "a", "Eurorad diagnosis", "Most similar alternatives", dx=-25)
     _head(fig, axs[1], "b", "RSNA-RadioQA", "Most similar alternatives", dx=-25)
@@ -999,7 +998,7 @@ def build_tables():
         for t, lab in (("eurorad_dx", "Eurorad diagnosis"), ("rsna_radioqa", "RSNA-RadioQA")):
             if rows: mids.append(len(rows))
             M = B["tasks"][t]["models"]
-            for m in ("v3_27", "stock27", "v3_9", "stock9", "qwen38", "medgemma_fix"):
+            for m in ("v3_27", "stock27", "v3_9", "stock9", "qwen38"):
                 if m in M:
                     v = M[m]
                     rows.append([lab if m == "v3_27" else "", NAME[m], f"{pct(v['full'])} ({pci(v['full_ci'])})", f"{pct(v['blind'])} ({pci(v['blind_ci'])})"])
@@ -1014,7 +1013,7 @@ def build_tables():
         if J.get("odec_lat"):
             for k_, mlab in (("concurrent", "end to end, 4 in flight"), ("sequential", "end to end, one at a time")):
                 x = J["odec_lat"][k_]["per_question_ms"]; rows.append(["OpenAI Decisions", mlab, f"{x['median']:.0f}", f"{x['p95']:.0f}", n_(x["n"])])
-        for m, lab in (("qwen38", "Qwen3.8-27B"), ("medgemma_fix", "MedGemma-27B-text")):
+        for m, lab in (("qwen38", "Qwen3.8-27B"),):
             for mode, mlab in (("letter", "option-letter logits"), ("direct", "generated letter"), ("reasoning", "reasoning")):
                 if m in M and mode in M[m]:
                     x = M[m][mode]["per_question_ms"]; rows.append([lab, mlab, f"{x['median']:.0f}", f"{x.get('p95', float('nan')):.0f}", n_(x["n"])])
@@ -1024,8 +1023,7 @@ def build_tables():
     R = (J.get("reasoning") or {}).get("paired")
     if R:
         rows = []
-        for m, lab in (("v3_27", "RadKev-27B"), ("stock27", "Kev-27B"), ("v3_9", "RadKev-9B"), ("qwen38", "Qwen3.8-27B"), ("qwen38_think", "Qwen3.8-27B, reasoning"),
-                       ("medgemma_fix", "MedGemma-27B-text"), ("medgemma_think", "MedGemma-27B-text, reasoning")):
+        for m, lab in (("v3_27", "RadKev-27B"), ("stock27", "Kev-27B"), ("v3_9", "RadKev-9B"), ("qwen38", "Qwen3.8-27B"), ("qwen38_think", "Qwen3.8-27B, reasoning")):
             if m in R["systems"]:
                 b_ = R["systems"][m]["bench"]
                 rows.append([lab, f"{pct(b_['pooled'])} ({pci(b_['pooled_ci'])})", f"{pct(b_['task_mean_k'])} ({pci(b_['task_mean_k_ci'])})"])
@@ -1036,7 +1034,7 @@ def build_tables():
     if G:
         rows = [[NAME[m], f"{pct(G['models'][m]['all']['acc'])} ({pci(G['models'][m]['all']['acc_ci'])})"] for m in SYSTEMS if m in G["models"]]
         rows += [[f"{NAME[a_]} $-$ {NAME[b_]}", f"{pct(G['pairs'][f'{a_}-{b_}']['all']['d'])} ({pci(G['pairs'][f'{a_}-{b_}']['all']['ci'])})"]
-                 for a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9"), ("v3_27", "qwen38"), ("v3_27", "medgemma_fix")) if f"{a_}-{b_}" in G["pairs"]]
+                 for a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9"), ("v3_27", "qwen38")) if f"{a_}-{b_}" in G["pairs"]]
         tab("v3_radgraph", "@{}ll@{}", r"System or comparison & Accuracy or difference (95\% CI)", rows, midrules=(sum(1 for m in SYSTEMS if m in G["models"]),))
     else:
         tab_pending("v3_radgraph", "RadGraph-XL with v3")
@@ -1056,7 +1054,6 @@ def claims():
          J.get("rcprior") is not None and J["rcprior"]["pairs"]["v3_27-stock27"]["ci"][1] < 0 and P["v3_27-stock27"]["tasks"]["radcases_panel"]["p_holm"] >= 0.05
          and P["v3_27-stock27"]["tasks"]["radcases_panel"]["ci"][0] < 0 < P["v3_27-stock27"]["tasks"]["radcases_panel"]["ci"][1]),
         ("C4", "abstract, results 3.2, discussion, conclusions", "RadKev-27B more accurate than Qwen3.8-27B (task mean on shared tasks)", sig(c("v3_27-qwen38")) == 1),
-        ("C5", "abstract, results 3.2, conclusions", "RadKev-27B more accurate than MedGemma-27B-text", sig(c("v3_27-medgemma_fix")) == 1),
         ("C6", "results 3.2, discussion", "Kev-27B and Qwen3.8-27B not detectably different (benchmark task mean)", sig(c("qwen38-stock27")) == 0),
         ("C16", "results 3.2, discussion, conclusions", "RadKev-27B more accurate than Qwen3.8-27B over the human-assigned tasks", sig(c("v3_27-qwen38", "human")) == 1),
         ("C8", "results 3.3, discussion, conclusions", "27B: specialization vs scale not detectably different on the task means (CIs include 0), larger pooled over human-assigned questions",
@@ -1068,8 +1065,8 @@ def claims():
         ("C12", "results 3.4, discussion, conclusions", "RadKev-27B ECE within 0.005 of Kev-27B as scored, but more confident errors",
          abs(E["calibration"]["v3_27"]["human"]["as_scored"]["ece"] - E["calibration"]["stock27"]["human"]["as_scored"]["ece"]) < 0.005
          and E["calibration"]["v3_27"]["human"]["as_scored"]["conf_err"] > E["calibration"]["stock27"]["human"]["as_scored"]["conf_err"]),
-        ("C15", "discussion, conclusions", "Both specialized models cover more questions at 5% error than their starting points and both LLMs",
-         min(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("v3_27", "v3_9")) > max(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("stock27", "stock9", "qwen38", "medgemma_fix"))),
+        ("C15", "discussion, conclusions", "Both specialized models cover more questions at 5% error than their starting points and Qwen3.8-27B",
+         min(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("v3_27", "v3_9")) > max(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("stock27", "stock9", "qwen38"))),
     ]
     if ASC:
         his = [v[2] for v in ASC.values() if v[2] is not None]

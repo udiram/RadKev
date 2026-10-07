@@ -153,31 +153,6 @@ r3_t_qwen38_pubmed,73.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.js
 r3_t_qwen38_rcpanel,55.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.qwen38.tasks.radcases_panel.acc,"Qwen3.8-27B, RadCases: ACR panel"
 r3_t_qwen38_rexerr,69.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.qwen38.tasks.rexerr_error.acc,"Qwen3.8-27B, ReXErr: report error"
 r3_t_qwen38_rsna,77.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.qwen38.tasks.rsna_radioqa.acc,"Qwen3.8-27B, RSNA-RadioQA: diagnosis"
-r3_a_medgemma_fix_tm,69.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.bench.task_mean,"MedGemma-27B-text, task mean (bench, 14 tasks)"
-r3_a_medgemma_fix_tm_ci,67.5 to 71.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.bench.task_mean_ci,95% CI
-r3_a_medgemma_fix_pool,79.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.bench.pooled,"MedGemma-27B-text, pooled (bench, n=14047)"
-r3_a_medgemma_fix_pool_ci,78.8 to 79.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.bench.pooled_ci,95% CI
-r3_a_medgemma_fix_htm,70.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.human.task_mean,"MedGemma-27B-text, task mean (human, 13 tasks)"
-r3_a_medgemma_fix_htm_ci,68.6 to 72.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.human.task_mean_ci,95% CI
-r3_a_medgemma_fix_hpool,85.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.human.pooled,"MedGemma-27B-text, pooled (human, n=11339)"
-r3_a_medgemma_fix_hpool_ci,84.8 to 85.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.human.pooled_ci,95% CI
-r3_t_medgemma_fix_ctfind,92.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.ctrate:ctrate_finding.acc,"MedGemma-27B-text, CT-RATE: finding present"
-r3_t_medgemma_fix_ctnorm,93.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.ctrate:ctrate_normal.acc,"MedGemma-27B-text, CT-RATE: normal study"
-r3_t_medgemma_fix_ctwhich,94.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.ctrate:ctrate_which.acc,"MedGemma-27B-text, CT-RATE: which finding"
-r3_t_medgemma_fix_eurodx,72.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.eurorad_dx.acc,"MedGemma-27B-text, Eurorad: diagnosis"
-r3_t_medgemma_fix_euroroute,78.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.eurorad_route.acc,"MedGemma-27B-text, Eurorad: subspecialty classification"
-r3_t_medgemma_fix_iufind,97.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.iu_finding.acc,"MedGemma-27B-text, IU: finding present"
-r3_t_medgemma_fix_iunorm,82.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.iu_normal.acc,"MedGemma-27B-text, IU: normal study"
-r3_t_medgemma_fix_iuwhich,95.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.iu_which.acc,"MedGemma-27B-text, IU: which finding"
-r3_t_medgemma_fix_mcqother,62.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.medmcqa_other_rad.acc,"MedGemma-27B-text, MedMCQA: other subjects"
-r3_t_medgemma_fix_mcqrad,69.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.medmcqa_rad.acc,"MedGemma-27B-text, MedMCQA: radiology"
-r3_t_medgemma_fix_medqa,68.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.medqa_rad.acc,"MedGemma-27B-text, MedQA"
-r3_t_medgemma_fix_medx,21.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.medxpertqa_rad.acc,"MedGemma-27B-text, MedXpertQA"
-r3_t_medgemma_fix_mmlu,87.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.mmlu_rad.acc,"MedGemma-27B-text, MMLU"
-r3_t_medgemma_fix_pubmed,65.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.pubmedqa_rad.acc,"MedGemma-27B-text, PubMedQA"
-r3_t_medgemma_fix_rcpanel,54.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.radcases_panel.acc,"MedGemma-27B-text, RadCases: ACR panel"
-r3_t_medgemma_fix_rexerr,54.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.rexerr_error.acc,"MedGemma-27B-text, ReXErr: report error"
-r3_t_medgemma_fix_rsna,59.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.medgemma_fix.tasks.rsna_radioqa.acc,"MedGemma-27B-text, RSNA-RadioQA: diagnosis"
 r3_a_openai_dec_tm,76.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.bench.task_mean,"OpenAI Decisions, task mean (bench, 15 tasks)"
 r3_a_openai_dec_tm_ci,74.3 to 77.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.bench.task_mean_ci,95% CI
 r3_a_openai_dec_pool,86.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,systems.openai_dec.bench.pooled,"OpenAI Decisions, pooled (bench, n=14142)"
@@ -207,7 +182,6 @@ r3_c_v3_9,77.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean o
 r3_c_stock27,77.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.stock27.tasks[common].acc,"Kev-27B, task mean over the common human-assigned tasks"
 r3_c_stock9,72.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.stock9.tasks[common].acc,"Kev-9B, task mean over the common human-assigned tasks"
 r3_c_qwen38,78.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.qwen38.tasks[common].acc,"Qwen3.8-27B, task mean over the common human-assigned tasks"
-r3_c_medgemma_fix,70.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.medgemma_fix.tasks[common].acc,"MedGemma-27B-text, task mean over the common human-assigned tasks"
 r3_c_openai_dec,79.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean of systems.openai_dec.tasks[common].acc,"OpenAI Decisions, task mean over the common human-assigned tasks"
 r3_c_best,RadKev-27B,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,"most accurate system, common human-assigned tasks"
 r3_prim_tm,4.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-stock27.bench.task_mean_d,"RadKev-27B minus Kev-27B, task mean (pp)"
@@ -364,56 +338,6 @@ r3_q_t_rexerr,25.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pa
 r3_q_t_rexerr_ci,23.9 to 27.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-qwen38.tasks.rexerr_error.ci,95% CI
 r3_q_t_rsna,−1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-qwen38.tasks.rsna_radioqa.d,"RadKev-27B minus Qwen3.8-27B, RSNA-RadioQA: diagnosis (pp)"
 r3_q_t_rsna_ci,−6.3 to 3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-qwen38.tasks.rsna_radioqa.ci,95% CI
-r3_mg_tm,12.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.task_mean_d,"RadKev-27B minus MedGemma-27B-text, task mean (pp)"
-r3_mg_tm_ci,11.1 to 14.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.task_mean_ci,95% CI
-r3_mg_tm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-medgemma_fix.bench.task_mean_ci,comparison words
-r3_mg_ntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.tasks,tasks compared
-r3_mg_pool,11.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.pooled_d,"RadKev-27B minus MedGemma-27B-text, pooled (pp)"
-r3_mg_pool_ci,10.8 to 12.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.pooled_ci,95% CI
-r3_mg_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-medgemma_fix.bench.pooled_ci,comparison words
-r3_mg_nq,"14,047",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.bench.n,questions compared
-r3_mg_htm,10.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.task_mean_d,"RadKev-27B minus MedGemma-27B-text, task mean (pp)"
-r3_mg_htm_ci,8.8 to 12.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.task_mean_ci,95% CI
-r3_mg_htm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-medgemma_fix.human.task_mean_ci,comparison words
-r3_mg_hntask,thirteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.tasks,tasks compared
-r3_mg_hpool,4.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.pooled_d,"RadKev-27B minus MedGemma-27B-text, pooled (pp)"
-r3_mg_hpool_ci,3.8 to 5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.pooled_ci,95% CI
-r3_mg_hpool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_27-medgemma_fix.human.pooled_ci,comparison words
-r3_mg_hnq,"11,339",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.human.n,questions compared
-r3_mg_t_ctfind,6.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_finding.d,"RadKev-27B minus MedGemma-27B-text, CT-RATE: finding present (pp)"
-r3_mg_t_ctfind_ci,5.9 to 7.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_finding.ci,95% CI
-r3_mg_t_ctnorm,4.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_normal.d,"RadKev-27B minus MedGemma-27B-text, CT-RATE: normal study (pp)"
-r3_mg_t_ctnorm_ci,3.6 to 6.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_normal.ci,95% CI
-r3_mg_t_ctwhich,4.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_which.d,"RadKev-27B minus MedGemma-27B-text, CT-RATE: which finding (pp)"
-r3_mg_t_ctwhich_ci,3.3 to 6.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.ctrate:ctrate_which.ci,95% CI
-r3_mg_t_eurodx,21.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.eurorad_dx.d,"RadKev-27B minus MedGemma-27B-text, Eurorad: diagnosis (pp)"
-r3_mg_t_eurodx_ci,17.1 to 26.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.eurorad_dx.ci,95% CI
-r3_mg_t_euroroute,6.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.eurorad_route.d,"RadKev-27B minus MedGemma-27B-text, Eurorad: subspecialty classification (pp)"
-r3_mg_t_euroroute_ci,2.1 to 11.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.eurorad_route.ci,95% CI
-r3_mg_t_iufind,−0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_finding.d,"RadKev-27B minus MedGemma-27B-text, IU: finding present (pp)"
-r3_mg_t_iufind_ci,−0.9 to 0.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_finding.ci,95% CI
-r3_mg_t_iunorm,8.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_normal.d,"RadKev-27B minus MedGemma-27B-text, IU: normal study (pp)"
-r3_mg_t_iunorm_ci,6.2 to 9.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_normal.ci,95% CI
-r3_mg_t_iuwhich,1.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_which.d,"RadKev-27B minus MedGemma-27B-text, IU: which finding (pp)"
-r3_mg_t_iuwhich_ci,−0.3 to 2.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.iu_which.ci,95% CI
-r3_mg_t_mcqother,13.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medmcqa_other_rad.d,"RadKev-27B minus MedGemma-27B-text, MedMCQA: other subjects (pp)"
-r3_mg_t_mcqother_ci,6.3 to 21.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medmcqa_other_rad.ci,95% CI
-r3_mg_t_mcqrad,8.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medmcqa_rad.d,"RadKev-27B minus MedGemma-27B-text, MedMCQA: radiology (pp)"
-r3_mg_t_mcqrad_ci,−2.7 to 20.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medmcqa_rad.ci,95% CI
-r3_mg_t_medqa,19.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medqa_rad.d,"RadKev-27B minus MedGemma-27B-text, MedQA (pp)"
-r3_mg_t_medqa_ci,14.2 to 24.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medqa_rad.ci,95% CI
-r3_mg_t_medx,9.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medxpertqa_rad.d,"RadKev-27B minus MedGemma-27B-text, MedXpertQA (pp)"
-r3_mg_t_medx_ci,5.6 to 13.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.medxpertqa_rad.ci,95% CI
-r3_mg_t_mmlu,7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.mmlu_rad.d,"RadKev-27B minus MedGemma-27B-text, MMLU (pp)"
-r3_mg_t_mmlu_ci,0.0 to 15.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.mmlu_rad.ci,95% CI
-r3_mg_t_pubmed,13.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.pubmedqa_rad.d,"RadKev-27B minus MedGemma-27B-text, PubMedQA (pp)"
-r3_mg_t_pubmed_ci,5.6 to 22.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.pubmedqa_rad.ci,95% CI
-r3_mg_t_rcpanel,12.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.radcases_panel.d,"RadKev-27B minus MedGemma-27B-text, RadCases: ACR panel (pp)"
-r3_mg_t_rcpanel_ci,3.1 to 22.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.radcases_panel.ci,95% CI
-r3_mg_t_rexerr,40.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.rexerr_error.d,"RadKev-27B minus MedGemma-27B-text, ReXErr: report error (pp)"
-r3_mg_t_rexerr_ci,38.6 to 42.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.rexerr_error.ci,95% CI
-r3_mg_t_rsna,16.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.rsna_radioqa.d,"RadKev-27B minus MedGemma-27B-text, RSNA-RadioQA: diagnosis (pp)"
-r3_mg_t_rsna_ci,6.3 to 26.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_27-medgemma_fix.tasks.rsna_radioqa.ci,95% CI
 r3_q9_tm,0.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-qwen38.bench.task_mean_d,"RadKev-9B minus Qwen3.8-27B, task mean (pp)"
 r3_q9_tm_ci,−1.0 to 2.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.v3_9-qwen38.bench.task_mean_ci,95% CI
 r3_q9_tm_cmp,not detectably different in accuracy from,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.v3_9-qwen38.bench.task_mean_ci,comparison words
@@ -852,50 +776,6 @@ r3_odq_t_rexerr,9.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,p
 r3_odq_t_rexerr_ci,7.7 to 11.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rexerr_error.ci,95% CI
 r3_odq_t_rsna,−1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rsna_radioqa.d,"OpenAI Decisions minus Qwen3.8-27B, RSNA-RadioQA: diagnosis (pp)"
 r3_odq_t_rsna_ci,−7.6 to 5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-qwen38.tasks.rsna_radioqa.ci,95% CI
-r3_odmg_tm,10.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.task_mean_d,"OpenAI Decisions minus MedGemma-27B-text, task mean (pp)"
-r3_odmg_tm_ci,8.4 to 11.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.task_mean_ci,95% CI
-r3_odmg_tm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-medgemma_fix.bench.task_mean_ci,comparison words
-r3_odmg_ntask,fourteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.tasks,tasks compared
-r3_odmg_pool,7.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.pooled_d,"OpenAI Decisions minus MedGemma-27B-text, pooled (pp)"
-r3_odmg_pool_ci,7.3 to 8.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.pooled_ci,95% CI
-r3_odmg_pool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-medgemma_fix.bench.pooled_ci,comparison words
-r3_odmg_nq,"14,047",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.bench.n,questions compared
-r3_odmg_htm,8.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.task_mean_d,"OpenAI Decisions minus MedGemma-27B-text, task mean (pp)"
-r3_odmg_htm_ci,7.1 to 10.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.task_mean_ci,95% CI
-r3_odmg_htm_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-medgemma_fix.human.task_mean_ci,comparison words
-r3_odmg_hntask,thirteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.tasks,tasks compared
-r3_odmg_hpool,4.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.pooled_d,"OpenAI Decisions minus MedGemma-27B-text, pooled (pp)"
-r3_odmg_hpool_ci,3.4 to 4.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.pooled_ci,95% CI
-r3_odmg_hpool_cmp,more accurate than,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sign of pairs.openai_dec-medgemma_fix.human.pooled_ci,comparison words
-r3_odmg_hnq,"11,339",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.human.n,questions compared
-r3_odmg_t_eurodx,12.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.eurorad_dx.d,"OpenAI Decisions minus MedGemma-27B-text, Eurorad: diagnosis (pp)"
-r3_odmg_t_eurodx_ci,7.5 to 16.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.eurorad_dx.ci,95% CI
-r3_odmg_t_euroroute,0.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.eurorad_route.d,"OpenAI Decisions minus MedGemma-27B-text, Eurorad: subspecialty classification (pp)"
-r3_odmg_t_euroroute_ci,−6.0 to 6.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.eurorad_route.ci,95% CI
-r3_odmg_t_iufind,−0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_finding.d,"OpenAI Decisions minus MedGemma-27B-text, IU: finding present (pp)"
-r3_odmg_t_iufind_ci,−1.3 to −0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_finding.ci,95% CI
-r3_odmg_t_iunorm,7.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_normal.d,"OpenAI Decisions minus MedGemma-27B-text, IU: normal study (pp)"
-r3_odmg_t_iunorm_ci,5.8 to 9.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_normal.ci,95% CI
-r3_odmg_t_iuwhich,−0.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_which.d,"OpenAI Decisions minus MedGemma-27B-text, IU: which finding (pp)"
-r3_odmg_t_iuwhich_ci,−1.6 to 0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.iu_which.ci,95% CI
-r3_odmg_t_mcqother,14.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medmcqa_other_rad.d,"OpenAI Decisions minus MedGemma-27B-text, MedMCQA: other subjects (pp)"
-r3_odmg_t_mcqother_ci,5.8 to 23.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medmcqa_other_rad.ci,95% CI
-r3_odmg_t_mcqrad,8.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medmcqa_rad.d,"OpenAI Decisions minus MedGemma-27B-text, MedMCQA: radiology (pp)"
-r3_odmg_t_mcqrad_ci,−3.4 to 20.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medmcqa_rad.ci,95% CI
-r3_odmg_t_medqa,19.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medqa_rad.d,"OpenAI Decisions minus MedGemma-27B-text, MedQA (pp)"
-r3_odmg_t_medqa_ci,13.9 to 24.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medqa_rad.ci,95% CI
-r3_odmg_t_medx,19.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medxpertqa_rad.d,"OpenAI Decisions minus MedGemma-27B-text, MedXpertQA (pp)"
-r3_odmg_t_medx_ci,15.3 to 23.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.medxpertqa_rad.ci,95% CI
-r3_odmg_t_mmlu,6.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.mmlu_rad.d,"OpenAI Decisions minus MedGemma-27B-text, MMLU (pp)"
-r3_odmg_t_mmlu_ci,−1.3 to 13.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.mmlu_rad.ci,95% CI
-r3_odmg_t_pubmed,2.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.pubmedqa_rad.d,"OpenAI Decisions minus MedGemma-27B-text, PubMedQA (pp)"
-r3_odmg_t_pubmed_ci,−5.6 to 11.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.pubmedqa_rad.ci,95% CI
-r3_odmg_t_rcpanel,9.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.radcases_panel.d,"OpenAI Decisions minus MedGemma-27B-text, RadCases: ACR panel (pp)"
-r3_odmg_t_rcpanel_ci,3.0 to 16.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.radcases_panel.ci,95% CI
-r3_odmg_t_rexerr,24.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.rexerr_error.d,"OpenAI Decisions minus MedGemma-27B-text, ReXErr: report error (pp)"
-r3_odmg_t_rexerr_ci,22.3 to 26.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.rexerr_error.ci,95% CI
-r3_odmg_t_rsna,16.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.rsna_radioqa.d,"OpenAI Decisions minus MedGemma-27B-text, RSNA-RadioQA: diagnosis (pp)"
-r3_odmg_t_rsna_ci,6.3 to 26.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,pairs.openai_dec-medgemma_fix.tasks.rsna_radioqa.ci,95% CI
 r3_prim_tmin,0.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,min pairs.v3_27-stock27.tasks[BENCH].d,smallest per-task difference (pp)
 r3_prim_tmin_task,IU: finding present,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmin,task with the smallest difference
 r3_prim_tmax,22.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-stock27.tasks[BENCH].d,largest per-task difference (pp)
@@ -906,11 +786,6 @@ r3_q_tmin_task,IU: normal study,paper/artifacts/eval_v3_prior/artifacts/eval_v3_
 r3_q_tmax,25.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-qwen38.tasks[BENCH].d,largest per-task difference (pp)
 r3_q_tmax_task,ReXErr: report error,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,task with the largest difference
 r3_q_npos,ten,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,count d>0,tasks with a positive point estimate
-r3_mg_tmin,−0.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,min pairs.v3_27-medgemma_fix.tasks[BENCH].d,smallest per-task difference (pp)
-r3_mg_tmin_task,IU: finding present,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmin,task with the smallest difference
-r3_mg_tmax,40.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_27-medgemma_fix.tasks[BENCH].d,largest per-task difference (pp)
-r3_mg_tmax_task,ReXErr: report error,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmax,task with the largest difference
-r3_mg_npos,thirteen,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,count d>0,tasks with a positive point estimate
 r3_spec9_tmin,−6.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,min pairs.v3_9-stock9.tasks[BENCH].d,smallest per-task difference (pp)
 r3_spec9_tmin_task,RadCases: ACR panel,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,argmin,task with the smallest difference
 r3_spec9_tmax,36.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,max pairs.v3_9-stock9.tasks[BENCH].d,largest per-task difference (pp)
@@ -955,7 +830,6 @@ r3_ct_stock27,95.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,me
 r3_ct_v3_9,98.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean systems.v3_9.tasks[ctrate:*].acc,"RadKev-9B, CT-RATE agreement, mean of 3 tasks"
 r3_ct_stock9,95.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean systems.stock9.tasks[ctrate:*].acc,"Kev-9B, CT-RATE agreement, mean of 3 tasks"
 r3_ct_qwen38,96.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean systems.qwen38.tasks[ctrate:*].acc,"Qwen3.8-27B, CT-RATE agreement, mean of 3 tasks"
-r3_ct_medgemma_fix,93.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean systems.medgemma_fix.tasks[ctrate:*].acc,"MedGemma-27B-text, CT-RATE agreement, mean of 3 tasks"
 r3_cal_v3_27_ece,0.015,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.v3_27.human.as_scored.ece,expected calibration error
 r3_cal_v3_27_brier,0.149,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.v3_27.human.as_scored.brier,Brier score
 r3_cal_v3_27_ce,1.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.v3_27.human.as_scored.conf_err,confident errors (%)
@@ -996,14 +870,6 @@ r3_rc_qwen38_ece,0.022,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.jso
 r3_rc_qwen38_brier,0.153,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.qwen38.human.recalibrated.brier,Brier score
 r3_rc_qwen38_ce,0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.qwen38.human.recalibrated.conf_err,confident errors (%)
 r3_rc_qwen38_cov,88.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.qwen38.human.recalibrated.cov5,coverage at 5% error (%)
-r3_cal_medgemma_fix_ece,0.105,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.as_scored.ece,expected calibration error
-r3_cal_medgemma_fix_brier,0.241,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.as_scored.brier,Brier score
-r3_cal_medgemma_fix_ce,8.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.as_scored.conf_err,confident errors (%)
-r3_cal_medgemma_fix_cov,78.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.as_scored.cov5,coverage at 5% error (%)
-r3_rc_medgemma_fix_ece,0.043,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.recalibrated.ece,expected calibration error
-r3_rc_medgemma_fix_brier,0.203,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.recalibrated.brier,Brier score
-r3_rc_medgemma_fix_ce,1.3,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.recalibrated.conf_err,confident errors (%)
-r3_rc_medgemma_fix_cov,80.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.human.recalibrated.cov5,coverage at 5% error (%)
 r3_cal_openai_dec_ece,0.019,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.as_scored.ece,expected calibration error
 r3_cal_openai_dec_brier,0.163,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.as_scored.brier,Brier score
 r3_cal_openai_dec_ce,2.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.human.as_scored.conf_err,confident errors (%)
@@ -1017,7 +883,6 @@ r3_bcov_v3_9,90.5,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,cal
 r3_bcov_stock27,76.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.stock27.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_stock9,70.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.stock9.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_qwen38,77.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.qwen38.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
-r3_bcov_medgemma_fix,63.2,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.medgemma_fix.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_bcov_openai_dec,77.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration.openai_dec.bench.as_scored.cov5,"coverage at 5% error, all benchmark questions (%)"
 r3_calp_cov,2.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,cov5 v3_27 - stock27,"coverage difference (pp, point)"
 r3_calp_cov_ci,1.9 to 3.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,calibration_pairs,95% CI
@@ -1052,7 +917,6 @@ r3_rc_none_none_rk27,100.0,paper/artifacts/radcases_panel_diag/radcases_panel_di
 r3_rc_none_none_k27,51.5,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.stock27.pick_none_rate.None,"% selecting 'no topic applies', key = None"
 r3_rc_none_none_q,12.1,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.qwen38.pick_none_rate.None,"% selecting 'no topic applies', key = None"
 r3_rc_none_none_rk9,97.0,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.v3_9.pick_none_rate.None,"% selecting 'no topic applies', key = None"
-r3_rc_none_none_mg,9.1,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.medgemma_fix.pick_none_rate.None,"% selecting 'no topic applies', key = None"
 r3_rc_npanel,99,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.v3_27.acc.panel.n,panel questions whose key is a panel
 r3_rc_nnone,33,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,systems.v3_27.acc.None.n,panel questions whose key is 'no topic applies'
 r3_rc_train_none,88,paper/artifacts/radcases_panel_diag/radcases_panel_diag.json,radcases_v3_splits.train.*/None,training panel questions keyed 'no topic applies'
@@ -1065,10 +929,6 @@ r3_rcp_none_panel_rk9,21.2,paper/artifacts/radcases_prior/artifacts/radcases_pri
 r3_rcp_none_none_rk27,84.8,paper/artifacts/radcases_prior/artifacts/radcases_prior.json,systems.v3_27_corrected.acc_on_none_keys,"accuracy when 'no topic applies' is the key, corrected (%)"
 r3_rcp_none_none_rk9,93.9,paper/artifacts/radcases_prior/artifacts/radcases_prior.json,systems.v3_9_corrected.acc_on_none_keys,"accuracy when 'no topic applies' is the key, corrected (%)"
 r3_pr_n,185,paper/artifacts/preread_v3/artifacts/preread_route.json,n_questions,"subspecialty questions, both conditions"
-r3_pr_medgemma_fix_full,78.9,paper/artifacts/preread_v3/artifacts/preread_route.json,models.medgemma_fix.full,"MedGemma-27B-text, full state"
-r3_pr_medgemma_fix_pre,67.0,paper/artifacts/preread_v3/artifacts/preread_route.json,models.medgemma_fix.preread,"MedGemma-27B-text, imaging findings removed"
-r3_pr_medgemma_fix_chg,−11.9,paper/artifacts/preread_v3/artifacts/preread_route.json,models.medgemma_fix.change,change (pp)
-r3_pr_medgemma_fix_chg_ci,−18.9 to −5.4,paper/artifacts/preread_v3/artifacts/preread_route.json,models.medgemma_fix.change_ci,95% CI
 r3_pr_qwen38_full,88.1,paper/artifacts/preread_v3/artifacts/preread_route.json,models.qwen38.full,"Qwen3.8-27B, full state"
 r3_pr_qwen38_pre,70.3,paper/artifacts/preread_v3/artifacts/preread_route.json,models.qwen38.preread,"Qwen3.8-27B, imaging findings removed"
 r3_pr_qwen38_chg,−17.8,paper/artifacts/preread_v3/artifacts/preread_route.json,models.qwen38.change,change (pp)
@@ -1099,10 +959,6 @@ r3_prp_q_full,−2.7,paper/artifacts/preread_v3/artifacts/preread_route.json,pai
 r3_prp_q_full_ci,−6.5 to 1.1,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-qwen38.full.ci,95% CI
 r3_prp_q_pre,2.7,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-qwen38.preread.diff,"v3_27-qwen38, preread (pp)"
 r3_prp_q_pre_ci,−2.2 to 8.1,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-qwen38.preread.ci,95% CI
-r3_prp_mg_full,6.5,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-medgemma_fix.full.diff,"v3_27-medgemma_fix, full (pp)"
-r3_prp_mg_full_ci,2.2 to 10.8,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-medgemma_fix.full.ci,95% CI
-r3_prp_mg_pre,5.9,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-medgemma_fix.preread.diff,"v3_27-medgemma_fix, preread (pp)"
-r3_prp_mg_pre_ci,1.6 to 10.8,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_27-medgemma_fix.preread.ci,95% CI
 r3_prp_spec9_full,6.5,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_9-stock9.full.diff,"v3_9-stock9, full (pp)"
 r3_prp_spec9_full_ci,2.2 to 10.3,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_9-stock9.full.ci,95% CI
 r3_prp_spec9_pre,4.3,paper/artifacts/preread_v3/artifacts/preread_route.json,pairs.v3_9-stock9.preread.diff,"v3_9-stock9, preread (pp)"
@@ -1137,7 +993,6 @@ r3_rs_ntk,nine,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasonin
 r3_rs_qwen38,83.6,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38.bench.pooled,accuracy on the sample (%)
 r3_rs_qwen38_think,85.1,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38_think.bench.pooled,accuracy on the sample (%)
 r3_rs_v3_27,89.0,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.pooled,accuracy on the sample (%)
-r3_rs_medgemma_think,78.4,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.medgemma_think.bench.pooled,accuracy on the sample (%)
 r3_rp_rk_qthink,3.8,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_d,"difference, pooled (pp)"
 r3_rp_rk_qthink_ci,2.2 to 5.5,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_ci,95% CI
 r3_rp_rk_qthink_tm,2.8,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_k_d,"difference, task mean, examination tasks pooled (pp)"
@@ -1153,9 +1008,7 @@ r3_bl_dx_rk27_full,94.2,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.e
 r3_bl_dx_k27_full,82.7,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.stock27.full,accuracy with the case (%)
 r3_bl_dx_rk9_full,90.5,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.v3_9.full,accuracy with the case (%)
 r3_bl_dx_k9_full,75.1,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.stock9.full,accuracy with the case (%)
-r3_bl_dx_mg_full,71.1,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.medgemma_fix.full,accuracy with the case (%)
 r3_bl_dx_q_full,84.1,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.qwen38.full,accuracy with the case (%)
-r3_bl_dx_mg,26.9,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.medgemma_fix.blind,options-only accuracy (%)
 r3_bl_dx_rk9,81.5,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.v3_9.blind,options-only accuracy (%)
 r3_bl_dx_k9,38.4,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.stock9.blind,options-only accuracy (%)
 r3_bl_rsna_rk27,50.6,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.v3_27.blind,options-only accuracy (%)
@@ -1165,9 +1018,7 @@ r3_bl_rsna_rk27_full,75.9,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks
 r3_bl_rsna_k27_full,73.4,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.stock27.full,accuracy with the case (%)
 r3_bl_rsna_rk9_full,69.6,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.v3_9.full,accuracy with the case (%)
 r3_bl_rsna_k9_full,60.8,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.stock9.full,accuracy with the case (%)
-r3_bl_rsna_mg_full,59.5,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.medgemma_fix.full,accuracy with the case (%)
 r3_bl_rsna_q_full,77.2,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.qwen38.full,accuracy with the case (%)
-r3_bl_rsna_mg,25.3,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.medgemma_fix.blind,options-only accuracy (%)
 r3_bl_rsna_rk9,48.1,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.v3_9.blind,options-only accuracy (%)
 r3_bl_rsna_k9,41.8,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.models.stock9.blind,options-only accuracy (%)
 r3_bl_rsna_gain_full,2.5,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.rsna_radioqa.pairs.v3_27-stock27.full,"gain, full (pp)"
@@ -1192,7 +1043,6 @@ r3_rg_n,"4,037",paper/artifacts/external_v3_analysis/artifacts/analysis_node.jso
 r3_rg_v3_27,76.3,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.v3_27.all.acc,accuracy (%)
 r3_rg_stock27,77.4,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.stock27.all.acc,accuracy (%)
 r3_rg_qwen38,78.4,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.qwen38.all.acc,accuracy (%)
-r3_rg_medgemma_fix,65.0,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.medgemma_fix.all.acc,accuracy (%)
 r3_rg_v3_9,72.5,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.v3_9.all.acc,accuracy (%)
 r3_rg_stock9,70.7,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.stock9.all.acc,accuracy (%)
 r3_rg_d,−1.1,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_27-stock27.all.d,difference (pp)
@@ -1215,13 +1065,11 @@ r3_as_lat_requests,55,paper/artifacts/answer_space3/artifacts/answer_space3.json
 r3_as_rk27_dx_sim16,93.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_16 (eurorad_dx),"accuracy, 16 most similar options (%)"
 r3_as_k27_dx_sim16,90.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.stock27.correct.sim_16 (eurorad_dx),"accuracy, 16 most similar options (%)"
 r3_as_q_dx_sim16,83.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.qwen38_num.correct.sim_16 (eurorad_dx),"accuracy, 16 most similar options (%)"
-r3_as_mg_dx_sim16,70.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.medgemma_fix_num.correct.sim_16 (eurorad_dx),"accuracy, 16 most similar options (%)"
 r3_as_rk27_dx_rand255,93.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.rand_255 (eurorad_dx),accuracy (%)
 r3_as_rk27_dx_sim255,73.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_255 (eurorad_dx),accuracy (%)
 r3_as_rk27_rsna_sim16,60.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
 r3_as_k27_rsna_sim16,63.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.stock27.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
 r3_as_q_rsna_sim16,43.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.qwen38_num.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
-r3_as_mg_rsna_sim16,30.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.medgemma_fix_num.correct.sim_16 (rsna_radioqa),"accuracy, 16 most similar options (%)"
 r3_as_lat_q_2,331,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=2,ms per request
 r3_as_lat_q_255,"2,207",paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=255,ms per request
 r3_as_lat_qletter_2,242,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_letter median at K=2,ms per request
