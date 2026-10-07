@@ -51,6 +51,7 @@ INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contr
     "odec_status": ([A_ / "openai_dec/artifacts/openai_dec_status.json"], "OpenAI Decisions API, refusals and cost"),
     "rcdiag": ([A_ / "radcases_panel_diag/radcases_panel_diag.json"], "jobs/radcases_panel_diag.py (RadCases panel errors by key type)"),
     "rcprior": ([A_ / "radcases_prior/artifacts/radcases_prior.json"], "jobs/radcases_prior.py (RadCases panel, as scored vs prior-corrected; job e6474944)"),
+    "eval_raw": ([A_ / "eval_v3_rerun/artifacts/eval_v3.json"], "jobs/eval_v3.py (job 354b0d5e), RadKev as scored, without the RadCases panel prior correction"),
     "train27": ([A_ / "train_v3/artifacts/training_metrics_27b.json"], "Kev training_metrics of RadKev-27B v3 (kev-27b-dp)"),
     "train9": ([A_ / "train_v3/artifacts/training_metrics_9b.json"], "Kev training_metrics of RadKev-9B v3 (kev-9b-dp or kev-9b)"),
     "cal27": ([A_ / "train_v3/artifacts/dev_cal_27b.json"], "dev_cal summary of RadKev-27B v3 (fitted temperature)"),
@@ -129,6 +130,7 @@ CONSTR = ["rexerr_error"]
 BENCH = HUMAN + CONSTR
 CTRATE = ["ctrate:ctrate_finding", "ctrate:ctrate_normal", "ctrate:ctrate_which"]
 NEW_SRC = ["rexerr_error", "radcases_panel", "radcases_topic"]          # training splits added for v3 (in-distribution)
+EVAL_ONLY = ["iu_finding", "iu_normal", "iu_which", "rsna_radioqa", "mmlu_rad", "pubmedqa_rad", "medxpertqa_rad"]   # sources with no training split
 KNOW = ["medmcqa_rad", "medmcqa_other_rad", "medqa_rad", "medxpertqa_rad", "mmlu_rad", "pubmedqa_rad"]
 GROUPS = [("Report reading", ["iu_finding", "iu_normal", "iu_which", "rexerr_error"]),
           ("Case diagnosis and classification", ["eurorad_dx", "eurorad_route", "rsna_radioqa", "radcases_panel", "radcases_topic"]),
@@ -243,6 +245,17 @@ def build_eval():
     put("r3_prim_share_new", num(100 * sum(d[t] for t in NEW_SRC) / tot, 0) if tot else "--", src, "sum d[NEW_SRC] / sum d[BENCH]", "share of the task-mean gain from the tasks added in v3 (%)")
     put("r3_prim_old_tm", pct(sum(d[t] for t in BENCH if t not in NEW_SRC) / (len(BENCH) - len(NEW_SRC))), src, "mean d over pilot tasks", "task-mean difference without the v3 tasks (pp)")
     put("r3_prim_know_tm", pct(sum(d[t] for t in KNOW) / len(KNOW)), src, "mean d over knowledge tasks", "task-mean difference, knowledge tasks (pp)")
+    TRAINED = [t for t in BENCH if t not in EVAL_ONLY]
+    put("r3_nevalonly", word(len(EVAL_ONLY)), "build_v3.EVAL_ONLY", "", "benchmark tasks from sources used only for evaluation")
+    put("r3_ntrained", word(len(TRAINED)), "build_v3.EVAL_ONLY", "", "benchmark tasks from sources with a training split")
+    put("r3_prim_evalonly_tm", pct(sum(d[t] for t in EVAL_ONLY) / len(EVAL_ONLY)), src, "mean d over EVAL_ONLY", "task-mean difference, evaluation-only sources (pp)")
+    put("r3_prim_trained_tm", pct(sum(d[t] for t in TRAINED) / len(TRAINED)), src, "mean d over the other tasks", "task-mean difference, sources with a training split (pp)")
+    if "eval_raw" in J:   # prespecified primary outcome without the post hoc RadCases panel prior correction
+        rb = J["eval_raw"]["pairs"]["v3_27-stock27"]["bench"]
+        put("r3_prim_tm_raw", pct(rb["task_mean_d"]), REL("eval_raw"), "pairs.v3_27-stock27.bench.task_mean_d", "primary outcome without the prior correction (pp)")
+        put("r3_prim_tm_raw_ci", pci(rb["task_mean_ci"]), REL("eval_raw"), "pairs.v3_27-stock27.bench.task_mean_ci", "95% CI")
+    else:
+        pending("r3_prim_tm_raw", "eval_raw"); pending("r3_prim_tm_raw_ci", "eval_raw")
     # specialization vs scale as a difference of differences (point estimates; intervals need the shared resamples -> eval job)
     for agg, x in (("bench", ""), ("human", "h")):
         sp27, sp9, sc = (P[k][agg]["task_mean_d"] for k in ("v3_27-stock27", "v3_9-stock9", "stock27-stock9"))
@@ -973,7 +986,7 @@ def build_tables():
             for mode, mlab in (("letter", "option-letter logits"), ("direct", "generated letter"), ("reasoning", "reasoning")):
                 if m in M and mode in M[m]:
                     x = M[m][mode]["per_question_ms"]; rows.append([lab, mlab, f"{x['median']:.0f}", f"{x.get('p95', float('nan')):.0f}", n_(x["n"])])
-        tab("v3_latency", "@{}llrrr@{}", r"System & Mode & Median (ms) & 95th percentile (ms) & Questions", rows)
+        tab("v3_latency", "@{}llrrr@{}", r"System & Mode & Median (ms) & 95th percentile (ms) & $n$", rows)
     else:
         tab_pending("v3_latency", "latency with v3")
     R = (J.get("reasoning") or {}).get("paired")
@@ -1026,6 +1039,9 @@ def claims():
         ("C15", "discussion, conclusions", "Both specialized models cover more questions at 5% error than their starting points and both LLMs",
          min(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("v3_27", "v3_9")) > max(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("stock27", "stock9", "qwen38", "medgemma_fix"))),
     ]
+    if "eval_raw" in J:
+        out.append(("C24", "results 3.1", "Primary outcome positive without the RadCases prior correction (CI above 0)",
+                    sig(J["eval_raw"]["pairs"]["v3_27-stock27"]["bench"]["task_mean_ci"]) == 1))
     if "v3_27-openai_dec" in P:
         out.append(("C23", "results 3.2", "RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean)", sig(c("v3_27-openai_dec")) == 1))
     B = J.get("blind")

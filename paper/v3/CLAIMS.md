@@ -16,6 +16,7 @@ Each directional statement in the v3 prose is marked `% [Cn]` in the .tex. FAILS
 | C11 | yes | results 3.4, discussion | RadKev-27B covers more questions at 5% error than Kev-27B (point estimate) |
 | C12 | yes | results 3.4, discussion, conclusions | RadKev-27B ECE within 0.005 of Kev-27B as scored, but more confident errors |
 | C15 | yes | discussion, conclusions | Both specialized models cover more questions at 5% error than their starting points and both LLMs |
+| C24 | yes | results 3.1 | Primary outcome positive without the RadCases prior correction (CI above 0) |
 | C23 | yes | results 3.2 | RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean) |
 | C18 | yes | abstract, results 3.5, discussion, conclusions | Eurorad gain larger without the case (did CI < 0) and RadKev-27B options-only accuracy above 50% |
 | C19 | yes | abstract | RadKev-27B vs Qwen3.8-27B with reasoning: task-mean CI includes 0 (wording 'did not differ detectably') |

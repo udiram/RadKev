@@ -932,6 +932,12 @@ r3_prim_holm,"more accurate on four tasks (IU: normal study, Eurorad: diagnosis,
 r3_prim_share_new,35,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,sum d[NEW_SRC] / sum d[BENCH],share of the task-mean gain from the tasks added in v3 (%)
 r3_prim_old_tm,4.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean d over pilot tasks,task-mean difference without the v3 tasks (pp)
 r3_prim_know_tm,4.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean d over knowledge tasks,"task-mean difference, knowledge tasks (pp)"
+r3_nevalonly,seven,build_v3.EVAL_ONLY,,benchmark tasks from sources used only for evaluation
+r3_ntrained,eight,build_v3.EVAL_ONLY,,benchmark tasks from sources with a training split
+r3_prim_evalonly_tm,2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean d over EVAL_ONLY,"task-mean difference, evaluation-only sources (pp)"
+r3_prim_trained_tm,7.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,mean d over the other tasks,"task-mean difference, sources with a training split (pp)"
+r3_prim_tm_raw,3.3,paper/artifacts/eval_v3_rerun/artifacts/eval_v3.json,pairs.v3_27-stock27.bench.task_mean_d,primary outcome without the prior correction (pp)
+r3_prim_tm_raw_ci,2.1 to 4.8,paper/artifacts/eval_v3_rerun/artifacts/eval_v3.json,pairs.v3_27-stock27.bench.task_mean_ci,95% CI
 r3_did27_tm,−0.9,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,"pairs: (v3_27-stock27) - (stock27-stock9), bench task mean","specialization minus scale, 27B (pp)"
 r3_did9_tm,1.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,"pairs: (v3_9-stock9) - (stock27-stock9), bench task mean","specialization minus scale, 9B (pp)"
 r3_did27_pool,2.7,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior.json,"pairs pooled, bench","specialization minus scale, 27B, pooled (pp)"

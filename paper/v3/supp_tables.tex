@@ -24,14 +24,14 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Results on the reasoning sample of human-assigned questions: accuracy (\%), expected calibration error and coverage at a 5\% error budget (\%), with reasoning disabled and enabled for the LLMs.}
+  \caption{Accuracy (\%, 95\% confidence interval) on the reasoning sample of \V{r3_rs_q} benchmark questions, pooled over questions and averaged over tasks, with reasoning disabled and enabled for the LLMs.}
   \label{tab:v3_reasoning}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_reasoning.tex}
 \end{table}
 
 \begin{table}[!h]
-  \caption{Latency per question on \V{r3_lat_records} benchmark records (one request at a time, two RTX A6000 GPUs, Hugging Face Transformers, bfloat16): median and 95th percentile.}
+  \caption{Latency per question on \V{r3_lat_records} benchmark records (one request at a time, two RTX A6000 GPUs, Hugging Face Transformers, bfloat16): median and 95th percentile. $n$: timed records for the decision models, including the OpenAI Decisions API, whose latency per question is the latency of the record divided by its number of questions, and timed questions for the LLMs.}
   \label{tab:v3_latency}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_latency.tex}
@@ -52,7 +52,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Eurorad subspecialty classification with the full state and with the imaging findings removed (age, sex and clinical history kept), as before the read: accuracy (\%) and change in percentage points (95\% confidence interval), \V{r3_pr_n} questions.}
+  \caption{Eurorad subspecialty classification with the full state and with the imaging findings removed (age, sex and clinical history kept), as before the read: accuracy (\%) and change in percentage points (95\% confidence interval), \V{r3_pr_n} questions. Accuracies with the full state were recomputed in this analysis, with each question in its own request; they differ from the main evaluation by one question for Kev-27B and two for Qwen3.8-27B.}
   \label{tab:v3_preread}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_preread.tex}
