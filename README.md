@@ -24,25 +24,24 @@ institution: larger general-purpose decision models and large language models (L
 ## Summary
 
 RadKev-27B and RadKev-9B were evaluated on a radiology benchmark of 14,142 held-out questions in fifteen tasks (report reading, case
-diagnosis and classification, radiological knowledge), against the Kev models they were specialized from, two LLMs of the same size
-(Qwen3.8-27B, the backbone of Kev-27B, and MedGemma-27B-text) and the hosted OpenAI Decisions API. The prespecified primary outcome
+diagnosis and classification, radiological knowledge), against the Kev models they were specialized from, an LLM of the same size
+(Qwen3.8-27B, the backbone of Kev-27B) and the hosted OpenAI Decisions API. The prespecified primary outcome
 was task-averaged accuracy relative to Kev-27B. Differences are paired, with 95% confidence intervals from a source-stratified
 cluster bootstrap (2,000 resamples).
 
 - **Primary outcome.** RadKev-27B exceeded Kev-27B by 4.9 percentage points (95% CI 3.8 to 6.2), with the largest gains in report
   error detection (22.6 points) and Eurorad diagnosis (11.6 points); RadKev-9B exceeded Kev-9B by 6.9 points (5.5 to 8.4) and did
   not differ detectably from Kev-27B, a model three times its size.
-- **Decision models and LLMs.** RadKev-27B was more accurate than Qwen3.8-27B (4.7 points, 3.4 to 6.0) and MedGemma-27B-text (12.8,
-  11.1 to 14.6) with reasoning disabled, and did not differ detectably from Qwen3.8-27B with reasoning (0.8 points, −1.5 to 3.1)
-  on a sample of 1,675 questions, at 132-fold lower latency (128 ms vs 16.9 s per question).
+- **Decision models and LLMs.** RadKev-27B was more accurate than Qwen3.8-27B with reasoning disabled (4.7 points, 3.4 to 6.0)
+  and with reasoning enabled (2.8 points, 1.0 to 4.6) on a sample of 1,675 questions, at 132-fold lower latency (128 ms vs 16.9 s per question).
 - **Hosted decision model.** RadKev-27B was more accurate than the OpenAI Decisions API (gpt-6-luna; 4.8 points, 3.2 to 6.4).
 - **Selective prediction.** At a 5% error budget, RadKev-27B could answer 90.5% of the benchmark questions (Kev-27B 76.4%).
 - **External test.** On 4,037 status questions from radiologist-annotated RadGraph-XL reports of another institution,
   specialization changed accuracy by −1.1 points (−1.6 to −0.6) at 27B and by 1.8 points (1.0 to 2.6) at 9B.
 
-<p align="center"><img src="figures/v3_fig_llm.png" width="900" alt="Accuracy of every system on the common human-assigned tasks, RadKev-27B and the LLMs, and latency per question"></p>
+<p align="center"><img src="figures/v3_fig_llm.png" width="900" alt="Accuracy of every system on the common human-assigned tasks, RadKev-27B and Qwen3.8-27B, and latency per question"></p>
 <p align="center"><sub><b>Figure 5 of the manuscript.</b> Decision models and language models: task-averaged accuracy of every system on the
-thirteen human-assigned tasks that all systems answered (a), RadKev-27B and the LLMs on the questions with at most 16 options (b), and
+thirteen human-assigned tasks that all systems answered (a), RadKev-27B and Qwen3.8-27B on the questions with at most 16 options (b), and
 median latency per question (c).</sub></p>
 
 ## Models
@@ -155,10 +154,9 @@ All results are on the held-out test split; values in parentheses are 95% confid
 | Kev-9B | decision model, general | 9B | 70.1 | 72.0 |
 | OpenAI Decisions (gpt-6-luna) | decision model, hosted | – | 76.0 | 79.4 |
 | Qwen3.8-27B | LLM, general | 27B | – | 78.1 |
-| MedGemma-27B-text | LLM, medical | 27B | – | 70.4 |
 
-<sub>Accuracy (%), unweighted mean of the task accuracies. The LLMs were not scored on the RadCases topic question (225 options), so
-their benchmark comparisons use the fourteen tasks with at most 16 options (manuscript, Section 3.2). Per-task results and
+<sub>Accuracy (%), unweighted mean of the task accuracies. Qwen3.8-27B was not scored on the RadCases topic question (225 options), so
+its benchmark comparisons use the fourteen tasks with at most 16 options (manuscript, Section 3.2). Per-task results and
 confidence intervals are in the manuscript's supplementary tables and in [`results/manuscript/`](results/manuscript/).</sub>
 
 <p align="center"><img src="figures/v3_fig_primary.png" width="900" alt="Primary comparison of Kev-27B and RadKev-27B by task"></p>
@@ -188,7 +186,7 @@ the latency of a decision model rises with the number of options, which favors s
   judgment and were used for training only.
 - All data were drawn from public datasets and teaching collections; the models were not validated on institutional reports, and
   accuracy was not examined across patient subgroups or institutions.
-- The LLMs were evaluated zero-shot with a single prompt, and no LLM was fine-tuned on the same data. Every model was trained once,
+- The LLM was evaluated zero-shot with a single prompt, and no LLM was fine-tuned on the same data. Every model was trained once,
   with a single random seed.
 - Public examination questions and Eurorad cases may have been part of the pretraining data of every model; paired differences, not
   absolute accuracies, are the basis of the conclusions.
@@ -247,5 +245,5 @@ contain the correct answer; the manuscript's Discussion gives guidance on choosi
 RadKev is built on [Kev](https://github.com/jaredpalmer/kev) by Jared Palmer (Apache-2.0) and on the Qwen backbones. We thank the
 providers of the datasets: Open-i and Indiana University (IU chest radiograph reports), the European Society of Radiology (Eurorad)
 and the authors of `wanglab/eurorad-reasoning`, the CT-RATE, CheXpert Plus, ReXGradient-160K, ReXErr, RadCases, RSNA-RadioQA and
-RadGraph-XL teams, and the authors of MedMCQA, MedQA, MMLU, PubMedQA and MedXpertQA. Comparators: MedGemma (Google), Qwen3.8
-(Alibaba) and the OpenAI Decisions API.
+RadGraph-XL teams, and the authors of MedMCQA, MedQA, MMLU, PubMedQA and MedXpertQA. Models: MedGemma (Google; teacher for
+labeling), Qwen3.8 (Alibaba) and the OpenAI Decisions API.

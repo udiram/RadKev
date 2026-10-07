@@ -50,17 +50,17 @@ Radiology benchmark: 14,142 held-out questions in fifteen tasks, of which 11,434
 unweighted mean over tasks; calibration and coverage on the human-assigned questions. 95% confidence intervals of paired differences
 in the manuscript and in [`results/manuscript/`](results/manuscript/).
 
-| | RadKev-27B | RadKev-9B | Kev-27B | Kev-9B | Qwen3.8-27B | MedGemma-27B-text | OpenAI Decisions |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Task mean, benchmark (15 tasks) | **80.8** | 77.0 | 75.9 | 70.1 | – | – | 76.0 |
-| Task mean, 13 human-assigned tasks answered by every system | **81.1** | 77.0 | 77.3 | 72.0 | 78.1 | 70.4 | 79.4 |
-| Expected calibration error | 0.015 | 0.021 | 0.018 | 0.023 | 0.022 | 0.105 | 0.019 |
-| Confident errors (%) | 1.4 | 1.1 | 0.6 | 0.7 | 2.0 | 8.1 | 2.4 |
-| Coverage at a 5% error budget (%) | 88.4 | **89.4** | 85.5 | 86.3 | 86.6 | 78.7 | 85.9 |
-| Median latency per question (ms)¹ | 128 | 43 | 129 | – | 145 | – | 175² |
+| | RadKev-27B | RadKev-9B | Kev-27B | Kev-9B | Qwen3.8-27B | OpenAI Decisions |
+|---|---:|---:|---:|---:|---:|---:|
+| Task mean, benchmark (15 tasks) | **80.8** | 77.0 | 75.9 | 70.1 | – | 76.0 |
+| Task mean, 13 human-assigned tasks answered by every system | **81.1** | 77.0 | 77.3 | 72.0 | 78.1 | 79.4 |
+| Expected calibration error | 0.015 | 0.021 | 0.018 | 0.023 | 0.022 | 0.019 |
+| Confident errors (%) | 1.4 | 1.1 | 0.6 | 0.7 | 2.0 | 2.4 |
+| Coverage at a 5% error budget (%) | 88.4 | **89.4** | 85.5 | 86.3 | 86.6 | 85.9 |
+| Median latency per question (ms)¹ | 128 | 43 | 129 | – | 145 | 175² |
 
 <sub>¹ 60 benchmark records, one request at a time, two RTX A6000 GPUs, bfloat16. A decision model answers all questions of a record
-in one pass; the LLMs were scored from their option-letter logits, one question per request. Qwen3.8-27B took 234 ms to generate an
+in one pass; Qwen3.8-27B was scored from its option-letter logits, one question per request. Qwen3.8-27B took 234 ms to generate an
 answer letter and 16.9 s with reasoning. ² End to end from the institution's network, one request at a time.</sub>
 
 Primary outcome (prespecified), RadKev-27B minus Kev-27B, benchmark task mean: **+4.9 percentage points (95% CI 3.8 to 6.2)**;

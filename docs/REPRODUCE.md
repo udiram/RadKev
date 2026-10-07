@@ -108,7 +108,6 @@ probabilities without text under `$RADKEV_HOME/runs/`.
 |---|---|---|
 | Shared 2,000-resample bootstrap: intervals of every system, paired differences with Holm adjustment, withheld wordings, selective prediction | `experiments/robustness.py` | CPU |
 | Primary comparison without the demonstration sample, calibration differences, specialization vs scale, recalibration, family average, prevalence baseline, distinctive words | `experiments/robustness2.py` | CPU |
-| MedGemma-27B-text with the final prompt (the row reported in the manuscript) | `experiments/medgemma_rescore.py` | 2× A6000 |
 | LLMs with reasoning on the 1,800-question sample | `experiments/llm_reasoning.py` (vLLM) | 2× A6000 |
 | Options-only control | `experiments/options_only.py` | 2× or 4× A6000 |
 | External test sets (RadCases, RadGraph-XL) | `experiments/external_tests.py` | 2× or 4× A6000 |

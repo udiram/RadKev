@@ -26,7 +26,6 @@ questions are not benchmarked.
 | RadKev-27B, RadKev-9B | specialized decision models | each record once, all of its questions in one request; temperature from the development split |
 | Kev-27B, Kev-9B | starting points (specialization) and scale | as above |
 | Qwen3.8-27B | the backbone of Kev-27B queried as an LLM | zero-shot, one question per prompt, softmax of the next-token logits over the option letters, reasoning disabled; questions with at most 16 options |
-| MedGemma-27B-text | medical LLM | as Qwen3.8-27B |
 | OpenAI Decisions API (gpt-6-luna) | hosted general-purpose decision model | each record once, all of its questions in one request; probabilities as returned (two decimals), not recalibrated |
 
 ## Outcomes and statistics
