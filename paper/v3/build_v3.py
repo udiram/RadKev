@@ -407,6 +407,7 @@ def build_jev():
     put("r3_lt_jv_n", n_(c["per_question_ms"]["n"]), src, "concurrent.per_question_ms.n", "requests")
     put("r3_lt_jv_seq", f"{q['per_question_ms']['median']:.0f}", src, "sequential.per_question_ms.median", "end-to-end ms per question, one request at a time")
     put("r3_lt_jv_seq_n", n_(q["per_question_ms"]["n"]), src, "sequential.per_question_ms.n", "sequential requests")
+    if J.get("odec_lat"): assert q["per_question_ms"]["n"] == J["odec_lat"]["sequential"]["per_question_ms"]["n"], "Figure 5 caption: 'requests each'"
     cp = E["calibration_pairs"].get("v3_27-jev")
     put("r3_jv_cov_d", pct(cp["cov5_d"]), REL("eval"), "calibration_pairs.v3_27-jev.cov5_d", "coverage difference, human-assigned (pp)")
     put("r3_jv_cov_ci", pci(cp["cov5_ci"]), REL("eval"), "calibration_pairs.v3_27-jev.cov5_ci", "95% CI")
