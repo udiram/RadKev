@@ -25,7 +25,7 @@ Each directional statement in the v3 prose is marked `% [Cn]` in the .tex. FAILS
 | C19 | yes | abstract, discussion, conclusions | RadKev-27B more accurate than Qwen3.8-27B with reasoning: task mean (examination tasks pooled) and pooled CIs above 0 |
 | C20 | yes | abstract | RadKev-27B covers more of all benchmark questions at 5% error than Kev-27B (point estimate) |
 | C21 | yes | results 3.6, discussion | Letter-scored LLM within 25% of RadKev-27B per question, and numbered LLM faster than RadKev-27B at 255 options |
-| C22 | yes | conclusions, results 3.7 | RadGraph-XL: 27B specialization CI below 0, 9B specialization CI above 0 |
+| C22 | yes | conclusions, results 3.7, discussion | RadGraph-XL definite findings: 27B specialization CI below 0, 9B specialization CI above 0 |
 | C17 | yes | discussion | 27B: held-out gain > 0 and smaller than seen (did CI < 0); 9B: did CI includes 0 |
 | C13 | yes | results 3.5, discussion | Every system lost accuracy (CI below 0) when the imaging findings were removed |
 | C14 | yes | results 3.5 | RadKev-27B and Kev-27B did not differ detectably before the read |

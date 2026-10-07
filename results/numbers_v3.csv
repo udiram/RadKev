@@ -1314,18 +1314,87 @@ r3_bl_aw_flag_n,178,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.euror
 r3_bl_aw_none,16.1,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.split.no_answer_word.pairs.v3_27-stock27.full,gain (pp)
 r3_bl_aw_none_ci,9.8 to 22.5,paper/artifacts/blind_v3/artifacts/blind_v3.json,...no_answer_word...full_ci,95% CI
 r3_bl_aw_none_n,168,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.split.no_answer_word.n,questions
-r3_rg_n,"4,037",paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.n.all,questions
-r3_rg_v3_27,76.3,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.v3_27.all.acc,accuracy (%)
-r3_rg_stock27,77.4,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.stock27.all.acc,accuracy (%)
-r3_rg_qwen38,78.4,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.qwen38.all.acc,accuracy (%)
-r3_rg_v3_9,72.5,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.v3_9.all.acc,accuracy (%)
-r3_rg_stock9,70.7,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.models.stock9.all.acc,accuracy (%)
-r3_rg_d,−1.1,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_27-stock27.all.d,difference (pp)
-r3_rg_d_ci,−1.6 to −0.6,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_27-stock27.all.ci,95% CI
-r3_rg_d9,1.8,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_9-stock9.all.d,difference (pp)
-r3_rg_d9_ci,1.0 to 2.6,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_9-stock9.all.ci,95% CI
-r3_rg_dq,−2.2,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_27-qwen38.all.d,difference (pp)
-r3_rg_dq_ci,−3.0 to −1.3,paper/artifacts/external_v3_analysis/artifacts/analysis_node.json,radgraph_xl.pairs.v3_27-qwen38.all.ci,95% CI
+r3_rg_n,"4,037",paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.n.all,questions (all)
+r3_rg_v3_27,76.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.v3_27.all.acc,"accuracy, all (%)"
+r3_rg_v3_9,72.5,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.v3_9.all.acc,"accuracy, all (%)"
+r3_rg_stock27,77.4,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.stock27.all.acc,"accuracy, all (%)"
+r3_rg_stock9,70.7,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.stock9.all.acc,"accuracy, all (%)"
+r3_rg_qwen38,78.4,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.qwen38.all.acc,"accuracy, all (%)"
+r3_rg_openai_dec,69.7,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.openai_dec.all.acc,"accuracy, all (%)"
+r3_rg_jev,76.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.models.jev.all.acc,"accuracy, all (%)"
+r3_rg_d,−1.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-stock27.all.d,difference (pp)
+r3_rg_d_ci,−1.6 to −0.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-stock27.all.ci,95% CI
+r3_rg_d_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-stock27.all.ci,direction wording
+r3_rg_d9,1.8,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-stock9.all.d,difference (pp)
+r3_rg_d9_ci,1.0 to 2.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-stock9.all.ci,95% CI
+r3_rg_d9_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-stock9.all.ci,direction wording
+r3_rg_dq,−2.2,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-qwen38.all.d,difference (pp)
+r3_rg_dq_ci,−3.0 to −1.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-qwen38.all.ci,95% CI
+r3_rg_dq_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-qwen38.all.ci,direction wording
+r3_rg_dj,−0.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-jev.all.d,difference (pp)
+r3_rg_dj_ci,−1.0 to 0.5,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-jev.all.ci,95% CI
+r3_rg_dj_cmp,not detectably different in accuracy from,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-jev.all.ci,direction wording
+r3_rg_do,6.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-openai_dec.all.d,difference (pp)
+r3_rg_do_ci,5.7 to 7.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-openai_dec.all.ci,95% CI
+r3_rg_do_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_27-openai_dec.all.ci,direction wording
+r3_rg_dq9,−6.0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-qwen38.all.d,difference (pp)
+r3_rg_dq9_ci,−7.0 to −5.0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-qwen38.all.ci,95% CI
+r3_rg_dq9_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,all.pairs.v3_9-qwen38.all.ci,direction wording
+r3_rgd_n,"2,991",paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.n.all,questions (definite)
+r3_rgd_v3_27,90.2,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.v3_27.all.acc,"accuracy, definite (%)"
+r3_rgd_v3_9,87.5,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.v3_9.all.acc,"accuracy, definite (%)"
+r3_rgd_stock27,91.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.stock27.all.acc,"accuracy, definite (%)"
+r3_rgd_stock9,85.2,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.stock9.all.acc,"accuracy, definite (%)"
+r3_rgd_qwen38,90.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.qwen38.all.acc,"accuracy, definite (%)"
+r3_rgd_openai_dec,81.9,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.openai_dec.all.acc,"accuracy, definite (%)"
+r3_rgd_jev,89.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.models.jev.all.acc,"accuracy, definite (%)"
+r3_rgd_d,−1.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-stock27.all.d,difference (pp)
+r3_rgd_d_ci,−1.6 to −0.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-stock27.all.ci,95% CI
+r3_rgd_d_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-stock27.all.ci,direction wording
+r3_rgd_d9,2.4,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-stock9.all.d,difference (pp)
+r3_rgd_d9_ci,1.5 to 3.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-stock9.all.ci,95% CI
+r3_rgd_d9_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-stock9.all.ci,direction wording
+r3_rgd_dq,−0.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-qwen38.all.d,difference (pp)
+r3_rgd_dq_ci,−0.8 to 0.7,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-qwen38.all.ci,95% CI
+r3_rgd_dq_cmp,not detectably different in accuracy from,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-qwen38.all.ci,direction wording
+r3_rgd_dj,0.9,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-jev.all.d,difference (pp)
+r3_rgd_dj_ci,0.3 to 1.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-jev.all.ci,95% CI
+r3_rgd_dj_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-jev.all.ci,direction wording
+r3_rgd_do,8.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-openai_dec.all.d,difference (pp)
+r3_rgd_do_ci,7.3 to 9.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-openai_dec.all.ci,95% CI
+r3_rgd_do_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_27-openai_dec.all.ci,direction wording
+r3_rgd_dq9,−2.8,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-qwen38.all.d,difference (pp)
+r3_rgd_dq9_ci,−3.7 to −1.9,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-qwen38.all.ci,95% CI
+r3_rgd_dq9_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,definite.pairs.v3_9-qwen38.all.ci,direction wording
+r3_rgh_n,"1,046",paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.n.all,questions (hedged)
+r3_rgh_v3_27,39.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.v3_27.all.acc,"accuracy, hedged (%)"
+r3_rgh_v3_9,33.2,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.v3_9.all.acc,"accuracy, hedged (%)"
+r3_rgh_stock27,40.7,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.stock27.all.acc,"accuracy, hedged (%)"
+r3_rgh_stock9,35.9,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.stock9.all.acc,"accuracy, hedged (%)"
+r3_rgh_qwen38,55.4,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.qwen38.all.acc,"accuracy, hedged (%)"
+r3_rgh_openai_dec,36.8,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.openai_dec.all.acc,"accuracy, hedged (%)"
+r3_rgh_jev,43.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.models.jev.all.acc,"accuracy, hedged (%)"
+r3_rgh_d,−1.6,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-stock27.all.d,difference (pp)
+r3_rgh_d_ci,−3.2 to −0.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-stock27.all.ci,95% CI
+r3_rgh_d_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-stock27.all.ci,direction wording
+r3_rgh_d9,−2.7,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-stock9.all.d,difference (pp)
+r3_rgh_d9_ci,−4.2 to −1.1,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-stock9.all.ci,95% CI
+r3_rgh_d9_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-stock9.all.ci,direction wording
+r3_rgh_dq,−16.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-qwen38.all.d,difference (pp)
+r3_rgh_dq_ci,−18.6 to −14.0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-qwen38.all.ci,95% CI
+r3_rgh_dq_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-qwen38.all.ci,direction wording
+r3_rgh_dj,−4.0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-jev.all.d,difference (pp)
+r3_rgh_dj_ci,−6.3 to −1.8,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-jev.all.ci,95% CI
+r3_rgh_dj_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-jev.all.ci,direction wording
+r3_rgh_do,2.3,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-openai_dec.all.d,difference (pp)
+r3_rgh_do_ci,0.1 to 4.5,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-openai_dec.all.ci,95% CI
+r3_rgh_do_cmp,more accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_27-openai_dec.all.ci,direction wording
+r3_rgh_dq9,−22.2,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-qwen38.all.d,difference (pp)
+r3_rgh_dq9_ci,−24.9 to −19.5,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-qwen38.all.ci,95% CI
+r3_rgh_dq9_cmp,less accurate than,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,hedged.pairs.v3_9-qwen38.all.ci,direction wording
+r3_rg_ref_od,0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,refused.openai_dec,external questions declined (uniform)
+r3_rg_ref_jv,0,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,refused.jev,external questions declined (uniform)
+r3_rgh_share,25.9,paper/artifacts/radgraph_xl_hosted/radgraph_xl_hosted.json,gold_dist,share of hedged (uncertain) findings (%)
 r3_rgu_v3_27,39.1,paper/artifacts/radgraph_xl_errors_v3/rgx_errors_v3.json,models.v3_27.acc_by_gold.uncertain,accuracy on uncertain (hedged) findings (%)
 r3_rgu_stock27,40.7,paper/artifacts/radgraph_xl_errors_v3/rgx_errors_v3.json,models.stock27.acc_by_gold.uncertain,accuracy on uncertain (hedged) findings (%)
 r3_rgu_qwen38,55.4,paper/artifacts/radgraph_xl_errors_v3/rgx_errors_v3.json,models.qwen38.acc_by_gold.uncertain,accuracy on uncertain (hedged) findings (%)

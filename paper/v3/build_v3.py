@@ -46,6 +46,7 @@ INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contr
     "answer_space": ([A_ / "answer_space3/artifacts/answer_space3.json"], "jobs/answer_space3.py (raw bits; needs a local analysis)"),
     "answer_space_hosted": ([A_ / "answer_space_hosted/artifacts/answer_space_hosted.json"], "jobs/answer_space_hosted.py (OpenAI Decisions and Jev on the answer_space3 questions and latency requests)"),
     "radgraph": ([A_ / "external_v3_analysis/artifacts/analysis_node.json", A_ / "external_v3/artifacts/analysis_node.json"], "jobs/external_tests.py v3 + jobs/external_analyse_node.py"),
+    "rgx_hosted": ([A_ / "radgraph_xl_hosted/radgraph_xl_hosted.json"], "jobs/radgraph_xl_hosted.py (all systems incl. OpenAI Decisions and Jev; all questions, definite findings with the uncertain option removed, hedged findings)"),
     "rgxerr": ([A_ / "radgraph_xl_errors_v3/rgx_errors_v3.json"], "jobs/radgraph_xl_errors_v3.py (per-status RadGraph-XL breakdown, job 6164e2a4)"),
     "odec_eval": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior.json"], "OpenAI Decisions API (gpt-6-luna) within jobs/eval_v3_prior.py"),
     "odec_lat": ([A_ / "openai_dec/artifacts/openai_dec_latency.json"], "OpenAI Decisions API, end-to-end latency from the node"),
@@ -565,15 +566,37 @@ def build_blind():
         put(k + "_n", n_(sp[nm]["n"]), src, f"tasks.eurorad_dx.split.{nm}.n", "questions")
 
 
+RG_SUB = (("all", "r3_rg"), ("definite", "r3_rgd"), ("hedged", "r3_rgh"))
+RG_PAIRS = (("d", "v3_27-stock27"), ("d9", "v3_9-stock9"), ("dq", "v3_27-qwen38"), ("dj", "v3_27-jev"), ("do", "v3_27-openai_dec"), ("dq9", "v3_9-qwen38"))
+
+
 def build_radgraph():
-    G = (J.get("radgraph") or {}).get("radgraph_xl"); keys = ["r3_rg_n", "r3_rg_v3_27", "r3_rg_stock27", "r3_rg_qwen38", "r3_rg_d", "r3_rg_d_ci",
+    H = J.get("rgx_hosted")
+    if H:   # combined external analysis: every system on all questions, on definite findings and on hedged findings
+        src = REL("rgx_hosted")
+        for sub, pre in RG_SUB:
+            A_ = H[sub]; put(f"{pre}_n", n_(A_["n"]["all"]), src, f"{sub}.n.all", f"questions ({sub})")
+            for m in SYSTEMS:
+                if m in A_["models"]: put(f"{pre}_{m}", pct(A_["models"][m]["all"]["acc"]), src, f"{sub}.models.{m}.all.acc", f"accuracy, {sub} (%)")
+            for k, key in RG_PAIRS:
+                x = A_["pairs"][key]["all"]
+                put(f"{pre}_{k}", pct(x["d"]), src, f"{sub}.pairs.{key}.all.d", "difference (pp)"); put(f"{pre}_{k}_ci", pci(x["ci"]), src, f"{sub}.pairs.{key}.all.ci", "95% CI")
+                put(f"{pre}_{k}_cmp", cmp_words(x["ci"]), src, f"{sub}.pairs.{key}.all.ci", "direction wording")
+        for m, k in (("openai_dec", "od"), ("jev", "jv")):
+            put(f"r3_rg_ref_{k}", n_(H["refused"].get(m, 0)), src, f"refused.{m}", "external questions declined (uniform)")
+        put("r3_rgh_share", pct(H["gold_dist"]["uncertain"] / sum(H["gold_dist"].values())), src, "gold_dist", "share of hedged (uncertain) findings (%)")
+        G = None
+    else:
+        G = (J.get("radgraph") or {}).get("radgraph_xl")
+    keys = ["r3_rg_n", "r3_rg_v3_27", "r3_rg_stock27", "r3_rg_qwen38", "r3_rg_d", "r3_rg_d_ci",
                                                                "r3_rg_d9", "r3_rg_d9_ci", "r3_rg_dq", "r3_rg_dq_ci"]
-    if not G: return _pend_all(keys, "RadGraph-XL with v3")
-    src = REL("radgraph")
-    put("r3_rg_n", n_(G["n"]["all"]), src, "radgraph_xl.n.all", "questions")
-    for m in ("v3_27", "stock27", "qwen38", "v3_9", "stock9"):
+    if not G and not H: return _pend_all(keys, "RadGraph-XL with v3")
+    if G:
+      src = REL("radgraph")
+      put("r3_rg_n", n_(G["n"]["all"]), src, "radgraph_xl.n.all", "questions")
+      for m in ("v3_27", "stock27", "qwen38", "v3_9", "stock9"):
         if m in G["models"]: put(f"r3_rg_{m}", pct(G["models"][m]["all"]["acc"]), src, f"radgraph_xl.models.{m}.all.acc", "accuracy (%)")
-    for k, key in (("r3_rg_d", "v3_27-stock27"), ("r3_rg_d9", "v3_9-stock9"), ("r3_rg_dq", "v3_27-qwen38")):
+      for k, key in (("r3_rg_d", "v3_27-stock27"), ("r3_rg_d9", "v3_9-stock9"), ("r3_rg_dq", "v3_27-qwen38")):
         put(k, pct(G["pairs"][key]["all"]["d"]), src, f"radgraph_xl.pairs.{key}.all.d", "difference (pp)")
         put(k + "_ci", pci(G["pairs"][key]["all"]["ci"]), src, f"radgraph_xl.pairs.{key}.all.ci", "95% CI")
     X = J.get("rgxerr")   # hedged findings (RadGraph-XL 'uncertain') and the status answers of the training data
@@ -1088,8 +1111,15 @@ def build_tables():
         tab("v3_reasoning", "@{}lll@{}", r"System & Pooled over questions & Averaged over tasks", rows)
     else:
         tab_pending("v3_reasoning", "reasoning sample with v3")
-    G = (J.get("radgraph") or {}).get("radgraph_xl")
-    if G:
+    H = J.get("rgx_hosted"); G = (J.get("radgraph") or {}).get("radgraph_xl")
+    if H:   # all questions, definite findings (uncertain option removed), hedged findings
+        cellm = lambda sub, m: f"{pct(H[sub]['models'][m]['all']['acc'])} ({pci(H[sub]['models'][m]['all']['acc_ci'])})"
+        cellp = lambda sub, key: f"{pct(H[sub]['pairs'][key]['all']['d'])} ({pci(H[sub]['pairs'][key]['all']['ci'])})"
+        ms = [m for m in SYSTEMS if m in H["all"]["models"]]
+        rows = [[NAME[m]] + [cellm(sub, m) for sub, _ in RG_SUB] for m in ms]
+        rows += [[f"{NAME[key.split('-')[0]]} $-$ {NAME[key.split('-')[1]]}"] + [cellp(sub, key) for sub, _ in RG_SUB] for _, key in RG_PAIRS]
+        tab("v3_radgraph", "@{}llll@{}", r"System or comparison & All questions & Definite findings & Hedged findings", rows, midrules=(len(ms),))
+    elif G:
         rows = [[NAME[m], f"{pct(G['models'][m]['all']['acc'])} ({pci(G['models'][m]['all']['acc_ci'])})"] for m in SYSTEMS if m in G["models"]]
         rows += [[f"{NAME[a_]} $-$ {NAME[b_]}", f"{pct(G['pairs'][f'{a_}-{b_}']['all']['d'])} ({pci(G['pairs'][f'{a_}-{b_}']['all']['ci'])})"]
                  for a_, b_ in (("v3_27", "stock27"), ("v3_9", "stock9"), ("v3_27", "qwen38")) if f"{a_}-{b_}" in G["pairs"]]
@@ -1159,8 +1189,12 @@ def claims():
         out.append(("C21", "results 3.6, discussion", "Letter-scored LLM within 25% of RadKev-27B per question, and numbered LLM faster than RadKev-27B at 255 options",
                     Lq["letter"]["per_question_ms"]["median"] < 1.25 * J["latency"]["models"]["v3_27"]["per_question_ms"]["median"]
                     and lat["qwen38_num"][255] < lat["v3_27"][255]))
-    G = (J.get("radgraph") or {}).get("radgraph_xl")
-    if G:
+    G = (J.get("radgraph") or {}).get("radgraph_xl"); H = J.get("rgx_hosted")
+    if H:
+        P_ = H["definite"]["pairs"]
+        out.append(("C22", "conclusions, results 3.7, discussion", "RadGraph-XL definite findings: 27B specialization CI below 0, 9B specialization CI above 0",
+                    P_["v3_27-stock27"]["all"]["ci"][1] < 0 and P_["v3_9-stock9"]["all"]["ci"][0] > 0))
+    elif G:
         out.append(("C22", "conclusions, results 3.7", "RadGraph-XL: 27B specialization CI below 0, 9B specialization CI above 0",
                     G["pairs"]["v3_27-stock27"]["all"]["ci"][1] < 0 and G["pairs"]["v3_9-stock9"]["all"]["ci"][0] > 0))
     W = E.get("wording", {})
