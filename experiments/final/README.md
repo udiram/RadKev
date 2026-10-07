@@ -20,6 +20,7 @@ the inputs of the manuscript build in [`paper/inputs/artifacts/`](../../paper/in
 | `transfer_paired.py` | Kev's out-of-domain transfer suite, specialized vs released models | Results 3.3 |
 | `preread_route.py`, `blind_v3.py` | subspecialty classification before the read; the options-only control | Results 3.5 |
 | `answer_space3.py` | accuracy and latency as the answer space grows | Results 3.6 |
+| `answer_space_hosted.py` | the answer-space study for the hosted decision models (OpenAI Decisions, Jev) on the same questions and latency requests | Results 3.6, Discussion 4.1 |
 | `radgraph_xl_build.py`, `external_tests.py`, `external_analyse_node.py`, `radgraph_xl_errors_v3.py` | the RadGraph-XL external test | Results 3.7 |
 
 `lib/` holds the helper modules the scripts bundle (`kev_eval.py`, `compare.py`, `kev_lora_dp.py`, `kev_locked.py`,

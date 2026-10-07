@@ -1355,6 +1355,26 @@ r3_as_rk27_rsna_rand255,83.3,paper/artifacts/answer_space3/artifacts/answer_spac
 r3_as_rk27_rsna_sim255,33.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_255 (rsna_radioqa),accuracy (%)
 r3_as_rk27_rsna_llm16,81.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.llm_16 (rsna_radioqa),accuracy (%)
 r3_as_n_rsna_llm16,21,paper/artifacts/answer_space3/artifacts/answer_space3.json,count of rsna_radioqa questions with 16 LLM-written options,questions
+r3_as_od_dx_sim16,90.0,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.sim_16 (eurorad_dx),accuracy (%)
+r3_as_od_dx_rand255,60.0,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.rand_255 (eurorad_dx),accuracy (%)
+r3_as_od_dx_sim255,46.7,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.sim_255 (eurorad_dx),accuracy (%)
+r3_as_od_rsna_sim16,56.7,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.sim_16 (rsna_radioqa),accuracy (%)
+r3_as_od_rsna_rand255,60.0,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.rand_255 (rsna_radioqa),accuracy (%)
+r3_as_od_rsna_sim255,23.3,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.openai_dec.correct.sim_255 (rsna_radioqa),accuracy (%)
+r3_as_lat_od_2,175,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,latency.openai_dec median at K=2,"ms per request, end to end"
+r3_as_lat_od_255,216,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,latency.openai_dec median at K=255,"ms per request, end to end"
+r3_as_ref_od,3,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,refused.openai_dec,answer-space questions declined (counted incorrect)
+r3_as_usd_od,0.09,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,spend_usd.openai_dec,US$
+r3_as_jv_dx_sim16,83.3,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.sim_16 (eurorad_dx),accuracy (%)
+r3_as_jv_dx_rand255,96.7,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.rand_255 (eurorad_dx),accuracy (%)
+r3_as_jv_dx_sim255,80.0,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.sim_255 (eurorad_dx),accuracy (%)
+r3_as_jv_rsna_sim16,56.7,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.sim_16 (rsna_radioqa),accuracy (%)
+r3_as_jv_rsna_rand255,73.3,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.rand_255 (rsna_radioqa),accuracy (%)
+r3_as_jv_rsna_sim255,46.7,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,models.jev.correct.sim_255 (rsna_radioqa),accuracy (%)
+r3_as_lat_jv_2,184,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,latency.jev median at K=2,"ms per request, end to end"
+r3_as_lat_jv_255,212,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,latency.jev median at K=255,"ms per request, end to end"
+r3_as_ref_jv,0,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,refused.jev,answer-space questions declined (counted incorrect)
+r3_as_usd_jv,0.05,paper/artifacts/answer_space_hosted/artifacts/answer_space_hosted.json,spend_usd.jev,US$
 r3_asc_acc_sim255,53.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_255 (both sources),"accuracy, 255 most similar options, both sources (%)"
 r3_asc_conf_sim255,71.1,paper/artifacts/answer_space3/artifacts/answer_space3.json,mean models.v3_27.conf.sim_255 / 100,mean confidence (%)
 r3_asc_gap_sim255,17.8,paper/artifacts/answer_space3/artifacts/answer_space3.json,mean conf - accuracy,confidence minus accuracy (pp)

@@ -44,6 +44,7 @@ INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contr
     "reasoning": ([A_ / "reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json"], "jobs/reasoning_v3_fix.py (reasoning-sample analysis of jobs/llm_reasoning.py v3, source-stratified bootstrap, examination tasks pooled, RadCases panel prior-corrected)"),
     "blind": ([A_ / "blind_v3_rerun/artifacts/blind_v3.json", A_ / "blind_v3/artifacts/blind_v3.json"], "jobs/blind_v3.py"),
     "answer_space": ([A_ / "answer_space3/artifacts/answer_space3.json"], "jobs/answer_space3.py (raw bits; needs a local analysis)"),
+    "answer_space_hosted": ([A_ / "answer_space_hosted/artifacts/answer_space_hosted.json"], "jobs/answer_space_hosted.py (OpenAI Decisions and Jev on the answer_space3 questions and latency requests)"),
     "radgraph": ([A_ / "external_v3_analysis/artifacts/analysis_node.json", A_ / "external_v3/artifacts/analysis_node.json"], "jobs/external_tests.py v3 + jobs/external_analyse_node.py"),
     "rgxerr": ([A_ / "radgraph_xl_errors_v3/rgx_errors_v3.json"], "jobs/radgraph_xl_errors_v3.py (per-status RadGraph-XL breakdown, job 6164e2a4)"),
     "odec_eval": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior.json"], "OpenAI Decisions API (gpt-6-luna) within jobs/eval_v3_prior.py"),
@@ -70,6 +71,7 @@ def locate(key):
     return max(hits, key=lambda p: p.stat().st_mtime) if hits else None   # newest copy (a job may be recomputed in place)
 
 
+AS_WARMUP_H = 5   # first 5 latency requests excluded, as for the other systems
 SRC = {k: locate(k) for k in INPUTS}
 J = {k: json.loads(p.read_text()) for k, p in SRC.items() if p}
 if "odec_eval" in J and "eval" in J:   # merge only the OpenAI system, its pairs and calibration pairs; everything else stays from eval_v3
@@ -82,6 +84,10 @@ if "odec_eval" in J and "eval" in J:   # merge only the OpenAI system, its pairs
         for _t in [t for t in _O["pairs"][_p]["tasks"] if t.startswith("ctrate:")]: del _O["pairs"][_p]["tasks"][_t]
     _E["pairs"].update({k: v for k, v in _O["pairs"].items() if "openai_dec" in k})
     _E.setdefault("calibration_pairs", {}).update({k: v for k, v in _O.get("calibration_pairs", {}).items() if "openai_dec" in k})
+if "answer_space_hosted" in J and "answer_space" in J:   # same records in the same order; hosted latency is end to end over the network
+    _H, _A = J["answer_space_hosted"], J["answer_space"]
+    assert _H["rids"] == _A["rids"], "answer_space_hosted records differ from answer_space3"
+    _A["models"].update(_H["models"]); _A["latency"].update({m: [r[:2] for r in rows][AS_WARMUP_H:] for m, rows in _H["latency"].items()})
 if "reasoning" in J and "paired" not in J["reasoning"]: J["reasoning"] = {"paired": J["reasoning"]}   # eval_v3_prior writes the paired block itself
 if "preread" in J:   # jobs/preread_route.py writes its status file with the analysis under "result" (absent until the analysis ran)
     J["preread"] = J["preread"].get("result") if "models" not in J["preread"] else J["preread"]
@@ -582,7 +588,7 @@ def build_radgraph():
 
 
 AS_SYS = [("v3_27", "RadKev-27B", "rk27"), ("stock27", "Kev-27B", "k27"), ("v3_9", "RadKev-9B", "rk9"), ("stock9", "Kev-9B", "k9"),
-          ("qwen38_num", "Qwen3.8-27B", "q")]
+          ("qwen38_num", "Qwen3.8-27B", "q"), ("openai_dec", "OpenAI Decisions", "od"), ("jev", "Jev", "jv")]
 AS_K = [2, 4, 16, 64, 255]
 AS_WARMUP = 5   # jobs/answer_space3.py CFG["lat_warmup"]: first 5 latency requests of each model excluded
 
@@ -647,6 +653,16 @@ def build_answer_space():
             if v is None: pending(f"r3_as_rk27_{sk}_{c.replace('_', '')}", f"answer space: {c}"); continue
             put(f"r3_as_rk27_{sk}_{c.replace('_', '')}", pct(v[0]), src, f"models.v3_27.correct.{c} ({s_})", "accuracy (%)")
             if c == "llm_16": put(f"r3_as_n_{sk}_llm16", n_(v[1]), src, f"count of {s_} questions with 16 LLM-written options", "questions")
+    if "answer_space_hosted" in J:   # hosted decision models (OpenAI Decisions, Jev): accuracy and end-to-end latency
+        H = J["answer_space_hosted"]
+        for m, k in (("openai_dec", "od"), ("jev", "jv")):
+            for s_, sk in (("eurorad_dx", "dx"), ("rsna_radioqa", "rsna")):
+                for c in ("sim_16", "rand_255", "sim_255"):
+                    v = acc(m, s_, c); put(f"r3_as_{k}_{sk}_{c.replace('_', '')}", pct(v), REL("answer_space_hosted"), f"models.{m}.correct.{c} ({s_})", "accuracy (%)")
+            for K in (2, 255):
+                put(f"r3_as_lat_{k}_{K}", n_(round(S["lat"][m][K])), REL("answer_space_hosted"), f"latency.{m} median at K={K}", "ms per request, end to end")
+            put(f"r3_as_ref_{k}", n_(H["refused"][m]), REL("answer_space_hosted"), f"refused.{m}", "answer-space questions declined (counted incorrect)")
+            put(f"r3_as_usd_{k}", f"{H['spend_usd'][m]:.2f}", REL("answer_space_hosted"), f"spend_usd.{m}", "US$")
     # confidence of RadKev-27B by answer space, pooled over both sources (conf: integer percent per question)
     A3 = J["answer_space"]; CM, FM = A3["models"]["v3_27"]["correct"], A3["models"]["v3_27"]["conf"]
     def cstat(c):
@@ -924,23 +940,25 @@ def fig_answer_space():
     """(a) Eurorad and (b) RSNA-RadioQA accuracy with the most similar alternatives, by number of options (log scale); (c) median latency."""
     S = AS_FIG.get("S")
     fig = F.plt.figure(figsize=(180 * F.MM, 76 * F.MM))
-    axs = [fig.add_axes([0.07 + 0.33 * i, 0.16, 0.25, 0.54]) for i in range(3)]
-    col = {"v3_27": F.C_RAD, "stock27": "#5A6577", "v3_9": "#8FB0EE", "stock9": "#B7C0CC", "qwen38_num": F.C_LLM, "qwen38_letter": F.C_LLM}
+    axs = [fig.add_axes([0.07 + 0.33 * i, 0.16, 0.25, 0.50]) for i in range(3)]
+    mk = lambda m: "s" if m == "openai_dec" else "^" if m == "jev" else "o"   # hosted decision models: distinct markers
+    col = {"v3_27": F.C_RAD, "stock27": "#5A6577", "v3_9": "#8FB0EE", "stock9": "#B7C0CC", "qwen38_num": F.C_LLM, "qwen38_letter": F.C_LLM,
+           "openai_dec": F.C_ODEC, "jev": F.C_JEV}
     if not S:
         for ax in axs: _placeholder(ax, "pending: answer space")
     else:
         for ax, s_ in zip(axs[:2], ("eurorad_dx", "rsna_radioqa")):
             for m, lab, _ in AS_SYS:
                 pts = [(K, 100 * S["acc"][m][s_][f"sim_{K}"][0]) for K in AS_K if f"sim_{K}" in S["acc"].get(m, {}).get(s_, {})]
-                if pts: ax.plot(*zip(*pts), marker="o", ms=3, lw=1.4 if m.startswith("v3") else 1.0, color=col[m], label=lab)
+                if pts: ax.plot(*zip(*pts), marker=mk(m), ms=3.4 if mk(m) != "o" else 3, lw=1.4 if m.startswith("v3") else 1.0, color=col[m], label=lab)
             ax.set_xscale("log", base=2); ax.set_xticks(AS_K); ax.set_xticklabels([str(k) for k in AS_K]); ax.set_ylim(0, 100)
             ax.set_xlabel("Options offered", color=F.WP_SUB, **F.FONT); ax.set_ylabel("Accuracy (%)", color=F.WP_SUB, **F.FONT)
         for m, rows in S["lat"].items():
             name = {"v3_27": "RadKev-27B", "stock27": "Kev-27B", "v3_9": "RadKev-9B", "stock9": "Kev-9B", "qwen38_num": "Qwen3.8-27B, numbered",
-                    "qwen38_letter": "Qwen3.8-27B, letter"}.get(m)
+                    "qwen38_letter": "Qwen3.8-27B, letter", "openai_dec": "OpenAI Decisions", "jev": "Jev"}.get(m)
             if not name: continue
             ks = sorted(rows); kv = m.startswith("stock")   # RadKev and Kev of the same size coincide: Kev drawn wider underneath RadKev
-            axs[2].plot(ks, [rows[k] for k in ks], marker="o", ms=4.5 if kv else 3, lw=2.6 if kv else 1.0, color=col.get(m, "#999"),
+            axs[2].plot(ks, [rows[k] for k in ks], marker=mk(m), ms=4.5 if kv else 3.4 if mk(m) != "o" else 3, lw=2.6 if kv else 1.0, color=col.get(m, "#999"),
                         ls="--" if "letter" in m else "-", label=name, zorder=2 if kv else 4)
         axs[2].set_xscale("log", base=2); axs[2].set_yscale("log"); axs[2].set_xticks([2, 16, 64, 255]); axs[2].set_xticklabels(["2", "16", "64", "255"])
         axs[2].set_xlabel("Options offered", color=F.WP_SUB, **F.FONT); axs[2].set_ylabel("Median latency per request", color=F.WP_SUB, **F.FONT)
@@ -952,9 +970,9 @@ def fig_answer_space():
             ax.spines["bottom"].set_color("#BDBDBD"); ax.spines["bottom"].set_linewidth(0.6)   # light axis line, as in the other figures
             ax.grid(color=F.WP_GRID, lw=0.6); ax.tick_params(length=0, labelsize=7, colors=F.WP_SUB)
         from matplotlib.lines import Line2D
-        fig.legend(handles=[Line2D([], [], color=col[m], marker="o", ms=3, lw=1.2, label=lab) for m, lab, _ in AS_SYS] +
+        fig.legend(handles=[Line2D([], [], color=col[m], marker=mk(m), ms=3.4, lw=1.2, label=lab) for m, lab, _ in AS_SYS] +
                    [Line2D([], [], color="#777", ls="--", lw=1.0, label="Qwen3.8-27B, letter scoring")],
-                   loc="upper center", ncol=7, frameon=False, prop={**F.FONT, "size": 6.8}, bbox_to_anchor=(0.5, 1.0), handlelength=1.6, columnspacing=1.0)
+                   loc="upper center", ncol=4, frameon=False, prop={**F.FONT, "size": 6.8}, bbox_to_anchor=(0.5, 1.0), handlelength=1.6, columnspacing=1.0)
     _head(fig, axs[0], "a", "Eurorad diagnosis", "Most similar alternatives", dx=-25)
     _head(fig, axs[1], "b", "RSNA-RadioQA", "Most similar alternatives", dx=-25)
     _head(fig, axs[2], "c", "Latency", "One question per request; logarithmic axes", dx=-25)

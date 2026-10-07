@@ -1046,6 +1046,7 @@ def build_fig_teacher():
         assert c["group"] == group and c["question"]["type"] == "choice"
         st = c["state"] if isinstance(c["state"], str) else " ".join(c["state"].values())
         st = re.sub(r"^(Indication|clinical question):\s*", "", st)
+        st = re.sub(r"^(\d+)-year-old [a-z]+\.\s+(?=.*\b\1-year-old\b)", "", st)   # age/sex header repeated by the history
         opts = list(c["question"]["criteria"].items())
         pm, pq = c["medgemma"], c["qwen38"]
         kept = max(pm, key=pm.get) == max(pq, key=pq.get)
