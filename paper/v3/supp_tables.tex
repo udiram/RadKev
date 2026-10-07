@@ -66,7 +66,7 @@
 \end{table}
 
 \begin{table}[!h]
-  \caption{Accuracy (\%) under each answer space on \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions; K, number of options offered (2, 4, 16, 64 and 255).}
+  \caption{Accuracy (\%) under each answer space on \V{r3_as_n_dx} Eurorad diagnosis and \V{r3_as_n_rsna} RSNA-RadioQA questions; K, number of options offered. Random and most similar: alternatives drawn from the pool of diagnoses at random or in order of similarity to the key. LLM-written: alternatives written by Qwen3.8-27B; with 16 options, \V{r3_as_n_dx_llm16} Eurorad and \V{r3_as_n_rsna_llm16} RSNA-RadioQA questions retained enough alternatives after filtering. Original + LLM-written: the original options supplemented with up to 8 LLM-written alternatives. The LLMs (Qwen, MedGemma) generated the number of the chosen option.}
   \label{tab:v3_answer_space}
   \centering\footnotesize\setlength{\tabcolsep}{4pt}
   \input{generated/v3_answer_space.tex}

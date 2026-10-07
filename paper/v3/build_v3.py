@@ -611,6 +611,28 @@ def build_answer_space():
             v = S["lat"].get(m, {}).get(K)
             if v is None: pending(f"r3_as_lat_{key}_{K}", f"answer-space latency {m} K={K}")
             else: put(f"r3_as_lat_{key}_{K}", n_(round(v)), src, f"latency.{m} median at K={K}", "ms per request")
+    for s_, sk in (("eurorad_dx", "dx"), ("rsna_radioqa", "rsna")):
+        for c in ("rand_255", "sim_255", "llm_16"):
+            if sk == "dx" and c != "llm_16": continue   # Eurorad rand/sim 255 are put above
+            v = S["acc"].get("v3_27", {}).get(s_, {}).get(c)
+            if v is None: pending(f"r3_as_rk27_{sk}_{c.replace('_', '')}", f"answer space: {c}"); continue
+            put(f"r3_as_rk27_{sk}_{c.replace('_', '')}", pct(v[0]), src, f"models.v3_27.correct.{c} ({s_})", "accuracy (%)")
+            if c == "llm_16": put(f"r3_as_n_{sk}_llm16", n_(v[1]), src, f"count of {s_} questions with 16 LLM-written options", "questions")
+    # confidence of RadKev-27B by answer space, pooled over both sources (conf: integer percent per question)
+    A3 = J["answer_space"]; CM, FM = A3["models"]["v3_27"]["correct"], A3["models"]["v3_27"]["conf"]
+    def cstat(c):
+        xs = [(b == "1", f / 100) for b, f in zip(CM[c], FM[c]) if b != "-" and f is not None]
+        hi = [a for a, f in xs if f >= 0.9]
+        return sum(a for a, _ in xs) / len(xs), sum(f for _, f in xs) / len(xs), (sum(hi) / len(hi) if hi else None), len(hi) / len(xs)
+    CS = {c: cstat(c) for c in CM if c in FM}; ASC.update(CS)
+    a_, m_, _, sh = CS["sim_255"]
+    put("r3_asc_acc_sim255", pct(a_), src, "models.v3_27.correct.sim_255 (both sources)", "accuracy, 255 most similar options, both sources (%)")
+    put("r3_asc_conf_sim255", pct(m_), src, "mean models.v3_27.conf.sim_255 / 100", "mean confidence (%)")
+    put("r3_asc_gap_sim255", pct(m_ - a_), src, "mean conf - accuracy", "confidence minus accuracy (pp)")
+    put("r3_asc_share_sim255", num(100 * sh, 0), src, "share conf >= 0.9", "questions answered with confidence >= 0.9 (%)")
+    put("r3_asc_share_rand16", num(100 * CS["rand_16"][3], 0), src, "share conf >= 0.9, rand_16", "questions answered with confidence >= 0.9 (%)")
+    his = [v[2] for v in CS.values() if v[2] is not None]
+    put("r3_asc_hi_lo", num(100 * min(his), 0), src, "min over conditions of accuracy at conf >= 0.9", "%"); put("r3_asc_hi_hi", num(100 * max(his), 0), src, "max", "%")
     L = S["lat"].get("v3_27", {})
     for K in (2, 255):
         if K in L: put(f"r3_as_lat_rk27_{K}", n_(round(L[K])), src, f"latency.v3_27 median at K={K}", "ms per request")
@@ -619,9 +641,9 @@ def build_answer_space():
     rows, mids = [], []
     for s_, lab in (("eurorad_dx", "Eurorad diagnosis"), ("rsna_radioqa", "RSNA-RadioQA")):
         if rows: mids.append(len(rows))
-        for fam, flab in (("orig", "Original options"), ("rand", "Random"), ("sim", "Most similar")):
-            for K in ([None] if fam == "orig" else AS_K):
-                c = "orig" if fam == "orig" else f"{fam}_{K}"
+        for fam, flab in (("orig", "Original options"), ("rand", "Random"), ("sim", "Most similar"), ("llm", "LLM-written"), ("orig_llm", "Original + LLM-written")):
+            for K in ([None] if fam in ("orig", "orig_llm") else (2, 4, 8, 16) if fam == "llm" else AS_K):
+                c = fam if fam in ("orig", "orig_llm") else f"{fam}_{K}"
                 cells = []
                 for m, _, _ in AS_SYS:
                     v = acc(m, s_, c); cells.append(pct(v) if v is not None else "--")
@@ -631,6 +653,7 @@ def build_answer_space():
 
 
 AS_FIG = {}
+ASC = {}   # RadKev-27B accuracy, mean confidence, accuracy at confidence >= 0.9 and its share, per answer-space condition
 
 
 # ------------------------------------------------------------------------------------------------ figures
@@ -1048,6 +1071,10 @@ def claims():
         ("C15", "discussion, conclusions", "Both specialized models cover more questions at 5% error than their starting points and both LLMs",
          min(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("v3_27", "v3_9")) > max(E["calibration"][m]["human"]["as_scored"]["cov5"] for m in ("stock27", "stock9", "qwen38", "medgemma_fix"))),
     ]
+    if ASC:
+        his = [v[2] for v in ASC.values() if v[2] is not None]
+        out.append(("C25", "results 3.6, discussion", "RadKev-27B: mean confidence exceeds accuracy by > 10 pp with the 255 most similar options; accuracy at confidence >= 0.9 at least 90% in every answer space; share at >= 0.9 lower for sim_255 than rand_16",
+                    ASC["sim_255"][1] - ASC["sim_255"][0] > 0.10 and min(his) >= 0.90 and ASC["sim_255"][3] < ASC["rand_16"][3]))
     if "eval_raw" in J:
         out.append(("C24", "results 3.1", "Primary outcome positive without the RadCases prior correction (CI above 0)",
                     sig(J["eval_raw"]["pairs"]["v3_27-stock27"]["bench"]["task_mean_ci"]) == 1))

@@ -1226,5 +1226,18 @@ r3_as_lat_q_2,331,paper/artifacts/answer_space3/artifacts/answer_space3.json,lat
 r3_as_lat_q_255,"2,207",paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_num median at K=255,ms per request
 r3_as_lat_qletter_2,242,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_letter median at K=2,ms per request
 r3_as_lat_qletter_16,299,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.qwen38_letter median at K=16,ms per request
+r3_as_rk27_dx_llm16,100.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.llm_16 (eurorad_dx),accuracy (%)
+r3_as_n_dx_llm16,18,paper/artifacts/answer_space3/artifacts/answer_space3.json,count of eurorad_dx questions with 16 LLM-written options,questions
+r3_as_rk27_rsna_rand255,83.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.rand_255 (rsna_radioqa),accuracy (%)
+r3_as_rk27_rsna_sim255,33.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_255 (rsna_radioqa),accuracy (%)
+r3_as_rk27_rsna_llm16,81.0,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.llm_16 (rsna_radioqa),accuracy (%)
+r3_as_n_rsna_llm16,21,paper/artifacts/answer_space3/artifacts/answer_space3.json,count of rsna_radioqa questions with 16 LLM-written options,questions
+r3_asc_acc_sim255,53.3,paper/artifacts/answer_space3/artifacts/answer_space3.json,models.v3_27.correct.sim_255 (both sources),"accuracy, 255 most similar options, both sources (%)"
+r3_asc_conf_sim255,71.1,paper/artifacts/answer_space3/artifacts/answer_space3.json,mean models.v3_27.conf.sim_255 / 100,mean confidence (%)
+r3_asc_gap_sim255,17.8,paper/artifacts/answer_space3/artifacts/answer_space3.json,mean conf - accuracy,confidence minus accuracy (pp)
+r3_asc_share_sim255,30,paper/artifacts/answer_space3/artifacts/answer_space3.json,share conf >= 0.9,questions answered with confidence >= 0.9 (%)
+r3_asc_share_rand16,93,paper/artifacts/answer_space3/artifacts/answer_space3.json,"share conf >= 0.9, rand_16",questions answered with confidence >= 0.9 (%)
+r3_asc_hi_lo,92,paper/artifacts/answer_space3/artifacts/answer_space3.json,min over conditions of accuracy at conf >= 0.9,%
+r3_asc_hi_hi,100,paper/artifacts/answer_space3/artifacts/answer_space3.json,max,%
 r3_as_lat_rk27_2,255,paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.v3_27 median at K=2,ms per request
 r3_as_lat_rk27_255,"3,414",paper/artifacts/answer_space3/artifacts/answer_space3.json,latency.v3_27 median at K=255,ms per request
