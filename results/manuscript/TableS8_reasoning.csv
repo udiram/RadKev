@@ -1,0 +1,8 @@
+System,Pooled over questions,Averaged over tasks
+RadKev-27B,89.0 (88.0 to 90.4),83.7 (80.5 to 86.6)
+Kev-27B,82.0 (81.1 to 84.2),79.4 (75.9 to 82.5)
+RadKev-9B,87.1 (86.2 to 88.7),80.1 (76.8 to 83.1)
+Qwen3.8-27B,83.6 (83.2 to 86.2),82.0 (78.8 to 85.1)
+"Qwen3.8-27B, reasoning",85.1 (84.1 to 86.9),82.9 (79.6 to 85.8)
+MedGemma-27B-text,74.8 (73.8 to 77.3),71.2 (67.5 to 74.9)
+"MedGemma-27B-text, reasoning",78.4 (77.6 to 80.8),72.8 (69.5 to 76.0)

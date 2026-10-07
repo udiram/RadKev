@@ -1,0 +1,12 @@
+System,Mode,Median (ms),95th percentile (ms),Questions
+RadKev-27B,one pass per record,128,322,55
+Kev-27B,one pass per record,129,278,55
+RadKev-9B,one pass per record,43,112,55
+Kev-9B,one pass per record,43,86,55
+OpenAI Decisions,"end to end, 4 in flight",145,212,"7,471"
+OpenAI Decisions,"end to end, one at a time",175,276,27
+Qwen3.8-27B,option-letter logits,145,245,99
+Qwen3.8-27B,generated letter,234,332,99
+Qwen3.8-27B,reasoning,16906,179802,54
+MedGemma-27B-text,option-letter logits,141,242,99
+MedGemma-27B-text,generated letter,237,337,99

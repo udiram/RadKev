@@ -1,13 +1,13 @@
-Task,System,Full case,Options only (case removed)
-Eurorad diagnosis,RadKev-27B,"93.9 (91.3, 96.2)","78.0 (73.7, 82.4)"
-Eurorad diagnosis,Kev-27B,"82.7 (78.6, 86.4)","47.7 (42.8, 52.9)"
-Eurorad diagnosis,RadKev-9B,"91.0 (87.9, 93.9)","81.2 (77.5, 85.3)"
-Eurorad diagnosis,Kev-9B,"75.1 (70.8, 79.5)","38.4 (33.5, 43.6)"
-Eurorad diagnosis,Qwen3.8-27B,"84.4 (80.3, 88.2)","50.0 (44.8, 55.2)"
-Eurorad diagnosis,MedGemma-27B-text,"72.5 (67.9, 77.2)","26.9 (22.5, 31.8)"
-MedQA,RadKev-27B,"86.8 (84.8, 88.7)","36.1 (33.5, 38.8)"
-MedQA,Kev-27B,"83.8 (81.7, 85.9)","32.5 (30.0, 35.0)"
-MedQA,RadKev-9B,"77.2 (74.8, 79.7)","35.3 (32.7, 37.9)"
-MedQA,Kev-9B,"72.3 (69.8, 74.8)","29.8 (27.3, 32.2)"
-MedQA,Qwen3.8-27B,"84.0 (81.9, 86.0)","33.4 (30.8, 36.1)"
-MedQA,MedGemma-27B-text,"69.4 (66.9, 71.9)","27.3 (24.9, 29.7)"
+Task,System,Full case,Options only
+Eurorad diagnosis,RadKev-27B,94.2 (91.6 to 96.5),76.9 (72.3 to 81.2)
+,Kev-27B,82.7 (78.3 to 86.4),47.7 (42.5 to 52.9)
+,RadKev-9B,90.5 (87.0 to 93.4),81.5 (77.5 to 85.5)
+,Kev-9B,75.1 (70.5 to 79.5),38.4 (33.2 to 43.9)
+,Qwen3.8-27B,84.1 (80.1 to 87.9),50.0 (45.1 to 55.5)
+,MedGemma-27B-text,71.1 (66.5 to 75.7),26.9 (22.3 to 31.5)
+RSNA-RadioQA,RadKev-27B,75.9 (67.1 to 84.8),50.6 (39.2 to 62.0)
+,Kev-27B,73.4 (63.3 to 82.3),40.5 (30.3 to 50.6)
+,RadKev-9B,69.6 (59.5 to 79.7),48.1 (38.0 to 59.5)
+,Kev-9B,60.8 (49.4 to 70.9),41.8 (30.4 to 53.2)
+,Qwen3.8-27B,77.2 (68.4 to 86.1),46.8 (36.7 to 58.2)
+,MedGemma-27B-text,59.5 (48.1 to 69.6),25.3 (16.5 to 35.4)

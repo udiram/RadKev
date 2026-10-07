@@ -97,6 +97,25 @@ dev_b27,87.0,results/train/v2mg/kev-27b_dev_stock.json,overall.acc,development a
 dev_a27,92.1,results/train/v2mg/kev-27b_dev_cal.json,overall.acc,development accuracy (%)
 dev_b9,83.2,results/train/v2x9/kev-9b_dev_stock.json,overall.acc,development accuracy (%)
 dev_a9,89.9,results/train/v2x9/kev-9b_dev_cal.json,overall.acc,development accuracy (%)
+v3_loss_rk27_start,0.49,artifacts/train_v3/artifacts/trainlog_v3f-kev-27b-dp.json,"steps[].loss, steps 10-300","training loss, first 300 steps"
+v3_loss_rk27_end,0.32,artifacts/train_v3/artifacts/trainlog_v3f-kev-27b-dp.json,"steps[].loss, last 300 steps","training loss, last 300 steps"
+v3_dpchecks_rk27,10,artifacts/train_v3/artifacts/trainlog_v3f-kev-27b-dp.json,param_checks,"data-parallel weight-equality checks, all equal"
+v3_loss_rk9_start,0.67,artifacts/train_v3/artifacts/trainlog_v3f-kev-9b-dp.json,"steps[].loss, steps 10-300","training loss, first 300 steps"
+v3_loss_rk9_end,0.46,artifacts/train_v3/artifacts/trainlog_v3f-kev-9b-dp.json,"steps[].loss, last 300 steps","training loss, last 300 steps"
+v3_dpchecks_rk9,10,artifacts/train_v3/artifacts/trainlog_v3f-kev-9b-dp.json,param_checks,"data-parallel weight-equality checks, all equal"
+v3_dev_b27,88.6,artifacts/train_v3/artifacts/kev-27b-dp_dev_stock.json,overall.acc,development accuracy (%)
+v3_dev_a27,93.6,artifacts/train_v3/artifacts/dev_cal_27b.json,overall.acc,development accuracy (%)
+v3_dev_b9,86.0,artifacts/train_v3/artifacts/kev-9b-dp_dev_stock.json,overall.acc,development accuracy (%)
+v3_dev_a9,92.6,artifacts/train_v3/artifacts/dev_cal_9b.json,overall.acc,development accuracy (%)
+as3_n_dx,30,jobs/answer_space3.py CFG,as3_n_dx,Eurorad diagnosis questions
+as3_n_rsna,30,jobs/answer_space3.py CFG,as3_n_rsna,RSNA-RadioQA questions
+as3_sizes,"2, 4, 16, 64 and 255",jobs/answer_space3.py CFG,as3_sizes,answer-space sizes
+as3_llm_sizes,"2, 4, 8 and 16",jobs/answer_space3.py CFG,as3_llm_sizes,LLM-distractor sizes
+as3_lat_cases,15,jobs/answer_space3.py CFG,as3_lat_cases,latency cases
+as3_lat_sizes,"2, 16, 64 and 255",jobs/answer_space3.py CFG,as3_lat_sizes,latency sizes
+as3_lat_warmup,5,jobs/answer_space3.py CFG,as3_lat_warmup,warm-up excluded
+lat3_records,60,"monitor queue commit 3bbfb94, latency_bench --n_records (latency_v3.json sample.records)",n_records,latency records
+lat3_reason_q,55,"monitor queue commit 3bbfb94, latency_bench --n_reasoning",n_reasoning,questions timed with reasoning (first excluded as warm-up)
 tex_agreement_case,17094,artifacts/figure_data_teacher/artifacts/figure_data.json,agreed_pool[tid=32379].group,Eurorad case number shown in the teacher figure
 tex_disagreement_case,18086,artifacts/figure_data_teacher/artifacts/figure_data.json,disagreed_pool[tid=31031].group,Eurorad case number shown in the teacher figure
 train_questions,"104,708",artifacts/build_open/artifacts/rad_open_manifest.json + artifacts/gated/artifacts/rad_gated_manifest.json + artifacts/teacher/artifacts/teacher_manifest.json,splits.train.questions (teacher: kept minus dev and test),train questions
@@ -193,6 +212,59 @@ as_add,8,constants.json,CFG.add,LLM distractors added to the original options
 as_lat_sizes,"2, 4, 8, 16, 32, 64 or 128",constants.json,CFG.lat_sizes,latency sizes
 as_lat_cases,60,constants.json,CFG.lat_cases,latency cases
 as_lat_warmup,10,constants.json,CFG.lat_warmup,warm-up requests excluded
+rc_label_rows,471,artifacts/build_v3/artifacts/build_v3.json,radcases.build.stats.label_rows,RadCases label rows (open subsets)
+rc_matched,468,artifacts/build_v3/artifacts/build_v3.json,radcases.build.stats.matched_cases,RadCases cases matched to their text
+rc_multi_panel,12,artifacts/build_v3/artifacts/build_v3.json,radcases.build.stats.multi_panel_excluded,RadCases cases with several panels (no panel question)
+rc_overlap,37,artifacts/build_v3/artifacts/build_v3.json,radcases.build.stats.overlap_with_radkev_splits,excluded: text in a RadKev split
+rc_train,264,artifacts/build_v3/artifacts/build_v3.json,radcases.split.train,RadCases train cases
+rc_dev,29,artifacts/build_v3/artifacts/build_v3.json,radcases.split.dev,RadCases dev cases
+rc_test,138,artifacts/build_v3/artifacts/build_v3.json,radcases.split.test,RadCases test cases
+rc_test_q,227,artifacts/build_v3/artifacts/build_v3.json,radcases.split.test_q,RadCases test questions
+rc_topics,225,artifacts/build_v3/artifacts/build_v3.json,radcases.build.n_topics,ACR Appropriateness Criteria topics
+rc_panel_options,12,artifacts/build_v3/artifacts/build_v3.json,radcases.build.n_panels,panel question options (panels and none)
+rx_train,"6,000",artifacts/build_v3/artifacts/build_v3.json,rexerr.train,ReXErr train reports
+rx_dev,500,artifacts/build_v3/artifacts/build_v3.json,rexerr.dev,ReXErr dev reports
+rx_test,"2,708",artifacts/build_v3/artifacts/build_v3.json,rexerr.test,ReXErr test reports
+rx_test_err,"1,376",artifacts/build_v3/artifacts/build_v3.json,rexerr.test_error,ReXErr test reports with an injected error
+rf_kept,"1,379",artifacts/build_v3/artifacts/build_v3.json,radiology_filter.*.kept,knowledge test questions kept by the radiology filter
+rf_n,"8,995",artifacts/build_v3/artifacts/build_v3.json,radiology_filter.*.n,knowledge test questions screened
+rf_medmcqa_rad,69,artifacts/build_v3/artifacts/build_v3.json,radiology_filter.medmcqa_rad.kept,MedMCQA radiology questions (all kept)
+v3r_medmcqa_train,"5,070",artifacts/build_v3r/artifacts/build_v3r.json,train.kept.medmcqa,medmcqa train records kept (radiology)
+v3r_medmcqa_train_all,"35,634",artifacts/build_v3r/artifacts/build_v3r.json,train.kept+dropped.medmcqa,medmcqa train records before the filter
+v3r_medqa_train,"2,420",artifacts/build_v3r/artifacts/build_v3r.json,train.kept.medqa,medqa train records kept (radiology)
+v3r_medqa_train_all,"9,175",artifacts/build_v3r/artifacts/build_v3r.json,train.kept+dropped.medqa,medqa train records before the filter
+v3r_medmcqa_dev,303,artifacts/build_v3r/artifacts/build_v3r.json,dev.kept.medmcqa,medmcqa dev records kept (radiology)
+v3r_medmcqa_dev_all,"2,456",artifacts/build_v3r/artifacts/build_v3r.json,dev.kept+dropped.medmcqa,medmcqa dev records before the filter
+v3r_medqa_dev,250,artifacts/build_v3r/artifacts/build_v3r.json,dev.kept.medqa,medqa dev records kept (radiology)
+v3r_medqa_dev_all,"1,003",artifacts/build_v3r/artifacts/build_v3r.json,dev.kept+dropped.medqa,medqa dev records before the filter
+rsna_q,79,artifacts/rsna_radioqa/rsna_radioqa_manifest.json,records,RSNA-RadioQA questions (Appendix S1 of RadioRAG; Q44 absent)
+rsna_published,80,artifacts/rsna_radioqa/rsna_radioqa_manifest.json,records + missing_in_appendix,RSNA-RadioQA questions in the original study
+rsna_keyfix,2,artifacts/rsna_radioqa/rsna_radioqa_manifest.json,radsafe_answer_index_discrepancies,questions whose RadSaFE answer index differs from the published reference answer
+v3r_steps,"4,620","runs/v3f-kev-27b-dp.log, job 8d6337a4 (final RadKev-27B v3 run; same count in the cancelled v3r run 1b065b97)",step N/4620,"optimizer steps, RadKev-27B v3 and RadKev-9B v3"
+v3r_accepted,"36,954","runs/v3r-kev-27b.log and runs/v3r-kev-9b.log, job 1b065b97",N training requests,"training records accepted by kev.train, incl. replay"
+v3r_fed,"37,109",artifacts/build_v3r/artifacts/build_v3r.json + replay,"train total + 1,000","training records supplied, incl. replay"
+v3r_rejected,155,v3r_fed - v3r_accepted,difference,records not accepted by kev.train at loading
+v3_train_records,"36,109",artifacts/build_v3/artifacts/build_v3.json + manifests,sum of training records,"training records, v3"
+v3_bench_q,"14,142",artifacts/build_v3/artifacts/build_v3.json + manifests,benchmark questions,radiology benchmark test questions
+v3_bench_human_q,"11,434",artifacts/build_v3/artifacts/build_v3.json + manifests,benchmark questions minus ReXErr,human-assigned benchmark questions
+rg_reports,"2,000",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,reports,RadGraph-XL reports (Stanford release)
+rg_per_mod,500,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,by_modality.cxr,reports per modality
+rg_excluded,495,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,excluded,reports excluded for overlap
+rg_records,"1,505",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.records,RadGraph-XL records used
+rg_q,"4,037",artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.q_*,RadGraph-XL questions
+rg_q_cxr,11,artifacts/radgraph_xl_build/artifacts/radgraph_xl_build.json,stats.q_cxr,RadGraph-XL chest radiograph questions remaining
+v3_hours_27b,13.1,artifacts/train_v3/artifacts/training_metrics_27b.json,wall_seconds / 3600,"training hours, RadKev-27B"
+v3_examples_27b,"44,068",artifacts/train_v3/artifacts/training_metrics_27b.json,records_seen,examples seen incl. minimal pairs
+v3_peak_27b,33.5,artifacts/train_v3/artifacts/training_metrics_27b.json,peak_device_bytes / 2^30,"peak memory, first GPU of the first process (GiB)"
+v3_T_27b,1.35,artifacts/train_v3/artifacts/dev_cal_27b.json,temperature,fitted temperature
+v3_accum_27b,2,artifacts/train_v3/artifacts/kev-27b-dp_training_config.json,args.accum,accumulation steps per process
+v3_wdtype_27b,bfloat16,artifacts/train_v3/artifacts/kev-27b-dp_training_config.json,args.weights_dtype,frozen weight precision
+v3_hours_9b,3.4,artifacts/train_v3/artifacts/training_metrics_9b.json,wall_seconds / 3600,"training hours, RadKev-9B"
+v3_examples_9b,"44,070",artifacts/train_v3/artifacts/training_metrics_9b.json,records_seen,examples seen incl. minimal pairs
+v3_peak_9b,42.5,artifacts/train_v3/artifacts/training_metrics_9b.json,peak_device_bytes / 2^30,"peak memory, first GPU of the first process (GiB)"
+v3_T_9b,1.35,artifacts/train_v3/artifacts/dev_cal_9b.json,temperature,fitted temperature
+v3_accum_9b,1,artifacts/train_v3/artifacts/kev-9b-dp_training_config.json,args.accum,accumulation steps per process
+v3_wdtype_9b,32-bit,artifacts/train_v3/artifacts/kev-9b-dp_training_config.json,args.weights_dtype,frozen weight precision
 tagree_rk27,94.2,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev27.overall.acc,agreement with regenerated teacher test labels (%)
 tagree_k27,82.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.kev27.overall.acc,agreement with regenerated teacher test labels (%)
 tagree_rk9,92.6,artifacts/teacher_rescore_v2/artifacts/teacher_rescore.json,models.radkev9.overall.acc,agreement with regenerated teacher test labels (%)

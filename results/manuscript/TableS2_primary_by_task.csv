@@ -1,0 +1,20 @@
+Task,n,Kev-27B,RadKev-27B,Δ (95% CI),Holm p
+IU: finding present,"5,696",96.6,96.8,0.2 (−0.1 to 0.5),1.000
+IU: normal study,"2,848",87.6,90.2,2.6 (1.6 to 3.5),<0.001
+IU: which finding,674,95.4,96.9,1.5 (0.3 to 2.7),0.120
+Eurorad: diagnosis,346,82.7,94.2,11.6 (8.1 to 15.6),<0.001
+Eurorad: subspecialty classification,185,84.3,85.4,1.1 (−2.2 to 4.5),1.000
+RSNA-RadioQA: diagnosis,79,73.4,75.9,2.5 (−2.5 to 7.6),1.000
+RadCases: ACR panel,132,66.7,67.4,0.8 (−7.6 to 9.6),1.000
+RadCases: ACR topic,95,61.1,63.2,2.1 (−2.0 to 6.6),1.000
+MedMCQA: radiology,69,72.5,78.3,5.8 (−4.6 to 16.7),1.000
+MedMCQA: other subjects,151,64.9,76.2,11.3 (5.7 to 17.3),<0.001
+MedQA,331,84.0,87.9,3.9 (0.9 to 6.9),0.120
+MedXpertQA,641,26.4,30.6,4.2 (1.2 to 7.3),0.066
+MMLU,79,92.4,94.9,2.5 (0.0 to 6.3),1.000
+PubMedQA,108,78.7,79.6,0.9 (−1.9 to 4.6),1.000
+ReXErr: report error,"2,708",72.1,94.7,22.6 (20.9 to 24.3),<0.001
+"Task mean, all tasks (primary)","14,142",75.9,80.8,4.9 (3.8 to 6.2),–
+"Task mean, human-assigned","11,434",76.2,79.8,3.6 (2.4 to 5.0),–
+All questions pooled,"14,142",84.8,90.6,5.8 (5.3 to 6.3),–
+Human-assigned questions pooled,"11,434",87.8,89.6,1.8 (1.4 to 2.2),–

@@ -2,27 +2,25 @@
 
 Aggregate results of the study. Nothing in this directory contains dataset text. Local paths are written as `$RADKEV_HOME/...`.
 
+## The manuscript
+
 | Path | Contents |
 |---|---|
-| `numbers.csv` | every number in the manuscript (802 entries): key, value as printed, source file, field and note. Written by [`paper/build.py`](../paper/build.py); the manuscript reads these values through `\V{key}` macros, so no number is typed by hand |
-| `manuscript/` | every table of the manuscript as CSV, named by its number: `Table1_data.csv` and `TableS1_teacher_labels.csv` to `TableS13_ablations.csv`; values exactly as typeset, with 95% confidence intervals in parentheses |
-| `comparisons.json` | the scored comparison of every evaluated run on the held-out test split (`radkev.compare` output): per run overall, per decision family, per task, per label type and per wording, reliability bins, and paired bootstrap differences against Kev-27B (`vs_reference`) and against RadKev (`vs`) |
-| `tables/data_counts.*` | records per source and split |
-| `tables/training_runs.*`, `tables/dev_*` | training runs and their development-split results |
-| `tables/orders_leak_sensitivity.*` | agreement on order questions whose clinical indication names an imaging examination, and on the remaining questions |
-| `manifests/` | record and question counts per source, split and task for each built suite, to check a rebuild against |
-| `training/` | the `kev.train` configuration and training metrics of every run |
-| `studies/` | raw outputs of the latency, latency-scaling, leak, transfer, baseline and LLM-scoring studies |
+| `numbers.csv`, `numbers_v3.csv` | every number in the manuscript: key, value as printed, source file, field and note. Written by [`paper/build.py`](../paper/build.py) (Introduction, Methods, Table 1, Figures 1 to 3) and [`paper/v3/build_v3.py`](../paper/v3/build_v3.py) (abstract, Results, Discussion, Conclusions, Figures 4 to 9, Tables S2 to S12); the manuscript reads these values through `\V{key}` macros, so no number is typed by hand |
+| `manuscript/` | every table of the manuscript as CSV, named by its number: `Table1_data.csv`, `TableS1_teacher_labels.csv` and `TableS2_primary_by_task.csv` to `TableS12_external.csv`; values exactly as typeset, with 95% confidence intervals in parentheses |
+| [`../paper/inputs/artifacts/`](../paper/inputs/artifacts/) | the aggregate job outputs from which both ledgers are computed, e.g. `eval_v3_prior/` (benchmark evaluation of every system and the reasoning-sample analysis, with the RadCases panel prior correction for RadKev), `radcases_prior/`, `latency_v3/`, `openai_dec/`, `blind_v3/`, `preread_v3/`, `answer_space3/`, `external_v3_analysis/`, `transfer_v3/` and `train_v3/` |
 
-The manuscript's intervals come from one shared bootstrap with 2,000 resamples (see [docs/EVALUATION.md](../docs/EVALUATION.md));
-`comparisons.json`, `tables/` and `studies/` are the outputs of the individual scripts and use their own resampling (1,000
-resamples in `radkev.compare`). Where the two differ in the last digit, the manuscript values in `numbers.csv` and `manuscript/`
-are the reported ones.
+The manuscript's intervals come from one shared cluster bootstrap with 2,000 resamples, stratified by source.
 
-Run names in the JSON files: `v2_27` = RadKev-27B; `r9` = RadKev-9B; `b9` = the 9B model fine-tuned from Qwen3.5-9B-Base;
-`*f10` = trained on 10% of the training data; `v1med27` = RadKev-27B trained without the CT-RATE and teacher-labeled data;
-`v0open27` and `ft9` = pilot models; `stock27`, `stock9`, `kev4`, `kev08` = the released Kev models; `qwen38` = Qwen3.8-27B;
-`medgemma` = MedGemma-27B-text with the original prompt; `medgemma_brief` = MedGemma-27B-text with the revised prompt, before the
-duplicated beginning-of-sequence token was removed (the manuscript's MedGemma-27B-text results use the final prompt);
-`*_gen` = the answer letter read from generated text. Family names: `orders_protocols` = imaging orders; `human_keys` =
-human-labeled questions.
+## Earlier training runs (superseded)
+
+The following files are the outputs of training runs and analyses that preceded the final RadKev-27B and RadKev-9B (different
+training data and benchmark). They are not reported in the manuscript and are kept for provenance only.
+
+| Path | Contents |
+|---|---|
+| `comparisons.json` | scored comparison of the earlier runs on their held-out test split (`radkev.compare` output) |
+| `tables/` | record counts, training runs and development-split results of the earlier runs |
+| `manifests/` | record and question counts per source, split and task of the earlier suites |
+| `training/` | `kev.train` configurations and training metrics of the earlier runs |
+| `studies/` | raw outputs of the earlier latency, leak, transfer, baseline and LLM-scoring studies |

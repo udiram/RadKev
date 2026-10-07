@@ -1,5 +1,11 @@
 # Reproducing the study
 
+**Final models and manuscript.** The manuscript's results come from the final runs: the job scripts are in
+[`experiments/final/`](../experiments/final/) (README there), and [`paper/`](../paper/) regenerates every number, table and figure
+from their aggregate outputs (`python3 build.py --no-pdf && python3 v3/build_v3.py --strict && python3 build.py`). The sections below
+describe the environment, data construction and teacher labeling, which the final runs share, and the commands of earlier training
+runs (run names `v2mg`, `v2x9`, ...), which the final runs superseded.
+
 Every number in the manuscript and in this repository came from the commands below, run on RTX A6000 (48 GB) GPUs. Run names (`v2mg`, `v2x9`, ...) are the
 ones the results use, so a rerun lands next to the same labels. [`scripts/reproduce.sh`](../scripts/reproduce.sh) runs the main line
 end to end.

@@ -1,9 +1,0 @@
-System,Mode,n,Median (ms),95th percentile (ms)
-RadKev-27B,one pass per record,145,130,322
-Kev-27B,one pass per record,145,132,324
-RadKev-9B,one pass per record,145,44,94
-Kev-9B,one pass per record,145,44,96
-Qwen3.8-27B,option-letter logits,288,163,375
-Qwen3.8-27B,generated answer letter,288,252,465
-Qwen3.8-27B,"reasoning, then letter",39,14138,179786
-MedGemma-27B-text,option-letter logits,288,153,383

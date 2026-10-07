@@ -14,9 +14,13 @@ against ours. Released records and labels are described under [Released data](#r
 | MedMCQA (all subjects; radiology uncapped) | radiology and medical knowledge | train/dev; official validation = test | examination key | Apache-2.0 | `python -m radkev.fetch` |
 | MedQA (USMLE, 4 options) | medical knowledge | train/dev; official test = test | examination key | CC BY 4.0 | `python -m radkev.fetch` |
 | MMLU medical subjects, PubMedQA (expert set), MedXpertQA (text) | medical knowledge | **dev/test only** | examination key / expert annotation | MIT | `python -m radkev.fetch` |
+| ReXErr (error-injected MIMIC-CXR reports) | report reading: does the report contain an error? | train/dev; official test = test | known by construction | PhysioNet credentialed (MIMIC-CXR) | physionet.org |
+| RadCases (openly available subsets: GPT-3.5 one-liners, Medbullets Step 2/3) | ACR Appropriateness Criteria panel and topic | train/dev/test (by case) | two senior medical students under an attending radiologist, adjudicated | MIT (labels); case texts openly available | the RadCases repository |
+| RSNA-RadioQA (RSNA Case Collection) | case diagnosis | **test only** (79 questions) | published reference answer; options of the RaR study | as published with RadioRAG | the RadioRAG supplement |
+| RadGraph-XL | report reading: status of an annotated observation | **external test only** (4,037 questions) | radiologist annotations | PhysioNet credentialed | physionet.org |
 | CT-RATE chest CT reports + 18 abnormality labels | report reading | train/dev; official validation = test | the dataset's classifier labels for 18 abnormalities | CC BY-NC-SA 4.0, gated on Hugging Face | accept terms at [ibrahimhamamci/CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE) |
 | CheXpert Plus, ReXGradient-160K, CT-RATE, Eurorad presentations | imaging orders, triage and follow-up, chest radiograph finding status | teacher-labeled questions | agreement of two LLM teachers | Stanford AIMI research use agreement; ReXGradient research terms (gated) | Stanford AIMI / Redivis; [rajpurkarlab/ReXGradient-160K](https://huggingface.co/datasets/rajpurkarlab/ReXGradient-160K) |
-| MIMIC-CXR reports + CheXpert labels | report reading | supported, **not used** for the released models | CheXpert labeler | PhysioNet credentialed | physionet.org |
+| MIMIC-CXR reports + CheXpert labels | report reading | supported, not used directly (only through ReXErr) | CheXpert labeler | PhysioNet credentialed | physionet.org |
 
 `python -m radkev.fetch --list` prints where each file is expected under `$RADKEV_HOME/raw`. Gated sources can also live on a
 shared disk: `RADKEV_EXTRA_RAW=/data/a:/data/b` adds search roots.
@@ -76,17 +80,30 @@ Two rules follow from the use of LLM teachers and apply to every result:
 1. Teacher-labeled tasks measure **agreement with the teachers**, not correctness, and are reported apart from human-labeled tasks.
 2. Both LLM comparators produced these labels, so **no comparison between RadKev and the LLMs is made on model-labeled questions**.
 
-## Counts (released models)
+## Counts (final models)
 
-| Suite | Train records | Dev records | Test records | Test questions |
-|---|---:|---:|---:|---:|
-| `rad-open` (IU, Eurorad, MedMCQA, MedQA, MMLU, PubMedQA, MedXpertQA) | 47,721 | 5,765 | 12,189 | 18,744 |
-| `rad-gated` (CT-RATE) | 8,000 | 1,911 | 1,564 | 6,950 |
-| `teacher` | 11,443 | 877 | 626 | 1,025 |
-| **Total** | **67,164** | **8,553** | **14,379** | **26,719** |
+Records per source and split, and questions of the radiology benchmark (manuscript, Table 1;
+[`results/manuscript/Table1_data.csv`](../results/manuscript/Table1_data.csv)). Knowledge sources contribute only the questions
+selected by the radiology filter.
 
-Per source and task: [`results/tables/data_counts.md`](../results/tables/data_counts.md) and [`results/manifests/`](../results/manifests/).
-CheXpert Plus and ReXGradient-160K reports contributed through teacher-labeled questions only, and MIMIC-CXR was not used.
+| Source | Task | Key | Train | Dev | Test | Benchmark questions |
+|---|---|---|---:|---:|---:|---:|
+| IU/Open-i | finding detection (report) | human | – | 886 | 2,848 | 9,218 |
+| Eurorad | diagnosis; subspecialty | human | 2,912 | 329 | 346 | 531 |
+| MedMCQA | radiology knowledge | human | 5,070 | 303 | 4,151 | 220 |
+| MedQA | radiology knowledge | human | 2,420 | 250 | 1,273 | 331 |
+| MMLU | radiology knowledge | human | – | 123 | 1,089 | 79 |
+| PubMedQA | radiology knowledge | human | – | 469 | 531 | 108 |
+| MedXpertQA | radiology knowledge | human | – | 499 | 1,951 | 641 |
+| RSNA-RadioQA | diagnosis | human | – | – | 79 | 79 |
+| RadCases | imaging appropriateness (ACR) | human | 264 | 29 | 138 | 227 |
+| ReXErr | error detection (report) | construction | 6,000 | 500 | 2,708 | 2,708 |
+| CT-RATE | finding detection (report) | classifier | 8,000 | 1,911 | 1,564 | – |
+| Teacher-labeled | orders, triage, follow-up | LLM agreement | 11,443 | 877 | 626 | – |
+| **Total** | | | **36,109** | **6,176** | **17,304** | **14,142** |
+
+CheXpert Plus and ReXGradient-160K reports contributed through teacher-labeled questions only. The counts of earlier training runs
+are in [`results/tables/data_counts.md`](../results/tables/data_counts.md) and [`results/manifests/`](../results/manifests/).
 
 ## Released data
 
