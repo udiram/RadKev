@@ -389,10 +389,18 @@ D = {m: v for m, v in D.items() if v}
 think = [m for m in ("qwen38_think", "medgemma_think") if m in D]
 keys = sorted(set.intersection(*[set(D[m]) for m in think])) if think else []
 task = {k: D[think[0]][k][0] for k in keys}
-res = {"n": {t: sum(1 for k in keys if task[k] == t) for t in BENCH if any(task[k] == t for k in keys)}, "systems": {}, "pairs": {}, "coverage": {}}
+res = {"n": {t: sum(1 for k in keys if task[k] == t) for t in BENCH if any(task[k] == t for k in keys)}, "systems": {}, "pairs": {}, "coverage": {},
+       "bootstrap": "records resampled within source (2,000 resamples, seed 20261005)"}
 rec = sorted({k[0] for k in keys}); ridx = {r: i for i, r in enumerate(rec)}
 B = 2000; rng = np.random.default_rng(20261005); W8 = np.zeros((B, len(rec)), np.float32); strata = {}
-for k in keys: strata.setdefault(task[k], set()).add(ridx[k[0]])
+# Records are resampled within their SOURCE (as in jobs/eval_v3.py), each record in exactly one stratum. (Fix 2026-10-07: the
+# strata were tasks, so a record with questions in several tasks (IU, Eurorad) was drawn once per task and its counts summed.)
+SRC_OF = {"iu_finding": "iu", "iu_normal": "iu", "iu_which": "iu", "eurorad_dx": "eurorad", "eurorad_route": "eurorad",
+          "medmcqa_rad": "medmcqa", "medmcqa_other_rad": "medmcqa", "radcases_panel": "radcases", "radcases_topic": "radcases"}
+rsrc = {}
+for k in keys:
+    s_ = SRC_OF.get(task[k], task[k]); assert rsrc.setdefault(ridx[k[0]], s_) == s_, ("record in two sources", k)
+for i, s_ in rsrc.items(): strata.setdefault(s_, set()).add(i)
 for t in sorted(strata):
     mem = np.array(sorted(strata[t])); dr = rng.integers(0, len(mem), size=(B, len(mem)))
     for b in range(B): np.add.at(W8[b], mem[dr[b]], 1)
@@ -401,10 +409,12 @@ pv = lambda d: float(min(1.0, 2 * min((d <= 0).mean(), (d >= 0).mean())))
 def vec(m, ks):
     return np.array([float(np.argmax(D[m][k][2]) == D[m][k][1]) for k in ks]), W8[:, [ridx[k[0]] for k in ks]]
 def acc(c, w): return float(c.mean()), (w @ c) / np.maximum(w.sum(1), 1e-9)
-def tmean(m, ks):
-    pts, bs = [], []
-    for t in BENCH:
-        kk = [k for k in ks if task[k] == t]
+KNOW = ["medmcqa_rad", "medmcqa_other_rad", "medqa_rad", "medxpertqa_rad", "mmlu_rad", "pubmedqa_rad"]
+GK = {t: ("knowledge" if t in KNOW else t) for t in BENCH}   # the sample leaves 1-69 questions per examination task: pooled into one
+def tmean(m, ks, g=None):
+    g = g or {t: t for t in BENCH}; pts, bs = [], []
+    for G in dict.fromkeys(g[t] for t in BENCH):
+        kk = [k for k in ks if g[task[k]] == G]
         if kk: c, w = vec(m, kk); a, b = acc(c, w); pts.append(a); bs.append(b)
     return float(np.mean(pts)), np.mean(bs, 0), len(pts)
 for m in D:
@@ -413,17 +423,19 @@ for m in D:
     r = {"tasks": {}}
     for t in res["n"]:
         c, w = vec(m, [k for k in ks if task[k] == t]); a, b = acc(c, w); r["tasks"][t] = {"n": int(len(c)), "acc": a, "ci": ci(b)}
-    tm, tb, nt = tmean(m, ks); c, w = vec(m, ks); a, b = acc(c, w)
-    r["bench"] = {"task_mean": tm, "task_mean_ci": ci(tb), "tasks": nt, "pooled": a, "pooled_ci": ci(b), "n": len(ks)}
+    tm, tb, nt = tmean(m, ks); c, w = vec(m, ks); a, b = acc(c, w); tk, tkb, ntk = tmean(m, ks, GK)
+    r["bench"] = {"task_mean": tm, "task_mean_ci": ci(tb), "tasks": nt, "pooled": a, "pooled_ci": ci(b), "n": len(ks),
+                  "task_mean_k": tk, "task_mean_k_ci": ci(tkb), "tasks_k": ntk}
     res["systems"][m] = r
 PAIRS = [("qwen38_think", "qwen38"), ("medgemma_think", "medgemma_fix"), ("v3_27", "qwen38_think"), ("v3_27", "medgemma_think"), ("v3_9", "qwen38_think"),
          ("v3_9", "medgemma_think"), ("stock27", "qwen38_think"), ("qwen38_think", "medgemma_think"), ("v3_27", "stock27"), ("v3_27", "qwen38")]
 for a_, b_ in PAIRS:
     if a_ not in res["systems"] or b_ not in res["systems"]: continue
-    ma, mab, nt = tmean(a_, keys); mb, mbb, _ = tmean(b_, keys)
+    ma, mab, nt = tmean(a_, keys); mb, mbb, _ = tmean(b_, keys); ka, kab, ntk = tmean(a_, keys, GK); kb, kbb, _ = tmean(b_, keys, GK)
     ca, wa = vec(a_, keys); cb, _ = vec(b_, keys); pa, ba = acc(ca, wa); pb, bb = acc(cb, wa)
     o = {"bench": {"task_mean_d": ma - mb, "task_mean_ci": ci(mab - mbb), "task_mean_p": pv(mab - mbb), "tasks": nt,
-                   "pooled_d": pa - pb, "pooled_ci": ci(ba - bb), "pooled_p": pv(ba - bb), "n": len(keys)}, "tasks": {}}
+                   "pooled_d": pa - pb, "pooled_ci": ci(ba - bb), "pooled_p": pv(ba - bb), "n": len(keys),
+                   "task_mean_k_d": ka - kb, "task_mean_k_ci": ci(kab - kbb), "task_mean_k_p": pv(kab - kbb), "tasks_k": ntk}, "tasks": {}}
     for t in res["n"]:
         kk = [k for k in keys if task[k] == t]; ca, wa = vec(a_, kk); cb, _ = vec(b_, kk); pa, ba = acc(ca, wa); pb, bb = acc(cb, wa)
         o["tasks"][t] = {"n": len(kk), "d": pa - pb, "ci": ci(ba - bb), "p": pv(ba - bb)}

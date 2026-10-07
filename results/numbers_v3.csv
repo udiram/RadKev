@@ -1132,17 +1132,20 @@ r3_lt_ratio_think,132,paper/artifacts/latency_v3/artifacts/latency_v3.json,reaso
 r3_lat_records,60,paper/artifacts/latency_v3/artifacts/latency_v3.json,sample.records,records timed
 r3_thr_rk27_hr,"28,000",paper/artifacts/latency_v3/artifacts/latency_v3.json,3.6e6 / v3_27 median,"questions per hour, sequential"
 r3_thr_rk9_hr,"83,000",paper/artifacts/latency_v3/artifacts/latency_v3.json,3.6e6 / v3_9 median,"questions per hour, sequential"
-r3_rs_q,"1,675",paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.n,questions in the reasoning sample
-r3_rs_qwen38,83.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38.bench.pooled,accuracy on the sample (%)
-r3_rs_qwen38_think,85.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38_think.bench.pooled,accuracy on the sample (%)
-r3_rs_v3_27,89.0,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.pooled,accuracy on the sample (%)
-r3_rs_medgemma_think,78.4,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.systems.medgemma_think.bench.pooled,accuracy on the sample (%)
-r3_rp_rk_qthink,3.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_d,"difference, pooled (pp)"
-r3_rp_rk_qthink_ci,2.3 to 5.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_ci,95% CI
-r3_rp_rk_qthink_tm,0.8,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_d,"difference, task mean (pp)"
-r3_rp_rk_qthink_tm_ci,−1.5 to 3.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_ci,95% CI
-r3_rp_qthink,1.6,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.qwen38_think-qwen38.bench.pooled_d,"difference, pooled (pp)"
-r3_rp_qthink_ci,−0.5 to 2.1,paper/artifacts/eval_v3_prior/artifacts/eval_v3_prior_reasoning.json,paired.pairs.qwen38_think-qwen38.bench.pooled_ci,95% CI
+r3_rs_q,"1,675",paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.n,questions in the reasoning sample
+r3_rs_ntk,nine,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.tasks_k,"tasks of the reasoning sample, examination tasks pooled"
+r3_rs_qwen38,83.6,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38.bench.pooled,accuracy on the sample (%)
+r3_rs_qwen38_think,85.1,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.qwen38_think.bench.pooled,accuracy on the sample (%)
+r3_rs_v3_27,89.0,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.v3_27.bench.pooled,accuracy on the sample (%)
+r3_rs_medgemma_think,78.4,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.systems.medgemma_think.bench.pooled,accuracy on the sample (%)
+r3_rp_rk_qthink,3.8,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_d,"difference, pooled (pp)"
+r3_rp_rk_qthink_ci,2.2 to 5.5,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.pooled_ci,95% CI
+r3_rp_rk_qthink_tm,2.8,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_k_d,"difference, task mean, examination tasks pooled (pp)"
+r3_rp_rk_qthink_tm_ci,1.0 to 4.6,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_k_ci,95% CI
+r3_rp_rk_qthink_tm14,0.8,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_d,"difference, task mean over the 14 unpooled tasks (pp)"
+r3_rp_rk_qthink_tm14_ci,−1.6 to 3.1,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.v3_27-qwen38_think.bench.task_mean_ci,95% CI
+r3_rp_qthink,1.6,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.qwen38_think-qwen38.bench.pooled_d,"difference, pooled (pp)"
+r3_rp_qthink_ci,0.1 to 3.0,paper/artifacts/reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json,paired.pairs.qwen38_think-qwen38.bench.pooled_ci,95% CI
 r3_bl_dx_rk27,76.9,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.v3_27.blind,options-only accuracy (%)
 r3_bl_dx_k27,47.7,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.stock27.blind,options-only accuracy (%)
 r3_bl_dx_q,50.0,paper/artifacts/blind_v3/artifacts/blind_v3.json,tasks.eurorad_dx.models.qwen38.blind,options-only accuracy (%)

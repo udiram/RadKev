@@ -49,7 +49,7 @@ median latency per question (c).</sub></p>
 
 | Model | Started from | Backbone (frozen) | Trained parameters | Weights |
 |---|---|---|---|---|
-| **RadKev-27B** | Kev-27B (`01b8199`) | Qwen3.8-27B | rank-16 LoRA + pointer head; T = 1.35 | [`ramu9703/radkev-27b-v2`](https://huggingface.co/ramu9703/radkev-27b-v2) |
+| **RadKev-27B** | Kev-27B (`01b8199`) | Qwen3.8-27B | rank-16 LoRA + pointer head; T = 1.35 | [`ramu9703/radkev-27b`](https://huggingface.co/ramu9703/radkev-27b) |
 | **RadKev-9B** | Kev-9B (`2629c06`) | Qwen3.5-9B-Base | rank-16 LoRA + pointer head; T = 1.35 | [`ramu9703/radkev-9b`](https://huggingface.co/ramu9703/radkev-9b) |
 
 The weights are released under CC BY-NC-SA 4.0 for non-commercial research use, because several training sources (Eurorad, CT-RATE)
@@ -84,7 +84,7 @@ python examples/quickstart.py --run jaredpalmer/kev-4b           # the general-p
 Serve a checkpoint over HTTP with Kev's server:
 
 ```bash
-python -m kev.serve --run ramu9703/radkev-27b-v2 --port 8009
+python -m kev.serve --run ramu9703/radkev-27b --port 8009
 examples/request.sh                                               # POST /v1/systemone
 ```
 
@@ -93,7 +93,7 @@ From Python:
 ```python
 from radkev.predict import Predictor
 
-radkev = Predictor("ramu9703/radkev-27b-v2")
+radkev = Predictor("ramu9703/radkev-27b")
 out = radkev({"state": "FINDINGS: Small left pleural effusion. No pneumothorax.",
               "questions": {"ptx": {"type": "noul", "instructions": "Does this report describe pneumothorax?"}}})
 out["answers"]["ptx"]["noul"]       # P(yes)

@@ -13,7 +13,7 @@ Manuscript: *RadKev: An Open-Weight Decision Model for Radiology* (Udbhav Ram an
 | Training | 1 epoch, 4,620 optimizer steps, AdamW, one-cycle schedule, peak learning rate 3e-5, effective batch 8 records, bfloat16; 13.1 h on four RTX A6000 GPUs | same, peak learning rate 2e-5; 3.4 h on four RTX A6000 GPUs |
 | Temperature (fitted on the development split) | 1.35 | 1.35 |
 | Interface | TypeSafe System One (`POST /v1/systemone`) via `kev.serve`; `radkev.predict` in-process | same |
-| Weights | [`ramu9703/radkev-27b-v2`](https://huggingface.co/ramu9703/radkev-27b-v2) | [`ramu9703/radkev-9b`](https://huggingface.co/ramu9703/radkev-9b) |
+| Weights | [`ramu9703/radkev-27b`](https://huggingface.co/ramu9703/radkev-27b) | [`ramu9703/radkev-9b`](https://huggingface.co/ramu9703/radkev-9b) |
 | License | weights: CC BY-NC-SA 4.0, non-commercial research use (several training sources carry that license); access requires acceptance of these terms; code: Apache-2.0 | same |
 
 ## Intended use

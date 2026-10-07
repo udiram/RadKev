@@ -41,7 +41,7 @@ INPUTS = {   # key: (candidate paths, first existing wins; producing job). Contr
     "preread": ([A_ / "preread_v3/artifacts/preread_route.json", A_ / "preread_route/artifacts/preread_route.json"], "jobs/preread_route.py (v3f runs)"),
     "transfer": ([A_ / "transfer_v3/artifacts/transfer_paired_v3.json", A_ / "transfer_paired_v3/artifacts/transfer_paired_v3.json", A_ / "transfer_paired/artifacts/transfer_paired_v3.json"], "jobs/transfer_paired.py v3"),
     "latency": ([A_ / "latency_v3/artifacts/latency_v3.json"], "jobs/latency_bench.py --sample radbench"),
-    "reasoning": ([A_ / "eval_v3_prior/artifacts/eval_v3_prior_reasoning.json"], "jobs/eval_v3_prior.py (reasoning-sample analysis of jobs/llm_reasoning.py v3, RadCases panel prior-corrected)"),
+    "reasoning": ([A_ / "reasoning_v3_fix/artifacts/eval_v3_prior_reasoning.json"], "jobs/reasoning_v3_fix.py (reasoning-sample analysis of jobs/llm_reasoning.py v3, source-stratified bootstrap, examination tasks pooled, RadCases panel prior-corrected)"),
     "blind": ([A_ / "blind_v3_rerun/artifacts/blind_v3.json", A_ / "blind_v3/artifacts/blind_v3.json"], "jobs/blind_v3.py"),
     "answer_space": ([A_ / "answer_space3/artifacts/answer_space3.json"], "jobs/answer_space3.py (raw bits; needs a local analysis)"),
     "radgraph": ([A_ / "external_v3_analysis/artifacts/analysis_node.json", A_ / "external_v3/artifacts/analysis_node.json"], "jobs/external_tests.py v3 + jobs/external_analyse_node.py"),
@@ -468,10 +468,11 @@ LAT_FACTS = {}
 
 def build_reasoning():
     R = (J.get("reasoning") or {}).get("paired"); keys = ["r3_rs_q", "r3_rs_qwen38", "r3_rs_qwen38_think", "r3_rs_v3_27", "r3_rs_medgemma_think",
-                                                         "r3_rp_rk_qthink", "r3_rp_rk_qthink_ci", "r3_rp_rk_qthink_tm", "r3_rp_rk_qthink_tm_ci", "r3_rp_qthink", "r3_rp_qthink_ci"]
+                                                         "r3_rp_rk_qthink", "r3_rp_rk_qthink_ci", "r3_rp_rk_qthink_tm", "r3_rp_rk_qthink_tm_ci", "r3_rp_qthink", "r3_rp_qthink_ci", "r3_rs_ntk", "r3_rp_rk_qthink_tm14", "r3_rp_rk_qthink_tm14_ci"]
     if not R: return _pend_all(keys, "reasoning sample with v3")
     src = REL("reasoning"); S, P = R["systems"], R["pairs"]
     put("r3_rs_q", n_(S["v3_27"]["bench"]["n"]), src, "paired.systems.v3_27.bench.n", "questions in the reasoning sample")
+    put("r3_rs_ntk", word(S["v3_27"]["bench"]["tasks_k"]), src, "paired.systems.v3_27.bench.tasks_k", "tasks of the reasoning sample, examination tasks pooled")
     for k, m in (("r3_rs_qwen38", "qwen38"), ("r3_rs_qwen38_think", "qwen38_think"), ("r3_rs_v3_27", "v3_27"), ("r3_rs_medgemma_think", "medgemma_think")):
         if m in S: put(k, pct(S[m]["bench"]["pooled"]), src, f"paired.systems.{m}.bench.pooled", "accuracy on the sample (%)")
         else: pending(k, f"reasoning sample: {m}")
@@ -480,8 +481,10 @@ def build_reasoning():
         put(k, pct(x["pooled_d"]), src, f"paired.pairs.{key}.bench.pooled_d", "difference, pooled (pp)")
         put(k + "_ci", pci(x["pooled_ci"]), src, f"paired.pairs.{key}.bench.pooled_ci", "95% CI")
         if k == "r3_rp_rk_qthink":
-            put(k + "_tm", pct(x["task_mean_d"]), src, f"paired.pairs.{key}.bench.task_mean_d", "difference, task mean (pp)")
-            put(k + "_tm_ci", pci(x["task_mean_ci"]), src, f"paired.pairs.{key}.bench.task_mean_ci", "95% CI")
+            put(k + "_tm", pct(x["task_mean_k_d"]), src, f"paired.pairs.{key}.bench.task_mean_k_d", "difference, task mean, examination tasks pooled (pp)")
+            put(k + "_tm_ci", pci(x["task_mean_k_ci"]), src, f"paired.pairs.{key}.bench.task_mean_k_ci", "95% CI")
+            put(k + "_tm14", pct(x["task_mean_d"]), src, f"paired.pairs.{key}.bench.task_mean_d", "difference, task mean over the 14 unpooled tasks (pp)")
+            put(k + "_tm14_ci", pci(x["task_mean_ci"]), src, f"paired.pairs.{key}.bench.task_mean_ci", "95% CI")
 
 
 def build_blind():
@@ -996,7 +999,7 @@ def build_tables():
                        ("medgemma_fix", "MedGemma-27B-text"), ("medgemma_think", "MedGemma-27B-text, reasoning")):
             if m in R["systems"]:
                 b_ = R["systems"][m]["bench"]
-                rows.append([lab, f"{pct(b_['pooled'])} ({pci(b_['pooled_ci'])})", f"{pct(b_['task_mean'])} ({pci(b_['task_mean_ci'])})"])
+                rows.append([lab, f"{pct(b_['pooled'])} ({pci(b_['pooled_ci'])})", f"{pct(b_['task_mean_k'])} ({pci(b_['task_mean_k_ci'])})"])
         tab("v3_reasoning", "@{}lll@{}", r"System & Pooled over questions & Averaged over tasks", rows)
     else:
         tab_pending("v3_reasoning", "reasoning sample with v3")
@@ -1050,9 +1053,9 @@ def claims():
         out.append(("C18", "abstract, results 3.5, discussion, conclusions", "Eurorad gain larger without the case (did CI < 0) and RadKev-27B options-only accuracy above 50%",
                     pr["did_ci"][1] < 0 and M["v3_27"]["blind"] > 0.5))
     RS = (J.get("reasoning") or {}).get("paired")
-    if RS:   # decision rule agreed with the user 2026-10-06 before the reasoning data were read (task-mean CI, as for the primary outcome)
-        out.append(("C19", "abstract", "RadKev-27B vs Qwen3.8-27B with reasoning: task-mean CI includes 0 (wording 'did not differ detectably')",
-                    sig(RS["pairs"]["v3_27-qwen38_think"]["bench"]["task_mean_ci"]) == 0))
+    if RS:   # task-mean rule agreed 2026-10-06; 2026-10-07 (user: fix as seen fit): examination tasks pooled (1-69 questions each) and source-stratified bootstrap
+        out.append(("C19", "abstract, discussion, conclusions", "RadKev-27B more accurate than Qwen3.8-27B with reasoning: task mean (examination tasks pooled) and pooled CIs above 0",
+                    sig(RS["pairs"]["v3_27-qwen38_think"]["bench"]["task_mean_k_ci"]) == 1 and sig(RS["pairs"]["v3_27-qwen38_think"]["bench"]["pooled_ci"]) == 1))
     out.append(("C20", "abstract", "RadKev-27B covers more of all benchmark questions at 5% error than Kev-27B (point estimate)",
                 E["calibration"]["v3_27"]["bench"]["as_scored"]["cov5"] > E["calibration"]["stock27"]["bench"]["as_scored"]["cov5"]))
     A3 = as_summary()

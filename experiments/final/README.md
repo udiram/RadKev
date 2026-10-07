@@ -11,6 +11,7 @@ the inputs of the manuscript build in [`paper/inputs/artifacts/`](../../paper/in
 | `train.py` | RadKev-27B and RadKev-9B (runs `v3f-kev-27b-dp`, `v3f-kev-9b-dp`): training, temperature, development and transfer evaluations | Methods 2.3, Figure 3 |
 | `eval_v3.py` | every system on the 14,142 benchmark questions; per-task accuracy, task means, paired differences, calibration, wording | Results 3.1 to 3.4 |
 | `radcases_prior.py`, `eval_v3_prior.py` | the RadCases panel prior correction and the rerun of the benchmark and reasoning-sample analyses with it (the reported results) | Methods 2.4, Results |
+| `reasoning_v3_fix.py` | reruns the reasoning-sample analysis with records resampled within their source and the examination tasks pooled into one task (the reported reasoning results) | Results 3.2, Supplementary Note S4 |
 | `radcases_panel_diag.py` | selection of the catch-all option on the RadCases panel question by key type | Results 3.1 |
 | `llm_reasoning.py` (`v3`) | Qwen3.8-27B and MedGemma-27B-text with reasoning on a sample of 1,675 questions | Results 3.2 |
 | `openai_decisions.py` | the OpenAI Decisions API on the benchmark, its latency and cost | Methods 2.6, Results 3.2 |

@@ -19,7 +19,7 @@ Each directional statement in the v3 prose is marked `% [Cn]` in the .tex. FAILS
 | C24 | yes | results 3.1 | Primary outcome positive without the RadCases prior correction (CI above 0) |
 | C23 | yes | results 3.2 | RadKev-27B more accurate than the OpenAI Decisions API (benchmark task mean) |
 | C18 | yes | abstract, results 3.5, discussion, conclusions | Eurorad gain larger without the case (did CI < 0) and RadKev-27B options-only accuracy above 50% |
-| C19 | yes | abstract | RadKev-27B vs Qwen3.8-27B with reasoning: task-mean CI includes 0 (wording 'did not differ detectably') |
+| C19 | yes | abstract, discussion, conclusions | RadKev-27B more accurate than Qwen3.8-27B with reasoning: task mean (examination tasks pooled) and pooled CIs above 0 |
 | C20 | yes | abstract | RadKev-27B covers more of all benchmark questions at 5% error than Kev-27B (point estimate) |
 | C21 | yes | results 3.6, discussion | Letter-scored LLM within 25% of RadKev-27B per question, and numbered LLM faster than RadKev-27B at 255 options |
 | C22 | yes | conclusions, results 3.7 | RadGraph-XL: 27B specialization CI below 0, 9B specialization CI above 0 |
