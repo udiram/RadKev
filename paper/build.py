@@ -449,7 +449,7 @@ def write_data_v3(o, g, tm, t_test):
     bq = {"rsna": MQ["records"], "iu": sum(v for k, v in o["test"]["by_task"].items() if src_of(k) == "iu"),
           "eurorad": sum(v for k, v in o["test"]["by_task"].items() if src_of(k) == "eurorad"),
           **kept, "radcases": rc["split"]["test_q"], "rexerr": rx["test"]}
-    rows_ = [("iu", r"IU/Open-i \citep{demnerfushman2016iu}", "Finding detection (report)", "Human"),
+    rows_ = [("iu", r"IU/Open-i \citep{demnerfushman2016iu}", "Structured label extraction (report)", "Human"),
              ("eurorad", r"Eurorad \citep{eurorad}", "Diagnosis; subspecialty", "Human"),
              ("medmcqa", r"MedMCQA \citep{pal2022medmcqa}", "Radiology knowledge", "Human"),
              ("medqa", r"MedQA \citep{jin2021medqa}", "Radiology knowledge", "Human"),
@@ -459,7 +459,7 @@ def write_data_v3(o, g, tm, t_test):
              ("rsna", r"RSNA-RadioQA \citep{tayebiarasteh2025radiorag}", "Diagnosis", "Human"),
              ("radcases", r"RadCases \citep{yao2025radcases}", "Imaging appropriateness (ACR)", "Human"),
              ("rexerr", r"ReXErr \citep{rao2025rexerr}", "Error detection (report)", "Construction"),
-             ("ctrate", r"CT-RATE \citep{hamamci2026ctrate}", "Finding detection (report)", "Classifier"),
+             ("ctrate", r"CT-RATE \citep{hamamci2026ctrate}", "Structured label extraction (report)", "Classifier"),
              ("teacher", "Teacher-labeled", "Orders, triage, follow-up", "LLM agreement")]
     cell = lambda x: n(x) if x else "–"
     body = []
@@ -493,7 +493,9 @@ def write_data_v3(o, g, tm, t_test):
         r"\begin{tabular}{@{}lllrrrr@{}}", r"\toprule",
         r"Source & Task & Ground truth & \multicolumn{3}{c}{Records} & Benchmark \\ \cmidrule(lr){4-6}",
         r" & & & Train & Dev & Test & questions \\", r"\midrule", *body[:10], r"\midrule", *body[10:], r"\midrule",
-        " & ".join(["Total", "", ""] + tot + [n(bench)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
+        r"RadGraph-XL \citep{delbrouck2024radgraphxl} & Structured label extraction (report) & Human & – & – & " + n(st["records"]) + r" & – \\",   # external test set
+        r"\midrule",
+        " & ".join(["Total", "", ""] + tot[:2] + [n(int(tot[2].replace(",", "")) + st["records"])] + [n(bench)]) + r" \\", r"\bottomrule", r"\end{tabular}"]) + "\n")
 
 def write_train_v3():
     """Training of the present models (v3f runs: RadKev-27B two data-parallel processes over NVLink pairs, RadKev-9B four

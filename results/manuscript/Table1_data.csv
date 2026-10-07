@@ -1,6 +1,6 @@
 Source,Task,Ground truth,Records,Benchmark
 ,,,Train,Dev,Test,questions
-IU/Open-i,Finding detection (report),Human,–,886,"2,848","9,218"
+IU/Open-i,Structured label extraction (report),Human,–,886,"2,848","9,218"
 Eurorad,Diagnosis; subspecialty,Human,"2,912",329,346,531
 MedMCQA,Radiology knowledge,Human,"5,070",303,"4,151",220
 MedQA,Radiology knowledge,Human,"2,420",250,"1,273",331
@@ -10,6 +10,7 @@ MedXpertQA,Radiology knowledge,Human,–,499,"1,951",641
 RSNA-RadioQA,Diagnosis,Human,–,–,79,79
 RadCases,Imaging appropriateness (ACR),Human,264,29,138,227
 ReXErr,Error detection (report),Construction,"6,000",500,"2,708","2,708"
-CT-RATE,Finding detection (report),Classifier,"8,000","1,911","1,564",–
+CT-RATE,Structured label extraction (report),Classifier,"8,000","1,911","1,564",–
 Teacher-labeled,"Orders, triage, follow-up",LLM agreement,"11,443",877,626,–
-Total,,,"36,109","6,176","17,304","14,142"
+RadGraph-XL,Structured label extraction (report),Human,–,–,"1,505",–
+Total,,,"36,109","6,176","18,809","14,142"
