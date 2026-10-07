@@ -37,7 +37,7 @@ packages = ["radkev"]
 [tool.ruff]
 line-length = 160
 target-version = "py310"
-extend-exclude = ["results", "figures", "paper"]   # paper/: the manuscript build, shared with the authors' working copy
+extend-exclude = ["results", "figures", "paper", "experiments/final"]   # paper/: the manuscript build, shared with the authors' working copy; experiments/final/: job scripts verbatim as run
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
